@@ -32,7 +32,6 @@ namespace RA4_Ejercicios
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,11 +48,10 @@ namespace RA4_Ejercicios
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.buttonDebug = new System.Windows.Forms.Button();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonCommit = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -181,27 +179,38 @@ namespace RA4_Ejercicios
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(57, 52);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 30);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(626, 497);
+            this.dataGridView1.Size = new System.Drawing.Size(588, 519);
             this.dataGridView1.TabIndex = 14;
             // 
-            // buttonDebug
+            // buttonCommit
             // 
-            this.buttonDebug.Location = new System.Drawing.Point(689, 141);
-            this.buttonDebug.Name = "buttonDebug";
-            this.buttonDebug.Size = new System.Drawing.Size(87, 84);
-            this.buttonDebug.TabIndex = 15;
-            this.buttonDebug.Text = "forced update";
-            this.buttonDebug.UseVisualStyleBackColor = true;
-            this.buttonDebug.Click += new System.EventHandler(this.buttonDebug_Click);
+            this.buttonCommit.Location = new System.Drawing.Point(633, 50);
+            this.buttonCommit.Name = "buttonCommit";
+            this.buttonCommit.Size = new System.Drawing.Size(121, 84);
+            this.buttonCommit.TabIndex = 15;
+            this.buttonCommit.Text = "Commit Changes";
+            this.buttonCommit.UseVisualStyleBackColor = true;
+            this.buttonCommit.Click += new System.EventHandler(this.buttonCommit_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(633, 169);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(121, 84);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Revert Changes";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // formPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.buttonDebug);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonCommit);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -212,7 +221,6 @@ namespace RA4_Ejercicios
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,13 +244,8 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.ToolStripMenuItem alejarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombreDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn apellido1DataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn apellido2DataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nifDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn birthdateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button buttonDebug;
-        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.Button buttonCommit;
+        private System.Windows.Forms.Button button1;
     }
 }
 

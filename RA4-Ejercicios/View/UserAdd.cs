@@ -40,20 +40,21 @@ namespace RA4_Ejercicios.View
             return listOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void SaveUserAsTemp(object sender, EventArgs e)
         {
             if (isAnyTextBoxEmptyInForm(this))
             {
-                MessageBox.Show("Por favor rellena todos los campos");
                 /*
                     STUPID ASS WORKAROUND BECAUSE ACCEPTING THE MESSAGEBOX
                     SETS DIALOGRESULT GLOBALLY TO OK
                     CASCADING CLOSE EVERYTHING BELOW IT
                 */
-                DialogResult = DialogResult.None;
+                DialogResult = MessageBox.Show("Por favor rellena todos los campos");
+
             }   else
             {
                 SendUserEventController.UserSavedTrigger(this, new EventSendUser(
+                    true,
                     tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),

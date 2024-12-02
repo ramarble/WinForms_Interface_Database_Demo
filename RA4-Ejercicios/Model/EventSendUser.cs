@@ -15,9 +15,9 @@ namespace RA4_Ejercicios.Model
         {
             return this.u;
         }
-        public EventSendUser(String nom, String ape1, String ape2, DateTime date, Int32 nif) {
-            this.u = new User(nom, ape1, ape2, date, nif);
+        public EventSendUser(Boolean temp, String nom, String ape1, String ape2, DateTime date, Int32 nif)
+        {
+             this.u = new User(temp, nom, ape1, ape2, date, nif);
         }
-
     }
 }

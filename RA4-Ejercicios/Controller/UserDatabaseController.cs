@@ -14,8 +14,7 @@ namespace RA4_Ejercicios.Controller
 {
     public static class UserDatabaseController
     {
-        static BindingList<User> userBindingList { get; } = createUserBindingList();
-
+        static BindingList<User> userBindingList = createUserBindingList();
         private static BindingList<User> createUserBindingList() 
         {
             BindingList<User> userBindingList = new BindingList<User>();
@@ -36,12 +35,13 @@ namespace RA4_Ejercicios.Controller
             {
                 userBindingList.Add(
                    new User(
-                        listaNombres[i],
-                        listaApellido1[i],
-                        listaApellido2[i],
-                        listaFechasNacimiento[i],
-                        listaNIF[i]));
-            }
+                    false,
+                    listaNombres[i],
+                    listaApellido1[i],
+                    listaApellido2[i],
+                    listaFechasNacimiento[i],
+                    listaNIF[i]));
+        }
             return userBindingList;
         }
 
@@ -49,7 +49,7 @@ namespace RA4_Ejercicios.Controller
         {
             foreach (User user in userBindingList)
             {
-                if (us1.nif.Equals(user.nif))
+                if (us1.getNif().Equals(user.getNif()))
                 {
                     return true;
                 }
@@ -58,7 +58,7 @@ namespace RA4_Ejercicios.Controller
             return false;
         }
 
-        public static void addNewUser(User us1)
+        public static void addNewUser(BindingList<User> userBindingList, User us1)
         {
             if (!isNIFPresentInList(userBindingList, us1))
             {
@@ -74,6 +74,19 @@ namespace RA4_Ejercicios.Controller
         public static BindingList<User> getUserList()
         {
             return userBindingList;
+        }
+
+        public static void commitChanges(BindingList<User> userList)
+        {
+            //TODO: check for deletions later
+            foreach (User u in userList)
+            {
+                if (u.getTempStatus())
+                {
+                    u.setTempStatus(false);
+                    userList.ResetBindings();
+                }
+            }
         }
     }
 }

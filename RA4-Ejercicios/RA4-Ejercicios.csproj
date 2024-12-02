@@ -80,10 +80,6 @@
     <EmbeddedResource Include="View\UserAdd.resx">
       <DependentUpon>UserAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\DataSources\formPrincipal.datasource" />
-    <None Include="Properties\DataSources\Program.datasource" />
-    <None Include="Properties\DataSources\RA4_Ejercicios.Controller.ControladorUsuario.datasource" />
-    <None Include="Properties\DataSources\RA4_Ejercicios.Model.Usuario.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
