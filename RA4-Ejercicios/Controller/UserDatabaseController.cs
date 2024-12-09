@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -14,10 +15,12 @@ namespace RA4_Ejercicios.Controller
 {
     public static class UserDatabaseController
     {
-        static BindingList<User> userBindingList = createUserBindingList();
-        private static BindingList<User> createUserBindingList() 
+        static List<User> userList = createUserList();
+
+        static BindingList<User> userBindingList = new BindingList<User>(userList);
+        private static List<User> createUserList() 
         {
-            BindingList<User> userBindingList = new BindingList<User>();
+            List<User> userList = new List<User>();
             String[] listaNombres = { "Mrsha", "Lyonette", "Numbtongue", "Erin", "Bird"};
             String[] listaApellido1 = { "du", "du", "Redfang", "Summer", "" };
             String[] listaApellido2 = { "Marquin", "Marquin", "Solstice", "Solstice", "" };
@@ -33,7 +36,7 @@ namespace RA4_Ejercicios.Controller
 
             for (int i  = 0;  i < listaNIF.Length; i++)
             {
-                userBindingList.Add(
+                userList.Add(
                    new User(
                     false,
                     listaNombres[i],
@@ -42,12 +45,12 @@ namespace RA4_Ejercicios.Controller
                     listaFechasNacimiento[i],
                     listaNIF[i]));
         }
-            return userBindingList;
+            return userList;
         }
 
-        public static Boolean isNIFPresentInList(BindingList<User> userBindingList, User us1)
+        public static Boolean isNIFPresentInList(List<User> userList, User us1)
         {
-            foreach (User user in userBindingList)
+            foreach (User user in userList)
             {
                 if (us1.getNif().Equals(user.getNif()))
                 {
@@ -58,11 +61,19 @@ namespace RA4_Ejercicios.Controller
             return false;
         }
 
-        public static void addNewUser(BindingList<User> userBindingList, User us1)
+
+        public static void userReceived(object sender, EventSendUser e)
         {
-            if (!isNIFPresentInList(userBindingList, us1))
+            addUser(getUserList(), e.getUsuario(), e.getEditMode());
+        }
+
+
+        public static void addUser(List<User> userList, User us1, Boolean editMode)
+        {
+            if (!isNIFPresentInList(userList, us1) | editMode)
             {
-                userBindingList.Add(us1);
+                userList.Add(us1);
+                userBindingList.ResetBindings();
             }
             else
             {
@@ -71,12 +82,16 @@ namespace RA4_Ejercicios.Controller
             }
         }
 
-        public static BindingList<User> getUserList()
+        public static BindingList<User> getUserBindingList()
         {
             return userBindingList;
         }
+        public static List<User> getUserList()
+        {
+            return userList;
+        }
 
-        public static void commitChanges(BindingList<User> userList)
+        public static void saveChanges(List<User> userList)
         {
             //TODO: check for deletions later
             foreach (User u in userList)
@@ -84,9 +99,28 @@ namespace RA4_Ejercicios.Controller
                 if (u.getTempStatus())
                 {
                     u.setTempStatus(false);
-                    userList.ResetBindings();
+                    userBindingList.ResetBindings();
                 }
             }
+        }
+
+        public static void revertChanges(List<User> userList)
+        {
+            //O(n) + O(n) with low memory footprint
+            LinkedList<User> tempUsers = new LinkedList<User>();
+            foreach (User u in userList)
+            {
+                if (u.getTempStatus())
+                {
+                    tempUsers.AddLast(u);
+                }
+            }
+
+            foreach (User u in tempUsers)
+            {
+                userList.Remove(u);
+            }
+            userBindingList.ResetBindings();
         }
     }
 }

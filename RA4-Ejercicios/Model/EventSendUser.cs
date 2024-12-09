@@ -11,13 +11,19 @@ namespace RA4_Ejercicios.Model
     public class EventSendUser : EventArgs
     {
         User u { get; set; }
+        Boolean editMode;
         public User getUsuario()
         {
             return this.u;
         }
-        public EventSendUser(Boolean temp, String nom, String ape1, String ape2, DateTime date, Int32 nif)
+        public Boolean getEditMode()
         {
-             this.u = new User(temp, nom, ape1, ape2, date, nif);
+            return this.editMode;
+        }
+        public EventSendUser(Boolean temp, String nom, String ape1, String ape2, DateTime date, Int32 nif, Boolean editMode)
+        {
+            this.u = new User(temp, nom, ape1, ape2, date, nif);
+            this.editMode = editMode;
         }
     }
 }

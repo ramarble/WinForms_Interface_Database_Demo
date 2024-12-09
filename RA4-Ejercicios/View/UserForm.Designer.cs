@@ -1,6 +1,6 @@
 ﻿namespace RA4_Ejercicios.View
 {
-    partial class UserAdd
+    partial class UserForm
     {
         /// <summary>
         /// Required designer variable.

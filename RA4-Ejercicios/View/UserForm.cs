@@ -6,20 +6,48 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RA4_Ejercicios.View
 {
-    public partial class UserAdd : Form
+    public partial class UserForm : Form
     {
         Form sender;
-        public UserAdd(Form sender)
+        Boolean editMode;
+        public UserForm(Form sender, Boolean editMode)
+        {
+            //Constructor used by add only mode
+            UserFormInitialize(sender);
+            InitializeComponent();
+            this.editMode = editMode;
+        }
+        private void UserFormInitialize(Form sender)
         {
             this.sender = sender;
             this.KeyPreview = true;
+            sender.Visible = false;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            this.sender.Visible = true;
+            base.OnClosed(e);
+        }
+
+        public UserForm(Form sender, User u, Boolean editMode)
+        {
+            //Constructor used by Edit mode
+            UserFormInitialize(sender);
             InitializeComponent();
+            tbNombre.Text = u.name;
+            tbApe1.Text = u.surname1;
+            tbApe2.Text = u.surname2;
+            tbNIF.Text = u.nif.ToString();
+            dateTimePicker1.Value = u.birthdate;
+            this.editMode = editMode;
         }
 
         private List<TextBox> listOfTextBoxesInForm(Form sender)
@@ -45,10 +73,8 @@ namespace RA4_Ejercicios.View
             if (isAnyTextBoxEmptyInForm(this))
             {
                 /*
-                    STUPID ASS WORKAROUND BECAUSE ACCEPTING THE MESSAGEBOX
-                    SETS DIALOGRESULT GLOBALLY TO OK
-                    CASCADING CLOSE EVERYTHING BELOW IT
-                */
+                 * idk :standing_man:
+                 */
                 DialogResult = MessageBox.Show("Por favor rellena todos los campos");
 
             }   else
@@ -59,13 +85,14 @@ namespace RA4_Ejercicios.View
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
                     dateTimePicker1.Value,
-                    Int32.Parse(tbNIF.Text.ToString())));
+                    Int32.Parse(tbNIF.Text.ToString()), editMode));
+
+                this.Close();
             }
         }
 
         private void UserAdd_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //Unnecessary in the current implementation
             this.sender.Show();
         }
 

@@ -50,6 +50,8 @@ namespace RA4_Ejercicios
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonCommit = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.saveSelectedButton = new System.Windows.Forms.Button();
+            this.deleteSelectedButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -92,15 +94,17 @@ namespace RA4_Ejercicios
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
             this.abrirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
+            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
             // guardarToolStripMenuItem
             // 
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
             this.guardarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.guardarToolStripMenuItem.Text = "Guardar";
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.guardarToolStripMenuItem.Text = "Guardar Todo";
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -179,6 +183,7 @@ namespace RA4_Ejercicios
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(12, 30);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(588, 519);
@@ -202,13 +207,37 @@ namespace RA4_Ejercicios
             this.button1.TabIndex = 16;
             this.button1.Text = "Revert Changes";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.buttonRevert_Click);
+            // 
+            // saveSelectedButton
+            // 
+            this.saveSelectedButton.Enabled = false;
+            this.saveSelectedButton.Location = new System.Drawing.Point(633, 287);
+            this.saveSelectedButton.Name = "saveSelectedButton";
+            this.saveSelectedButton.Size = new System.Drawing.Size(121, 84);
+            this.saveSelectedButton.TabIndex = 17;
+            this.saveSelectedButton.Text = "Save Selected";
+            this.saveSelectedButton.UseVisualStyleBackColor = true;
+            this.saveSelectedButton.Click += new System.EventHandler(this.saveSelectedButton_Click);
+            // 
+            // deleteSelectedButton
+            // 
+            this.deleteSelectedButton.Enabled = false;
+            this.deleteSelectedButton.Location = new System.Drawing.Point(633, 406);
+            this.deleteSelectedButton.Name = "deleteSelectedButton";
+            this.deleteSelectedButton.Size = new System.Drawing.Size(121, 84);
+            this.deleteSelectedButton.TabIndex = 18;
+            this.deleteSelectedButton.Text = "Delete Selected";
+            this.deleteSelectedButton.UseVisualStyleBackColor = true;
+            this.deleteSelectedButton.Click += new System.EventHandler(this.deleteSelectedButton_Click);
             // 
             // formPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.deleteSelectedButton);
+            this.Controls.Add(this.saveSelectedButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonCommit);
             this.Controls.Add(this.dataGridView1);
@@ -246,6 +275,8 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonCommit;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button saveSelectedButton;
+        private System.Windows.Forms.Button deleteSelectedButton;
     }
 }
 
