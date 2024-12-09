@@ -77,6 +77,7 @@
             this.buttonRevert.TabIndex = 4;
             this.buttonRevert.Text = "Revert";
             this.buttonRevert.UseVisualStyleBackColor = true;
+            this.buttonRevert.Click += new System.EventHandler(this.buttonRevert_Click);
             // 
             // buttonSave
             // 

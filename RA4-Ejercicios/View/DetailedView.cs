@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
 using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
+using System.IO;
 
 namespace RA4_Ejercicios.View
 {
@@ -27,17 +28,13 @@ namespace RA4_Ejercicios.View
             listBox1.DataSource = this.userList;
             listBox1.ValueMember = "NIF";
             listBox1.DisplayMember = "Name";
-            listBox1.SelectedValue = listBox1.Items[0];
             listBox1.SelectedValueChanged += UpdateObjectView;
+            listBox1.SelectedItem = listBox1.Items[1];
             listBox1.SelectionMode = SelectionMode.One;
             this.owner = sender;
             sender.Visible = false;
-        }
-
-        protected override void OnShown(EventArgs e)
-        {
-         //   listBox1.
-            base.OnShown(e);
+            buttonRevert.Enabled = false;
+            buttonSave.Enabled = false;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -55,21 +52,46 @@ namespace RA4_Ejercicios.View
         private void UpdateObjectView(object sender, EventArgs e)
         {
             propertyGrid1.SelectedObject = listBox1.SelectedItem;
+            User u = propertyGrid1.SelectedObject as User;
+            if (u.getTempStatus())
+            {
+                buttonRevert.Enabled = true;
+            } else
+            {
+                buttonRevert.Enabled = false;
+            }
         }
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
-            listBox1.DataSource = this.userList.Where(
-                user => user.name.ToLower().Contains(
-                textBox1.Text.ToLower())).ToList();
+            var i = 
+            listBox1.DataSource = this.userList.Where(user => user.nif.ToString().Contains(textBox1.Text)).ToList().AddRange(this.userList.Where(user => user.name.ToLower().Contains(textBox1.Text.ToLower())).ToList());
         }
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
+            User userToEdit = (User)propertyGrid1.SelectedObject;
+            tempEditedUsers.Add(userToEdit);
+            this.userList.Remove(userToEdit);
+            UserForm f = new UserForm(this, userToEdit, true);
+            f.ShowDialog();
+
+            //In case the form exited abruptly
+            if (!userList.Any(u => u.nif == userToEdit.nif))
+            {
+                this.userList.Add(userToEdit);
+            }
+        }
+        private void removeOld(object sender, AddingNewEventArgs e)
+        {
+        }
+
+        private void buttonRevert_Click(object sender, EventArgs e)
+        {
             User userEdited = (User)propertyGrid1.SelectedObject;
-            tempEditedUsers.Add(userEdited);
-            UserForm f = new UserForm(this, userEdited, true);
-            f.Show();
+            this.userList.Add(tempEditedUsers.Find(u => u.nif == userEdited.nif));
+            tempEditedUsers.Remove(userEdited);
+            this.userList.Remove(userEdited);
         }
     }
 }

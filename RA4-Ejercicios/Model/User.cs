@@ -11,7 +11,7 @@ namespace RA4_Ejercicios.Model
     public class User 
     {
         [DisplayName("*")]
-        public char tempChar { get; set; }
+        private char tempChar { get; set; }
 
         [DisplayName("Nombre")]
         public string name { get; }

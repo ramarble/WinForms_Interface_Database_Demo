@@ -19,16 +19,25 @@ namespace RA4_Ejercicios.View
         Boolean editMode;
         public UserForm(Form sender, Boolean editMode)
         {
-            //Constructor used by add only mode
-            UserFormInitialize(sender);
-            InitializeComponent();
+            //Constructor used by ADD NEW mode
             this.editMode = editMode;
+            InitializeComponent();
+            UserFormInitialize(sender);
         }
         private void UserFormInitialize(Form sender)
         {
             this.sender = sender;
             this.KeyPreview = true;
             sender.Visible = false;
+
+            //For edit mode you're editing an existing user, and can't change its primary key
+            if (editMode)
+            {
+                tbNIF.ReadOnly = true;
+            } else
+            {
+                tbNIF.ReadOnly = false;
+            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -40,14 +49,15 @@ namespace RA4_Ejercicios.View
         public UserForm(Form sender, User u, Boolean editMode)
         {
             //Constructor used by Edit mode
-            UserFormInitialize(sender);
+            this.editMode = editMode;
             InitializeComponent();
+            UserFormInitialize(sender);
             tbNombre.Text = u.name;
             tbApe1.Text = u.surname1;
             tbApe2.Text = u.surname2;
             tbNIF.Text = u.nif.ToString();
             dateTimePicker1.Value = u.birthdate;
-            this.editMode = editMode;
+
         }
 
         private List<TextBox> listOfTextBoxesInForm(Form sender)
