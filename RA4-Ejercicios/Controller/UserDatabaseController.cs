@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+using System.IO;
+using System.Xml;
 
 namespace RA4_Ejercicios.Controller
 {
@@ -45,7 +48,20 @@ namespace RA4_Ejercicios.Controller
                     listaFechasNacimiento[i],
                     listaNIF[i]));
         }
+            turnIntoXMLFile(userList);
             return userList;
+        }
+
+        public static void turnIntoXMLFile(List<User> lista)
+        {
+
+            XmlSerializer serializer = new XmlSerializer(lista.GetType());
+            using (StreamWriter writer = new StreamWriter("../../Data/listaUsuarios.xml"))
+            {
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add(string.Empty, string.Empty);
+                serializer.Serialize(writer, lista, ns);
+            }
         }
 
         public static Boolean isNIFPresentInList(List<User> userList, User us1)

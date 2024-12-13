@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfUser>
+  <User>
+    <name>Mrsha</name>
+    <surname1>du</surname1>
+    <surname2>Marquin</surname2>
+    <nif>1234567</nif>
+    <birthdate>2016-12-10T00:00:00</birthdate>
+  </User>
+  <User>
+    <name>Lyonette</name>
+    <surname1>du</surname1>
+    <surname2>Marquin</surname2>
+    <nif>99999999</nif>
+    <birthdate>2004-08-30T00:00:00</birthdate>
+  </User>
+  <User>
+    <name>Numbtongue</name>
+    <surname1>Redfang</surname1>
+    <surname2>Solstice</surname2>
+    <nif>1</nif>
+    <birthdate>2016-02-23T00:00:00</birthdate>
+  </User>
+  <User>
+    <name>Erin</name>
+    <surname1>Summer</surname1>
+    <surname2>Solstice</surname2>
+    <nif>0</nif>
+    <birthdate>2003-06-21T00:00:00</birthdate>
+  </User>
+  <User>
+    <name>Bird</name>
+    <surname1>&lt;empty&gt;</surname1>
+    <surname2>&lt;empty&gt;</surname2>
+    <nif>87665443</nif>
+    <birthdate>2020-04-04T00:00:00</birthdate>
+  </User>
+</ArrayOfUser>
