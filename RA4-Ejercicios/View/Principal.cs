@@ -116,5 +116,15 @@ namespace RA4_Ejercicios
             newUserForm.ShowDialog(this);
         }
 
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void imprimirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form reportForm = new ReportForm(U_DB_C.getUserList());
+            reportForm.ShowDialog();
+        }
     }
 }

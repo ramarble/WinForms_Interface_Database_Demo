@@ -30,10 +30,10 @@
         {
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.buttonModify = new System.Windows.Forms.Button();
             this.buttonRevert = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.SuspendLayout();
             // 
             // listBox1
@@ -51,13 +51,6 @@
             this.textBox1.Size = new System.Drawing.Size(120, 20);
             this.textBox1.TabIndex = 1;
             this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
-            // 
-            // propertyGrid1
-            // 
-            this.propertyGrid1.Location = new System.Drawing.Point(202, 61);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(586, 322);
-            this.propertyGrid1.TabIndex = 2;
             // 
             // buttonModify
             // 
@@ -88,6 +81,13 @@
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Location = new System.Drawing.Point(202, 61);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(586, 322);
+            this.propertyGrid1.TabIndex = 2;
+            // 
             // DetailedView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -110,9 +110,9 @@
 
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.Button buttonModify;
         private System.Windows.Forms.Button buttonRevert;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
     }
 }
