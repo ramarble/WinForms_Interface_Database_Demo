@@ -29,5 +29,19 @@ namespace RA4_Ejercicios.View
             this.reportViewer1.RefreshReport();
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (maskedTextBox1.Text.ToString() == "")
+            {
+                ReportForm_Load(null, null);
+            } else
+            {
+                this.reportViewer1.LocalReport.DataSources.Clear();
+                var newUserList = userList.Where(it => it.nif.ToString().Contains(maskedTextBox1.Text.ToString()));
+                this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", newUserList));
+                this.reportViewer1.RefreshReport();
+            }
+        }
     }
 }

@@ -65,7 +65,15 @@ namespace RA4_Ejercicios.View
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
             List<User> lista = this.userList.Where(user => user.nif.ToString().Contains(textBox1.Text)).ToList();
-            lista.Concat(this.userList.Where(user => user.name.ToLower().Contains(textBox1.Text.ToLower())).ToList());
+
+            if (textBox1.Text != "")
+            {
+                lista.AddRange(
+                this.userList.Where(
+                    user => user.name.ToLower().Contains(textBox1.Text.ToLower())
+                    )
+                );
+            }
             listBox1.DataSource = lista;
         }
 
