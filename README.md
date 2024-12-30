@@ -6,6 +6,20 @@ FormBuscarUser
   ListBox that fetches the values from the global user list. 
   PropertyGrid that shows the values fetched from the selected value in the ListBox. 
 
-  idk I'll fill this if I need to
+4. Se deben implementar y distribuir correctamente las siguientes
+funcionalidades en la aplicación.
 
-  
+ Pegar el texto seleccionado
+ Visualizar, con posibilidad de modificación, los objetivos de la aplicación.
+ Copiar el texto seleccionado
+ Añadir un objeto.
+ Eliminar un objeto.
+ Modificar un objeto.
+ Cortar el texto seleccionado.
+ Ayuda
+ Acerca de
+5. Se deben generar los siguientes tipos de mensajes al utilizar la aplicación:
+ Mensajes informativos.
+ Mensajes de advertencia.
+ Mensajes de error.
+ Mensajes de confirmación.
