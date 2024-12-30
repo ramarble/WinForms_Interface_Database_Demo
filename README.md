@@ -10,7 +10,6 @@ FormBuscarUser
 funcionalidades en la aplicación.
 
  Pegar el texto seleccionado
- Visualizar, con posibilidad de modificación, los objetivos de la aplicación.
  Copiar el texto seleccionado
  Añadir un objeto.
  Eliminar un objeto.
