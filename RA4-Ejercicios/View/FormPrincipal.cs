@@ -22,18 +22,12 @@ namespace RA4_Ejercicios
         {
             InitializeComponent();
             this.dataGridView1.DataSource = U_DB_C.getUserBindingList();
+            SUEC.UserSaved += U_DB_C.userReceived;
             this.dataGridView1.AutoGenerateColumns = true;
-            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.dataGridView1.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
-            this.dataGridView1.CellContentDoubleClick += startEdit;
-            SUEC.UserSaved += U_DB_C.userReceived;
-        }
-
-        private void startEdit(object sender, EventArgs e)
-        {
-            dataGridView1.BeginEdit(true);
         }
 
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -106,13 +100,13 @@ namespace RA4_Ejercicios
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form DetailedView = new DetailedView(U_DB_C.getUserBindingList(), this);
+            Form DetailedView = new FormBuscarUser(U_DB_C.getUserBindingList(), this);
             DetailedView.ShowDialog(this);
         }
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form newUserForm = new UserForm(this, false);
+            Form newUserForm = new FormUser(this, false);
             newUserForm.ShowDialog(this);
         }
 

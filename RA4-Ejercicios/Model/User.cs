@@ -8,11 +8,9 @@ using System.Xml.Serialization;
 namespace RA4_Ejercicios.Model
 {
     /*
-     * IN ORDER TO BE SERIALIZABLE AN ATTRIBUTE HAS TO HAVE A SETTER
-     * WHY
-     * WHY  
-     * WHY
+     * IN ORDER FOR AN ATTRIBUTE TO BE SERIALIZABLE IT HAS TO HAVE A SETTER
      */
+    [Serializable]
     public class User
     {
         [DisplayName("*")]
@@ -26,6 +24,9 @@ namespace RA4_Ejercicios.Model
 
         [DisplayName("Apellido #2")]
         public string surname2 { get; set; }
+
+        [DisplayName("Altura")]
+        public float height { get; set; }
 
         [DisplayName("NIF")]
         public Int32 nif { get; set; }
@@ -41,11 +42,16 @@ namespace RA4_Ejercicios.Model
         public Boolean getTempStatus() { return this.tempStatus; }
 
         public User() { }
-        public User(Boolean temp, string nombre, string apellido1, string apellido2, DateTime birthdate, Int32 nif)
+        public User(Boolean temp, string nombre, string apellido1, string apellido2, float altura, DateTime birthdate, Int32 nif)
         {
             this.tempStatus = temp;
+            
+            //This is a read-only attribute for display in spreadsheet format,
+            //also probably unnecessary if I did things a different way
             this.tempChar = temp ? '*' : '\0';
+
             this.name = nombre;
+            this.height = altura;
             this.surname1 = apellido1 == "" ? "<empty>" : apellido1;
             this.surname2 = apellido2 == "" ? "<empty>" : apellido2;
             this.nif = nif;

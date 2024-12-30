@@ -19,7 +19,6 @@ namespace RA4_Ejercicios.Controller
     public static class UserDatabaseController
     {
         static List<User> userList = createUserList();
-
         static BindingList<User> userBindingList = new BindingList<User>(userList);
         private static List<User> createUserList() 
         {
@@ -27,6 +26,7 @@ namespace RA4_Ejercicios.Controller
             String[] listaNombres = { "Mrsha", "Lyonette", "Numbtongue", "Erin", "Bird"};
             String[] listaApellido1 = { "du", "du", "Redfang", "Summer", "" };
             String[] listaApellido2 = { "Marquin", "Marquin", "Solstice", "Solstice", "" };
+            float[] listaAlturas = { 1.30f, 1.68f, 1.76f, 1.66f, 1.80f };
             DateTime[] listaFechasNacimiento =
                 {
                 new DateTime(2016,12,10),
@@ -45,9 +45,12 @@ namespace RA4_Ejercicios.Controller
                     listaNombres[i],
                     listaApellido1[i],
                     listaApellido2[i],
+                    listaAlturas[i],
                     listaFechasNacimiento[i],
                     listaNIF[i]));
         }
+
+            //TODO: Maybe move this somewhere else
             turnIntoXMLFile(userList);
             return userList;
         }

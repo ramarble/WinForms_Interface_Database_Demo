@@ -15,26 +15,33 @@ using System.IO;
 
 namespace RA4_Ejercicios.View
 {
-    public partial class DetailedView : Form
+    public partial class FormBuscarUser : Form
     {
         List<User> tempEditedUsers = new List<User>();
         BindingList<User> userList;
 
         Form owner;
-        public DetailedView(BindingList<User> userList, Form sender) 
+        public FormBuscarUser(BindingList<User> userList, Form sender) 
         {
             InitializeComponent();
             this.userList = userList;
-            listBox1.DataSource = this.userList;
-            listBox1.ValueMember = "NIF";
-            listBox1.DisplayMember = "Name";
-            listBox1.SelectedValueChanged += UpdateObjectView;
-            listBox1.SelectedItem = listBox1.Items[1];
-            listBox1.SelectionMode = SelectionMode.One;
             this.owner = sender;
             sender.Visible = false;
+        }
+
+        private void FormBuscarUser_Load(object sender, EventArgs e)
+        {
+            userListBox.DataSource = this.userList;
+            userListBox.ValueMember = "NIF";
+            userListBox.DisplayMember = "Name";
+            userListBox.SelectedValueChanged += UpdateObjectView;
+            userListBox.SelectedItem = userListBox.Items[1];
+            userListBox.SelectionMode = SelectionMode.One;
             buttonRevert.Enabled = false;
             buttonSave.Enabled = false;
+            userPropertyGrid.PropertySort = PropertySort.NoSort;
+            userPropertyGrid.Enabled = false;
+            tooltipTextBox.SetToolTip(this.filterFindUserTextBox, "Puedes encontrar un usuario por su NIF o nombre. (también lo he puesto aquí.))");
         }
 
         protected override void OnClosed(EventArgs e)
@@ -51,8 +58,8 @@ namespace RA4_Ejercicios.View
 
         private void UpdateObjectView(object sender, EventArgs e)
         {
-            propertyGrid1.SelectedObject = listBox1.SelectedItem;
-            User u = propertyGrid1.SelectedObject as User;
+            userPropertyGrid.SelectedObject = userListBox.SelectedItem;
+            User u = userPropertyGrid.SelectedObject as User;
             if (u.getTempStatus())
             {
                 buttonRevert.Enabled = true;
@@ -64,25 +71,25 @@ namespace RA4_Ejercicios.View
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
-            List<User> lista = this.userList.Where(user => user.nif.ToString().Contains(textBox1.Text)).ToList();
+            List<User> lista = this.userList.Where(user => user.nif.ToString().Contains(filterFindUserTextBox.Text)).ToList();
 
-            if (textBox1.Text != "")
+            if (filterFindUserTextBox.Text != "")
             {
                 lista.AddRange(
                 this.userList.Where(
-                    user => user.name.ToLower().Contains(textBox1.Text.ToLower())
+                    user => user.name.ToLower().Contains(filterFindUserTextBox.Text.ToLower())
                     )
                 );
             }
-            listBox1.DataSource = lista;
+            userListBox.DataSource = lista;
         }
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            User userToEdit = (User)propertyGrid1.SelectedObject;
+            User userToEdit = (User)userPropertyGrid.SelectedObject;
             tempEditedUsers.Add(userToEdit);
             this.userList.Remove(userToEdit);
-            UserForm f = new UserForm(this, userToEdit, true);
+            FormUser f = new FormUser(this, userToEdit, true);
             f.ShowDialog();
 
             //In case the form exited abruptly
@@ -91,16 +98,20 @@ namespace RA4_Ejercicios.View
                 this.userList.Add(userToEdit);
             }
         }
+
+
         private void removeOld(object sender, AddingNewEventArgs e)
         {
         }
 
         private void buttonRevert_Click(object sender, EventArgs e)
         {
-            User userEdited = (User)propertyGrid1.SelectedObject;
+            User userEdited = (User)userPropertyGrid.SelectedObject;
             this.userList.Add(tempEditedUsers.Find(u => u.nif == userEdited.nif));
             tempEditedUsers.Remove(userEdited);
             this.userList.Remove(userEdited);
         }
+
+
     }
 }

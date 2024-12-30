@@ -1,6 +1,6 @@
 ﻿namespace RA4_Ejercicios.View
 {
-    partial class UserForm
+    partial class FormUser
     {
         /// <summary>
         /// Required designer variable.
@@ -41,31 +41,33 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.tbNIF = new System.Windows.Forms.MaskedTextBox();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.lblHeight = new System.Windows.Forms.Label();
+            this.tbAltura = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(284, 216);
+            this.dateTimePicker1.Location = new System.Drawing.Point(284, 178);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(6);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(367, 29);
-            this.dateTimePicker1.TabIndex = 23;
+            this.dateTimePicker1.TabIndex = 5;
             // 
             // tbApe2
             // 
-            this.tbApe2.Location = new System.Drawing.Point(284, 152);
+            this.tbApe2.Location = new System.Drawing.Point(284, 104);
             this.tbApe2.Margin = new System.Windows.Forms.Padding(11);
             this.tbApe2.Name = "tbApe2";
             this.tbApe2.Size = new System.Drawing.Size(367, 29);
-            this.tbApe2.TabIndex = 21;
+            this.tbApe2.TabIndex = 3;
             // 
             // tbApe1
             // 
-            this.tbApe1.Location = new System.Drawing.Point(284, 89);
+            this.tbApe1.Location = new System.Drawing.Point(284, 66);
             this.tbApe1.Margin = new System.Windows.Forms.Padding(11);
             this.tbApe1.Name = "tbApe1";
             this.tbApe1.Size = new System.Drawing.Size(367, 29);
-            this.tbApe1.TabIndex = 20;
+            this.tbApe1.TabIndex = 2;
             // 
             // tbNombre
             // 
@@ -73,12 +75,12 @@
             this.tbNombre.Margin = new System.Windows.Forms.Padding(11);
             this.tbNombre.Name = "tbNombre";
             this.tbNombre.Size = new System.Drawing.Size(367, 29);
-            this.tbNombre.TabIndex = 19;
+            this.tbNombre.TabIndex = 1;
             // 
             // lblNIF
             // 
             this.lblNIF.AutoSize = true;
-            this.lblNIF.Location = new System.Drawing.Point(49, 284);
+            this.lblNIF.Location = new System.Drawing.Point(49, 219);
             this.lblNIF.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblNIF.Name = "lblNIF";
             this.lblNIF.Size = new System.Drawing.Size(40, 24);
@@ -88,7 +90,7 @@
             // lblFechaNac
             // 
             this.lblFechaNac.AutoSize = true;
-            this.lblFechaNac.Location = new System.Drawing.Point(49, 220);
+            this.lblFechaNac.Location = new System.Drawing.Point(49, 182);
             this.lblFechaNac.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblFechaNac.Name = "lblFechaNac";
             this.lblFechaNac.Size = new System.Drawing.Size(164, 24);
@@ -98,7 +100,7 @@
             // lbl2doApellido
             // 
             this.lbl2doApellido.AutoSize = true;
-            this.lbl2doApellido.Location = new System.Drawing.Point(49, 155);
+            this.lbl2doApellido.Location = new System.Drawing.Point(49, 107);
             this.lbl2doApellido.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lbl2doApellido.Name = "lbl2doApellido";
             this.lbl2doApellido.Size = new System.Drawing.Size(162, 24);
@@ -108,7 +110,7 @@
             // lbl1erApellido
             // 
             this.lbl1erApellido.AutoSize = true;
-            this.lbl1erApellido.Location = new System.Drawing.Point(49, 92);
+            this.lbl1erApellido.Location = new System.Drawing.Point(49, 69);
             this.lbl1erApellido.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lbl1erApellido.Name = "lbl1erApellido";
             this.lbl1erApellido.Size = new System.Drawing.Size(139, 24);
@@ -131,7 +133,7 @@
             this.buttonClear.Location = new System.Drawing.Point(284, 398);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(117, 40);
-            this.buttonClear.TabIndex = 24;
+            this.buttonClear.TabIndex = 8;
             this.buttonClear.Text = "Limpiar";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
@@ -142,18 +144,18 @@
             this.buttonSave.Location = new System.Drawing.Point(534, 398);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(117, 40);
-            this.buttonSave.TabIndex = 25;
+            this.buttonSave.TabIndex = 9;
             this.buttonSave.Text = "Guardar";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.SaveUserAsTemp);
             // 
             // tbNIF
             // 
-            this.tbNIF.Location = new System.Drawing.Point(284, 281);
+            this.tbNIF.Location = new System.Drawing.Point(284, 216);
             this.tbNIF.Mask = "00000000";
             this.tbNIF.Name = "tbNIF";
             this.tbNIF.Size = new System.Drawing.Size(367, 29);
-            this.tbNIF.TabIndex = 26;
+            this.tbNIF.TabIndex = 6;
             // 
             // buttonClose
             // 
@@ -161,18 +163,38 @@
             this.buttonClose.Location = new System.Drawing.Point(53, 398);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(117, 40);
-            this.buttonClose.TabIndex = 27;
+            this.buttonClose.TabIndex = 7;
             this.buttonClose.Text = "Cerrar";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
-            // UserAdd
+            // lblHeight
+            // 
+            this.lblHeight.AutoSize = true;
+            this.lblHeight.Location = new System.Drawing.Point(49, 144);
+            this.lblHeight.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
+            this.lblHeight.Name = "lblHeight";
+            this.lblHeight.Size = new System.Drawing.Size(58, 24);
+            this.lblHeight.TabIndex = 28;
+            this.lblHeight.Text = "Altura";
+            // 
+            // tbAltura
+            // 
+            this.tbAltura.Location = new System.Drawing.Point(284, 141);
+            this.tbAltura.Mask = "0.00";
+            this.tbAltura.Name = "tbAltura";
+            this.tbAltura.Size = new System.Drawing.Size(89, 29);
+            this.tbAltura.TabIndex = 4;
+            // 
+            // FormUser
             // 
             this.AcceptButton = this.buttonSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(704, 450);
+            this.Controls.Add(this.tbAltura);
+            this.Controls.Add(this.lblHeight);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.tbNIF);
             this.Controls.Add(this.buttonSave);
@@ -188,9 +210,10 @@
             this.Controls.Add(this.lblNombre);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "UserAdd";
+            this.Name = "FormUser";
             this.Text = "Create a new user";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UserAdd_FormClosed);
+            this.Load += new System.EventHandler(this.UserForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,5 +234,7 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.MaskedTextBox tbNIF;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Label lblHeight;
+        private System.Windows.Forms.MaskedTextBox tbAltura;
     }
 }

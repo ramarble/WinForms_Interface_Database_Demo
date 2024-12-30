@@ -13,31 +13,33 @@ using System.Windows.Forms;
 
 namespace RA4_Ejercicios.View
 {
-    public partial class UserForm : Form
+    public partial class FormUser : Form
     {
         Form sender;
         Boolean editMode;
-        public UserForm(Form sender, Boolean editMode)
+
+        private void UserForm_Load(object sender, EventArgs e)
         {
-            //Constructor used by ADD NEW mode
-            this.editMode = editMode;
-            InitializeComponent();
-            UserFormInitialize(sender);
-        }
-        private void UserFormInitialize(Form sender)
-        {
-            this.sender = sender;
+            this.sender = (Form) sender;
             this.KeyPreview = true;
-            sender.Visible = false;
+            this.sender.Visible = false;
 
             //For edit mode you're editing an existing user, and can't change its primary key
             if (editMode)
             {
                 tbNIF.ReadOnly = true;
-            } else
+            }
+            else
             {
                 tbNIF.ReadOnly = false;
             }
+        }
+        public FormUser(Form sender, Boolean editMode)
+        {
+            //Constructor used by ADD NEW mode
+            this.editMode = editMode;
+            InitializeComponent();
+            //UserFormInitialize(sender);
         }
 
         protected override void OnClosed(EventArgs e)
@@ -46,28 +48,30 @@ namespace RA4_Ejercicios.View
             base.OnClosed(e);
         }
 
-        public UserForm(Form sender, User u, Boolean editMode)
+        public FormUser(Form sender, User u, Boolean editMode)
         {
             //Constructor used by Edit mode
+            this.Text = "Modifica un usuario";
             this.editMode = editMode;
             InitializeComponent();
-            UserFormInitialize(sender);
+            //UserFormInitialize(sender);
             tbNombre.Text = u.name;
             tbApe1.Text = u.surname1;
             tbApe2.Text = u.surname2;
+            tbAltura.Text = u.height.ToString();
             tbNIF.Text = u.nif.ToString();
             dateTimePicker1.Value = u.birthdate;
 
         }
 
-        private List<TextBox> listOfTextBoxesInForm(Form sender)
+        private List<TextBoxBase> listOfTextBoxesInForm(Form sender)
         {
-            List<TextBox> ListOfTextInTextBoxes = new List<TextBox>();
+            List<TextBoxBase> ListOfTextInTextBoxes = new List<TextBoxBase>();
             foreach (Object o in sender.Controls)
             {
-                if (o is TextBox)
+                if (o is TextBoxBase)
                 {
-                    ListOfTextInTextBoxes.Add((o as TextBox));
+                    ListOfTextInTextBoxes.Add((o as TextBoxBase));
                 }
             }
             return ListOfTextInTextBoxes;
@@ -85,7 +89,8 @@ namespace RA4_Ejercicios.View
                 /*
                  * idk :standing_man:
                  */
-                DialogResult = MessageBox.Show("Por favor rellena todos los campos");
+                MessageBox.Show("Por favor rellena todos los campos");
+                DialogResult = DialogResult.None;
 
             }   else
             {
@@ -94,6 +99,7 @@ namespace RA4_Ejercicios.View
                     tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
+                    float.Parse(tbAltura.Text.ToString()),
                     dateTimePicker1.Value,
                     Int32.Parse(tbNIF.Text.ToString()), editMode));
 
