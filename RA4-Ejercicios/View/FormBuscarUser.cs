@@ -35,7 +35,7 @@ namespace RA4_Ejercicios.View
             userListBox.ValueMember = "NIF";
             userListBox.DisplayMember = "Name";
             userListBox.SelectedValueChanged += UpdateObjectView;
-            userListBox.SelectedItem = userListBox.Items[1];
+            userListBox.SelectedItem = userListBox.Items[0];
             userListBox.SelectionMode = SelectionMode.One;
             buttonRevert.Enabled = false;
             buttonSave.Enabled = false;

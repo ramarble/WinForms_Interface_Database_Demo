@@ -18,17 +18,23 @@ namespace RA4_Ejercicios
 {
     public partial class formPrincipal : Form
     {
+
+        private void formPrincipal_Load(object sender, EventArgs e)
+        {
+            this.userDataGridView.DataSource = U_DB_C.getUserBindingList();
+            SUEC.UserSaved += U_DB_C.userReceived;
+            this.userDataGridView.AutoGenerateColumns = true;
+            this.userDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            this.userDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
+            this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
+            this.userDataGridView.SelectionChanged += DataGridView1_SelectionChanged;
+            this.userDataGridView.DataSourceChanged += EnableRevertButtonIfNeeded;
+            this.userDataGridView.AllowUserToAddRows = false;
+
+        }
         public formPrincipal()
         {
             InitializeComponent();
-            this.dataGridView1.DataSource = U_DB_C.getUserBindingList();
-            SUEC.UserSaved += U_DB_C.userReceived;
-            this.dataGridView1.AutoGenerateColumns = true;
-            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView1.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            this.dataGridView1.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            this.dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
-            this.dataGridView1.DataMemberChanged += EnableRevertButtonIfNeeded;
 
         }
 
@@ -43,7 +49,15 @@ namespace RA4_Ejercicios
             var senderr = sender as DataGridView;
             if (senderr.SelectedRows.Count > 0)
             {
-                saveSelectedButton.Enabled = true;
+                for (int i = 0; i < senderr.SelectedRows.Count; i++)
+                {
+                    var us = senderr.SelectedRows[i].DataBoundItem as User;
+                        if (us.getTempStatus())
+                    {
+                        MessageBox.Show(us.getNif().ToString());
+                        saveSelectedButton.Enabled = true;
+                    }
+                }
                 deleteSelectedButton.Enabled = true;
             } else
             {
@@ -82,7 +96,7 @@ namespace RA4_Ejercicios
 
         private void saveSelectedButton_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            foreach (DataGridViewRow row in userDataGridView.SelectedRows)
             {
                 User u = row.DataBoundItem as User;
                 u.setTempStatus(false);
@@ -92,7 +106,7 @@ namespace RA4_Ejercicios
 
         private void deleteSelectedButton_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            foreach (DataGridViewRow row in userDataGridView.SelectedRows)
             {
                 User u = row.DataBoundItem as User;
                 U_DB_C.getUserBindingList().Remove(u);

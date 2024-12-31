@@ -48,13 +48,13 @@ namespace RA4_Ejercicios
             this.alejarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.userDataGridView = new System.Windows.Forms.DataGridView();
             this.buttonCommit = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.saveSelectedButton = new System.Windows.Forms.Button();
             this.deleteSelectedButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -191,14 +191,14 @@ namespace RA4_Ejercicios
             this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
             // 
-            // dataGridView1
+            // userDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 30);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(588, 519);
-            this.dataGridView1.TabIndex = 14;
+            this.userDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.userDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.userDataGridView.Location = new System.Drawing.Point(12, 30);
+            this.userDataGridView.Name = "userDataGridView";
+            this.userDataGridView.Size = new System.Drawing.Size(588, 519);
+            this.userDataGridView.TabIndex = 14;
             // 
             // buttonCommit
             // 
@@ -251,16 +251,17 @@ namespace RA4_Ejercicios
             this.Controls.Add(this.saveSelectedButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonCommit);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.userDataGridView);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "formPrincipal";
             this.Text = "Principal";
+            this.Load += new System.EventHandler(this.formPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,7 +284,7 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.ToolStripMenuItem acercarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem alejarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView userDataGridView;
         private System.Windows.Forms.Button buttonCommit;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button saveSelectedButton;
