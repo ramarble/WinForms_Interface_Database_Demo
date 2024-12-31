@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfUser>
   <User>
+    <tempChar>0</tempChar>
     <name>Mrsha</name>
     <surname1>du</surname1>
     <surname2>Marquin</surname2>
@@ -9,6 +10,7 @@
     <birthdate>2016-12-10T00:00:00</birthdate>
   </User>
   <User>
+    <tempChar>0</tempChar>
     <name>Lyonette</name>
     <surname1>du</surname1>
     <surname2>Marquin</surname2>
@@ -17,6 +19,7 @@
     <birthdate>2004-08-30T00:00:00</birthdate>
   </User>
   <User>
+    <tempChar>0</tempChar>
     <name>Numbtongue</name>
     <surname1>Redfang</surname1>
     <surname2>Solstice</surname2>
@@ -25,6 +28,7 @@
     <birthdate>2016-02-23T00:00:00</birthdate>
   </User>
   <User>
+    <tempChar>0</tempChar>
     <name>Erin</name>
     <surname1>Summer</surname1>
     <surname2>Solstice</surname2>
@@ -33,6 +37,7 @@
     <birthdate>2003-06-21T00:00:00</birthdate>
   </User>
   <User>
+    <tempChar>0</tempChar>
     <name>Bird</name>
     <surname1>&lt;empty&gt;</surname1>
     <surname2>&lt;empty&gt;</surname2>

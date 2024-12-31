@@ -28,7 +28,15 @@ namespace RA4_Ejercicios
             this.dataGridView1.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.dataGridView1.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
+            this.dataGridView1.DataMemberChanged += EnableRevertButtonIfNeeded;
+
         }
+
+        private void EnableRevertButtonIfNeeded(object sender, EventArgs e)
+        {
+            MessageBox.Show(sender.ToString());
+        }
+
 
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
         {

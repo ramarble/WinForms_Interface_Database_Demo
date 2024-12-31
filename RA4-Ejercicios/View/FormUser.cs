@@ -114,10 +114,17 @@ namespace RA4_Ejercicios.View
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            foreach (TextBox t in listOfTextBoxesInForm(this))
+            foreach (TextBoxBase t in listOfTextBoxesInForm(this))
             {
-                t.Text = "";
+
+                if (!t.ReadOnly)
+                {
+                    t.Text = "";
+                }
+                
             }
+            this.DialogResult = DialogResult.None;
+
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

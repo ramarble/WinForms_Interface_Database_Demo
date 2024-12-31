@@ -97,7 +97,8 @@ namespace RA4_Ejercicios.Controller
             else
             {
                 //this could/should be a global message
-                MessageBox.Show("Ya hay un usuario con ese NIF presente.");
+                DialogResult d = MessageBox.Show("Ya hay un usuario con ese NIF presente.");
+                d = DialogResult.None;
             }
         }
 
