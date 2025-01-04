@@ -113,11 +113,14 @@ namespace RA4_Ejercicios.View
                 MessageBox.Show("Form exited without any changes");
             }
 
+            UpdateListBoxPointerByNIF(nifKey);
             //Sets the pointer correctly
+
+        }
+
+        private void UpdateListBoxPointerByNIF(int nifKey)
+        {
             this.userListBox.SetSelected(userList.IndexOf(userList.Single(user => user.nif == nifKey)), true);
-
-
-
         }
 
         private void buttonRevert_Click(object sender, EventArgs e)
@@ -125,10 +128,16 @@ namespace RA4_Ejercicios.View
             User userEdited = (User)userPropertyGrid.SelectedObject;
 
             this.userList.Add(tempEditedUsers.Find(u => u.nif == userEdited.nif));
+            
+            //THIS ISN'T working
             this.tempEditedUsers.Remove(userEdited);
-            MessageBox.Show(tempEditedUsers.First().surname1);
+            foreach (User u in tempEditedUsers)
+            {
+                MessageBox.Show(u.surname1);
+            }
             this.userList.Remove(userEdited);
-            userListBox.ClearSelected();
+            UpdateListBoxPointerByNIF(userEdited.nif);
+
         }
 
         //Raises
