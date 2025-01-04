@@ -119,6 +119,7 @@
             this.Controls.Add(this.userListBox);
             this.Name = "FormBuscarUser";
             this.Text = "Encuentra un usuario para ser modificado";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClosing);
             this.Load += new System.EventHandler(this.FormBuscarUser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

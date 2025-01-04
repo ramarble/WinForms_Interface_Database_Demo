@@ -37,7 +37,7 @@ namespace RA4_Ejercicios.View
             userListBox.ValueMember = "NIF";
             userListBox.DisplayMember = "Name";
             userListBox.SelectedValueChanged += UpdateObjectView;
-            userListBox.SelectedItem = userListBox.Items[0];
+            userListBox.SetSelected(0, true);
             userListBox.SelectionMode = SelectionMode.One;
             buttonRevert.Enabled = false;
             buttonSave.Enabled = false;
@@ -96,27 +96,49 @@ namespace RA4_Ejercicios.View
         private void buttonModify_Click(object sender, EventArgs e)
         {
             User userToEdit = (User)userPropertyGrid.SelectedObject;
+            int nifKey = userToEdit.nif;
             tempEditedUsers.Add(userToEdit);
             this.userList.Remove(userToEdit);
+
+            //This form is the responsible for adding the new user to the list.
             FormUser f = new FormUser(this, userToEdit, true);
             f.ShowDialog();
+
 
             //In case the form exited abruptly
             if (!userList.Any(u => u.nif == userToEdit.nif))
             {
                 this.userList.Add(userToEdit);
+                this.tempEditedUsers.Remove(userToEdit);
+                MessageBox.Show("Form exited without any changes");
             }
+
+            //Sets the pointer correctly
+            this.userListBox.SetSelected(userList.IndexOf(userList.Single(user => user.nif == nifKey)), true);
+
+
+
         }
 
         private void buttonRevert_Click(object sender, EventArgs e)
         {
             User userEdited = (User)userPropertyGrid.SelectedObject;
+
             this.userList.Add(tempEditedUsers.Find(u => u.nif == userEdited.nif));
-            tempEditedUsers.Remove(userEdited);
+            this.tempEditedUsers.Remove(userEdited);
+            MessageBox.Show(tempEditedUsers.First().surname1);
             this.userList.Remove(userEdited);
             userListBox.ClearSelected();
         }
 
-
+        //Raises
+        private void OnClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.tempEditedUsers.Count > 0)
+            {
+                MessageBox.Show("Hay cosas " + tempEditedUsers.First().surname1);
+                e.Cancel = true;
+            }
+        }
     }
 }
