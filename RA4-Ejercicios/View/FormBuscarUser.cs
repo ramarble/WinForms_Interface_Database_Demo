@@ -39,11 +39,17 @@ namespace RA4_Ejercicios.View
             userListBox.SelectedValueChanged += UpdateObjectView;
             userListBox.SetSelected(0, true);
             userListBox.SelectionMode = SelectionMode.One;
+            userListBox.DataSourceChanged += DataUpdated;
             buttonRevert.Enabled = false;
             buttonSave.Enabled = false;
             userPropertyGrid.PropertySort = PropertySort.NoSort;
             userPropertyGrid.Enabled = false;
             tooltipTextBox.SetToolTip(this.filterFindUserTextBox, "Puedes encontrar un usuario por su NIF o nombre. (también lo he puesto aquí.))");
+        }
+
+        private void DataUpdated(object sender, EventArgs e) 
+        {
+            MessageBox.Show("hi! :D");
         }
 
         protected override void OnClosed(EventArgs e)
@@ -55,7 +61,7 @@ namespace RA4_Ejercicios.View
 
         private void userSent(object sender, EventSendUser e)
         {
-            U_DB_C.addUser(U_DB_C.getUserList(), e.getUsuario(), e.getEditMode());
+            U_DB_C.addUserToList(U_DB_C.getUserList(), e.getUsuario(), e.getEditMode());
         }
 
 
@@ -136,12 +142,11 @@ namespace RA4_Ejercicios.View
 
         }
 
-        //Raises
         private void OnClosing(object sender, FormClosingEventArgs e)
         {
             if (this.tempEditedUsers.Count > 0)
             {
-                MessageBox.Show("Hay cosas " + tempEditedUsers.First().surname1);
+                MessageBox.Show("Por favor confirma o revierte todos los cambios antes de salir");
                 e.Cancel = true;
             }
         }

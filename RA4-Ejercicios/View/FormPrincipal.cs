@@ -81,7 +81,7 @@ namespace RA4_Ejercicios
             DialogResult = MessageBox.Show("Commit Changes? ", "Info", MessageBoxButtons.YesNo) ;
             if (DialogResult == DialogResult.Yes)
             {
-                U_DB_C.saveChanges(U_DB_C.getUserList());
+                U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
             }
         }
 
@@ -90,7 +90,7 @@ namespace RA4_Ejercicios
             DialogResult = MessageBox.Show("Revert Changes? ", "Info", MessageBoxButtons.YesNo);
             if (DialogResult == DialogResult.Yes)
             {
-                U_DB_C.revertChanges(U_DB_C.getUserList());
+                U_DB_C.RemoveTempUsers(U_DB_C.getUserList());
             }
         }
 

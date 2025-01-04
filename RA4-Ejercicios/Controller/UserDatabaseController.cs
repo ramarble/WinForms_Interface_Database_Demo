@@ -83,15 +83,15 @@ namespace RA4_Ejercicios.Controller
 
         public static void userReceived(object sender, EventSendUser e)
         {
-            addUser(getUserList(), e.getUsuario(), e.getEditMode());
+            addUserToList(getUserList(), e.getUsuario(), e.getEditMode());
         }
 
 
-        public static void addUser(List<User> userList, User us1, Boolean editMode)
+        public static void addUserToList(List<User> listToAppendTo, User userToAdd, Boolean editMode)
         {
-            if (!isNIFPresentInList(userList, us1) | editMode)
+            if (!isNIFPresentInList(listToAppendTo, userToAdd) | editMode)
             {
-                userList.Add(us1);
+                listToAppendTo.Add(userToAdd);
                 userBindingList.ResetBindings();
             }
             else
@@ -111,7 +111,7 @@ namespace RA4_Ejercicios.Controller
             return userList;
         }
 
-        public static void saveChanges(List<User> userList)
+        public static void TurnTempUsersIntoPermanent(List<User> userList)
         {
             //TODO: check for deletions later
             foreach (User u in userList)
@@ -124,7 +124,7 @@ namespace RA4_Ejercicios.Controller
             }
         }
 
-        public static void revertChanges(List<User> userList)
+        public static void RemoveTempUsers(List<User> userList)
         {
             //O(n) + O(n) with low memory footprint
             LinkedList<User> tempUsers = new LinkedList<User>();
