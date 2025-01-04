@@ -7,19 +7,18 @@ FormBuscarUser
   PropertyGrid that shows the values fetched from the selected value in the ListBox. 
   Stores a tempEditedUsers that STORES THE USERS THAT HAVE BEEN EDITED during the current session in case they need to be fetched to be reverted.
 
-4. Se deben implementar y distribuir correctamente las siguientes
-funcionalidades en la aplicación.
 
- Pegar el texto seleccionado
- Copiar el texto seleccionado
- Añadir un objeto.
- Eliminar un objeto.
- Modificar un objeto.
- Cortar el texto seleccionado.
- Ayuda
- Acerca de
-5. Se deben generar los siguientes tipos de mensajes al utilizar la aplicación:
- Mensajes informativos.
- Mensajes de advertencia.
- Mensajes de error.
- Mensajes de confirmación.
+TODO:
+Mensajes de información, advertencia, error y confirmación si los necesito.
+Copiar, pegar y cortar el texto seleccionado, por algún motivo.
+Botón de Ayuda, Acerca de
+Ir por las issues abiertas y cerrar alguna muy importante
+
+ENHANCEMENTS:
+Añadir botón de SAVE ALL y REVERT ALL
+
+
+Hacer en clase:
+Añadir las medidas necesarias para, en el futuro, poder implementar la opción
+del lector de pantalla. ????
+Save and Load from XML/JSON 
