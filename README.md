@@ -5,6 +5,7 @@ FormUser.cs works as both an edit to users and to add new users. This has to be 
 FormBuscarUser
   ListBox that fetches the values from the global user list. 
   PropertyGrid that shows the values fetched from the selected value in the ListBox. 
+  Stores a tempEditedUsers that STORES THE USERS THAT HAVE BEEN EDITED during the current session in case they need to be fetched to be reverted.
 
 4. Se deben implementar y distribuir correctamente las siguientes
 funcionalidades en la aplicación.
