@@ -131,10 +131,6 @@ namespace RA4_Ejercicios.View
             this.userList.Add(fetchedUser);
             
             this.tempEditedUsers.Remove(fetchedUser);
-            foreach (User u in tempEditedUsers)
-            {
-                MessageBox.Show(u.surname1);
-            }
             this.userList.Remove(tempUser);
             this.userListBox.SetSelected(userList.IndexOf(fetchedUser),true);
 
