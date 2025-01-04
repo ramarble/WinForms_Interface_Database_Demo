@@ -15,14 +15,12 @@ namespace RA4_Ejercicios.View
 {
     public partial class FormUser : Form
     {
-        Form sender;
+        Form parent;
         Boolean editMode;
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-            this.sender = (Form) sender;
             this.KeyPreview = true;
-            this.sender.Visible = false;
 
             //For edit mode you're editing an existing user, and can't change its primary key
             if (editMode)
@@ -36,6 +34,8 @@ namespace RA4_Ejercicios.View
         }
         public FormUser(Form sender, Boolean editMode)
         {
+
+            this.parent = sender;
             //Constructor used by ADD NEW mode
             this.editMode = editMode;
             InitializeComponent();
@@ -44,12 +44,13 @@ namespace RA4_Ejercicios.View
 
         protected override void OnClosed(EventArgs e)
         {
-            this.sender.Visible = true;
+            this.parent.Show();
             base.OnClosed(e);
         }
 
         public FormUser(Form sender, User u, Boolean editMode)
         {
+            this.parent = sender;
             //Constructor used by Edit mode
             this.Text = "Modifica un usuario";
             this.editMode = editMode;
@@ -109,7 +110,7 @@ namespace RA4_Ejercicios.View
 
         private void UserAdd_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.sender.Show();
+            this.parent.Show();
         }
 
         private void buttonClear_Click(object sender, EventArgs e)

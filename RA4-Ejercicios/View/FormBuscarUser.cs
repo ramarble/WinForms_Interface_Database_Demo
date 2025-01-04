@@ -19,7 +19,7 @@ namespace RA4_Ejercicios.View
     {
         //tempEditedUsers will store the users that
         //have been edited in the case they need to be fetched back
-        List<User> tempEditedUsers = new List<User>();
+        List<User> UsersBackupList = new List<User>();
         BindingList<User> userList;
 
         Form owner;
@@ -55,10 +55,12 @@ namespace RA4_Ejercicios.View
         protected override void OnClosed(EventArgs e)
         {
             owner.Visible = true;
-            SUEC.UserSaved += userSent;
+            //idk??
+            //SUEC.UserSaved += userSent;
             base.OnClosed(e);
         }
 
+        //idk????
         private void userSent(object sender, EventSendUser e)
         {
             U_DB_C.addUserToList(U_DB_C.getUserList(), e.getUsuario(), e.getEditMode());
@@ -78,9 +80,11 @@ namespace RA4_Ejercicios.View
             if (u.getTempStatus())
             {
                 buttonRevert.Enabled = true;
+                buttonSave.Enabled = true;
             } else
             {
                 buttonRevert.Enabled = false;
+                buttonSave.Enabled = false;
             }
         }
 
@@ -103,11 +107,12 @@ namespace RA4_Ejercicios.View
         {
             User userToEdit = (User)userPropertyGrid.SelectedObject;
             int nifKey = userToEdit.nif;
-            tempEditedUsers.Add(userToEdit);
+            UsersBackupList.Add(userToEdit);
             this.userList.Remove(userToEdit);
 
             //This form is the responsible for adding the new user to the list.
             FormUser f = new FormUser(this, userToEdit, true);
+            this.Hide();
             f.ShowDialog();
 
 
@@ -115,7 +120,7 @@ namespace RA4_Ejercicios.View
             if (!userList.Any(u => u.nif == userToEdit.nif))
             {
                 this.userList.Add(userToEdit);
-                this.tempEditedUsers.Remove(userToEdit);
+                this.UsersBackupList.Remove(userToEdit);
                 MessageBox.Show("Form exited without any changes");
             }
 
@@ -129,26 +134,42 @@ namespace RA4_Ejercicios.View
             this.userListBox.SetSelected(userList.IndexOf(userList.Single(user => user.nif == nifKey)), true);
         }
 
+        private User fetchUserByNIF(List<User> listToSearch, int nifKey)
+        {
+            return listToSearch.Find(u => u.nif == nifKey);
+        }
+
         private void buttonRevert_Click(object sender, EventArgs e)
         {
-            User tempUser = (User)userPropertyGrid.SelectedObject;
-            User fetchedUser = tempEditedUsers.Find(u => u.nif == tempUser.nif);
-
-            this.userList.Add(fetchedUser);
-            
-            this.tempEditedUsers.Remove(fetchedUser);
-            this.userList.Remove(tempUser);
-            this.userListBox.SetSelected(userList.IndexOf(fetchedUser),true);
+            User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
+            User sameUserInBackup = fetchUserByNIF(UsersBackupList, userWithTempFlag.nif);
+               
+            this.userList.Remove(userWithTempFlag);
+            this.userList.Add(sameUserInBackup);
+            this.UsersBackupList.Remove(sameUserInBackup);
+            this.userListBox.SetSelected(userList.IndexOf(sameUserInBackup),true);
 
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.tempEditedUsers.Count > 0)
+            if (this.UsersBackupList.Count > 0)
             {
                 MessageBox.Show("Por favor confirma o revierte todos los cambios antes de salir");
                 e.Cancel = true;
             }
         }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
+            User sameUserInBackup = fetchUserByNIF(UsersBackupList, userWithTempFlag.nif);
+
+            UsersBackupList.Remove(sameUserInBackup);
+            userWithTempFlag.setTempStatus(false);
+            UpdateObjectView(this, e);
+
+        }
+
     }
 }
