@@ -17,6 +17,8 @@ namespace RA4_Ejercicios.View
 {
     public partial class FormBuscarUser : Form
     {
+        //tempEditedUsers will store the users that
+        //have been edited in the case they need to be fetched back
         List<User> tempEditedUsers = new List<User>();
         BindingList<User> userList;
 
@@ -56,9 +58,16 @@ namespace RA4_Ejercicios.View
             U_DB_C.addUser(U_DB_C.getUserList(), e.getUsuario(), e.getEditMode());
         }
 
+
+        //This updates the buttons whenever you change the object being viewed
+        //So if a user is temp it can be reverted
         private void UpdateObjectView(object sender, EventArgs e)
         {
             userPropertyGrid.SelectedObject = userListBox.SelectedItem;
+            if (userPropertyGrid.SelectedObject == null)
+            {
+                return;
+            }
             User u = userPropertyGrid.SelectedObject as User;
             if (u.getTempStatus())
             {
@@ -99,17 +108,13 @@ namespace RA4_Ejercicios.View
             }
         }
 
-
-        private void removeOld(object sender, AddingNewEventArgs e)
-        {
-        }
-
         private void buttonRevert_Click(object sender, EventArgs e)
         {
             User userEdited = (User)userPropertyGrid.SelectedObject;
             this.userList.Add(tempEditedUsers.Find(u => u.nif == userEdited.nif));
             tempEditedUsers.Remove(userEdited);
             this.userList.Remove(userEdited);
+            userListBox.ClearSelected();
         }
 
 
