@@ -30,6 +30,7 @@ namespace RA4_Ejercicios
             this.userDataGridView.SelectionChanged += DataGridView1_SelectionChanged;
             this.userDataGridView.DataSourceChanged += EnableRevertButtonIfNeeded;
             this.userDataGridView.AllowUserToAddRows = false;
+           
 
         }
         public formPrincipal()
@@ -44,11 +45,18 @@ namespace RA4_Ejercicios
         }
 
 
+        //Enables or disables the buttons
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            
             var senderr = sender as DataGridView;
+            
             if (senderr.SelectedRows.Count > 0)
             {
+                if (senderr.SelectedRows.Count==1)
+                {
+                    buttonModify.Enabled = true;
+                }
                 for (int i = 0; i < senderr.SelectedRows.Count; i++)
                 {
                     var us = senderr.SelectedRows[i].DataBoundItem as User;
@@ -57,10 +65,12 @@ namespace RA4_Ejercicios
                         MessageBox.Show(us.getNif().ToString());
                         saveSelectedButton.Enabled = true;
                     }
+
                 }
-                deleteSelectedButton.Enabled = true;
+                
             } else
             {
+                buttonModify.Enabled = false;
                 saveSelectedButton.Enabled = false;
                 deleteSelectedButton.Enabled = false;
             }
@@ -73,7 +83,6 @@ namespace RA4_Ejercicios
                 bindingList.Add(u);
             }
         }
-
 
         private void buttonCommit_Click(object sender, EventArgs e)
         {
@@ -141,6 +150,29 @@ namespace RA4_Ejercicios
         {
             Form reportForm = new ReportForm(U_DB_C.getUserList());
             reportForm.ShowDialog();
+        }
+
+        private void buttonModify_Click(object sender, EventArgs e)
+        {
+            User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
+            MessageBox.Show(userToEdit.nif.ToString());
+            int nifKey = userToEdit.nif;
+            U_DB_C.getUsersBackupList().Add(userToEdit);
+            U_DB_C.getUserList().Remove(userToEdit);
+
+            //This form is the responsible for adding the new user to the list.
+            FormUser f = new FormUser(this, userToEdit, true);
+            this.Hide();
+            f.ShowDialog();
+
+
+            //In case the form exited abruptly
+            if (U_DB_C.getUserList().Any(u => u.nif == userToEdit.nif))
+            {
+                U_DB_C.getUserList().Add(userToEdit);
+                U_DB_C.getUsersBackupList().Remove(userToEdit);
+                MessageBox.Show("Form exited without any changes");
+            }
         }
     }
 }

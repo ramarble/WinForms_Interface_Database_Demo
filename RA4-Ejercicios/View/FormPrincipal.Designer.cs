@@ -53,6 +53,7 @@ namespace RA4_Ejercicios
             this.button1 = new System.Windows.Forms.Button();
             this.saveSelectedButton = new System.Windows.Forms.Button();
             this.deleteSelectedButton = new System.Windows.Forms.Button();
+            this.buttonModify = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -242,11 +243,23 @@ namespace RA4_Ejercicios
             this.deleteSelectedButton.UseVisualStyleBackColor = true;
             this.deleteSelectedButton.Click += new System.EventHandler(this.deleteSelectedButton_Click);
             // 
+            // buttonModify
+            // 
+            this.buttonModify.Enabled = false;
+            this.buttonModify.Location = new System.Drawing.Point(321, 465);
+            this.buttonModify.Name = "buttonModify";
+            this.buttonModify.Size = new System.Drawing.Size(145, 84);
+            this.buttonModify.TabIndex = 19;
+            this.buttonModify.Text = "Modificar Seleccionado";
+            this.buttonModify.UseVisualStyleBackColor = true;
+            this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
+            // 
             // formPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonModify);
             this.Controls.Add(this.deleteSelectedButton);
             this.Controls.Add(this.saveSelectedButton);
             this.Controls.Add(this.button1);
@@ -290,6 +303,7 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.Button saveSelectedButton;
         private System.Windows.Forms.Button deleteSelectedButton;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
+        private System.Windows.Forms.Button buttonModify;
     }
 }
 

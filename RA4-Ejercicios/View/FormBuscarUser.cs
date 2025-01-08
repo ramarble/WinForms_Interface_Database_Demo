@@ -19,7 +19,6 @@ namespace RA4_Ejercicios.View
     {
         //tempEditedUsers will store the users that
         //have been edited in the case they need to be fetched back
-        List<User> UsersBackupList = new List<User>();
         BindingList<User> userList;
 
         Form owner;
@@ -115,7 +114,7 @@ namespace RA4_Ejercicios.View
         {
             User userToEdit = (User)userPropertyGrid.SelectedObject;
             int nifKey = userToEdit.nif;
-            UsersBackupList.Add(userToEdit);
+            U_DB_C.getUsersBackupList().Add(userToEdit);
             this.userList.Remove(userToEdit);
 
             //This form is the responsible for adding the new user to the list.
@@ -128,7 +127,7 @@ namespace RA4_Ejercicios.View
             if (!userList.Any(u => u.nif == userToEdit.nif))
             {
                 this.userList.Add(userToEdit);
-                this.UsersBackupList.Remove(userToEdit);
+                U_DB_C.getUsersBackupList().Remove(userToEdit);
                 MessageBox.Show("Form exited without any changes");
             }
 
@@ -150,18 +149,18 @@ namespace RA4_Ejercicios.View
         private void buttonRevert_Click(object sender, EventArgs e)
         {
             User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
-            User sameUserInBackup = fetchUserByNIF(UsersBackupList, userWithTempFlag.nif);
+            User sameUserInBackup = fetchUserByNIF(U_DB_C.getUsersBackupList(), userWithTempFlag.nif);
                
             this.userList.Remove(userWithTempFlag);
             this.userList.Add(sameUserInBackup);
-            this.UsersBackupList.Remove(sameUserInBackup);
+            U_DB_C.getUsersBackupList().Remove(sameUserInBackup);
             this.userListBox.SetSelected(userList.IndexOf(sameUserInBackup),true);
 
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.UsersBackupList.Count > 0)
+            if (U_DB_C.getUsersBackupList().Count > 0)
             {
                 MessageBox.Show("Por favor confirma o revierte todos los cambios antes de salir");
                 e.Cancel = true;
@@ -171,9 +170,9 @@ namespace RA4_Ejercicios.View
         private void buttonSave_Click(object sender, EventArgs e)
         {
             User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
-            User sameUserInBackup = fetchUserByNIF(UsersBackupList, userWithTempFlag.nif);
+            User sameUserInBackup = fetchUserByNIF(U_DB_C.getUsersBackupList(), userWithTempFlag.nif);
 
-            UsersBackupList.Remove(sameUserInBackup);
+            U_DB_C.getUsersBackupList().Remove(sameUserInBackup);
             userWithTempFlag.setTempStatus(false);
             UpdateObjectView(this, e);
 

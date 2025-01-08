@@ -18,6 +18,7 @@ namespace RA4_Ejercicios.Controller
 {
     public static class UserDatabaseController
     {
+        static List<User> UsersBackupList = new List<User>();
         static List<User> userList = createUserList();
         static BindingList<User> userBindingList = new BindingList<User>(userList);
         private static List<User> createUserList() 
@@ -105,6 +106,11 @@ namespace RA4_Ejercicios.Controller
         public static BindingList<User> getUserBindingList()
         {
             return userBindingList;
+        }
+
+        public static List<User> getUsersBackupList()
+        {
+            return UsersBackupList;
         }
         public static List<User> getUserList()
         {
