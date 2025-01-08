@@ -41,17 +41,19 @@
             // 
             // userListBox
             // 
+            this.userListBox.Font = new System.Drawing.Font("Arial", 12F);
             this.userListBox.FormattingEnabled = true;
+            this.userListBox.ItemHeight = 18;
             this.userListBox.Location = new System.Drawing.Point(25, 61);
             this.userListBox.Name = "userListBox";
-            this.userListBox.Size = new System.Drawing.Size(120, 368);
+            this.userListBox.Size = new System.Drawing.Size(153, 364);
             this.userListBox.TabIndex = 0;
             // 
             // filterFindUserTextBox
             // 
             this.filterFindUserTextBox.Location = new System.Drawing.Point(25, 30);
             this.filterFindUserTextBox.Name = "filterFindUserTextBox";
-            this.filterFindUserTextBox.Size = new System.Drawing.Size(120, 20);
+            this.filterFindUserTextBox.Size = new System.Drawing.Size(153, 20);
             this.filterFindUserTextBox.TabIndex = 1;
             this.filterFindUserTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             // 
@@ -61,7 +63,7 @@
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(75, 23);
             this.buttonModify.TabIndex = 3;
-            this.buttonModify.Text = "Modify";
+            this.buttonModify.Text = "Modificar";
             this.buttonModify.UseVisualStyleBackColor = true;
             this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
             // 
@@ -71,7 +73,7 @@
             this.buttonRevert.Name = "buttonRevert";
             this.buttonRevert.Size = new System.Drawing.Size(75, 23);
             this.buttonRevert.TabIndex = 4;
-            this.buttonRevert.Text = "Revert";
+            this.buttonRevert.Text = "Revertir";
             this.buttonRevert.UseVisualStyleBackColor = true;
             this.buttonRevert.Click += new System.EventHandler(this.buttonRevert_Click);
             // 
@@ -81,7 +83,7 @@
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 5;
-            this.buttonSave.Text = "Save";
+            this.buttonSave.Text = "Guardar";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
@@ -89,6 +91,7 @@
             // 
             this.userPropertyGrid.CommandsDisabledLinkColor = System.Drawing.Color.Black;
             this.userPropertyGrid.DisabledItemForeColor = System.Drawing.SystemColors.ControlText;
+            this.userPropertyGrid.Font = new System.Drawing.Font("Arial", 12F);
             this.userPropertyGrid.HelpVisible = false;
             this.userPropertyGrid.Location = new System.Drawing.Point(202, 61);
             this.userPropertyGrid.Name = "userPropertyGrid";
@@ -99,9 +102,10 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(199, 33);
+            this.labelInfo.Font = new System.Drawing.Font("Arial", 12F);
+            this.labelInfo.Location = new System.Drawing.Point(199, 32);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(565, 13);
+            this.labelInfo.Size = new System.Drawing.Size(827, 18);
             this.labelInfo.TabIndex = 6;
             this.labelInfo.Text = "Puedes encontrar un usuario por su NIF o nombre. (Esto sería un tooltip si no qui" +
     "siese que fuera imperativo que se lea)";

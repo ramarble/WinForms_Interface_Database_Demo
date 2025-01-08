@@ -119,7 +119,6 @@
     <EmbeddedResource Include="View\Report1.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Report2.rdlc" />
     <EmbeddedResource Include="View\ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
