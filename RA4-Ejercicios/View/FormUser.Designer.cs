@@ -81,50 +81,55 @@
             // lblNIF
             // 
             this.lblNIF.AutoSize = true;
+            this.lblNIF.Font = new System.Drawing.Font("Arial", 14F);
             this.lblNIF.Location = new System.Drawing.Point(49, 219);
             this.lblNIF.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblNIF.Name = "lblNIF";
-            this.lblNIF.Size = new System.Drawing.Size(40, 24);
+            this.lblNIF.Size = new System.Drawing.Size(41, 22);
             this.lblNIF.TabIndex = 18;
             this.lblNIF.Text = "NIF";
             // 
             // lblFechaNac
             // 
             this.lblFechaNac.AutoSize = true;
+            this.lblFechaNac.Font = new System.Drawing.Font("Arial", 14F);
             this.lblFechaNac.Location = new System.Drawing.Point(49, 182);
             this.lblFechaNac.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblFechaNac.Name = "lblFechaNac";
-            this.lblFechaNac.Size = new System.Drawing.Size(164, 24);
+            this.lblFechaNac.Size = new System.Drawing.Size(162, 22);
             this.lblFechaNac.TabIndex = 17;
             this.lblFechaNac.Text = "Fecha Nacimiento";
             // 
             // lbl2doApellido
             // 
             this.lbl2doApellido.AutoSize = true;
+            this.lbl2doApellido.Font = new System.Drawing.Font("Arial", 14F);
             this.lbl2doApellido.Location = new System.Drawing.Point(49, 107);
             this.lbl2doApellido.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lbl2doApellido.Name = "lbl2doApellido";
-            this.lbl2doApellido.Size = new System.Drawing.Size(162, 24);
+            this.lbl2doApellido.Size = new System.Drawing.Size(160, 22);
             this.lbl2doApellido.TabIndex = 16;
             this.lbl2doApellido.Text = "Segundo Apellido";
             // 
             // lbl1erApellido
             // 
             this.lbl1erApellido.AutoSize = true;
+            this.lbl1erApellido.Font = new System.Drawing.Font("Arial", 14F);
             this.lbl1erApellido.Location = new System.Drawing.Point(49, 69);
             this.lbl1erApellido.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lbl1erApellido.Name = "lbl1erApellido";
-            this.lbl1erApellido.Size = new System.Drawing.Size(139, 24);
+            this.lbl1erApellido.Size = new System.Drawing.Size(139, 22);
             this.lbl1erApellido.TabIndex = 15;
             this.lbl1erApellido.Text = "Primer Apellido";
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Arial", 14F);
             this.lblNombre.Location = new System.Drawing.Point(49, 33);
             this.lblNombre.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(79, 24);
+            this.lblNombre.Size = new System.Drawing.Size(78, 22);
             this.lblNombre.TabIndex = 14;
             this.lblNombre.Text = "Nombre";
             // 
@@ -172,10 +177,11 @@
             // lblSalary
             // 
             this.lblSalary.AutoSize = true;
+            this.lblSalary.Font = new System.Drawing.Font("Arial", 14F);
             this.lblSalary.Location = new System.Drawing.Point(49, 144);
             this.lblSalary.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblSalary.Name = "lblSalary";
-            this.lblSalary.Size = new System.Drawing.Size(67, 24);
+            this.lblSalary.Size = new System.Drawing.Size(68, 22);
             this.lblSalary.TabIndex = 28;
             this.lblSalary.Text = "Salario";
             // 

@@ -197,48 +197,48 @@ namespace RA4_Ejercicios
             this.userDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.userDataGridView.Location = new System.Drawing.Point(12, 30);
             this.userDataGridView.Name = "userDataGridView";
-            this.userDataGridView.Size = new System.Drawing.Size(588, 519);
+            this.userDataGridView.Size = new System.Drawing.Size(760, 419);
             this.userDataGridView.TabIndex = 14;
             // 
             // buttonCommit
             // 
-            this.buttonCommit.Location = new System.Drawing.Point(633, 50);
+            this.buttonCommit.Location = new System.Drawing.Point(651, 465);
             this.buttonCommit.Name = "buttonCommit";
             this.buttonCommit.Size = new System.Drawing.Size(121, 84);
             this.buttonCommit.TabIndex = 15;
-            this.buttonCommit.Text = "Commit Changes";
+            this.buttonCommit.Text = "Guardar Todo";
             this.buttonCommit.UseVisualStyleBackColor = true;
             this.buttonCommit.Click += new System.EventHandler(this.buttonCommit_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(633, 169);
+            this.button1.Location = new System.Drawing.Point(12, 465);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 84);
             this.button1.TabIndex = 16;
-            this.button1.Text = "Revert Changes";
+            this.button1.Text = "Revertir Cambios";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.buttonRevert_Click);
             // 
             // saveSelectedButton
             // 
             this.saveSelectedButton.Enabled = false;
-            this.saveSelectedButton.Location = new System.Drawing.Point(633, 287);
+            this.saveSelectedButton.Location = new System.Drawing.Point(500, 465);
             this.saveSelectedButton.Name = "saveSelectedButton";
-            this.saveSelectedButton.Size = new System.Drawing.Size(121, 84);
+            this.saveSelectedButton.Size = new System.Drawing.Size(145, 84);
             this.saveSelectedButton.TabIndex = 17;
-            this.saveSelectedButton.Text = "Save Selected";
+            this.saveSelectedButton.Text = "Guardar Seleccionados";
             this.saveSelectedButton.UseVisualStyleBackColor = true;
             this.saveSelectedButton.Click += new System.EventHandler(this.saveSelectedButton_Click);
             // 
             // deleteSelectedButton
             // 
             this.deleteSelectedButton.Enabled = false;
-            this.deleteSelectedButton.Location = new System.Drawing.Point(633, 406);
+            this.deleteSelectedButton.Location = new System.Drawing.Point(139, 465);
             this.deleteSelectedButton.Name = "deleteSelectedButton";
-            this.deleteSelectedButton.Size = new System.Drawing.Size(121, 84);
+            this.deleteSelectedButton.Size = new System.Drawing.Size(145, 84);
             this.deleteSelectedButton.TabIndex = 18;
-            this.deleteSelectedButton.Text = "Delete Selected";
+            this.deleteSelectedButton.Text = "Borrar Seleccionados";
             this.deleteSelectedButton.UseVisualStyleBackColor = true;
             this.deleteSelectedButton.Click += new System.EventHandler(this.deleteSelectedButton_Click);
             // 
