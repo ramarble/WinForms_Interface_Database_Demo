@@ -20,9 +20,9 @@ namespace RA4_Ejercicios.Model
         {
             return this.editMode;
         }
-        public EventSendUser(Boolean temp, String nom, String ape1, String ape2, float height, DateTime date, Int32 nif, Boolean editMode)
+        public EventSendUser(Boolean temp, String nom, String ape1, String ape2, decimal salary, DateTime date, Int32 nif, Boolean editMode)
         {
-            this.u = new User(temp, nom, ape1, ape2, height, date, nif);
+            this.u = new User(temp, nom, ape1, ape2, salary, date, nif);
             this.editMode = editMode;
         }
     }

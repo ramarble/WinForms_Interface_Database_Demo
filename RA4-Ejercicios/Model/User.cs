@@ -25,8 +25,8 @@ namespace RA4_Ejercicios.Model
         [DisplayName("Apellido #2")]
         public string surname2 { get; set; }
 
-        [DisplayName("Altura")]
-        public float height { get; set; }
+        [DisplayName("Salario")]
+        public decimal salary { get; set; }
 
         [DisplayName("NIF")]
         public Int32 nif { get; set; }
@@ -42,7 +42,7 @@ namespace RA4_Ejercicios.Model
         public Boolean getTempStatus() { return this.tempStatus; }
 
         public User() { }
-        public User(Boolean temp, string nombre, string apellido1, string apellido2, float altura, DateTime birthdate, Int32 nif)
+        public User(Boolean temp, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
         {
             this.tempStatus = temp;
             
@@ -51,7 +51,7 @@ namespace RA4_Ejercicios.Model
             this.tempChar = temp ? '*' : '\0';
 
             this.name = nombre;
-            this.height = altura;
+            this.salary = salario;
             this.surname1 = apellido1 == "" ? "<empty>" : apellido1;
             this.surname2 = apellido2 == "" ? "<empty>" : apellido2;
             this.nif = nif;

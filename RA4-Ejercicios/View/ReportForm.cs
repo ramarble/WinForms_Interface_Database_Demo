@@ -14,12 +14,13 @@ namespace RA4_Ejercicios.View
 {
     public partial class ReportForm : Form
     {
-        List<User> userList;
         public ReportForm(List<User> list)
         {
             InitializeComponent();
             userList = list;
         }
+
+        List<User> userList;
 
         private void ReportForm_Load(object sender, EventArgs e)
         {

@@ -37,7 +37,15 @@ namespace RA4_Ejercicios.View
             userListBox.ValueMember = "NIF";
             userListBox.DisplayMember = "Name";
             userListBox.SelectedValueChanged += UpdateObjectView;
-            userListBox.SetSelected(0, true);
+            
+            if (this.userList.Count > 0)
+            {
+                userListBox.SetSelected(0, true);
+            } else
+            {
+                buttonModify.Enabled = false;
+            }
+
             userListBox.SelectionMode = SelectionMode.One;
             userListBox.DataSourceChanged += DataUpdated;
             buttonRevert.Enabled = false;
@@ -49,7 +57,7 @@ namespace RA4_Ejercicios.View
 
         private void DataUpdated(object sender, EventArgs e) 
         {
-            MessageBox.Show("hi! :D");
+            //MessageBox.Show("hi! :D");
         }
 
         protected override void OnClosed(EventArgs e)

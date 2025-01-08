@@ -26,7 +26,7 @@ namespace RA4_Ejercicios.Controller
             String[] listaNombres = { "Mrsha", "Lyonette", "Numbtongue", "Erin", "Bird"};
             String[] listaApellido1 = { "du", "du", "Redfang", "Summer", "" };
             String[] listaApellido2 = { "Marquin", "Marquin", "Solstice", "Solstice", "" };
-            float[] listaAlturas = { 1.30f, 1.68f, 1.76f, 1.66f, 1.80f };
+            decimal[] listaSalarios = { 1332.30m, 11234.68m, 1134.7m, 1222.66m, 10.80m };
             DateTime[] listaFechasNacimiento =
                 {
                 new DateTime(2016,12,10),
@@ -45,7 +45,7 @@ namespace RA4_Ejercicios.Controller
                     listaNombres[i],
                     listaApellido1[i],
                     listaApellido2[i],
-                    listaAlturas[i],
+                    listaSalarios[i],
                     listaFechasNacimiento[i],
                     listaNIF[i]));
         }

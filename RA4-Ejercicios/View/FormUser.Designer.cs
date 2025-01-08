@@ -41,8 +41,9 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.tbNIF = new System.Windows.Forms.MaskedTextBox();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.lblHeight = new System.Windows.Forms.Label();
-            this.tbAltura = new System.Windows.Forms.MaskedTextBox();
+            this.lblSalary = new System.Windows.Forms.Label();
+            this.numSalary = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numSalary)).BeginInit();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -168,23 +169,29 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
-            // lblHeight
+            // lblSalary
             // 
-            this.lblHeight.AutoSize = true;
-            this.lblHeight.Location = new System.Drawing.Point(49, 144);
-            this.lblHeight.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
-            this.lblHeight.Name = "lblHeight";
-            this.lblHeight.Size = new System.Drawing.Size(58, 24);
-            this.lblHeight.TabIndex = 28;
-            this.lblHeight.Text = "Altura";
+            this.lblSalary.AutoSize = true;
+            this.lblSalary.Location = new System.Drawing.Point(49, 144);
+            this.lblSalary.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
+            this.lblSalary.Name = "lblSalary";
+            this.lblSalary.Size = new System.Drawing.Size(67, 24);
+            this.lblSalary.TabIndex = 28;
+            this.lblSalary.Text = "Salario";
             // 
-            // tbAltura
+            // numSalary
             // 
-            this.tbAltura.Location = new System.Drawing.Point(284, 141);
-            this.tbAltura.Mask = "0.00";
-            this.tbAltura.Name = "tbAltura";
-            this.tbAltura.Size = new System.Drawing.Size(89, 29);
-            this.tbAltura.TabIndex = 4;
+            this.numSalary.DecimalPlaces = 2;
+            this.numSalary.Location = new System.Drawing.Point(284, 142);
+            this.numSalary.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numSalary.Name = "numSalary";
+            this.numSalary.Size = new System.Drawing.Size(120, 29);
+            this.numSalary.TabIndex = 4;
+            this.numSalary.Enter += new System.EventHandler(this.numSalary_Enter);
             // 
             // FormUser
             // 
@@ -193,8 +200,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(704, 450);
-            this.Controls.Add(this.tbAltura);
-            this.Controls.Add(this.lblHeight);
+            this.Controls.Add(this.numSalary);
+            this.Controls.Add(this.lblSalary);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.tbNIF);
             this.Controls.Add(this.buttonSave);
@@ -214,6 +221,7 @@
             this.Text = "Create a new user";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UserAdd_FormClosed);
             this.Load += new System.EventHandler(this.UserForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numSalary)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -234,7 +242,7 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.MaskedTextBox tbNIF;
         private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Label lblHeight;
-        private System.Windows.Forms.MaskedTextBox tbAltura;
+        private System.Windows.Forms.Label lblSalary;
+        private System.Windows.Forms.NumericUpDown numSalary;
     }
 }

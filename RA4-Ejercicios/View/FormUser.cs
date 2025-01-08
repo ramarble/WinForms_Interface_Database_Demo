@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -59,7 +60,7 @@ namespace RA4_Ejercicios.View
             tbNombre.Text = u.name;
             tbApe1.Text = u.surname1;
             tbApe2.Text = u.surname2;
-            tbAltura.Text = u.height.ToString();
+            numSalary.Text = u.salary.ToString();
             tbNIF.Text = u.nif.ToString();
             dateTimePicker1.Value = u.birthdate;
 
@@ -87,9 +88,6 @@ namespace RA4_Ejercicios.View
         {
             if (isAnyTextBoxEmptyInForm(this))
             {
-                /*
-                 * idk :standing_man:
-                 */
                 MessageBox.Show("Por favor rellena todos los campos");
                 DialogResult = DialogResult.None;
 
@@ -100,7 +98,7 @@ namespace RA4_Ejercicios.View
                     tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
-                    float.Parse(tbAltura.Text.ToString()),
+                    decimal.Parse(numSalary.Text.ToString(),NumberStyles.Any),
                     dateTimePicker1.Value,
                     Int32.Parse(tbNIF.Text.ToString()), editMode));
 
@@ -131,6 +129,14 @@ namespace RA4_Ejercicios.View
         private void buttonClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void numSalary_Enter(object sender, EventArgs e)
+        {
+            if (numSalary.Text.ToString() != "" )
+            {
+                numSalary.Select(0, numSalary.Text.Length);
+            }
         }
     }
 }
