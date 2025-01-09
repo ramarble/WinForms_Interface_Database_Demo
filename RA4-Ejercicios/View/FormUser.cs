@@ -1,4 +1,6 @@
 ﻿using RA4_Ejercicios.Controller;
+using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
+using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
 using RA4_Ejercicios.Model;
 using System;
 using System.Collections.Generic;
@@ -91,9 +93,12 @@ namespace RA4_Ejercicios.View
                 MessageBox.Show("Por favor rellena todos los campos");
                 DialogResult = DialogResult.None;
 
-            }   else
+            } else if (U_DB_C.isNIFPresentInList(U_DB_C.getUserList(), Int32.Parse(tbNIF.Text.ToString()))){
+                MessageBox.Show("Ya hay un usuario con ese NIF presente.");
+                DialogResult = DialogResult.None;
+            } else 
             {
-                SendUserEventController.UserSavedTrigger(this, new EventSendUser(
+                SUEC.UserSavedTrigger(this, new EventSendUser(
                     true,
                     tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
@@ -102,7 +107,6 @@ namespace RA4_Ejercicios.View
                     dateTimePicker1.Value,
                     Int32.Parse(tbNIF.Text.ToString()), editMode));
 
-                this.Close();
             }
         }
 

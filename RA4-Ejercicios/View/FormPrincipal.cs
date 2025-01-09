@@ -28,20 +28,12 @@ namespace RA4_Ejercicios
             this.userDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.userDataGridView.SelectionChanged += DataGridView1_SelectionChanged;
-            this.userDataGridView.DataSourceChanged += EnableRevertButtonIfNeeded;
             this.userDataGridView.AllowUserToAddRows = false;
            
-
         }
         public formPrincipal()
         {
             InitializeComponent();
-
-        }
-
-        private void EnableRevertButtonIfNeeded(object sender, EventArgs e)
-        {
-            MessageBox.Show(sender.ToString());
         }
 
 
@@ -49,30 +41,52 @@ namespace RA4_Ejercicios
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             
-            var senderr = sender as DataGridView;
+            var dgvUsers = sender as DataGridView;
             
-            if (senderr.SelectedRows.Count > 0)
+            if (dgvUsers.SelectedRows.Count > 0)
             {
-                if (senderr.SelectedRows.Count==1)
-                {
-                    buttonModify.Enabled = true;
-                }
-                for (int i = 0; i < senderr.SelectedRows.Count; i++)
-                {
-                    var us = senderr.SelectedRows[i].DataBoundItem as User;
-                        if (us.getTempStatus())
-                    {
-                        MessageBox.Show(us.getNif().ToString());
-                        saveSelectedButton.Enabled = true;
-                    }
-
-                }
-                
+                //Always a possibility
+                buttonDeleteSelected.Enabled = true;
+                enableOrDisableModifyButton(dgvUsers);
+                enableOrDisableRelevantButtons(dgvUsers);
             } else
             {
+                buttonDeleteSelected.Enabled = false;
+            }
+        }
+
+        private void enableOrDisableModifyButton(DataGridView dgvUsers)
+        {
+            if (dgvUsers.SelectedRows.Count == 1)
+            {
+                buttonModify.Enabled = true;
+            }
+            else
+            {
                 buttonModify.Enabled = false;
-                saveSelectedButton.Enabled = false;
-                deleteSelectedButton.Enabled = false;
+            }
+
+        }
+
+        private void enableOrDisableRelevantButtons(DataGridView dgvUsers)
+        {
+            for (int i = 0; i < dgvUsers.SelectedRows.Count; i++)
+            {
+                var us = dgvUsers.SelectedRows[i].DataBoundItem as User;
+                if (us.getTempStatus())
+                {
+                    buttonSaveAll.Enabled = true;
+                    buttonRevertAll.Enabled = true;
+                    buttonRevertSelected.Enabled = true;
+                    saveSelectedButton.Enabled = true;
+                }
+                else
+                {
+                    buttonSaveAll.Enabled = false;
+                    buttonRevertSelected.Enabled = false;
+                    saveSelectedButton.Enabled = false;
+                    buttonDeleteSelected.Enabled = false;
+                }
             }
         }
 
@@ -99,9 +113,20 @@ namespace RA4_Ejercicios
             DialogResult = MessageBox.Show("Revert Changes? ", "Info", MessageBoxButtons.YesNo);
             if (DialogResult == DialogResult.Yes)
             {
+                List<User> tempList = new List<User>();
+                foreach (User u in U_DB_C.getUserList())
+                {
+                    if (u.getTempStatus())
+                    {
+                        tempList.Add(u);
+                    }
+                }
+
+                U_DB_C.restoreUsersFromBackup(tempList);
                 U_DB_C.RemoveTempUsers(U_DB_C.getUserList());
             }
         }
+
 
         private void saveSelectedButton_Click(object sender, EventArgs e)
         {
@@ -155,7 +180,6 @@ namespace RA4_Ejercicios
         private void buttonModify_Click(object sender, EventArgs e)
         {
             User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
-            MessageBox.Show(userToEdit.nif.ToString());
             int nifKey = userToEdit.nif;
             U_DB_C.getUsersBackupList().Add(userToEdit);
             U_DB_C.getUserList().Remove(userToEdit);
@@ -165,9 +189,8 @@ namespace RA4_Ejercicios
             this.Hide();
             f.ShowDialog();
 
-
             //In case the form exited abruptly
-            if (U_DB_C.getUserList().Any(u => u.nif == userToEdit.nif))
+            if (!U_DB_C.getUserList().Any(u => u.nif == userToEdit.nif))
             {
                 U_DB_C.getUserList().Add(userToEdit);
                 U_DB_C.getUsersBackupList().Remove(userToEdit);

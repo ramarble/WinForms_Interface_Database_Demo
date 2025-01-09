@@ -49,11 +49,12 @@ namespace RA4_Ejercicios
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userDataGridView = new System.Windows.Forms.DataGridView();
-            this.buttonCommit = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSaveAll = new System.Windows.Forms.Button();
+            this.buttonRevertAll = new System.Windows.Forms.Button();
             this.saveSelectedButton = new System.Windows.Forms.Button();
-            this.deleteSelectedButton = new System.Windows.Forms.Button();
+            this.buttonDeleteSelected = new System.Windows.Forms.Button();
             this.buttonModify = new System.Windows.Forms.Button();
+            this.buttonRevertSelected = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +69,7 @@ namespace RA4_Ejercicios
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
-            this.menuStrip1.Size = new System.Drawing.Size(784, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(966, 27);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -194,76 +195,98 @@ namespace RA4_Ejercicios
             // 
             // userDataGridView
             // 
+            this.userDataGridView.AllowUserToAddRows = false;
+            this.userDataGridView.AllowUserToDeleteRows = false;
+            this.userDataGridView.AllowUserToResizeRows = false;
             this.userDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.userDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.userDataGridView.Location = new System.Drawing.Point(12, 30);
             this.userDataGridView.Name = "userDataGridView";
-            this.userDataGridView.Size = new System.Drawing.Size(760, 419);
+            this.userDataGridView.Size = new System.Drawing.Size(942, 419);
             this.userDataGridView.TabIndex = 14;
             // 
-            // buttonCommit
+            // buttonSaveAll
             // 
-            this.buttonCommit.Location = new System.Drawing.Point(651, 465);
-            this.buttonCommit.Name = "buttonCommit";
-            this.buttonCommit.Size = new System.Drawing.Size(121, 84);
-            this.buttonCommit.TabIndex = 15;
-            this.buttonCommit.Text = "Guardar Todo";
-            this.buttonCommit.UseVisualStyleBackColor = true;
-            this.buttonCommit.Click += new System.EventHandler(this.buttonCommit_Click);
+            this.buttonSaveAll.Enabled = false;
+            this.buttonSaveAll.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonSaveAll.Location = new System.Drawing.Point(822, 487);
+            this.buttonSaveAll.Name = "buttonSaveAll";
+            this.buttonSaveAll.Size = new System.Drawing.Size(132, 62);
+            this.buttonSaveAll.TabIndex = 6;
+            this.buttonSaveAll.Text = "Guardar Todo";
+            this.buttonSaveAll.UseVisualStyleBackColor = true;
+            this.buttonSaveAll.Click += new System.EventHandler(this.buttonCommit_Click);
             // 
-            // button1
+            // buttonRevertAll
             // 
-            this.button1.Location = new System.Drawing.Point(12, 465);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 84);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "Revertir Cambios";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.buttonRevert_Click);
+            this.buttonRevertAll.Enabled = false;
+            this.buttonRevertAll.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonRevertAll.Location = new System.Drawing.Point(12, 487);
+            this.buttonRevertAll.Name = "buttonRevertAll";
+            this.buttonRevertAll.Size = new System.Drawing.Size(132, 62);
+            this.buttonRevertAll.TabIndex = 1;
+            this.buttonRevertAll.Text = "Revertir Todo";
+            this.buttonRevertAll.UseVisualStyleBackColor = true;
+            this.buttonRevertAll.Click += new System.EventHandler(this.buttonRevert_Click);
             // 
             // saveSelectedButton
             // 
             this.saveSelectedButton.Enabled = false;
-            this.saveSelectedButton.Location = new System.Drawing.Point(500, 465);
+            this.saveSelectedButton.Font = new System.Drawing.Font("Arial", 12F);
+            this.saveSelectedButton.Location = new System.Drawing.Point(684, 487);
             this.saveSelectedButton.Name = "saveSelectedButton";
-            this.saveSelectedButton.Size = new System.Drawing.Size(145, 84);
-            this.saveSelectedButton.TabIndex = 17;
+            this.saveSelectedButton.Size = new System.Drawing.Size(132, 62);
+            this.saveSelectedButton.TabIndex = 5;
             this.saveSelectedButton.Text = "Guardar Seleccionados";
             this.saveSelectedButton.UseVisualStyleBackColor = true;
             this.saveSelectedButton.Click += new System.EventHandler(this.saveSelectedButton_Click);
             // 
-            // deleteSelectedButton
+            // buttonDeleteSelected
             // 
-            this.deleteSelectedButton.Enabled = false;
-            this.deleteSelectedButton.Location = new System.Drawing.Point(139, 465);
-            this.deleteSelectedButton.Name = "deleteSelectedButton";
-            this.deleteSelectedButton.Size = new System.Drawing.Size(145, 84);
-            this.deleteSelectedButton.TabIndex = 18;
-            this.deleteSelectedButton.Text = "Borrar Seleccionados";
-            this.deleteSelectedButton.UseVisualStyleBackColor = true;
-            this.deleteSelectedButton.Click += new System.EventHandler(this.deleteSelectedButton_Click);
+            this.buttonDeleteSelected.Enabled = false;
+            this.buttonDeleteSelected.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonDeleteSelected.Location = new System.Drawing.Point(331, 487);
+            this.buttonDeleteSelected.Name = "buttonDeleteSelected";
+            this.buttonDeleteSelected.Size = new System.Drawing.Size(132, 62);
+            this.buttonDeleteSelected.TabIndex = 3;
+            this.buttonDeleteSelected.Text = "Borrar Seleccionados";
+            this.buttonDeleteSelected.UseVisualStyleBackColor = true;
+            this.buttonDeleteSelected.Click += new System.EventHandler(this.deleteSelectedButton_Click);
             // 
             // buttonModify
             // 
             this.buttonModify.Enabled = false;
-            this.buttonModify.Location = new System.Drawing.Point(321, 465);
+            this.buttonModify.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonModify.Location = new System.Drawing.Point(506, 487);
             this.buttonModify.Name = "buttonModify";
-            this.buttonModify.Size = new System.Drawing.Size(145, 84);
-            this.buttonModify.TabIndex = 19;
+            this.buttonModify.Size = new System.Drawing.Size(132, 62);
+            this.buttonModify.TabIndex = 4;
             this.buttonModify.Text = "Modificar Seleccionado";
             this.buttonModify.UseVisualStyleBackColor = true;
             this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
+            // 
+            // buttonRevertSelected
+            // 
+            this.buttonRevertSelected.Enabled = false;
+            this.buttonRevertSelected.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonRevertSelected.Location = new System.Drawing.Point(150, 487);
+            this.buttonRevertSelected.Name = "buttonRevertSelected";
+            this.buttonRevertSelected.Size = new System.Drawing.Size(132, 62);
+            this.buttonRevertSelected.TabIndex = 2;
+            this.buttonRevertSelected.Text = "Revertir Seleccionados";
+            this.buttonRevertSelected.UseVisualStyleBackColor = true;
             // 
             // formPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(966, 568);
+            this.Controls.Add(this.buttonRevertSelected);
             this.Controls.Add(this.buttonModify);
-            this.Controls.Add(this.deleteSelectedButton);
+            this.Controls.Add(this.buttonDeleteSelected);
             this.Controls.Add(this.saveSelectedButton);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonCommit);
+            this.Controls.Add(this.buttonRevertAll);
+            this.Controls.Add(this.buttonSaveAll);
             this.Controls.Add(this.userDataGridView);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -298,12 +321,13 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.ToolStripMenuItem alejarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.DataGridView userDataGridView;
-        private System.Windows.Forms.Button buttonCommit;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSaveAll;
+        private System.Windows.Forms.Button buttonRevertAll;
         private System.Windows.Forms.Button saveSelectedButton;
-        private System.Windows.Forms.Button deleteSelectedButton;
+        private System.Windows.Forms.Button buttonDeleteSelected;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
         private System.Windows.Forms.Button buttonModify;
+        private System.Windows.Forms.Button buttonRevertSelected;
     }
 }
 

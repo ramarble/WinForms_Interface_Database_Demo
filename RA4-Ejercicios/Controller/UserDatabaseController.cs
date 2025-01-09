@@ -80,7 +80,18 @@ namespace RA4_Ejercicios.Controller
             }
             return false;
         }
+        public static Boolean isNIFPresentInList(List<User> userList, int nif)
+        {
+            foreach (User user in userList)
+            {
+                if (user.getNif().Equals(nif))
+                {
+                    return true;
+                }
 
+            }
+            return false;
+        }
 
         public static void userReceived(object sender, EventSendUser e)
         {
@@ -97,7 +108,7 @@ namespace RA4_Ejercicios.Controller
             }
             else
             {
-                //this could/should be a global message
+                //this should NEVER trigger
                 DialogResult d = MessageBox.Show("Ya hay un usuario con ese NIF presente.");
                 d = DialogResult.None;
             }
@@ -147,6 +158,21 @@ namespace RA4_Ejercicios.Controller
                 userList.Remove(u);
             }
             userBindingList.ResetBindings();
+        }
+
+        public static void restoreUsersFromBackup(List<User> li)
+        {
+            foreach (User utemp in li)
+            {
+                foreach (User backup in getUsersBackupList())
+                {
+                    if (utemp.nif == backup.nif)
+                    {
+                        getUserList().Remove(utemp);
+                        getUserList().Add(backup);
+                    }
+                }
+            }
         }
     }
 }

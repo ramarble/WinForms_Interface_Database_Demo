@@ -37,6 +37,8 @@
             this.userPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.labelInfo = new System.Windows.Forms.Label();
             this.tooltipTextBox = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonRevertAll = new System.Windows.Forms.Button();
+            this.buttonSaveAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // userListBox
@@ -59,9 +61,10 @@
             // 
             // buttonModify
             // 
-            this.buttonModify.Location = new System.Drawing.Point(202, 406);
+            this.buttonModify.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonModify.Location = new System.Drawing.Point(711, 398);
             this.buttonModify.Name = "buttonModify";
-            this.buttonModify.Size = new System.Drawing.Size(75, 23);
+            this.buttonModify.Size = new System.Drawing.Size(88, 36);
             this.buttonModify.TabIndex = 3;
             this.buttonModify.Text = "Modificar";
             this.buttonModify.UseVisualStyleBackColor = true;
@@ -69,9 +72,10 @@
             // 
             // buttonRevert
             // 
-            this.buttonRevert.Location = new System.Drawing.Point(622, 406);
+            this.buttonRevert.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonRevert.Location = new System.Drawing.Point(202, 398);
             this.buttonRevert.Name = "buttonRevert";
-            this.buttonRevert.Size = new System.Drawing.Size(75, 23);
+            this.buttonRevert.Size = new System.Drawing.Size(88, 36);
             this.buttonRevert.TabIndex = 4;
             this.buttonRevert.Text = "Revertir";
             this.buttonRevert.UseVisualStyleBackColor = true;
@@ -79,9 +83,10 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(713, 406);
+            this.buttonSave.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonSave.Location = new System.Drawing.Point(805, 398);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(88, 36);
             this.buttonSave.TabIndex = 5;
             this.buttonSave.Text = "Guardar";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -95,7 +100,7 @@
             this.userPropertyGrid.HelpVisible = false;
             this.userPropertyGrid.Location = new System.Drawing.Point(202, 61);
             this.userPropertyGrid.Name = "userPropertyGrid";
-            this.userPropertyGrid.Size = new System.Drawing.Size(586, 322);
+            this.userPropertyGrid.Size = new System.Drawing.Size(824, 322);
             this.userPropertyGrid.TabIndex = 2;
             this.userPropertyGrid.ToolbarVisible = false;
             // 
@@ -110,11 +115,33 @@
             this.labelInfo.Text = "Puedes encontrar un usuario por su NIF o nombre. (Esto sería un tooltip si no qui" +
     "siese que fuera imperativo que se lea)";
             // 
+            // buttonRevertAll
+            // 
+            this.buttonRevertAll.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonRevertAll.Location = new System.Drawing.Point(296, 398);
+            this.buttonRevertAll.Name = "buttonRevertAll";
+            this.buttonRevertAll.Size = new System.Drawing.Size(127, 36);
+            this.buttonRevertAll.TabIndex = 7;
+            this.buttonRevertAll.Text = "Revertir TODO";
+            this.buttonRevertAll.UseVisualStyleBackColor = true;
+            // 
+            // buttonSaveAll
+            // 
+            this.buttonSaveAll.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonSaveAll.Location = new System.Drawing.Point(899, 398);
+            this.buttonSaveAll.Name = "buttonSaveAll";
+            this.buttonSaveAll.Size = new System.Drawing.Size(127, 36);
+            this.buttonSaveAll.TabIndex = 8;
+            this.buttonSaveAll.Text = "Guardar TODO";
+            this.buttonSaveAll.UseVisualStyleBackColor = true;
+            // 
             // FormBuscarUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1068, 450);
+            this.Controls.Add(this.buttonSaveAll);
+            this.Controls.Add(this.buttonRevertAll);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonRevert);
@@ -141,5 +168,7 @@
         private System.Windows.Forms.PropertyGrid userPropertyGrid;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.ToolTip tooltipTextBox;
+        private System.Windows.Forms.Button buttonRevertAll;
+        private System.Windows.Forms.Button buttonSaveAll;
     }
 }
