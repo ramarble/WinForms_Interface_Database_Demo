@@ -135,6 +135,7 @@ namespace RA4_Ejercicios.Controller
             {
                 if (u.getTempStatus())
                 {
+                    getUsersBackupList().Remove(getUsersBackupList().Find(it => it.nif == u.nif));
                     u.setTempStatus(false);
                     userBindingList.ResetBindings();
                 }
@@ -160,7 +161,7 @@ namespace RA4_Ejercicios.Controller
             userBindingList.ResetBindings();
         }
 
-        public static void restoreUsersFromBackup(List<User> li)
+        public static void restoreAllUsersFromBackupAndEmptyBackup(List<User> li)
         {
             foreach (User utemp in li)
             {
@@ -170,9 +171,34 @@ namespace RA4_Ejercicios.Controller
                     {
                         getUserList().Remove(utemp);
                         getUserList().Add(backup);
+                        getUsersBackupList().Remove(backup);
                     }
                 }
             }
+        }
+
+        public static User fetchUserByNIF(List<User> listToSearch, int nifKey)
+        {
+            return listToSearch.Find(u => u.nif == nifKey);
+        }
+
+        public static User revertSingleUser(User userToRevert, BindingList<User> listToUpdate)
+        {
+
+            User sameUserInBackup = fetchUserByNIF(getUsersBackupList(), userToRevert.nif);
+            listToUpdate.Remove(userToRevert);
+            listToUpdate.Add(sameUserInBackup);
+            getUsersBackupList().Remove(sameUserInBackup);
+
+            return sameUserInBackup;
+           
+        }
+
+        public static void saveUser(User user)
+        {
+            User sameUserInBackup = fetchUserByNIF(getUsersBackupList(), user.nif);
+            getUsersBackupList().Remove(sameUserInBackup);
+            user.setTempStatus(false);
         }
     }
 }

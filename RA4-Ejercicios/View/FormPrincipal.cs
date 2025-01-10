@@ -23,19 +23,32 @@ namespace RA4_Ejercicios
         {
             this.userDataGridView.DataSource = U_DB_C.getUserBindingList();
             SUEC.UserSaved += U_DB_C.userReceived;
+            U_DB_C.getUserBindingList().ListChanged += enableSaveAndRevertAllButtonsIfNeeded;
             this.userDataGridView.AutoGenerateColumns = true;
             this.userDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             this.userDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.userDataGridView.SelectionChanged += DataGridView1_SelectionChanged;
             this.userDataGridView.AllowUserToAddRows = false;
-           
+            
         }
         public formPrincipal()
         {
             InitializeComponent();
         }
 
+        private void enableSaveAndRevertAllButtonsIfNeeded(object sender, ListChangedEventArgs e)
+        {
+            if (U_DB_C.getUsersBackupList().Count > 0)
+            {
+                buttonRevertAll.Enabled = true;
+                buttonSaveAll.Enabled = true;
+            } else
+            {
+                buttonRevertAll.Enabled = false;
+                buttonSaveAll.Enabled = false;
+            }
+        }
 
         //Enables or disables the buttons
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -48,7 +61,7 @@ namespace RA4_Ejercicios
                 //Always a possibility
                 buttonDeleteSelected.Enabled = true;
                 enableOrDisableModifyButton(dgvUsers);
-                enableOrDisableRelevantButtons(dgvUsers);
+                enableOrDisableSaveModifySelectedButtons(dgvUsers);
             } else
             {
                 buttonDeleteSelected.Enabled = false;
@@ -68,24 +81,20 @@ namespace RA4_Ejercicios
 
         }
 
-        private void enableOrDisableRelevantButtons(DataGridView dgvUsers)
+        private void enableOrDisableSaveModifySelectedButtons(DataGridView dgvUsers)
         {
             for (int i = 0; i < dgvUsers.SelectedRows.Count; i++)
             {
                 var us = dgvUsers.SelectedRows[i].DataBoundItem as User;
                 if (us.getTempStatus())
                 {
-                    buttonSaveAll.Enabled = true;
-                    buttonRevertAll.Enabled = true;
-                    buttonRevertSelected.Enabled = true;
                     saveSelectedButton.Enabled = true;
+                    buttonRevertSelected.Enabled = true;
                 }
                 else
                 {
-                    buttonSaveAll.Enabled = false;
                     buttonRevertSelected.Enabled = false;
                     saveSelectedButton.Enabled = false;
-                    buttonDeleteSelected.Enabled = false;
                 }
             }
         }
@@ -101,16 +110,16 @@ namespace RA4_Ejercicios
         private void buttonCommit_Click(object sender, EventArgs e)
         {
 
-            DialogResult = MessageBox.Show("Commit Changes? ", "Info", MessageBoxButtons.YesNo) ;
+            DialogResult = MessageBox.Show("¿Guardar Cambios? ", "Info", MessageBoxButtons.YesNo) ;
             if (DialogResult == DialogResult.Yes)
             {
                 U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
             }
         }
 
-        private void buttonRevert_Click(object sender, EventArgs e)
+        private void buttonRevertAll_Click(object sender, EventArgs e)
         {
-            DialogResult = MessageBox.Show("Revert Changes? ", "Info", MessageBoxButtons.YesNo);
+            DialogResult = MessageBox.Show("¿Revertir cambios? ", "Advertencia", MessageBoxButtons.YesNo);
             if (DialogResult == DialogResult.Yes)
             {
                 List<User> tempList = new List<User>();
@@ -122,7 +131,7 @@ namespace RA4_Ejercicios
                     }
                 }
 
-                U_DB_C.restoreUsersFromBackup(tempList);
+                U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(tempList);
                 U_DB_C.RemoveTempUsers(U_DB_C.getUserList());
             }
         }
@@ -206,12 +215,17 @@ namespace RA4_Ejercicios
             }
         }
 
-        private void acercarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void maximizarToolStrip_Click(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Maximized)
             {
                 WindowState = FormWindowState.Maximized;
             }
+        }
+
+        private void buttonRevertSelected_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

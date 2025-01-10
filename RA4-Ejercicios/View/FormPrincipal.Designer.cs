@@ -140,7 +140,7 @@ namespace RA4_Ejercicios
             // 
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.cortarToolStripMenuItem.Text = "Cortar";
             this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
             // 
@@ -148,14 +148,14 @@ namespace RA4_Ejercicios
             // 
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.copiarToolStripMenuItem.Text = "Copiar";
             // 
             // pegarToolStripMenuItem
             // 
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.pegarToolStripMenuItem.Text = "Pegar";
             // 
             // verToolStripMenuItem
@@ -171,14 +171,14 @@ namespace RA4_Ejercicios
             // 
             this.maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
             this.maximizarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.maximizarToolStripMenuItem.Text = "Maximizar";
-            this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.acercarToolStripMenuItem_Click);
+            this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.maximizarToolStrip_Click);
             // 
             // alejarToolStripMenuItem
             // 
             this.alejarToolStripMenuItem.Name = "alejarToolStripMenuItem";
-            this.alejarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alejarToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.alejarToolStripMenuItem.Text = "Alejar";
             // 
             // ayudaToolStripMenuItem
@@ -229,7 +229,7 @@ namespace RA4_Ejercicios
             this.buttonRevertAll.TabIndex = 1;
             this.buttonRevertAll.Text = "Revertir Todo";
             this.buttonRevertAll.UseVisualStyleBackColor = true;
-            this.buttonRevertAll.Click += new System.EventHandler(this.buttonRevert_Click);
+            this.buttonRevertAll.Click += new System.EventHandler(this.buttonRevertAll_Click);
             // 
             // saveSelectedButton
             // 
@@ -277,6 +277,7 @@ namespace RA4_Ejercicios
             this.buttonRevertSelected.TabIndex = 2;
             this.buttonRevertSelected.Text = "Revertir Seleccionados";
             this.buttonRevertSelected.UseVisualStyleBackColor = true;
+            this.buttonRevertSelected.Click += new System.EventHandler(this.buttonRevertSelected_Click);
             // 
             // formPrincipal
             // 

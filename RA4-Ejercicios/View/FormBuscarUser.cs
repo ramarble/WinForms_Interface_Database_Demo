@@ -141,21 +141,13 @@ namespace RA4_Ejercicios.View
             this.userListBox.SetSelected(userList.IndexOf(userList.Single(user => user.nif == nifKey)), true);
         }
 
-        private User fetchUserByNIF(List<User> listToSearch, int nifKey)
-        {
-            return listToSearch.Find(u => u.nif == nifKey);
-        }
+
 
         private void buttonRevert_Click(object sender, EventArgs e)
         {
             User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
-            User sameUserInBackup = fetchUserByNIF(U_DB_C.getUsersBackupList(), userWithTempFlag.nif);
-               
-            this.userList.Remove(userWithTempFlag);
-            this.userList.Add(sameUserInBackup);
-            U_DB_C.getUsersBackupList().Remove(sameUserInBackup);
-            this.userListBox.SetSelected(userList.IndexOf(sameUserInBackup),true);
-
+            User sameUserInBackup = U_DB_C.revertSingleUser(userWithTempFlag, this.userList);
+            this.userListBox.SetSelected(userList.IndexOf(sameUserInBackup), true);
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
@@ -170,10 +162,7 @@ namespace RA4_Ejercicios.View
         private void buttonSave_Click(object sender, EventArgs e)
         {
             User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
-            User sameUserInBackup = fetchUserByNIF(U_DB_C.getUsersBackupList(), userWithTempFlag.nif);
-
-            U_DB_C.getUsersBackupList().Remove(sameUserInBackup);
-            userWithTempFlag.setTempStatus(false);
+            U_DB_C.saveUser(userWithTempFlag);
             UpdateObjectView(this, e);
 
         }

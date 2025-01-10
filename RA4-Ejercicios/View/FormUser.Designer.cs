@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.tbApe2 = new System.Windows.Forms.TextBox();
             this.tbApe1 = new System.Windows.Forms.TextBox();
             this.tbNombre = new System.Windows.Forms.TextBox();
@@ -63,21 +63,22 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dateTimePicker1
+            // dtpFechaNacimiento
             // 
-            this.dateTimePicker1.AccessibleDescription = "Entrada de Fecha de Nacimiento";
-            this.dateTimePicker1.AccessibleName = "Fecha de Nacimiento";
-            this.dateTimePicker1.Location = new System.Drawing.Point(284, 178);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(6);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(367, 29);
-            this.dateTimePicker1.TabIndex = 5;
+            this.dtpFechaNacimiento.AccessibleDescription = "Entrada de Fecha de Nacimiento";
+            this.dtpFechaNacimiento.AccessibleName = "Fecha de Nacimiento";
+            this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(284, 211);
+            this.dtpFechaNacimiento.Margin = new System.Windows.Forms.Padding(6);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(367, 29);
+            this.dtpFechaNacimiento.TabIndex = 5;
             // 
             // tbApe2
             // 
             this.tbApe2.AccessibleDescription = "Introduce el Segundo Apellido";
             this.tbApe2.AccessibleName = "Caja Texto Segundo Apellido";
-            this.tbApe2.Location = new System.Drawing.Point(284, 104);
+            this.tbApe2.Location = new System.Drawing.Point(284, 137);
             this.tbApe2.Margin = new System.Windows.Forms.Padding(11);
             this.tbApe2.Name = "tbApe2";
             this.tbApe2.Size = new System.Drawing.Size(367, 29);
@@ -87,7 +88,7 @@
             // 
             this.tbApe1.AccessibleDescription = "Introduce el apellido";
             this.tbApe1.AccessibleName = "Caja Texto Apellido";
-            this.tbApe1.Location = new System.Drawing.Point(284, 66);
+            this.tbApe1.Location = new System.Drawing.Point(284, 99);
             this.tbApe1.Margin = new System.Windows.Forms.Padding(11);
             this.tbApe1.Name = "tbApe1";
             this.tbApe1.Size = new System.Drawing.Size(367, 29);
@@ -98,7 +99,7 @@
             this.tbNombre.AccessibleDescription = "Introduce el nombre";
             this.tbNombre.AccessibleName = "Caja Texto Nombre";
             this.tbNombre.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
-            this.tbNombre.Location = new System.Drawing.Point(284, 30);
+            this.tbNombre.Location = new System.Drawing.Point(284, 63);
             this.tbNombre.Margin = new System.Windows.Forms.Padding(11);
             this.tbNombre.Name = "tbNombre";
             this.tbNombre.Size = new System.Drawing.Size(367, 29);
@@ -108,7 +109,7 @@
             // 
             this.lblNIF.AutoSize = true;
             this.lblNIF.Font = new System.Drawing.Font("Arial", 14F);
-            this.lblNIF.Location = new System.Drawing.Point(49, 219);
+            this.lblNIF.Location = new System.Drawing.Point(49, 252);
             this.lblNIF.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblNIF.Name = "lblNIF";
             this.lblNIF.Size = new System.Drawing.Size(41, 22);
@@ -119,7 +120,7 @@
             // 
             this.lblFechaNac.AutoSize = true;
             this.lblFechaNac.Font = new System.Drawing.Font("Arial", 14F);
-            this.lblFechaNac.Location = new System.Drawing.Point(49, 182);
+            this.lblFechaNac.Location = new System.Drawing.Point(49, 215);
             this.lblFechaNac.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblFechaNac.Name = "lblFechaNac";
             this.lblFechaNac.Size = new System.Drawing.Size(162, 22);
@@ -130,7 +131,7 @@
             // 
             this.lbl2doApellido.AutoSize = true;
             this.lbl2doApellido.Font = new System.Drawing.Font("Arial", 14F);
-            this.lbl2doApellido.Location = new System.Drawing.Point(49, 107);
+            this.lbl2doApellido.Location = new System.Drawing.Point(49, 140);
             this.lbl2doApellido.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lbl2doApellido.Name = "lbl2doApellido";
             this.lbl2doApellido.Size = new System.Drawing.Size(160, 22);
@@ -141,7 +142,7 @@
             // 
             this.lbl1erApellido.AutoSize = true;
             this.lbl1erApellido.Font = new System.Drawing.Font("Arial", 14F);
-            this.lbl1erApellido.Location = new System.Drawing.Point(49, 69);
+            this.lbl1erApellido.Location = new System.Drawing.Point(49, 102);
             this.lbl1erApellido.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lbl1erApellido.Name = "lbl1erApellido";
             this.lbl1erApellido.Size = new System.Drawing.Size(139, 22);
@@ -152,7 +153,7 @@
             // 
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Arial", 14F);
-            this.lblNombre.Location = new System.Drawing.Point(49, 33);
+            this.lblNombre.Location = new System.Drawing.Point(49, 66);
             this.lblNombre.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(78, 22);
@@ -191,7 +192,7 @@
             // 
             this.tbNIF.AccessibleDescription = "Introduce el NIF";
             this.tbNIF.AccessibleName = "Caja NIF";
-            this.tbNIF.Location = new System.Drawing.Point(284, 216);
+            this.tbNIF.Location = new System.Drawing.Point(284, 249);
             this.tbNIF.Mask = "00000000";
             this.tbNIF.Name = "tbNIF";
             this.tbNIF.Size = new System.Drawing.Size(367, 29);
@@ -215,7 +216,7 @@
             // 
             this.lblSalary.AutoSize = true;
             this.lblSalary.Font = new System.Drawing.Font("Arial", 14F);
-            this.lblSalary.Location = new System.Drawing.Point(49, 144);
+            this.lblSalary.Location = new System.Drawing.Point(49, 177);
             this.lblSalary.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblSalary.Name = "lblSalary";
             this.lblSalary.Size = new System.Drawing.Size(68, 22);
@@ -227,7 +228,7 @@
             this.numSalary.AccessibleDescription = "Introduce el Salario";
             this.numSalary.AccessibleName = "Caja Salario";
             this.numSalary.DecimalPlaces = 2;
-            this.numSalary.Location = new System.Drawing.Point(284, 142);
+            this.numSalary.Location = new System.Drawing.Point(284, 175);
             this.numSalary.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -320,7 +321,7 @@
             this.cortarToolStripMenuItem.AccessibleName = "Cortar Texto";
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.cortarToolStripMenuItem.Text = "Cortar";
             this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
             // 
@@ -330,7 +331,7 @@
             this.copiarToolStripMenuItem.AccessibleName = "Copiar Texto";
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.copiarToolStripMenuItem.Text = "Copiar";
             // 
             // pegarToolStripMenuItem
@@ -339,7 +340,7 @@
             this.pegarToolStripMenuItem.AccessibleName = "Pegar Texto";
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.pegarToolStripMenuItem.Text = "Pegar";
             this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegarToolStripMenuItem_Click);
             // 
@@ -357,13 +358,13 @@
             // 
             this.acercarToolStripMenuItem.Name = "acercarToolStripMenuItem";
             this.acercarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.acercarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.acercarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.acercarToolStripMenuItem.Text = "Acercar";
             // 
             // alejarToolStripMenuItem
             // 
             this.alejarToolStripMenuItem.Name = "alejarToolStripMenuItem";
-            this.alejarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alejarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.alejarToolStripMenuItem.Text = "Alejar";
             // 
             // ayudaToolStripMenuItem
@@ -377,7 +378,7 @@
             // acercaDeToolStripMenuItem
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
             // 
             // FormUser
@@ -394,7 +395,7 @@
             this.Controls.Add(this.tbNIF);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonClear);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpFechaNacimiento);
             this.Controls.Add(this.tbApe2);
             this.Controls.Add(this.tbApe1);
             this.Controls.Add(this.tbNombre);
@@ -419,7 +420,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
         private System.Windows.Forms.TextBox tbApe2;
         private System.Windows.Forms.TextBox tbApe1;
         private System.Windows.Forms.TextBox tbNombre;

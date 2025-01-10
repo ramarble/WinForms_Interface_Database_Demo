@@ -64,7 +64,7 @@ namespace RA4_Ejercicios.View
             tbApe2.Text = u.surname2;
             numSalary.Text = u.salary.ToString();
             tbNIF.Text = u.nif.ToString();
-            dateTimePicker1.Value = u.birthdate;
+            dtpFechaNacimiento.Value = u.birthdate;
 
         }
 
@@ -108,7 +108,7 @@ namespace RA4_Ejercicios.View
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
                     decimal.Parse(numSalary.Text.ToString(),NumberStyles.Any),
-                    dateTimePicker1.Value,
+                    dtpFechaNacimiento.Value,
                     Int32.Parse(tbNIF.Text.ToString()), editMode));
 
             }
