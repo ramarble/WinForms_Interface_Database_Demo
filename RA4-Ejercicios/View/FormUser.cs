@@ -70,15 +70,19 @@ namespace RA4_Ejercicios.View
 
         private List<TextBoxBase> listOfTextBoxesInForm(Form sender)
         {
-            List<TextBoxBase> ListOfTextInTextBoxes = new List<TextBoxBase>();
+            List<TextBoxBase> ListOfTextBoxBases = new List<TextBoxBase>();
             foreach (Object o in sender.Controls)
             {
                 if (o is TextBoxBase)
                 {
-                    ListOfTextInTextBoxes.Add((o as TextBoxBase));
+                    ListOfTextBoxBases.Add((o as TextBoxBase));
+                }
+                if (o is NumericUpDown)
+                {
+                    ListOfTextBoxBases.Add((getTextBoxFromNumericUpDown(o as NumericUpDown));
                 }
             }
-            return ListOfTextInTextBoxes;
+            return ListOfTextBoxBases;
         }
 
         private Boolean isAnyTextBoxEmptyInForm(Form sender)
@@ -140,6 +144,42 @@ namespace RA4_Ejercicios.View
             if (numSalary.Text.ToString() != "" )
             {
                 numSalary.Select(0, numSalary.Text.Length);
+            }
+        }
+
+        private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveControl is TextBoxBase)
+            {
+                cutText(this.ActiveControl as TextBoxBase);
+
+            } else if (this.ActiveControl is NumericUpDown)
+            {
+                cutText(getTextBoxFromNumericUpDown(this.ActiveControl as NumericUpDown));
+            }
+        }
+        private void cutText(TextBoxBase tbb)
+        {
+            if (tbb.SelectedText != "")
+            {
+                tbb.Cut();
+            }
+        }
+
+        private TextBox getTextBoxFromNumericUpDown(NumericUpDown nud)
+        {
+            return nud.Controls.OfType<TextBox>().FirstOrDefault() as TextBox;
+        }
+
+        private void pegarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveControl is TextBoxBase)
+            {
+                TextBoxBase c = this.ActiveControl as TextBoxBase;
+                c.Paste();
+            } else if (this.ActiveControl is NumericUpDown)
+            {
+                getTextBoxFromNumericUpDown(this.ActiveControl as NumericUpDown).Paste();
             }
         }
     }

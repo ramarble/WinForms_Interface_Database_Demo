@@ -197,5 +197,13 @@ namespace RA4_Ejercicios
                 MessageBox.Show("Form exited without any changes");
             }
         }
+
+        private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveControl is TextBox)
+            {
+                MessageBox.Show("yep");
+            }
+        }
     }
 }
