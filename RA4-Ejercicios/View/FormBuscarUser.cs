@@ -33,7 +33,7 @@ namespace RA4_Ejercicios.View
         private void FormBuscarUser_Load(object sender, EventArgs e)
         {
             userListBox.DataSource = this.userList;
-            userListBox.ValueMember = "NIF";
+            userListBox.ValueMember = "";
             userListBox.DisplayMember = "Name";
             userListBox.SelectedValueChanged += UpdateObjectView;
             
