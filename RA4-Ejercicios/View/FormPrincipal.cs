@@ -205,5 +205,13 @@ namespace RA4_Ejercicios
                 MessageBox.Show("yep");
             }
         }
+
+        private void acercarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (WindowState != FormWindowState.Maximized)
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }

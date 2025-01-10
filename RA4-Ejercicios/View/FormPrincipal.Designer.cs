@@ -44,7 +44,7 @@ namespace RA4_Ejercicios
             this.copiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.acercarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alejarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -161,23 +161,24 @@ namespace RA4_Ejercicios
             // verToolStripMenuItem
             // 
             this.verToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.acercarToolStripMenuItem,
+            this.maximizarToolStripMenuItem,
             this.alejarToolStripMenuItem});
             this.verToolStripMenuItem.Name = "verToolStripMenuItem";
             this.verToolStripMenuItem.Size = new System.Drawing.Size(35, 19);
             this.verToolStripMenuItem.Text = "Ver";
             // 
-            // acercarToolStripMenuItem
+            // maximizarToolStripMenuItem
             // 
-            this.acercarToolStripMenuItem.Name = "acercarToolStripMenuItem";
-            this.acercarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.acercarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.acercarToolStripMenuItem.Text = "Acercar";
+            this.maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
+            this.maximizarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
+            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maximizarToolStripMenuItem.Text = "Maximizar";
+            this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.acercarToolStripMenuItem_Click);
             // 
             // alejarToolStripMenuItem
             // 
             this.alejarToolStripMenuItem.Name = "alejarToolStripMenuItem";
-            this.alejarToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.alejarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.alejarToolStripMenuItem.Text = "Alejar";
             // 
             // ayudaToolStripMenuItem
@@ -318,7 +319,7 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.ToolStripMenuItem cortarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copiarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem acercarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem maximizarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem alejarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.DataGridView userDataGridView;

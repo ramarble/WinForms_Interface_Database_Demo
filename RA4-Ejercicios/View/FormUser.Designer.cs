@@ -65,6 +65,8 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.AccessibleDescription = "Entrada de Fecha de Nacimiento";
+            this.dateTimePicker1.AccessibleName = "Fecha de Nacimiento";
             this.dateTimePicker1.Location = new System.Drawing.Point(284, 178);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(6);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -73,6 +75,8 @@
             // 
             // tbApe2
             // 
+            this.tbApe2.AccessibleDescription = "Introduce el Segundo Apellido";
+            this.tbApe2.AccessibleName = "Caja Texto Segundo Apellido";
             this.tbApe2.Location = new System.Drawing.Point(284, 104);
             this.tbApe2.Margin = new System.Windows.Forms.Padding(11);
             this.tbApe2.Name = "tbApe2";
@@ -81,6 +85,8 @@
             // 
             // tbApe1
             // 
+            this.tbApe1.AccessibleDescription = "Introduce el apellido";
+            this.tbApe1.AccessibleName = "Caja Texto Apellido";
             this.tbApe1.Location = new System.Drawing.Point(284, 66);
             this.tbApe1.Margin = new System.Windows.Forms.Padding(11);
             this.tbApe1.Name = "tbApe1";
@@ -89,6 +95,9 @@
             // 
             // tbNombre
             // 
+            this.tbNombre.AccessibleDescription = "Introduce el nombre";
+            this.tbNombre.AccessibleName = "Caja Texto Nombre";
+            this.tbNombre.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.tbNombre.Location = new System.Drawing.Point(284, 30);
             this.tbNombre.Margin = new System.Windows.Forms.Padding(11);
             this.tbNombre.Name = "tbNombre";
@@ -152,6 +161,9 @@
             // 
             // buttonClear
             // 
+            this.buttonClear.AccessibleDescription = "Botón para limpiar todas las cajas de texto";
+            this.buttonClear.AccessibleName = "Botón Limpiar";
+            this.buttonClear.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonClear.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClear.Location = new System.Drawing.Point(284, 398);
             this.buttonClear.Name = "buttonClear";
@@ -163,6 +175,9 @@
             // 
             // buttonSave
             // 
+            this.buttonSave.AccessibleDescription = "Botón para guardar y enviar el Usuario del formulario";
+            this.buttonSave.AccessibleName = "Botón Guardar";
+            this.buttonSave.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonSave.Location = new System.Drawing.Point(534, 398);
             this.buttonSave.Name = "buttonSave";
@@ -174,6 +189,8 @@
             // 
             // tbNIF
             // 
+            this.tbNIF.AccessibleDescription = "Introduce el NIF";
+            this.tbNIF.AccessibleName = "Caja NIF";
             this.tbNIF.Location = new System.Drawing.Point(284, 216);
             this.tbNIF.Mask = "00000000";
             this.tbNIF.Name = "tbNIF";
@@ -182,6 +199,9 @@
             // 
             // buttonClose
             // 
+            this.buttonClose.AccessibleDescription = "Botón para cerrar la aplicación";
+            this.buttonClose.AccessibleName = "Botón Cerrar";
+            this.buttonClose.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.Location = new System.Drawing.Point(53, 398);
             this.buttonClose.Name = "buttonClose";
@@ -204,6 +224,8 @@
             // 
             // numSalary
             // 
+            this.numSalary.AccessibleDescription = "Introduce el Salario";
+            this.numSalary.AccessibleName = "Caja Salario";
             this.numSalary.DecimalPlaces = 2;
             this.numSalary.Location = new System.Drawing.Point(284, 142);
             this.numSalary.Maximum = new decimal(new int[] {
@@ -294,6 +316,8 @@
             // 
             // cortarToolStripMenuItem
             // 
+            this.cortarToolStripMenuItem.AccessibleDescription = "Cortar texto";
+            this.cortarToolStripMenuItem.AccessibleName = "Cortar Texto";
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.cortarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -302,6 +326,8 @@
             // 
             // copiarToolStripMenuItem
             // 
+            this.copiarToolStripMenuItem.AccessibleDescription = "Copiar Texto";
+            this.copiarToolStripMenuItem.AccessibleName = "Copiar Texto";
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -309,6 +335,8 @@
             // 
             // pegarToolStripMenuItem
             // 
+            this.pegarToolStripMenuItem.AccessibleDescription = "Pegar Texto";
+            this.pegarToolStripMenuItem.AccessibleName = "Pegar Texto";
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);

@@ -79,7 +79,7 @@ namespace RA4_Ejercicios.View
                 }
                 if (o is NumericUpDown)
                 {
-                    ListOfTextBoxBases.Add((getTextBoxFromNumericUpDown(o as NumericUpDown));
+                    ListOfTextBoxBases.Add((getTextBoxFromNumericUpDown(o as NumericUpDown)));
                 }
             }
             return ListOfTextBoxBases;
