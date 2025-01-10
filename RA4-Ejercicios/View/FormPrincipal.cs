@@ -28,7 +28,7 @@ namespace RA4_Ejercicios
             this.userDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             this.userDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            this.userDataGridView.SelectionChanged += DataGridView1_SelectionChanged;
+            this.userDataGridView.SelectionChanged += userDataGridView_SelectionChanged;
             this.userDataGridView.AllowUserToAddRows = false;
             
         }
@@ -51,18 +51,19 @@ namespace RA4_Ejercicios
         }
 
         //Enables or disables the buttons
-        private void DataGridView1_SelectionChanged(object sender, EventArgs e)
+        private void userDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             
             var dgvUsers = sender as DataGridView;
-            
+
             if (dgvUsers.SelectedRows.Count > 0)
             {
                 //Always a possibility
                 buttonDeleteSelected.Enabled = true;
                 enableOrDisableModifyButton(dgvUsers);
                 enableOrDisableSaveModifySelectedButtons(dgvUsers);
-            } else
+            }
+            else
             {
                 buttonDeleteSelected.Enabled = false;
             }
@@ -110,8 +111,8 @@ namespace RA4_Ejercicios
         private void buttonCommit_Click(object sender, EventArgs e)
         {
 
-            DialogResult = MessageBox.Show("¿Guardar Cambios? ", "Info", MessageBoxButtons.YesNo) ;
-            if (DialogResult == DialogResult.Yes)
+            DialogResult d = MessageBox.Show("¿Guardar Cambios? ", "Info", MessageBoxButtons.YesNo) ;
+            if (d == DialogResult.Yes)
             {
                 U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
             }
@@ -122,17 +123,7 @@ namespace RA4_Ejercicios
             DialogResult = MessageBox.Show("¿Revertir cambios? ", "Advertencia", MessageBoxButtons.YesNo);
             if (DialogResult == DialogResult.Yes)
             {
-                List<User> tempList = new List<User>();
-                foreach (User u in U_DB_C.getUserList())
-                {
-                    if (u.getTempStatus())
-                    {
-                        tempList.Add(u);
-                    }
-                }
-
-                U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(tempList);
-                U_DB_C.RemoveTempUsers(U_DB_C.getUserList());
+                U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(U_DB_C.getUserList());
             }
         }
 
@@ -142,13 +133,15 @@ namespace RA4_Ejercicios
             foreach (DataGridViewRow row in userDataGridView.SelectedRows)
             {
                 User u = row.DataBoundItem as User;
-                u.setTempStatus(false);
+                U_DB_C.saveUser(u);
             }
             U_DB_C.getUserBindingList().ResetBindings();
         }
 
         private void deleteSelectedButton_Click(object sender, EventArgs e)
         {
+
+            //TODO: Actually save the deletion and stuff for refetching
             foreach (DataGridViewRow row in userDataGridView.SelectedRows)
             {
                 User u = row.DataBoundItem as User;
@@ -188,23 +181,12 @@ namespace RA4_Ejercicios
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
-            int nifKey = userToEdit.nif;
-            U_DB_C.getUsersBackupList().Add(userToEdit);
-            U_DB_C.getUserList().Remove(userToEdit);
-
-            //This form is the responsible for adding the new user to the list.
-            FormUser f = new FormUser(this, userToEdit, true);
-            this.Hide();
-            f.ShowDialog();
-
-            //In case the form exited abruptly
-            if (!U_DB_C.getUserList().Any(u => u.nif == userToEdit.nif))
+            if (userDataGridView.SelectedRows.Count == 1)
             {
-                U_DB_C.getUserList().Add(userToEdit);
-                U_DB_C.getUsersBackupList().Remove(userToEdit);
-                MessageBox.Show("Form exited without any changes");
-            }
+                User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
+                U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
+            } 
+
         }
 
         private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -226,6 +208,16 @@ namespace RA4_Ejercicios
         private void buttonRevertSelected_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void userDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //TODO : FIX CRASH
+            DataGridViewRow rowSelected = userDataGridView.Rows[e.RowIndex];
+            if (rowSelected.DataBoundItem is User)
+            {
+                rowSelected.Selected = true;
+            }
         }
     }
 }

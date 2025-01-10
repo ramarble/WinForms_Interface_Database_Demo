@@ -206,6 +206,7 @@ namespace RA4_Ejercicios
             this.userDataGridView.Name = "userDataGridView";
             this.userDataGridView.Size = new System.Drawing.Size(942, 419);
             this.userDataGridView.TabIndex = 14;
+            this.userDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.userDataGridView_CellClick);
             // 
             // buttonSaveAll
             // 

@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
+using RA4_Ejercicios.View;
 
 namespace RA4_Ejercicios.Controller
 {
@@ -131,6 +132,7 @@ namespace RA4_Ejercicios.Controller
         public static void TurnTempUsersIntoPermanent(List<User> userList)
         {
             //TODO: check for deletions later
+
             foreach (User u in userList)
             {
                 if (u.getTempStatus())
@@ -142,39 +144,35 @@ namespace RA4_Ejercicios.Controller
             }
         }
 
-        public static void RemoveTempUsers(List<User> userList)
+        public static List<User> getSlicedListWithTempUsers(List<User> userList)
         {
-            //O(n) + O(n) with low memory footprint
-            LinkedList<User> tempUsers = new LinkedList<User>();
+            List<User> tempUsers = new List<User>();
             foreach (User u in userList)
             {
                 if (u.getTempStatus())
                 {
-                    tempUsers.AddLast(u);
+                    tempUsers.Add(u);
                 }
             }
-
-            foreach (User u in tempUsers)
-            {
-                userList.Remove(u);
-            }
-            userBindingList.ResetBindings();
+            return tempUsers;
         }
 
-        public static void restoreAllUsersFromBackupAndEmptyBackup(List<User> li)
+        public static void restoreAllUsersFromBackupAndEmptyBackup(List<User> userList)
         {
-            foreach (User utemp in li)
+            List<User> tempUsers = getSlicedListWithTempUsers(userList);
+            foreach (User utemp in tempUsers)
             {
                 foreach (User backup in getUsersBackupList())
                 {
                     if (utemp.nif == backup.nif)
                     {
-                        getUserList().Remove(utemp);
-                        getUserList().Add(backup);
-                        getUsersBackupList().Remove(backup);
+                        userList.Remove(utemp);
+                        userList.Add(backup);
                     }
                 }
             }
+            getUsersBackupList().Clear();
+            getUserBindingList().ResetBindings();
         }
 
         public static User fetchUserByNIF(List<User> listToSearch, int nifKey)
@@ -182,16 +180,34 @@ namespace RA4_Ejercicios.Controller
             return listToSearch.Find(u => u.nif == nifKey);
         }
 
-        public static User revertSingleUser(User userToRevert, BindingList<User> listToUpdate)
+        public static void revertSingleUser(User userToRevert, BindingList<User> listToUpdate)
         {
-
             User sameUserInBackup = fetchUserByNIF(getUsersBackupList(), userToRevert.nif);
             listToUpdate.Remove(userToRevert);
             listToUpdate.Add(sameUserInBackup);
             getUsersBackupList().Remove(sameUserInBackup);
 
-            return sameUserInBackup;
-           
+        }
+
+        public static void modifyUser(User userToEdit, BindingList<User> userList, Form SourceForm)
+        {
+            getUsersBackupList().Add(userToEdit);
+            userList.Remove(userToEdit);
+
+            //This form is the responsible for adding the new user to the list.
+            FormUser f = new FormUser(SourceForm, userToEdit, true);
+            SourceForm.Hide();
+            f.ShowDialog();
+
+
+            //In case the form exited abruptly
+            if (!userList.Any(u => u.nif == userToEdit.nif))
+            {
+                userList.Add(userToEdit);
+                getUsersBackupList().Remove(userToEdit);
+                MessageBox.Show("Form exited without any changes");
+            }
+
         }
 
         public static void saveUser(User user)

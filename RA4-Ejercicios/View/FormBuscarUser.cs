@@ -114,23 +114,7 @@ namespace RA4_Ejercicios.View
         {
             User userToEdit = (User)userPropertyGrid.SelectedObject;
             int nifKey = userToEdit.nif;
-            U_DB_C.getUsersBackupList().Add(userToEdit);
-            this.userList.Remove(userToEdit);
-
-            //This form is the responsible for adding the new user to the list.
-            FormUser f = new FormUser(this, userToEdit, true);
-            this.Hide();
-            f.ShowDialog();
-
-
-            //In case the form exited abruptly
-            if (!userList.Any(u => u.nif == userToEdit.nif))
-            {
-                this.userList.Add(userToEdit);
-                U_DB_C.getUsersBackupList().Remove(userToEdit);
-                MessageBox.Show("Form exited without any changes");
-            }
-
+            U_DB_C.modifyUser(userToEdit, this.userList, this);
             //Sets the pointer correctly
             UpdateListBoxPointerByNIF(nifKey);
 
@@ -142,12 +126,11 @@ namespace RA4_Ejercicios.View
         }
 
 
-
         private void buttonRevert_Click(object sender, EventArgs e)
         {
             User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
-            User sameUserInBackup = U_DB_C.revertSingleUser(userWithTempFlag, this.userList);
-            this.userListBox.SetSelected(userList.IndexOf(sameUserInBackup), true);
+            U_DB_C.revertSingleUser(userWithTempFlag, this.userList);
+            this.userListBox.SetSelected(userList.IndexOf(userList.First(it => it.nif == userWithTempFlag.nif)), true);
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
