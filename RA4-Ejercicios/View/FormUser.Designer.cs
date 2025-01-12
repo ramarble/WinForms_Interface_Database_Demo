@@ -67,6 +67,7 @@
             // 
             this.dtpFechaNacimiento.AccessibleDescription = "Entrada de Fecha de Nacimiento";
             this.dtpFechaNacimiento.AccessibleName = "Fecha de Nacimiento";
+            this.dtpFechaNacimiento.CustomFormat = "dd/MM/yyyy";
             this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaNacimiento.Location = new System.Drawing.Point(284, 211);
             this.dtpFechaNacimiento.Margin = new System.Windows.Forms.Padding(6);

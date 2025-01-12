@@ -68,31 +68,9 @@ namespace RA4_Ejercicios.View
 
         }
 
-        private List<TextBoxBase> listOfTextBoxesInForm(Form sender)
-        {
-            List<TextBoxBase> ListOfTextBoxBases = new List<TextBoxBase>();
-            foreach (Object o in sender.Controls)
-            {
-                if (o is TextBoxBase)
-                {
-                    ListOfTextBoxBases.Add((o as TextBoxBase));
-                }
-                if (o is NumericUpDown)
-                {
-                    ListOfTextBoxBases.Add((getTextBoxFromNumericUpDown(o as NumericUpDown)));
-                }
-            }
-            return ListOfTextBoxBases;
-        }
-
-        private Boolean isAnyTextBoxEmptyInForm(Form sender)
-        {
-            return listOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
-        }
-
         private void SaveUserAsTemp(object sender, EventArgs e)
         {
-            if (isAnyTextBoxEmptyInForm(this))
+            if (Utils.isAnyTextBoxEmptyInForm(this))
             {
                 MessageBox.Show("Por favor rellena todos los campos");
                 DialogResult = DialogResult.None;
@@ -121,7 +99,7 @@ namespace RA4_Ejercicios.View
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            foreach (TextBoxBase t in listOfTextBoxesInForm(this))
+            foreach (TextBoxBase t in Utils.listOfTextBoxesInForm(this))
             {
 
                 if (!t.ReadOnly)
@@ -149,38 +127,13 @@ namespace RA4_Ejercicios.View
 
         private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.ActiveControl is TextBoxBase)
-            {
-                cutText(this.ActiveControl as TextBoxBase);
-
-            } else if (this.ActiveControl is NumericUpDown)
-            {
-                cutText(getTextBoxFromNumericUpDown(this.ActiveControl as NumericUpDown));
-            }
-        }
-        private void cutText(TextBoxBase tbb)
-        {
-            if (tbb.SelectedText != "")
-            {
-                tbb.Cut();
-            }
-        }
-
-        private TextBox getTextBoxFromNumericUpDown(NumericUpDown nud)
-        {
-            return nud.Controls.OfType<TextBox>().FirstOrDefault() as TextBox;
+            Utils.cutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
         }
 
         private void pegarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.ActiveControl is TextBoxBase)
-            {
-                TextBoxBase c = this.ActiveControl as TextBoxBase;
-                c.Paste();
-            } else if (this.ActiveControl is NumericUpDown)
-            {
-                getTextBoxFromNumericUpDown(this.ActiveControl as NumericUpDown).Paste();
-            }
+            Utils.TextBoxBaseFromControl(this.ActiveControl).Paste();
         }
+
     }
 }

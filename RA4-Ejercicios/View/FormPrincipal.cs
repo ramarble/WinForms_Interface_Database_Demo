@@ -31,7 +31,7 @@ namespace RA4_Ejercicios
             this.userDataGridView.SelectionChanged += userDataGridView_SelectionChanged;
             this.userDataGridView.AllowUserToAddRows = false;
             this.userDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            
+            this.userDataGridView.Columns[6].DefaultCellStyle.Format = "dd/MM/yyyy";
         }
         public formPrincipal()
         {

@@ -247,7 +247,7 @@ namespace RA4_Ejercicios
             this.userDataGridView.Name = "userDataGridView";
             this.userDataGridView.Size = new System.Drawing.Size(942, 419);
             this.userDataGridView.TabIndex = 14;
-            // 
+                // 
             // buttonSaveAll
             // 
             this.buttonSaveAll.AccessibleDescription = "Botón para guardar todos los cambios no guardados";
