@@ -1,18 +1,11 @@
-﻿using RA4_Ejercicios.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
-using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 using System.IO;
-using System.Xml;
+using System.Linq;
+using System.Windows.Forms;
+using System.Xml.Serialization;
+using RA4_Ejercicios.Model;
 using RA4_Ejercicios.View;
 
 namespace RA4_Ejercicios.Controller
@@ -22,10 +15,10 @@ namespace RA4_Ejercicios.Controller
         static List<User> UsersBackupList = new List<User>();
         static List<User> userList = createUserList();
         static BindingList<User> userBindingList = new BindingList<User>(userList);
-        private static List<User> createUserList() 
+        private static List<User> createUserList()
         {
             List<User> userList = new List<User>();
-            String[] listaNombres = { "Mrsha", "Lyonette", "Numbtongue", "Erin", "Bird"};
+            String[] listaNombres = { "Mrsha", "Lyonette", "Numbtongue", "Erin", "Bird" };
             String[] listaApellido1 = { "du", "du", "Redfang", "Summer", "" };
             String[] listaApellido2 = { "Marquin", "Marquin", "Solstice", "Solstice", "" };
             decimal[] listaSalarios = { 1332.30m, 11234.68m, 1134.7m, 1222.66m, 10.80m };
@@ -39,7 +32,7 @@ namespace RA4_Ejercicios.Controller
                 };
             int[] listaNIF = { 01234567, 99999999, 00000001, 00000000, 87665443 };
 
-            for (int i  = 0;  i < listaNIF.Length; i++)
+            for (int i = 0; i < listaNIF.Length; i++)
             {
                 userList.Add(
                    new User(
@@ -50,7 +43,7 @@ namespace RA4_Ejercicios.Controller
                     listaSalarios[i],
                     listaFechasNacimiento[i],
                     listaNIF[i]));
-        }
+            }
 
             //TODO: Maybe move this somewhere else
             turnIntoXMLFile(userList);
@@ -188,7 +181,8 @@ namespace RA4_Ejercicios.Controller
                 listToUpdate.Remove(userToRevert);
                 listToUpdate.Add(sameUserInBackup);
                 getUsersBackupList().Remove(sameUserInBackup);
-            } else
+            }
+            else
             {
                 listToUpdate.Remove(userToRevert);
             }

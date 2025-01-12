@@ -1,17 +1,11 @@
-﻿using RA4_Ejercicios.Controller;
-using RA4_Ejercicios.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using RA4_Ejercicios.Controller;
+using RA4_Ejercicios.Model;
 using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
-using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
-using System.IO;
 
 namespace RA4_Ejercicios.View
 {
@@ -21,7 +15,7 @@ namespace RA4_Ejercicios.View
         //have been edited in the case they need to be fetched back
 
         Form owner;
-        public FormBuscarUser(Form sender) 
+        public FormBuscarUser(Form sender)
         {
             InitializeComponent();
 
@@ -41,7 +35,8 @@ namespace RA4_Ejercicios.View
             if (U_DB_C.getUserBindingList().Count > 0)
             {
                 userListBox.SetSelected(0, true);
-            } else
+            }
+            else
             {
                 buttonModify.Enabled = false;
             }
@@ -133,7 +128,7 @@ namespace RA4_Ejercicios.View
             if (SelectedItem != null)
             {
                 int nifKey = (SelectedItem as User).nif;
-                int userIndex = 
+                int userIndex =
                     U_DB_C.getUserBindingList().IndexOf(
                     U_DB_C.getUserBindingList().FirstOrDefault(user => user.nif == nifKey));
                 if (userIndex != -1)

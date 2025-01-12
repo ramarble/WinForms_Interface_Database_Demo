@@ -1,9 +1,5 @@
-﻿using RA4_Ejercicios.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using RA4_Ejercicios.Model;
 
 namespace RA4_Ejercicios.Controller
 {

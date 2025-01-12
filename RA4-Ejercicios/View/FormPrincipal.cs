@@ -1,18 +1,12 @@
-﻿using RA4_Ejercicios.Controller;
-using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
-using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
-using RA4_Ejercicios.Model;
-using RA4_Ejercicios.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using RA4_Ejercicios.Controller;
+using RA4_Ejercicios.Model;
+using RA4_Ejercicios.View;
+using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
+using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
 
 namespace RA4_Ejercicios
 {
@@ -21,7 +15,7 @@ namespace RA4_Ejercicios
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
-            
+
             this.userDataGridView.DataSource = U_DB_C.getUserBindingList();
             SUEC.UserSaved += U_DB_C.userReceived;
             this.userDataGridView.AutoGenerateColumns = true;
@@ -46,7 +40,8 @@ namespace RA4_Ejercicios
             {
                 buttonRevertAll.Enabled = true;
                 buttonSaveAll.Enabled = true;
-            } else
+            }
+            else
             {
                 buttonRevertAll.Enabled = false;
                 buttonSaveAll.Enabled = false;
@@ -56,7 +51,7 @@ namespace RA4_Ejercicios
         //Enables or disables the buttons
         private void ReactToChangesToList(object sender, EventArgs e)
         {
-            
+
             if (userDataGridView.SelectedRows.Count > 0)
             {
                 //Always a possibility
@@ -195,7 +190,7 @@ namespace RA4_Ejercicios
         private void buttonModify_Click(object sender, EventArgs e)
         {
             User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
-            U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);            
+            U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
         }
 
         private void maximizarToolStrip_Click(object sender, EventArgs e)
@@ -203,7 +198,8 @@ namespace RA4_Ejercicios
             if (WindowState != FormWindowState.Maximized)
             {
                 WindowState = FormWindowState.Maximized;
-            } else
+            }
+            else
             {
                 WindowState = FormWindowState.Normal;
             }

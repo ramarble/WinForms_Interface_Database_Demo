@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
 
 namespace RA4_Ejercicios.Model
 {
@@ -35,7 +31,8 @@ namespace RA4_Ejercicios.Model
         [DisplayName("Fecha Nacimiento")]
         public DateTime birthdate { get; set; }
         private Boolean tempStatus { get; set; }
-        public void setTempStatus(Boolean temp) { 
+        public void setTempStatus(Boolean temp)
+        {
             this.tempStatus = temp;
             this.tempChar = temp ? '*' : '\0';
         }
@@ -58,7 +55,7 @@ namespace RA4_Ejercicios.Model
         public User(Boolean temp, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
         {
             this.tempStatus = temp;
-            
+
             //This is a read-only attribute for display in spreadsheet format,
             //also probably unnecessary if I did things a different way
             this.tempChar = temp ? '*' : '\0';
@@ -70,7 +67,7 @@ namespace RA4_Ejercicios.Model
             this.nif = nif;
             this.birthdate = birthdate;
         }
-        
+
 
     }
 }

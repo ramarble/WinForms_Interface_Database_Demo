@@ -1,14 +1,10 @@
-﻿using RA4_Ejercicios.Model;
-using Microsoft.Reporting.WinForms;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Reporting.WinForms;
+using RA4_Ejercicios.Model;
 
 namespace RA4_Ejercicios.View
 {
@@ -36,7 +32,8 @@ namespace RA4_Ejercicios.View
             if (maskedTextBox1.Text.ToString() == "")
             {
                 ReportForm_Load(null, null);
-            } else
+            }
+            else
             {
                 this.reportViewer1.LocalReport.DataSources.Clear();
                 var newUserList = userList.Where(it => it.nif.ToString().Contains(maskedTextBox1.Text.ToString()));

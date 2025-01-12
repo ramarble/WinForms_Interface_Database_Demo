@@ -1,18 +1,10 @@
-﻿using RA4_Ejercicios.Controller;
-using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
-using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
-using RA4_Ejercicios.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using RA4_Ejercicios.Controller;
+using RA4_Ejercicios.Model;
+using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
+using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
 
 namespace RA4_Ejercicios.View
 {
@@ -20,7 +12,7 @@ namespace RA4_Ejercicios.View
     {
         Form parent;
         Boolean editMode;
-        User userReference = new User(true, "debug","debug","debug",123.0M,DateTime.Today,1234556);
+        User userReference = new User(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
 
         private void UserForm_Load(object sender, EventArgs e)
         {
@@ -78,10 +70,13 @@ namespace RA4_Ejercicios.View
                 MessageBox.Show("Por favor rellena todos los campos");
                 DialogResult = DialogResult.None;
 
-            } else if (U_DB_C.isNIFPresentInList(U_DB_C.getUserList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", "")))){
+            }
+            else if (U_DB_C.isNIFPresentInList(U_DB_C.getUserList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""))))
+            {
                 MessageBox.Show("Ya hay un usuario con ese NIF presente.");
                 DialogResult = DialogResult.None;
-            } else 
+            }
+            else
             {
                 User u = new User(userReference.getTempStatus(), tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
@@ -89,12 +84,15 @@ namespace RA4_Ejercicios.View
                     decimal.Parse(numSalary.Text.ToString(), NumberStyles.Any),
                     dtpFechaNacimiento.Value,
                     usernif);
-                if (u.Equals(userReference)) {
+                if (u.Equals(userReference))
+                {
                     u.setTempStatus(false);
                     U_DB_C.getUsersBackupList().Remove(userReference);
-                }else {
+                }
+                else
+                {
                     u.setTempStatus(true);
-                    };
+                };
                 SUEC.UserSavedTrigger(this, new EventSendUser(
                     u, editMode));
 
@@ -116,7 +114,7 @@ namespace RA4_Ejercicios.View
                 {
                     t.Text = "";
                 }
-                
+
             }
             this.DialogResult = DialogResult.None;
 
@@ -132,7 +130,7 @@ namespace RA4_Ejercicios.View
 
         private void numSalary_Enter(object sender, EventArgs e)
         {
-            if (numSalary.Text.ToString() != "" )
+            if (numSalary.Text.ToString() != "")
             {
                 numSalary.Select(0, numSalary.Text.Length);
             }

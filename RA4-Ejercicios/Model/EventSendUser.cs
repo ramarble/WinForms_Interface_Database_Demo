@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using RA4_Ejercicios.View;
 
 namespace RA4_Ejercicios.Model
-    {
+{
     public class EventSendUser : EventArgs
     {
         User u { get; set; }
