@@ -10,9 +10,15 @@ FormBuscarUser
 
 TODO:
 Context menu in FormPrincipal.cs to delete and or create
+
 yet another button, this one to create a new user.
+
 Go through the issues and close the big ones 
+
 XML/Json read/write
+
 database implementation (real)
+
 documentation
+
 lol
