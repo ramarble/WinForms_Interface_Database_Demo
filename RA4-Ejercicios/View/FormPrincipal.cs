@@ -30,6 +30,7 @@ namespace RA4_Ejercicios
             this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.userDataGridView.SelectionChanged += userDataGridView_SelectionChanged;
             this.userDataGridView.AllowUserToAddRows = false;
+            this.userDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             
         }
         public formPrincipal()
@@ -208,16 +209,6 @@ namespace RA4_Ejercicios
         private void buttonRevertSelected_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void userDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //TODO : FIX CRASH
-            DataGridViewRow rowSelected = userDataGridView.Rows[e.RowIndex];
-            if (rowSelected.DataBoundItem is User)
-            {
-                rowSelected.Selected = true;
-            }
         }
     }
 }

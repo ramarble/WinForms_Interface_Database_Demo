@@ -49,7 +49,7 @@
             this.userListBox.Location = new System.Drawing.Point(25, 61);
             this.userListBox.Name = "userListBox";
             this.userListBox.Size = new System.Drawing.Size(153, 364);
-            this.userListBox.TabIndex = 0;
+            this.userListBox.TabIndex = 2;
             // 
             // filterFindUserTextBox
             // 
@@ -65,7 +65,7 @@
             this.buttonModify.Location = new System.Drawing.Point(711, 398);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(88, 36);
-            this.buttonModify.TabIndex = 3;
+            this.buttonModify.TabIndex = 5;
             this.buttonModify.Text = "Modificar";
             this.buttonModify.UseVisualStyleBackColor = true;
             this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
@@ -76,7 +76,7 @@
             this.buttonRevert.Location = new System.Drawing.Point(202, 398);
             this.buttonRevert.Name = "buttonRevert";
             this.buttonRevert.Size = new System.Drawing.Size(88, 36);
-            this.buttonRevert.TabIndex = 4;
+            this.buttonRevert.TabIndex = 3;
             this.buttonRevert.Text = "Revertir";
             this.buttonRevert.UseVisualStyleBackColor = true;
             this.buttonRevert.Click += new System.EventHandler(this.buttonRevert_Click);
@@ -87,7 +87,7 @@
             this.buttonSave.Location = new System.Drawing.Point(805, 398);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(88, 36);
-            this.buttonSave.TabIndex = 5;
+            this.buttonSave.TabIndex = 6;
             this.buttonSave.Text = "Guardar";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
@@ -121,7 +121,7 @@
             this.buttonRevertAll.Location = new System.Drawing.Point(296, 398);
             this.buttonRevertAll.Name = "buttonRevertAll";
             this.buttonRevertAll.Size = new System.Drawing.Size(127, 36);
-            this.buttonRevertAll.TabIndex = 7;
+            this.buttonRevertAll.TabIndex = 4;
             this.buttonRevertAll.Text = "Revertir TODO";
             this.buttonRevertAll.UseVisualStyleBackColor = true;
             // 
@@ -131,7 +131,7 @@
             this.buttonSaveAll.Location = new System.Drawing.Point(899, 398);
             this.buttonSaveAll.Name = "buttonSaveAll";
             this.buttonSaveAll.Size = new System.Drawing.Size(127, 36);
-            this.buttonSaveAll.TabIndex = 8;
+            this.buttonSaveAll.TabIndex = 7;
             this.buttonSaveAll.Text = "Guardar TODO";
             this.buttonSaveAll.UseVisualStyleBackColor = true;
             // 
