@@ -9,16 +9,10 @@ FormBuscarUser
 
 
 TODO:
-Mensajes de información, advertencia, error y confirmación si los necesito.
-Copiar, pegar y cortar el texto seleccionado, por algún motivo.
-Botón de Ayuda, Acerca de
-Ir por las issues abiertas y cerrar alguna muy importante
-
-ENHANCEMENTS:
-Añadir botón de SAVE ALL y REVERT ALL
-
-
-Hacer en clase:
-Añadir las medidas necesarias para, en el futuro, poder implementar la opción
-del lector de pantalla. ????
-Save and Load from XML/JSON 
+Context menu in FormPrincipal.cs to delete and or create
+yet another button, this one to create a new user.
+Go through the issues and close the big ones 
+XML/Json read/write
+database implementation (real)
+documentation
+lol
