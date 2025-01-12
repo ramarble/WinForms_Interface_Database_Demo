@@ -114,7 +114,10 @@ namespace RA4_Ejercicios.View
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (DialogBoxes.ExitWithoutSaving() == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void numSalary_Enter(object sender, EventArgs e)
@@ -135,5 +138,9 @@ namespace RA4_Ejercicios.View
             Utils.TextBoxBaseFromControl(this.ActiveControl).Paste();
         }
 
+        private void onClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
     }
 }

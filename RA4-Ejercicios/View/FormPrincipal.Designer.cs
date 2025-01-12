@@ -348,6 +348,7 @@ namespace RA4_Ejercicios
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "formPrincipal";
             this.Text = "Principal";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.formPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

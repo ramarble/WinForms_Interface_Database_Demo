@@ -140,11 +140,7 @@ namespace RA4_Ejercicios.View
 
         private void OnClosing(object sender, FormClosingEventArgs e)
         {
-            if (U_DB_C.getUsersBackupList().Count > 0)
-            {
-                MessageBox.Show("Por favor confirma o revierte todos los cambios antes de salir");
-                e.Cancel = true;
-            }
+            Utils.preventClosingWithUncommittedChanges(e);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

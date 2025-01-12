@@ -186,6 +186,7 @@ namespace RA4_Ejercicios.Controller
             listToUpdate.Remove(userToRevert);
             listToUpdate.Add(sameUserInBackup);
             getUsersBackupList().Remove(sameUserInBackup);
+            listToUpdate.ResetBindings();
 
         }
 

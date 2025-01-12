@@ -185,12 +185,8 @@ namespace RA4_Ejercicios
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            if (userDataGridView.SelectedRows.Count == 1)
-            {
-                User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
-                U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
-            } 
-
+            User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
+            U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);            
         }
 
         private void maximizarToolStrip_Click(object sender, EventArgs e)
@@ -206,7 +202,16 @@ namespace RA4_Ejercicios
 
         private void buttonRevertSelected_Click(object sender, EventArgs e)
         {
+            if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
+            {
+                User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
+                U_DB_C.revertSingleUser(userToEdit, U_DB_C.getUserBindingList());
+            }
+        }
 
+        private void formPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Utils.preventClosingWithUncommittedChanges(e);
         }
     }
 }

@@ -410,6 +410,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "FormUser";
             this.Text = "Create a new user";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UserAdd_FormClosed);
             this.Load += new System.EventHandler(this.UserForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numSalary)).EndInit();

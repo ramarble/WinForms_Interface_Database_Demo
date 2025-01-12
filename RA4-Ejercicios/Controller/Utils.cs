@@ -57,5 +57,15 @@ namespace RA4_Ejercicios.Controller
         {
             return listOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
         }
+
+        public static void preventClosingWithUncommittedChanges(FormClosingEventArgs e)
+        {
+            if (UserDatabaseController.getUsersBackupList().Count > 0 |
+                (UserDatabaseController.getSlicedListWithTempUsers(UserDatabaseController.getUserList())).Count > 0)
+            {
+                DialogBoxes.WARN_UncommittedChanges();
+                e.Cancel = true;
+            }
+        }
     }
 }
