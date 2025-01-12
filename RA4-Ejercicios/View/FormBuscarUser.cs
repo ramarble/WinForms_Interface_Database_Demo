@@ -46,7 +46,6 @@ namespace RA4_Ejercicios.View
             }
 
             userListBox.SelectionMode = SelectionMode.One;
-            userListBox.DataSourceChanged += DataUpdated;
             buttonRevert.Enabled = false;
             buttonSave.Enabled = false;
             userPropertyGrid.PropertySort = PropertySort.NoSort;
@@ -54,10 +53,6 @@ namespace RA4_Ejercicios.View
             tooltipTextBox.SetToolTip(this.filterFindUserTextBox, "Puedes encontrar un usuario por su NIF o nombre. (también lo he puesto aquí.))");
         }
 
-        private void DataUpdated(object sender, EventArgs e) 
-        {
-            //MessageBox.Show("hi! :D");
-        }
 
         protected override void OnClosed(EventArgs e)
         {
@@ -67,7 +62,7 @@ namespace RA4_Ejercicios.View
             base.OnClosed(e);
         }
 
-        //idk????
+        //Unsure as to what this was used for. Staying here in case I need it in the future.
         private void userSent(object sender, EventSendUser e)
         {
             U_DB_C.addUserToList(U_DB_C.getUserList(), e.getUsuario(), e.getEditMode());
@@ -93,9 +88,19 @@ namespace RA4_Ejercicios.View
                 buttonRevert.Enabled = false;
                 buttonSave.Enabled = false;
             }
+
+            if (U_DB_C.getUsersBackupList().Count > 0)
+            {
+                buttonRevertAll.Enabled = true;
+                buttonSaveAll.Enabled = true;
+            } else
+            {
+                buttonRevertAll.Enabled = false;
+                buttonSaveAll.Enabled = false; 
+            }
         }
 
-        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        private void DynamicSearchBarUpdate(object sender, KeyEventArgs e)
         {
             List<User> lista = this.userList.Where(user => user.nif.ToString().Contains(filterFindUserTextBox.Text)).ToList();
 
@@ -122,7 +127,7 @@ namespace RA4_Ejercicios.View
 
         private void UpdateListBoxPointerByNIF(int nifKey)
         {
-            this.userListBox.SetSelected(userList.IndexOf(userList.Single(user => user.nif == nifKey)), true);
+            this.userListBox.SetSelected(userList.IndexOf(userList.First(user => user.nif == nifKey)), true);
         }
 
 
@@ -130,7 +135,7 @@ namespace RA4_Ejercicios.View
         {
             User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
             U_DB_C.revertSingleUser(userWithTempFlag, this.userList);
-            this.userListBox.SetSelected(userList.IndexOf(userList.First(it => it.nif == userWithTempFlag.nif)), true);
+            UpdateListBoxPointerByNIF(userWithTempFlag.nif);
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
@@ -150,5 +155,23 @@ namespace RA4_Ejercicios.View
 
         }
 
+        private void buttonSaveAll_Click(object sender, EventArgs e)
+        {
+            if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
+            {
+                U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
+                UpdateListBoxPointerByNIF((userListBox.SelectedItem as User).nif);
+            }
+        }
+
+        private void buttonRevertAll_Click(object sender, EventArgs e)
+        {
+            if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
+            {
+                U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(U_DB_C.getUserList());
+                UpdateListBoxPointerByNIF((userListBox.SelectedItem as User).nif);
+
+            }
+        }
     }
 }

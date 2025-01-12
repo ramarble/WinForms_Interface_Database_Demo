@@ -45,7 +45,6 @@ namespace RA4_Ejercicios
             this.pegarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.alejarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userDataGridView = new System.Windows.Forms.DataGridView();
@@ -98,7 +97,7 @@ namespace RA4_Ejercicios
             this.nuevoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
-            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.New_Menu_Click);
             // 
             // buscarToolStripMenuItem
             // 
@@ -109,7 +108,7 @@ namespace RA4_Ejercicios
             this.buscarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.buscarToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.buscarToolStripMenuItem.Text = "Buscar";
-            this.buscarToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
+            this.buscarToolStripMenuItem.Click += new System.EventHandler(this.Search_Menu_Click);
             // 
             // guardarToolStripMenuItem
             // 
@@ -121,7 +120,7 @@ namespace RA4_Ejercicios
             | System.Windows.Forms.Keys.S)));
             this.guardarToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.guardarToolStripMenuItem.Text = "Guardar Todo";
-            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.saveAll_Menu_Click);
             // 
             // imprimirToolStripMenuItem
             // 
@@ -132,7 +131,7 @@ namespace RA4_Ejercicios
             this.imprimirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.imprimirToolStripMenuItem.Text = "Imprimir";
-            this.imprimirToolStripMenuItem.Click += new System.EventHandler(this.imprimirToolStripMenuItem_Click);
+            this.imprimirToolStripMenuItem.Click += new System.EventHandler(this.Print_Menu_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -143,7 +142,7 @@ namespace RA4_Ejercicios
             this.salirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.salirToolStripMenuItem.Text = "Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.Exit_Menu_Click);
             // 
             // ediciónToolStripMenuItem
             // 
@@ -153,9 +152,11 @@ namespace RA4_Ejercicios
             this.cortarToolStripMenuItem,
             this.copiarToolStripMenuItem,
             this.pegarToolStripMenuItem});
+            this.ediciónToolStripMenuItem.Enabled = false;
             this.ediciónToolStripMenuItem.Name = "ediciónToolStripMenuItem";
             this.ediciónToolStripMenuItem.Size = new System.Drawing.Size(58, 19);
             this.ediciónToolStripMenuItem.Text = "Edición";
+            this.ediciónToolStripMenuItem.Visible = false;
             // 
             // cortarToolStripMenuItem
             // 
@@ -164,9 +165,8 @@ namespace RA4_Ejercicios
             this.cortarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.cortarToolStripMenuItem.Text = "Cortar";
-            this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
             // 
             // copiarToolStripMenuItem
             // 
@@ -175,7 +175,7 @@ namespace RA4_Ejercicios
             this.copiarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.copiarToolStripMenuItem.Text = "Copiar";
             // 
             // pegarToolStripMenuItem
@@ -185,7 +185,7 @@ namespace RA4_Ejercicios
             this.pegarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.pegarToolStripMenuItem.Text = "Pegar";
             // 
             // verToolStripMenuItem
@@ -194,8 +194,7 @@ namespace RA4_Ejercicios
             this.verToolStripMenuItem.AccessibleName = "Menú Ver";
             this.verToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
             this.verToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.maximizarToolStripMenuItem,
-            this.alejarToolStripMenuItem});
+            this.maximizarToolStripMenuItem});
             this.verToolStripMenuItem.Name = "verToolStripMenuItem";
             this.verToolStripMenuItem.Size = new System.Drawing.Size(35, 19);
             this.verToolStripMenuItem.Text = "Ver";
@@ -210,12 +209,6 @@ namespace RA4_Ejercicios
             this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.maximizarToolStripMenuItem.Text = "Maximizar";
             this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.maximizarToolStrip_Click);
-            // 
-            // alejarToolStripMenuItem
-            // 
-            this.alejarToolStripMenuItem.Name = "alejarToolStripMenuItem";
-            this.alejarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.alejarToolStripMenuItem.Text = "Alejar";
             // 
             // ayudaToolStripMenuItem
             // 
@@ -247,7 +240,7 @@ namespace RA4_Ejercicios
             this.userDataGridView.Name = "userDataGridView";
             this.userDataGridView.Size = new System.Drawing.Size(942, 419);
             this.userDataGridView.TabIndex = 14;
-                // 
+            // 
             // buttonSaveAll
             // 
             this.buttonSaveAll.AccessibleDescription = "Botón para guardar todos los cambios no guardados";
@@ -261,7 +254,7 @@ namespace RA4_Ejercicios
             this.buttonSaveAll.TabIndex = 6;
             this.buttonSaveAll.Text = "Guardar Todo";
             this.buttonSaveAll.UseVisualStyleBackColor = true;
-            this.buttonSaveAll.Click += new System.EventHandler(this.buttonCommit_Click);
+            this.buttonSaveAll.Click += new System.EventHandler(this.buttonSaveAll_Click);
             // 
             // buttonRevertAll
             // 
@@ -379,7 +372,6 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.ToolStripMenuItem copiarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem maximizarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem alejarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.DataGridView userDataGridView;
         private System.Windows.Forms.Button buttonSaveAll;

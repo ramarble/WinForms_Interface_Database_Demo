@@ -354,6 +354,7 @@
             this.verToolStripMenuItem.Name = "verToolStripMenuItem";
             this.verToolStripMenuItem.Size = new System.Drawing.Size(35, 19);
             this.verToolStripMenuItem.Text = "Ver";
+            this.verToolStripMenuItem.Visible = false;
             // 
             // acercarToolStripMenuItem
             // 

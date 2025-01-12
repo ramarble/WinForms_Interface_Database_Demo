@@ -57,12 +57,15 @@
             this.filterFindUserTextBox.Name = "filterFindUserTextBox";
             this.filterFindUserTextBox.Size = new System.Drawing.Size(153, 20);
             this.filterFindUserTextBox.TabIndex = 1;
-            this.filterFindUserTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
+            this.filterFindUserTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DynamicSearchBarUpdate);
             // 
             // buttonModify
             // 
+            this.buttonModify.AccessibleDescription = "Botón para modificar el usuario seleccionado";
+            this.buttonModify.AccessibleName = "Botón Modificar";
+            this.buttonModify.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonModify.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonModify.Location = new System.Drawing.Point(711, 398);
+            this.buttonModify.Location = new System.Drawing.Point(711, 389);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(88, 36);
             this.buttonModify.TabIndex = 5;
@@ -73,7 +76,7 @@
             // buttonRevert
             // 
             this.buttonRevert.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonRevert.Location = new System.Drawing.Point(202, 398);
+            this.buttonRevert.Location = new System.Drawing.Point(202, 389);
             this.buttonRevert.Name = "buttonRevert";
             this.buttonRevert.Size = new System.Drawing.Size(88, 36);
             this.buttonRevert.TabIndex = 3;
@@ -83,8 +86,11 @@
             // 
             // buttonSave
             // 
+            this.buttonSave.AccessibleDescription = "Botón para guardar el usuario seleccionado";
+            this.buttonSave.AccessibleName = "Botón Guardar";
+            this.buttonSave.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonSave.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonSave.Location = new System.Drawing.Point(805, 398);
+            this.buttonSave.Location = new System.Drawing.Point(805, 389);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(88, 36);
             this.buttonSave.TabIndex = 6;
@@ -118,22 +124,27 @@
             // buttonRevertAll
             // 
             this.buttonRevertAll.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonRevertAll.Location = new System.Drawing.Point(296, 398);
+            this.buttonRevertAll.Location = new System.Drawing.Point(296, 389);
             this.buttonRevertAll.Name = "buttonRevertAll";
             this.buttonRevertAll.Size = new System.Drawing.Size(127, 36);
             this.buttonRevertAll.TabIndex = 4;
             this.buttonRevertAll.Text = "Revertir TODO";
             this.buttonRevertAll.UseVisualStyleBackColor = true;
+            this.buttonRevertAll.Click += new System.EventHandler(this.buttonRevertAll_Click);
             // 
             // buttonSaveAll
             // 
+            this.buttonSaveAll.AccessibleDescription = "Botón para guardar todos los cambios no guardados";
+            this.buttonSaveAll.AccessibleName = "Botón guardar todo";
+            this.buttonSaveAll.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonSaveAll.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonSaveAll.Location = new System.Drawing.Point(899, 398);
+            this.buttonSaveAll.Location = new System.Drawing.Point(899, 389);
             this.buttonSaveAll.Name = "buttonSaveAll";
             this.buttonSaveAll.Size = new System.Drawing.Size(127, 36);
             this.buttonSaveAll.TabIndex = 7;
             this.buttonSaveAll.Text = "Guardar TODO";
             this.buttonSaveAll.UseVisualStyleBackColor = true;
+            this.buttonSaveAll.Click += new System.EventHandler(this.buttonSaveAll_Click);
             // 
             // FormBuscarUser
             // 

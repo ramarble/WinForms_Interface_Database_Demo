@@ -31,6 +31,7 @@ namespace RA4_Ejercicios
             this.userDataGridView.SelectionChanged += userDataGridView_SelectionChanged;
             this.userDataGridView.AllowUserToAddRows = false;
             this.userDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //Hardcoded, 
             this.userDataGridView.Columns[6].DefaultCellStyle.Format = "dd/MM/yyyy";
         }
         public formPrincipal()
@@ -109,11 +110,10 @@ namespace RA4_Ejercicios
             }
         }
 
-        private void buttonCommit_Click(object sender, EventArgs e)
+        private void buttonSaveAll_Click(object sender, EventArgs e)
         {
 
-            DialogResult d = MessageBox.Show("¿Guardar Cambios? ", "Info", MessageBoxButtons.YesNo) ;
-            if (d == DialogResult.Yes)
+            if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
                 U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
             }
@@ -121,8 +121,7 @@ namespace RA4_Ejercicios
 
         private void buttonRevertAll_Click(object sender, EventArgs e)
         {
-            DialogResult = MessageBox.Show("¿Revertir cambios? ", "Advertencia", MessageBoxButtons.YesNo);
-            if (DialogResult == DialogResult.Yes)
+            if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
                 U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(U_DB_C.getUserList());
             }
@@ -131,50 +130,54 @@ namespace RA4_Ejercicios
 
         private void saveSelectedButton_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+            if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
-                User u = row.DataBoundItem as User;
-                U_DB_C.saveUser(u);
+                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                {
+                    User u = row.DataBoundItem as User;
+                    U_DB_C.saveUser(u);
+                }
+                U_DB_C.getUserBindingList().ResetBindings();
             }
-            U_DB_C.getUserBindingList().ResetBindings();
         }
 
         private void deleteSelectedButton_Click(object sender, EventArgs e)
         {
-
             //TODO: Actually save the deletion and stuff for refetching
-            foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+            if (DialogBoxes.DeleteConfirm() == DialogResult.Yes)
             {
-                User u = row.DataBoundItem as User;
-                U_DB_C.getUserBindingList().Remove(u);
+                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                {
+                    User u = row.DataBoundItem as User;
+                    U_DB_C.getUserBindingList().Remove(u);
+                }
+                U_DB_C.getUserBindingList().ResetBindings();
             }
-            U_DB_C.getUserBindingList().ResetBindings();
-
         }
 
-        private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveAll_Menu_Click(object sender, EventArgs e)
         {
-            buttonCommit_Click(sender, e);
+            buttonSaveAll_Click(sender, e);
         }
 
-        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Search_Menu_Click(object sender, EventArgs e)
         {
             Form DetailedView = new FormBuscarUser(U_DB_C.getUserBindingList(), this);
             DetailedView.ShowDialog(this);
         }
 
-        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void New_Menu_Click(object sender, EventArgs e)
         {
             Form newUserForm = new FormUser(this, false);
             newUserForm.ShowDialog(this);
         }
 
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Exit_Menu_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void imprimirToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Print_Menu_Click(object sender, EventArgs e)
         {
             Form reportForm = new ReportForm(U_DB_C.getUserList());
             reportForm.ShowDialog();
@@ -190,19 +193,14 @@ namespace RA4_Ejercicios
 
         }
 
-        private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveControl is TextBox)
-            {
-                MessageBox.Show("yep");
-            }
-        }
-
         private void maximizarToolStrip_Click(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Maximized)
             {
                 WindowState = FormWindowState.Maximized;
+            } else
+            {
+                WindowState = FormWindowState.Normal;
             }
         }
 
