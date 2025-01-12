@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5D1DFED3-4E04-4D42-B76F-C89BA1CEC8F3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>RA4_Ejercicios</RootNamespace>
-    <AssemblyName>RA4-Ejercicios</AssemblyName>
+    <RootNamespace>DatabaseInterfaceDemo</RootNamespace>
+    <AssemblyName>DatabaseInterfaceDemo</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -110,6 +110,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="View\FormBuscarUser.resx">
       <DependentUpon>FormBuscarUser.cs</DependentUpon>
