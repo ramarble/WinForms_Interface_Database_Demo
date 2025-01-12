@@ -41,6 +41,19 @@ namespace RA4_Ejercicios.Model
         }
         public Boolean getTempStatus() { return this.tempStatus; }
 
+        public override bool Equals(object obj)
+        {
+            return obj is User user &&
+                   tempChar == user.tempChar &&
+                   name == user.name &&
+                   surname1 == user.surname1 &&
+                   surname2 == user.surname2 &&
+                   salary == user.salary &&
+                   nif == user.nif &&
+                   birthdate == user.birthdate &&
+                   tempStatus == user.tempStatus;
+        }
+
         public User() { }
         public User(Boolean temp, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
         {
@@ -58,5 +71,6 @@ namespace RA4_Ejercicios.Model
             this.birthdate = birthdate;
         }
         
+
     }
 }

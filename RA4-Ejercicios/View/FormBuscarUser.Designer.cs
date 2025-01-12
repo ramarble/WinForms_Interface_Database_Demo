@@ -123,6 +123,7 @@
             // 
             // buttonRevertAll
             // 
+            this.buttonRevertAll.Enabled = false;
             this.buttonRevertAll.Font = new System.Drawing.Font("Arial", 12F);
             this.buttonRevertAll.Location = new System.Drawing.Point(296, 389);
             this.buttonRevertAll.Name = "buttonRevertAll";
@@ -137,6 +138,7 @@
             this.buttonSaveAll.AccessibleDescription = "Botón para guardar todos los cambios no guardados";
             this.buttonSaveAll.AccessibleName = "Botón guardar todo";
             this.buttonSaveAll.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
+            this.buttonSaveAll.Enabled = false;
             this.buttonSaveAll.Font = new System.Drawing.Font("Arial", 12F);
             this.buttonSaveAll.Location = new System.Drawing.Point(899, 389);
             this.buttonSaveAll.Name = "buttonSaveAll";

@@ -25,5 +25,10 @@ namespace RA4_Ejercicios.Model
             this.u = new User(temp, nom, ape1, ape2, salary, date, nif);
             this.editMode = editMode;
         }
+        public EventSendUser(User u, Boolean editMode)
+        {
+            this.u = u;
+            this.editMode = editMode;
+        }
     }
 }

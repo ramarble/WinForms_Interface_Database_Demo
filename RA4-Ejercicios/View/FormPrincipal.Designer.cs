@@ -53,7 +53,7 @@ namespace RA4_Ejercicios
             this.saveSelectedButton = new System.Windows.Forms.Button();
             this.buttonDeleteSelected = new System.Windows.Forms.Button();
             this.buttonModify = new System.Windows.Forms.Button();
-            this.buttonRevertSelected = new System.Windows.Forms.Button();
+            this.revertSelectedButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -318,25 +318,25 @@ namespace RA4_Ejercicios
             // 
             // buttonRevertSelected
             // 
-            this.buttonRevertSelected.AccessibleDescription = "Revertir los cambios no guardados que estén seleccionados";
-            this.buttonRevertSelected.AccessibleName = "Botón revertir seleccionados";
-            this.buttonRevertSelected.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
-            this.buttonRevertSelected.Enabled = false;
-            this.buttonRevertSelected.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonRevertSelected.Location = new System.Drawing.Point(150, 487);
-            this.buttonRevertSelected.Name = "buttonRevertSelected";
-            this.buttonRevertSelected.Size = new System.Drawing.Size(132, 62);
-            this.buttonRevertSelected.TabIndex = 2;
-            this.buttonRevertSelected.Text = "Revertir Seleccionados";
-            this.buttonRevertSelected.UseVisualStyleBackColor = true;
-            this.buttonRevertSelected.Click += new System.EventHandler(this.buttonRevertSelected_Click);
+            this.revertSelectedButton.AccessibleDescription = "Revertir los cambios no guardados que estén seleccionados";
+            this.revertSelectedButton.AccessibleName = "Botón revertir seleccionados";
+            this.revertSelectedButton.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
+            this.revertSelectedButton.Enabled = false;
+            this.revertSelectedButton.Font = new System.Drawing.Font("Arial", 12F);
+            this.revertSelectedButton.Location = new System.Drawing.Point(150, 487);
+            this.revertSelectedButton.Name = "buttonRevertSelected";
+            this.revertSelectedButton.Size = new System.Drawing.Size(132, 62);
+            this.revertSelectedButton.TabIndex = 2;
+            this.revertSelectedButton.Text = "Revertir Seleccionados";
+            this.revertSelectedButton.UseVisualStyleBackColor = true;
+            this.revertSelectedButton.Click += new System.EventHandler(this.revertSelectedButton_Click);
             // 
             // formPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(966, 568);
-            this.Controls.Add(this.buttonRevertSelected);
+            this.Controls.Add(this.revertSelectedButton);
             this.Controls.Add(this.buttonModify);
             this.Controls.Add(this.buttonDeleteSelected);
             this.Controls.Add(this.saveSelectedButton);
@@ -382,7 +382,7 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.Button buttonDeleteSelected;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
         private System.Windows.Forms.Button buttonModify;
-        private System.Windows.Forms.Button buttonRevertSelected;
+        private System.Windows.Forms.Button revertSelectedButton;
     }
 }
 

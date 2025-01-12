@@ -162,14 +162,7 @@ namespace RA4_Ejercicios.Controller
             List<User> tempUsers = getSlicedListWithTempUsers(userList);
             foreach (User utemp in tempUsers)
             {
-                foreach (User backup in getUsersBackupList())
-                {
-                    if (utemp.nif == backup.nif)
-                    {
-                        userList.Remove(utemp);
-                        userList.Add(backup);
-                    }
-                }
+                revertSingleUser(utemp, getUserBindingList());
             }
             getUsersBackupList().Clear();
             getUserBindingList().ResetBindings();
@@ -180,12 +173,26 @@ namespace RA4_Ejercicios.Controller
             return listToSearch.Find(u => u.nif == nifKey);
         }
 
+        public static Boolean isUserRevertable(User user)
+        {
+            return !(fetchUserByNIF(getUsersBackupList(), user.nif) == null);
+        }
+
+        //I'm SHOCKED beyond relief that this worked first try.
+
         public static void revertSingleUser(User userToRevert, BindingList<User> listToUpdate)
         {
-            User sameUserInBackup = fetchUserByNIF(getUsersBackupList(), userToRevert.nif);
-            listToUpdate.Remove(userToRevert);
-            listToUpdate.Add(sameUserInBackup);
-            getUsersBackupList().Remove(sameUserInBackup);
+            if (isUserRevertable(userToRevert))
+            {
+                User sameUserInBackup = fetchUserByNIF(getUsersBackupList(), userToRevert.nif);
+                listToUpdate.Remove(userToRevert);
+                listToUpdate.Add(sameUserInBackup);
+                getUsersBackupList().Remove(sameUserInBackup);
+            } else
+            {
+                listToUpdate.Remove(userToRevert);
+            }
+
             listToUpdate.ResetBindings();
 
         }

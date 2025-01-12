@@ -20,6 +20,7 @@ namespace RA4_Ejercicios.View
     {
         Form parent;
         Boolean editMode;
+        User userReference = new User(true, "debug","debug","debug",123.0M,DateTime.Today,1234556);
 
         private void UserForm_Load(object sender, EventArgs e)
         {
@@ -59,6 +60,7 @@ namespace RA4_Ejercicios.View
             this.editMode = editMode;
             InitializeComponent();
             //UserFormInitialize(sender);
+            userReference = u;
             tbNombre.Text = u.name;
             tbApe1.Text = u.surname1;
             tbApe2.Text = u.surname2;
@@ -70,26 +72,34 @@ namespace RA4_Ejercicios.View
 
         private void SaveUserAsTemp(object sender, EventArgs e)
         {
+            int usernif;
             if (Utils.isAnyTextBoxEmptyInForm(this))
             {
                 MessageBox.Show("Por favor rellena todos los campos");
                 DialogResult = DialogResult.None;
 
-            } else if (U_DB_C.isNIFPresentInList(U_DB_C.getUserList(), Int32.Parse(tbNIF.Text.ToString()))){
+            } else if (U_DB_C.isNIFPresentInList(U_DB_C.getUserList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", "")))){
                 MessageBox.Show("Ya hay un usuario con ese NIF presente.");
                 DialogResult = DialogResult.None;
             } else 
             {
-                SUEC.UserSavedTrigger(this, new EventSendUser(
-                    true,
-                    tbNombre.Text.ToString(),
+                User u = new User(userReference.getTempStatus(), tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
-                    decimal.Parse(numSalary.Text.ToString(),NumberStyles.Any),
+                    decimal.Parse(numSalary.Text.ToString(), NumberStyles.Any),
                     dtpFechaNacimiento.Value,
-                    Int32.Parse(tbNIF.Text.ToString()), editMode));
+                    usernif);
+                if (u.Equals(userReference)) {
+                    u.setTempStatus(false);
+                    U_DB_C.getUsersBackupList().Remove(userReference);
+                }else {
+                    u.setTempStatus(true);
+                    };
+                SUEC.UserSavedTrigger(this, new EventSendUser(
+                    u, editMode));
 
             }
+
         }
 
         private void UserAdd_FormClosed(object sender, FormClosedEventArgs e)

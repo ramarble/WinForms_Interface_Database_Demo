@@ -19,25 +19,26 @@ namespace RA4_Ejercicios.View
     {
         //tempEditedUsers will store the users that
         //have been edited in the case they need to be fetched back
-        BindingList<User> userList;
 
         Form owner;
-        public FormBuscarUser(BindingList<User> userList, Form sender) 
+        public FormBuscarUser(Form sender) 
         {
             InitializeComponent();
-            this.userList = userList;
+
             this.owner = sender;
             sender.Visible = false;
         }
 
         private void FormBuscarUser_Load(object sender, EventArgs e)
         {
-            userListBox.DataSource = this.userList;
+            userListBox.DataSource = U_DB_C.getUserBindingList();
             userListBox.ValueMember = "";
             userListBox.DisplayMember = "Name";
             userListBox.SelectedValueChanged += UpdateObjectView;
-            
-            if (this.userList.Count > 0)
+            U_DB_C.getUserBindingList().ListChanged += UpdateObjectView;
+
+
+            if (U_DB_C.getUserBindingList().Count > 0)
             {
                 userListBox.SetSelected(0, true);
             } else
@@ -74,40 +75,42 @@ namespace RA4_Ejercicios.View
         private void UpdateObjectView(object sender, EventArgs e)
         {
             userPropertyGrid.SelectedObject = userListBox.SelectedItem;
-            if (userPropertyGrid.SelectedObject == null)
-            {
-                return;
-            }
-            User u = userPropertyGrid.SelectedObject as User;
-            if (u.getTempStatus())
-            {
-                buttonRevert.Enabled = true;
-                buttonSave.Enabled = true;
-            } else
-            {
-                buttonRevert.Enabled = false;
-                buttonSave.Enabled = false;
-            }
 
-            if (U_DB_C.getUsersBackupList().Count > 0)
+            if (userListBox.SelectedItems.Count > 0)
             {
-                buttonRevertAll.Enabled = true;
-                buttonSaveAll.Enabled = true;
-            } else
-            {
-                buttonRevertAll.Enabled = false;
-                buttonSaveAll.Enabled = false; 
+                User u = userListBox.SelectedItem as User;
+                if (u.getTempStatus())
+                {
+                    buttonRevert.Enabled = true;
+                    buttonSave.Enabled = true;
+                }
+                else
+                {
+                    buttonRevert.Enabled = false;
+                    buttonSave.Enabled = false;
+                }
+
+                if (Utils.isThereAnyTempUser())
+                {
+                    buttonRevertAll.Enabled = true;
+                    buttonSaveAll.Enabled = true;
+                }
+                else
+                {
+                    buttonRevertAll.Enabled = false;
+                    buttonSaveAll.Enabled = false;
+                }
             }
         }
 
         private void DynamicSearchBarUpdate(object sender, KeyEventArgs e)
         {
-            List<User> lista = this.userList.Where(user => user.nif.ToString().Contains(filterFindUserTextBox.Text)).ToList();
+            List<User> lista = U_DB_C.getUserBindingList().Where(user => user.nif.ToString().Contains(filterFindUserTextBox.Text)).ToList();
 
             if (filterFindUserTextBox.Text != "")
             {
                 lista.AddRange(
-                this.userList.Where(
+                U_DB_C.getUserBindingList().Where(
                     user => user.name.ToLower().Contains(filterFindUserTextBox.Text.ToLower())
                     )
                 );
@@ -119,23 +122,39 @@ namespace RA4_Ejercicios.View
         {
             User userToEdit = (User)userPropertyGrid.SelectedObject;
             int nifKey = userToEdit.nif;
-            U_DB_C.modifyUser(userToEdit, this.userList, this);
+            U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
             //Sets the pointer correctly
-            UpdateListBoxPointerByNIF(nifKey);
+            UpdateListBoxPointerByNIF(userToEdit);
 
         }
 
-        private void UpdateListBoxPointerByNIF(int nifKey)
+        private void UpdateListBoxPointerByNIF(object SelectedItem)
         {
-            this.userListBox.SetSelected(userList.IndexOf(userList.First(user => user.nif == nifKey)), true);
+            if (SelectedItem != null)
+            {
+                int nifKey = (SelectedItem as User).nif;
+                int userIndex = 
+                    U_DB_C.getUserBindingList().IndexOf(
+                    U_DB_C.getUserBindingList().FirstOrDefault(user => user.nif == nifKey));
+                if (userIndex != -1)
+                {
+                    userListBox.SetSelected(userIndex, true);
+                }
+                else
+                {
+                    userListBox.ClearSelected();
+                }
+            }
+            U_DB_C.getUserBindingList().ResetBindings();
         }
 
 
         private void buttonRevert_Click(object sender, EventArgs e)
         {
             User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
-            U_DB_C.revertSingleUser(userWithTempFlag, this.userList);
-            UpdateListBoxPointerByNIF(userWithTempFlag.nif);
+            U_DB_C.revertSingleUser(userWithTempFlag, U_DB_C.getUserBindingList());
+            UpdateListBoxPointerByNIF(userWithTempFlag);
+            userListBox.DataSource = U_DB_C.getUserBindingList();
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
@@ -156,7 +175,7 @@ namespace RA4_Ejercicios.View
             if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
                 U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
-                UpdateListBoxPointerByNIF((userListBox.SelectedItem as User).nif);
+                UpdateListBoxPointerByNIF((userListBox.SelectedItem));
             }
         }
 
@@ -165,7 +184,7 @@ namespace RA4_Ejercicios.View
             if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
                 U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(U_DB_C.getUserList());
-                UpdateListBoxPointerByNIF((userListBox.SelectedItem as User).nif);
+                UpdateListBoxPointerByNIF(userListBox.SelectedItem);
 
             }
         }

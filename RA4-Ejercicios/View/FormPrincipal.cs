@@ -21,14 +21,15 @@ namespace RA4_Ejercicios
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
+            
             this.userDataGridView.DataSource = U_DB_C.getUserBindingList();
             SUEC.UserSaved += U_DB_C.userReceived;
-            U_DB_C.getUserBindingList().ListChanged += enableSaveAndRevertAllButtonsIfNeeded;
             this.userDataGridView.AutoGenerateColumns = true;
             this.userDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             this.userDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            this.userDataGridView.SelectionChanged += userDataGridView_SelectionChanged;
+            U_DB_C.getUserBindingList().ListChanged += ReactToChangesToList;
+            this.userDataGridView.SelectionChanged += ReactToChangesToList;
             this.userDataGridView.AllowUserToAddRows = false;
             this.userDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             //Hardcoded, 
@@ -39,9 +40,9 @@ namespace RA4_Ejercicios
             InitializeComponent();
         }
 
-        private void enableSaveAndRevertAllButtonsIfNeeded(object sender, ListChangedEventArgs e)
+        private void enableSaveAndRevertAllButtonsIfNeeded()
         {
-            if (U_DB_C.getUsersBackupList().Count > 0)
+            if (Utils.isThereAnyTempUser())
             {
                 buttonRevertAll.Enabled = true;
                 buttonSaveAll.Enabled = true;
@@ -53,22 +54,24 @@ namespace RA4_Ejercicios
         }
 
         //Enables or disables the buttons
-        private void userDataGridView_SelectionChanged(object sender, EventArgs e)
+        private void ReactToChangesToList(object sender, EventArgs e)
         {
             
-            var dgvUsers = sender as DataGridView;
-
-            if (dgvUsers.SelectedRows.Count > 0)
+            if (userDataGridView.SelectedRows.Count > 0)
             {
                 //Always a possibility
                 buttonDeleteSelected.Enabled = true;
-                enableOrDisableModifyButton(dgvUsers);
-                enableOrDisableSaveModifySelectedButtons(dgvUsers);
+                enableOrDisableModifyButton(userDataGridView);
+                OneOrManySaveOrRevertButtons(userDataGridView);
             }
             else
             {
+                buttonModify.Enabled = false;
                 buttonDeleteSelected.Enabled = false;
+                saveSelectedButton.Enabled = false;
+                revertSelectedButton.Enabled = false;
             }
+            enableSaveAndRevertAllButtonsIfNeeded();
         }
 
         private void enableOrDisableModifyButton(DataGridView dgvUsers)
@@ -84,24 +87,25 @@ namespace RA4_Ejercicios
 
         }
 
-        private void enableOrDisableSaveModifySelectedButtons(DataGridView dgvUsers)
+        private void OneOrManySaveOrRevertButtons(DataGridView dgvUsers)
         {
+            //this is kinda very gorey
+
+            Boolean exitCond = false;
+            User us;
             for (int i = 0; i < dgvUsers.SelectedRows.Count; i++)
             {
-                var us = dgvUsers.SelectedRows[i].DataBoundItem as User;
+                us = dgvUsers.SelectedRows[i].DataBoundItem as User;
                 if (us.getTempStatus())
                 {
-                    guardarToolStripMenuItem.Enabled = true;
-                    saveSelectedButton.Enabled = true;
-                    buttonRevertSelected.Enabled = true;
-                }
-                else
-                {
-                    guardarToolStripMenuItem.Enabled = false;
-                    buttonRevertSelected.Enabled = false;
-                    saveSelectedButton.Enabled = false;
+                    exitCond = true;
                 }
             }
+
+            guardarToolStripMenuItem.Enabled = exitCond;
+            saveSelectedButton.Enabled = exitCond;
+            revertSelectedButton.Enabled = exitCond;
+
         }
 
         private void addListToBindingList(List<User> sourceList, BindingList<User> bindingList)
@@ -167,7 +171,7 @@ namespace RA4_Ejercicios
 
         private void Search_Menu_Click(object sender, EventArgs e)
         {
-            Form DetailedView = new FormBuscarUser(U_DB_C.getUserBindingList(), this);
+            Form DetailedView = new FormBuscarUser(this);
             DetailedView.ShowDialog(this);
         }
 
@@ -205,12 +209,15 @@ namespace RA4_Ejercicios
             }
         }
 
-        private void buttonRevertSelected_Click(object sender, EventArgs e)
+        private void revertSelectedButton_Click(object sender, EventArgs e)
         {
             if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
-                User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
-                U_DB_C.revertSingleUser(userToEdit, U_DB_C.getUserBindingList());
+                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                {
+                    User userToRevert = row.DataBoundItem as User;
+                    U_DB_C.revertSingleUser(userToRevert, U_DB_C.getUserBindingList());
+                }
             }
         }
 

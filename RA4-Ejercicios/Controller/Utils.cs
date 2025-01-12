@@ -60,12 +60,17 @@ namespace RA4_Ejercicios.Controller
 
         public static void preventClosingWithUncommittedChanges(FormClosingEventArgs e)
         {
-            if (UserDatabaseController.getUsersBackupList().Count > 0 |
-                (UserDatabaseController.getSlicedListWithTempUsers(UserDatabaseController.getUserList())).Count > 0)
+            if (isThereAnyTempUser())
             {
                 DialogBoxes.WARN_UncommittedChanges();
                 e.Cancel = true;
             }
+        }
+
+        public static Boolean isThereAnyTempUser()
+        {
+            return (UserDatabaseController.getUsersBackupList().Count > 0 |
+                (UserDatabaseController.getSlicedListWithTempUsers(UserDatabaseController.getUserList()).Count > 0));
         }
     }
 }
