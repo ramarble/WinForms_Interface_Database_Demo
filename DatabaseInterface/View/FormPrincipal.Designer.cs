@@ -207,7 +207,7 @@ namespace RA4_Ejercicios
             this.maximizarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
             this.maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
             this.maximizarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.maximizarToolStripMenuItem.Text = "Maximizar";
             this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.maximizarToolStrip_Click);
             // 
@@ -227,6 +227,7 @@ namespace RA4_Ejercicios
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
             this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
             // userDataGridView
             // 
@@ -316,7 +317,7 @@ namespace RA4_Ejercicios
             this.buttonModify.UseVisualStyleBackColor = true;
             this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
             // 
-            // buttonRevertSelected
+            // revertSelectedButton
             // 
             this.revertSelectedButton.AccessibleDescription = "Revertir los cambios no guardados que estén seleccionados";
             this.revertSelectedButton.AccessibleName = "Botón revertir seleccionados";
@@ -324,7 +325,7 @@ namespace RA4_Ejercicios
             this.revertSelectedButton.Enabled = false;
             this.revertSelectedButton.Font = new System.Drawing.Font("Arial", 12F);
             this.revertSelectedButton.Location = new System.Drawing.Point(150, 487);
-            this.revertSelectedButton.Name = "buttonRevertSelected";
+            this.revertSelectedButton.Name = "revertSelectedButton";
             this.revertSelectedButton.Size = new System.Drawing.Size(132, 62);
             this.revertSelectedButton.TabIndex = 2;
             this.revertSelectedButton.Text = "Revertir Seleccionados";

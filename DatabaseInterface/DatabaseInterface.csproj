@@ -76,6 +76,12 @@
     <Compile Include="Controller\SendUserEventController.cs" />
     <Compile Include="Model\EventSendUser.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="View\AcercaDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AcercaDe.Designer.cs">
+      <DependentUpon>AcercaDe.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\FormBuscarUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\AcercaDe.resx">
+      <DependentUpon>AcercaDe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\FormBuscarUser.resx">
       <DependentUpon>FormBuscarUser.cs</DependentUpon>
     </EmbeddedResource>

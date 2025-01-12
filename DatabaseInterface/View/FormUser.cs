@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
+using DatabaseInterfaceDemo.View;
 using RA4_Ejercicios.Controller;
 using RA4_Ejercicios.Model;
 using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
@@ -17,7 +18,7 @@ namespace RA4_Ejercicios.View
         private void UserForm_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
-
+            loadListenersForTextBoxes();
             //For edit mode you're editing an existing user, and can't change its primary key
             if (editMode)
             {
@@ -62,6 +63,31 @@ namespace RA4_Ejercicios.View
 
         }
 
+        private void loadListenersForTextBoxes()
+        {
+            foreach(TextBoxBase t in Utils.listOfTextBoxesInForm(this))
+            {
+                t.ContextMenuStrip = contextMenuStrip1;
+                t.Enter += resetColorToDefault;
+            }
+        }
+
+        private void resetColorToDefault(object sender, EventArgs e)
+        {
+            (sender as TextBoxBase).BackColor = System.Drawing.Color.White;
+        }
+
+        private void highlightEmptyTextBoxes()
+        {
+            foreach (TextBoxBase t in Utils.listOfTextBoxesInForm(this))
+            {
+                if (String.IsNullOrWhiteSpace(t.Text.ToString()))
+                {
+                    t.BackColor = System.Drawing.Color.Beige;
+                }
+            }
+        }
+
         private void SaveUserAsTemp(object sender, EventArgs e)
         {
             int usernif;
@@ -69,6 +95,7 @@ namespace RA4_Ejercicios.View
             {
                 MessageBox.Show("Por favor rellena todos los campos");
                 DialogResult = DialogResult.None;
+                highlightEmptyTextBoxes();
 
             }
             else if (U_DB_C.isNIFPresentInList(U_DB_C.getUserList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""))))
@@ -149,6 +176,33 @@ namespace RA4_Ejercicios.View
         private void onClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+
+        private void cortarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Utils.cutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
+        }
+
+        private void pegarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Utils.TextBoxBaseFromControl(this.ActiveControl).Paste();
+
+        }
+
+        private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.TextBoxBaseFromControl(this.ActiveControl).Copy();
+        }
+
+        private void copiarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Utils.TextBoxBaseFromControl(this.ActiveControl).Copy();
+        }
+
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form acercaDe = new AcercaDe();
+            acercaDe.ShowDialog();
         }
     }
 }

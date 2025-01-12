@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.tbApe2 = new System.Windows.Forms.TextBox();
             this.tbApe1 = new System.Windows.Forms.TextBox();
@@ -59,8 +60,13 @@
             this.alejarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cortarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copiarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pegarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numSalary)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtpFechaNacimiento
@@ -322,7 +328,7 @@
             this.cortarToolStripMenuItem.AccessibleName = "Cortar Texto";
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cortarToolStripMenuItem.Text = "Cortar";
             this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
             // 
@@ -332,8 +338,9 @@
             this.copiarToolStripMenuItem.AccessibleName = "Copiar Texto";
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copiarToolStripMenuItem.Text = "Copiar";
+            this.copiarToolStripMenuItem.Click += new System.EventHandler(this.copiarToolStripMenuItem_Click);
             // 
             // pegarToolStripMenuItem
             // 
@@ -341,7 +348,7 @@
             this.pegarToolStripMenuItem.AccessibleName = "Pegar Texto";
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pegarToolStripMenuItem.Text = "Pegar";
             this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegarToolStripMenuItem_Click);
             // 
@@ -380,8 +387,42 @@
             // acercaDeToolStripMenuItem
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cortarToolStripMenuItem1,
+            this.copiarToolStripMenuItem1,
+            this.pegarToolStripMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(152, 70);
+            // 
+            // cortarToolStripMenuItem1
+            // 
+            this.cortarToolStripMenuItem1.Name = "cortarToolStripMenuItem1";
+            this.cortarToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.cortarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.cortarToolStripMenuItem1.Text = "Cortar";
+            this.cortarToolStripMenuItem1.Click += new System.EventHandler(this.cortarToolStripMenuItem1_Click);
+            // 
+            // copiarToolStripMenuItem1
+            // 
+            this.copiarToolStripMenuItem1.Name = "copiarToolStripMenuItem1";
+            this.copiarToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copiarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.copiarToolStripMenuItem1.Text = "Copiar";
+            this.copiarToolStripMenuItem1.Click += new System.EventHandler(this.copiarToolStripMenuItem1_Click);
+            // 
+            // pegarToolStripMenuItem1
+            // 
+            this.pegarToolStripMenuItem1.Name = "pegarToolStripMenuItem1";
+            this.pegarToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.pegarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.pegarToolStripMenuItem1.Text = "Pegar";
+            this.pegarToolStripMenuItem1.Click += new System.EventHandler(this.pegarToolStripMenuItem1_Click);
             // 
             // FormUser
             // 
@@ -416,6 +457,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numSalary)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,5 +496,9 @@
         private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem cortarToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem copiarToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem1;
     }
 }
