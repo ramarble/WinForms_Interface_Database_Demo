@@ -115,6 +115,7 @@ namespace RA4_Ejercicios
             this.guardarToolStripMenuItem.AccessibleDescription = "Menú para guardar todo los cambios no guardados";
             this.guardarToolStripMenuItem.AccessibleName = "Menú guardar todo";
             this.guardarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
+            this.guardarToolStripMenuItem.Enabled = false;
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
             this.guardarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));

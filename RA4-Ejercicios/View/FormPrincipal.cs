@@ -91,11 +91,13 @@ namespace RA4_Ejercicios
                 var us = dgvUsers.SelectedRows[i].DataBoundItem as User;
                 if (us.getTempStatus())
                 {
+                    guardarToolStripMenuItem.Enabled = true;
                     saveSelectedButton.Enabled = true;
                     buttonRevertSelected.Enabled = true;
                 }
                 else
                 {
+                    guardarToolStripMenuItem.Enabled = false;
                     buttonRevertSelected.Enabled = false;
                     saveSelectedButton.Enabled = false;
                 }
@@ -157,7 +159,10 @@ namespace RA4_Ejercicios
 
         private void saveAll_Menu_Click(object sender, EventArgs e)
         {
-            buttonSaveAll_Click(sender, e);
+            if (U_DB_C.getUsersBackupList().Count > 0)
+            {
+                buttonSaveAll_Click(sender, e);
+            }
         }
 
         private void Search_Menu_Click(object sender, EventArgs e)
