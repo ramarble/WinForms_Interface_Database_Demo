@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
 using RA4_Ejercicios.Controller;
@@ -28,6 +29,7 @@ namespace RA4_Ejercicios.View
             {
                 tbNIF.ReadOnly = false;
             }
+            numSalary.Controls.OfType<UpDownBase>().FirstOrDefault().Hide();
         }
         public FormUser(Form sender, Boolean editMode)
         {
