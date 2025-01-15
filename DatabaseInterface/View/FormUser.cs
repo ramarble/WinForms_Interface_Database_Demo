@@ -29,7 +29,6 @@ namespace RA4_Ejercicios.View
             {
                 tbNIF.ReadOnly = false;
             }
-            numSalary.Controls.OfType<UpDownBase>().FirstOrDefault().Hide();
         }
         public FormUser(Form sender, Boolean editMode)
         {

@@ -17,15 +17,6 @@ namespace RA4_Ejercicios
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-            MessageBox.Show("Este proyecto se me ha ido de madre completamente.\n" +
-                "Tiene muchísimas funcionalidades y redundancia en muchos aspectos, puesto que he ido sumando los nuevos conceptos vistos en clase.\n" +
-                "El contenido mínimo de la práctica está completo, pero también hay alguna cosa como un botón de impresión que muestra un RDLC que he\n" +
-                "dejado de lado para completar el esqueleto de la aplicación y la práctica.\n" +
-                "Tengo toda la intención de continuar con este programa si el resto de prácticas lo permiten (exportar y leer de JSON, integración con BBDD)\n" +
-                "No creo que sea un proyecto de 10 porque no es visualmente cohesivo y tiene mucho feature bloat, pero es uno sobre el que puedo seguir\n" +
-                "implementando funcionalidades con muy buena base.\n" +
-                "El proyecto está en github, junto con las issues abiertas. El enlace estará en \"Ayuda\"", "README (Por favor)", MessageBoxButtons.OK);
-
             this.userDataGridView.DataSource = U_DB_C.getUserBindingList();
             SUEC.UserSaved += U_DB_C.userReceived;
             this.userDataGridView.AutoGenerateColumns = true;
