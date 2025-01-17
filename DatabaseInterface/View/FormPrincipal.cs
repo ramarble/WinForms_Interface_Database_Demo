@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Common;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
 using RA4_Ejercicios.Controller;
@@ -17,10 +22,13 @@ namespace RA4_Ejercicios
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
+            ComboBox_Style_Load();
+
             this.userDataGridView.DataSource = U_DB_C.getUserBindingList();
             SUEC.UserSaved += U_DB_C.userReceived;
             this.userDataGridView.AutoGenerateColumns = true;
-            this.userDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            this.userDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.userDataGridView.Columns[0].Width = 15;
             this.userDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             U_DB_C.getUserBindingList().ListChanged += ReactToChangesToList;
@@ -33,6 +41,55 @@ namespace RA4_Ejercicios
         public formPrincipal()
         {
             InitializeComponent();
+        }
+
+
+        private void StyleTextBox(object sender, DrawItemEventArgs e)
+        {
+
+            var c = sender as ComboBox;
+            e.DrawBackground();
+
+
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), e.Bounds);
+                e.DrawFocusRectangle();
+            }
+
+        }
+
+        private void CenterComboBoxTextBox(object sender, DrawItemEventArgs e)
+        {
+            var c = sender as ComboBox;
+
+            if (e.Index >= 0)
+            {
+                StringFormat sf = new StringFormat();
+                sf.LineAlignment = StringAlignment.Center;
+                sf.Alignment = StringAlignment.Center;
+                e.Graphics.DrawString(c.Items[e.Index].ToString(), c.Font, new SolidBrush(c.ForeColor), e.Bounds, sf);
+            }
+        }
+
+        private void ComboBox_Style_Load()
+        {
+            this.comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
+            if (comboBoxCargarDatos.Items.Count == 0)
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Title = "<--Abrir Archivo-->";
+                
+                this.comboBoxCargarDatos.Items.Add(ofd.Title);
+
+                this.comboBoxCargarDatos.DrawItem += StyleTextBox;
+                this.comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
+                this.comboBoxCargarDatos.ForeColor = System.Drawing.Color.Black;
+                comboBoxCargarDatos.SelectionChangeCommitted += new EventHandler(delegate (Object o, EventArgs e)
+                {
+                    ofd.ShowDialog();
+                });
+            }
         }
 
         private void enableSaveAndRevertAllButtonsIfNeeded()

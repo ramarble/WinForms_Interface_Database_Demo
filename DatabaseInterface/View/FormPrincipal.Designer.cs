@@ -54,6 +54,9 @@ namespace RA4_Ejercicios
             this.buttonDeleteSelected = new System.Windows.Forms.Button();
             this.buttonModify = new System.Windows.Forms.Button();
             this.revertSelectedButton = new System.Windows.Forms.Button();
+            this.comboBoxCargarDatos = new System.Windows.Forms.ComboBox();
+            this.buttonSaveToFile = new System.Windows.Forms.Button();
+            this.buttonLoadData = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +71,7 @@ namespace RA4_Ejercicios
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
-            this.menuStrip1.Size = new System.Drawing.Size(966, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(1105, 27);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -225,7 +228,7 @@ namespace RA4_Ejercicios
             // acercaDeToolStripMenuItem
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
             this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
@@ -238,9 +241,9 @@ namespace RA4_Ejercicios
             this.userDataGridView.AllowUserToResizeRows = false;
             this.userDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.userDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.userDataGridView.Location = new System.Drawing.Point(12, 30);
+            this.userDataGridView.Location = new System.Drawing.Point(12, 90);
             this.userDataGridView.Name = "userDataGridView";
-            this.userDataGridView.Size = new System.Drawing.Size(942, 419);
+            this.userDataGridView.Size = new System.Drawing.Size(1081, 419);
             this.userDataGridView.TabIndex = 14;
             // 
             // buttonSaveAll
@@ -250,10 +253,10 @@ namespace RA4_Ejercicios
             this.buttonSaveAll.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonSaveAll.Enabled = false;
             this.buttonSaveAll.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonSaveAll.Location = new System.Drawing.Point(822, 487);
+            this.buttonSaveAll.Location = new System.Drawing.Point(822, 583);
             this.buttonSaveAll.Name = "buttonSaveAll";
             this.buttonSaveAll.Size = new System.Drawing.Size(132, 62);
-            this.buttonSaveAll.TabIndex = 6;
+            this.buttonSaveAll.TabIndex = 7;
             this.buttonSaveAll.Text = "Guardar Todo";
             this.buttonSaveAll.UseVisualStyleBackColor = true;
             this.buttonSaveAll.Click += new System.EventHandler(this.buttonSaveAll_Click);
@@ -265,10 +268,10 @@ namespace RA4_Ejercicios
             this.buttonRevertAll.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonRevertAll.Enabled = false;
             this.buttonRevertAll.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonRevertAll.Location = new System.Drawing.Point(12, 487);
+            this.buttonRevertAll.Location = new System.Drawing.Point(12, 583);
             this.buttonRevertAll.Name = "buttonRevertAll";
             this.buttonRevertAll.Size = new System.Drawing.Size(132, 62);
-            this.buttonRevertAll.TabIndex = 1;
+            this.buttonRevertAll.TabIndex = 3;
             this.buttonRevertAll.Text = "Revertir Todo";
             this.buttonRevertAll.UseVisualStyleBackColor = true;
             this.buttonRevertAll.Click += new System.EventHandler(this.buttonRevertAll_Click);
@@ -280,10 +283,10 @@ namespace RA4_Ejercicios
             this.saveSelectedButton.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
             this.saveSelectedButton.Enabled = false;
             this.saveSelectedButton.Font = new System.Drawing.Font("Arial", 12F);
-            this.saveSelectedButton.Location = new System.Drawing.Point(684, 487);
+            this.saveSelectedButton.Location = new System.Drawing.Point(684, 583);
             this.saveSelectedButton.Name = "saveSelectedButton";
             this.saveSelectedButton.Size = new System.Drawing.Size(132, 62);
-            this.saveSelectedButton.TabIndex = 5;
+            this.saveSelectedButton.TabIndex = 6;
             this.saveSelectedButton.Text = "Guardar Seleccionados";
             this.saveSelectedButton.UseVisualStyleBackColor = true;
             this.saveSelectedButton.Click += new System.EventHandler(this.saveSelectedButton_Click);
@@ -294,10 +297,10 @@ namespace RA4_Ejercicios
             this.buttonDeleteSelected.AccessibleName = "Botón borrar seleccionados";
             this.buttonDeleteSelected.Enabled = false;
             this.buttonDeleteSelected.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonDeleteSelected.Location = new System.Drawing.Point(331, 487);
+            this.buttonDeleteSelected.Location = new System.Drawing.Point(150, 583);
             this.buttonDeleteSelected.Name = "buttonDeleteSelected";
             this.buttonDeleteSelected.Size = new System.Drawing.Size(132, 62);
-            this.buttonDeleteSelected.TabIndex = 3;
+            this.buttonDeleteSelected.TabIndex = 4;
             this.buttonDeleteSelected.Text = "Borrar Seleccionados";
             this.buttonDeleteSelected.UseVisualStyleBackColor = true;
             this.buttonDeleteSelected.Click += new System.EventHandler(this.deleteSelectedButton_Click);
@@ -309,10 +312,10 @@ namespace RA4_Ejercicios
             this.buttonModify.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonModify.Enabled = false;
             this.buttonModify.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonModify.Location = new System.Drawing.Point(506, 487);
+            this.buttonModify.Location = new System.Drawing.Point(546, 583);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(132, 62);
-            this.buttonModify.TabIndex = 4;
+            this.buttonModify.TabIndex = 5;
             this.buttonModify.Text = "Modificar Seleccionado";
             this.buttonModify.UseVisualStyleBackColor = true;
             this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
@@ -324,7 +327,7 @@ namespace RA4_Ejercicios
             this.revertSelectedButton.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
             this.revertSelectedButton.Enabled = false;
             this.revertSelectedButton.Font = new System.Drawing.Font("Arial", 12F);
-            this.revertSelectedButton.Location = new System.Drawing.Point(150, 487);
+            this.revertSelectedButton.Location = new System.Drawing.Point(12, 515);
             this.revertSelectedButton.Name = "revertSelectedButton";
             this.revertSelectedButton.Size = new System.Drawing.Size(132, 62);
             this.revertSelectedButton.TabIndex = 2;
@@ -332,11 +335,54 @@ namespace RA4_Ejercicios
             this.revertSelectedButton.UseVisualStyleBackColor = true;
             this.revertSelectedButton.Click += new System.EventHandler(this.revertSelectedButton_Click);
             // 
+            // comboBoxCargarDatos
+            // 
+            this.comboBoxCargarDatos.AccessibleDescription = "Combo Box Carga Datos";
+            this.comboBoxCargarDatos.AccessibleName = "Combo Box Carga Datos";
+            this.comboBoxCargarDatos.AccessibleRole = System.Windows.Forms.AccessibleRole.ComboBox;
+            this.comboBoxCargarDatos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCargarDatos.FormattingEnabled = true;
+            this.comboBoxCargarDatos.Location = new System.Drawing.Point(12, 40);
+            this.comboBoxCargarDatos.Name = "comboBoxCargarDatos";
+            this.comboBoxCargarDatos.Size = new System.Drawing.Size(319, 32);
+            this.comboBoxCargarDatos.TabIndex = 15;
+            // 
+            // buttonSaveToFile
+            // 
+            this.buttonSaveToFile.AccessibleDescription = "Botón para guardar todos los cambios a un archivo";
+            this.buttonSaveToFile.AccessibleName = "Botón Guardar a archivo";
+            this.buttonSaveToFile.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
+            this.buttonSaveToFile.Enabled = false;
+            this.buttonSaveToFile.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonSaveToFile.Location = new System.Drawing.Point(960, 583);
+            this.buttonSaveToFile.Name = "buttonSaveToFile";
+            this.buttonSaveToFile.Size = new System.Drawing.Size(132, 62);
+            this.buttonSaveToFile.TabIndex = 8;
+            this.buttonSaveToFile.Text = "Guardar Cambios a Archivo";
+            this.buttonSaveToFile.UseVisualStyleBackColor = true;
+            // 
+            // buttonLoadData
+            // 
+            this.buttonLoadData.AccessibleDescription = "Botón para cargar datos desde archivo";
+            this.buttonLoadData.AccessibleName = "Botón Cargar desde Archivo";
+            this.buttonLoadData.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
+            this.buttonLoadData.Enabled = false;
+            this.buttonLoadData.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonLoadData.Location = new System.Drawing.Point(337, 33);
+            this.buttonLoadData.Name = "buttonLoadData";
+            this.buttonLoadData.Size = new System.Drawing.Size(112, 47);
+            this.buttonLoadData.TabIndex = 1;
+            this.buttonLoadData.Text = "Cargar datos";
+            this.buttonLoadData.UseVisualStyleBackColor = true;
+            // 
             // formPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(966, 568);
+            this.ClientSize = new System.Drawing.Size(1105, 672);
+            this.Controls.Add(this.buttonLoadData);
+            this.Controls.Add(this.buttonSaveToFile);
+            this.Controls.Add(this.comboBoxCargarDatos);
             this.Controls.Add(this.revertSelectedButton);
             this.Controls.Add(this.buttonModify);
             this.Controls.Add(this.buttonDeleteSelected);
@@ -384,6 +430,9 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
         private System.Windows.Forms.Button buttonModify;
         private System.Windows.Forms.Button revertSelectedButton;
+        private System.Windows.Forms.ComboBox comboBoxCargarDatos;
+        private System.Windows.Forms.Button buttonSaveToFile;
+        private System.Windows.Forms.Button buttonLoadData;
     }
 }
 
