@@ -10,18 +10,18 @@ namespace DatabaseInterface.View
 {
     public partial class ReportForm : Form
     {
-        public ReportForm(List<Empleado> list)
+        public ReportForm(List<object> list)
         {
             InitializeComponent();
-            userList = list;
+            objectList = list;
         }
 
-        List<Empleado> userList;
+        List<object> objectList;
 
         private void ReportForm_Load(object sender, EventArgs e)
         {
             this.reportViewer1.LocalReport.ReportPath = "../../View/Report1.rdlc";
-            ReportDataSource r = new ReportDataSource("DataSet1", userList);
+            ReportDataSource r = new ReportDataSource("DataSet1", objectList);
             this.reportViewer1.LocalReport.DataSources.Add(r);
             this.reportViewer1.RefreshReport();
 
@@ -35,10 +35,11 @@ namespace DatabaseInterface.View
             }
             else
             {
+                //THIS WON'T WORK FOR NOW
                 this.reportViewer1.LocalReport.DataSources.Clear();
-                var newUserList = userList.Where(it => it.nif.ToString().Contains(maskedTextBox1.Text.ToString()));
-                this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", newUserList));
-                this.reportViewer1.RefreshReport();
+                //var newUserList = objectList.Where(it => it.nif.ToString().Contains(maskedTextBox1.Text.ToString()));
+                //this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", newUserList));
+                //this.reportViewer1.RefreshReport();
             }
         }
     }

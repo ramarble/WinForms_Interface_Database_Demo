@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using contr = DatabaseInterface.Controller;
+
 
 namespace DatabaseInterface.Controller
 {
@@ -55,19 +57,5 @@ namespace DatabaseInterface.Controller
             return listOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
         }
 
-        public static void preventClosingWithUncommittedChanges(FormClosingEventArgs e)
-        {
-            if (isThereAnyTempUser())
-            {
-                DialogBoxes.WARN_UncommittedChanges();
-                e.Cancel = true;
-            }
-        }
-
-        public static Boolean isThereAnyTempUser()
-        {
-            return (EmpleadoDataBaseController.getUsersBackupList().Count > 0 |
-                (EmpleadoDataBaseController.getSlicedListWithTempUsers(EmpleadoDataBaseController.getUserList()).Count > 0));
-        }
     }
 }

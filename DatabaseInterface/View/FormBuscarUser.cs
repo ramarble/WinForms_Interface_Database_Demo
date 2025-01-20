@@ -5,7 +5,8 @@ using System.Linq;
 using System.Windows.Forms;
 using DatabaseInterface.Controller;
 using DatabaseInterface.Model;
-using U_DB_C = DatabaseInterface.Controller.EmpleadoDataBaseController;
+using Utils = DatabaseInterface.Controller;
+using DataModel = DatabaseInterface.Model;
 
 namespace DatabaseInterface.View
 {
@@ -15,24 +16,26 @@ namespace DatabaseInterface.View
         //have been edited in the case they need to be fetched back
 
         Form owner;
-        public FormBuscarUser(Form sender)
+        ObjectDataBaseController<object> db;
+        
+        public FormBuscarUser(Form sender, ObjectDataBaseController<object> db)
         {
             InitializeComponent();
-
+            this.db = db;
             this.owner = sender;
             sender.Visible = false;
         }
 
         private void FormBuscarUser_Load(object sender, EventArgs e)
         {
-            userListBox.DataSource = U_DB_C.getUserBindingList();
+            userListBox.DataSource = db.getBindingList();
             userListBox.ValueMember = "";
             userListBox.DisplayMember = "Name";
             userListBox.SelectedValueChanged += UpdateObjectView;
-            U_DB_C.getUserBindingList().ListChanged += UpdateObjectView;
+            db.getBindingList().ListChanged += UpdateObjectView;
 
 
-            if (U_DB_C.getUserBindingList().Count > 0)
+            if (db.getBindingList().Count > 0)
             {
                 userListBox.SetSelected(0, true);
             }
@@ -59,9 +62,9 @@ namespace DatabaseInterface.View
         }
 
         //Unsure as to what this was used for. Staying here in case I need it in the future.
-        private void userSent(object sender, EventSendObject e)
+        private void userSent(object sender, ObjectEvents<object> e)
         {
-            U_DB_C.addUserToList(U_DB_C.getUserList(), e.getUsuario(), e.getEditMode());
+            db.addObjectToList(db.getObjectList(), e.getObject(), e.getEditMode());
         }
 
 
@@ -85,7 +88,7 @@ namespace DatabaseInterface.View
                     buttonSave.Enabled = false;
                 }
 
-                if (Utils.isThereAnyTempUser())
+                if (db.isThereAnyTempUser())
                 {
                     buttonRevertAll.Enabled = true;
                     buttonSaveAll.Enabled = true;
@@ -98,39 +101,47 @@ namespace DatabaseInterface.View
             }
         }
 
+
         private void DynamicSearchBarUpdate(object sender, KeyEventArgs e)
         {
-            List<Empleado> lista = U_DB_C.getUserBindingList().Where(user => user.nif.ToString().Contains(filterFindUserTextBox.Text)).ToList();
 
-            if (filterFindUserTextBox.Text != "")
-            {
-                lista.AddRange(
-                U_DB_C.getUserBindingList().Where(
-                    user => user.name.ToLower().Contains(filterFindUserTextBox.Text.ToLower())
-                    )
-                );
-            }
-            userListBox.DataSource = lista;
+            /*
+             * 
+             * Too complex to fix atm
+                List<Empleado> lista = db.getBindingList().Where(user => user.nif.ToString().Contains(filterFindUserTextBox.Text)).ToList();
+
+                if (filterFindUserTextBox.Text != "")
+                {
+                    lista.AddRange(
+                    db.getBindingList().Where(
+                        user => user.name.ToLower().Contains(filterFindUserTextBox.Text.ToLower())
+                        )
+                    );
+                }
+                userListBox.DataSource = lista;
+            
+            */
         }
+
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            Empleado userToEdit = (Empleado)userPropertyGrid.SelectedObject;
-            int nifKey = userToEdit.nif;
-            U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
+            object objectToEdit = userPropertyGrid.SelectedObject;
+            object nifKey = db.getKey(objectToEdit);
+            db.modifyObject(objectToEdit, db.getBindingList(), this, db);
             //Sets the pointer correctly
-            UpdateListBoxPointerByNIF(userToEdit);
+            UpdateListBoxPointerByKey(objectToEdit);
 
         }
 
-        private void UpdateListBoxPointerByNIF(object SelectedItem)
+        private void UpdateListBoxPointerByKey(object SelectedItem)
         {
             if (SelectedItem != null)
             {
-                int nifKey = (SelectedItem as Empleado).nif;
+                object nifKey = db.getKey(SelectedItem);
                 int userIndex =
-                    U_DB_C.getUserBindingList().IndexOf(
-                    U_DB_C.getUserBindingList().FirstOrDefault(user => user.nif == nifKey));
+                    db.getBindingList().IndexOf(
+                    db.getBindingList().FirstOrDefault(user => db.getKey(user) == nifKey));
                 if (userIndex != -1)
                 {
                     userListBox.SetSelected(userIndex, true);
@@ -140,27 +151,27 @@ namespace DatabaseInterface.View
                     userListBox.ClearSelected();
                 }
             }
-            U_DB_C.getUserBindingList().ResetBindings();
+            db.getBindingList().ResetBindings();
         }
 
 
         private void buttonRevert_Click(object sender, EventArgs e)
         {
-            Empleado userWithTempFlag = (Empleado)userPropertyGrid.SelectedObject;
-            U_DB_C.revertSingleUser(userWithTempFlag, U_DB_C.getUserBindingList());
-            UpdateListBoxPointerByNIF(userWithTempFlag);
-            userListBox.DataSource = U_DB_C.getUserBindingList();
+            object objectWithTempFlag = userPropertyGrid.SelectedObject;
+            db.revertSingleObject(objectWithTempFlag, db.getBindingList());
+            UpdateListBoxPointerByKey(objectWithTempFlag);
+            userListBox.DataSource = db.getBindingList();
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
         {
-            Utils.preventClosingWithUncommittedChanges(e);
+            db.preventClosingWithUncommittedChanges(e);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            Empleado userWithTempFlag = (Empleado)userPropertyGrid.SelectedObject;
-            U_DB_C.saveUser(userWithTempFlag);
+            object userWithTempFlag = (Empleado)userPropertyGrid.SelectedObject;
+            db.saveObject(userWithTempFlag);
             UpdateObjectView(this, e);
 
         }
@@ -169,8 +180,8 @@ namespace DatabaseInterface.View
         {
             if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
-                U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
-                UpdateListBoxPointerByNIF((userListBox.SelectedItem));
+                db.TurnTempIntoPermanent(db.getObjectList());
+                UpdateListBoxPointerByKey((userListBox.SelectedItem));
             }
         }
 
@@ -178,8 +189,8 @@ namespace DatabaseInterface.View
         {
             if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
-                U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(U_DB_C.getUserList());
-                UpdateListBoxPointerByNIF(userListBox.SelectedItem);
+                db.restoreFromBackupAndEmptyBackup(db.getObjectList());
+                UpdateListBoxPointerByKey(userListBox.SelectedItem);
 
             }
         }

@@ -5,8 +5,6 @@ using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
 using DatabaseInterface.Controller;
 using DatabaseInterface.Model;
-using SUEC = DatabaseInterface.Controller.SendUserEventController;
-using U_DB_C = DatabaseInterface.Controller.EmpleadoDataBaseController;
 
 namespace DatabaseInterface.View
 {
@@ -14,8 +12,10 @@ namespace DatabaseInterface.View
     {
         Form parent;
         Boolean editMode;
-        Empleado userReference = new Empleado(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
+        ObjectDataBaseController<object> db;
 
+        //wtf was I cooking here 
+        Empleado userReference = new Empleado(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
         private void UserForm_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
@@ -30,10 +30,11 @@ namespace DatabaseInterface.View
                 tbNIF.ReadOnly = false;
             }
         }
-        public FormUser(Form sender, Boolean editMode)
+        public FormUser(Form sender, Boolean editMode, ObjectDataBaseController<object> db)
         {
 
             this.parent = sender;
+            this.db = db;
             //Constructor used by ADD NEW mode
             this.editMode = editMode;
             InitializeComponent();
@@ -46,22 +47,24 @@ namespace DatabaseInterface.View
             base.OnClosed(e);
         }
 
-        public FormUser(Form sender, Empleado u, Boolean editMode)
+        public FormUser(Form sender, object ob, Boolean editMode, ObjectDataBaseController<object> db)
         {
             this.parent = sender;
+            this.db = db;
             //Constructor used by Edit mode
             this.Text = "Modifica un usuario";
             this.editMode = editMode;
             InitializeComponent();
             //UserFormInitialize(sender);
-            userReference = u;
-            tbNombre.Text = u.name;
-            tbApe1.Text = u.surname1;
-            tbApe2.Text = u.surname2;
-            numSalary.Text = u.salary.ToString();
-            tbNIF.Text = u.nif.ToString();
-            dtpFechaNacimiento.Value = u.birthdate;
-
+            /*
+             * userReference = ob;
+            tbNombre.Text = ob.name;
+            tbApe1.Text = ob.surname1;
+            tbApe2.Text = ob.surname2;
+            numSalary.Text = ob.salary.ToString();
+            tbNIF.Text = ob.nif.ToString();
+            dtpFechaNacimiento.Value = ob.birthdate;
+            */
         }
 
         private void loadListenersForTextBoxes()
@@ -99,7 +102,7 @@ namespace DatabaseInterface.View
                 highlightEmptyTextBoxes();
 
             }
-            else if (U_DB_C.isNIFPresentInList(U_DB_C.getUserList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""))))
+            else if (db.isKEYPresentInList(db.getObjectList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""))))
             {
                 MessageBox.Show("Ya hay un usuario con ese NIF presente.");
                 DialogResult = DialogResult.None;
@@ -115,13 +118,13 @@ namespace DatabaseInterface.View
                 if (u.Equals(userReference))
                 {
                     u.setTempStatus(false);
-                    U_DB_C.getUsersBackupList().Remove(userReference);
+                    db.getBackupList().Remove(userReference);
                 }
                 else
                 {
                     u.setTempStatus(true);
                 };
-                SUEC.UserSavedTrigger(this, new EventSendObject(
+                ObjectEvents<object>.UserSavedTrigger(this, new ObjectEvents<object>(
                     u, editMode));
 
             }

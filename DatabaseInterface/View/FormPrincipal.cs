@@ -15,6 +15,8 @@ using DatabaseInterface.View;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using Utils = DatabaseInterface.Controller;
+using DataModel = DatabaseInterface.Model;
+using DatabaseInterfaceDemo.Controller;
 
 
 namespace DatabaseInterface
@@ -22,17 +24,24 @@ namespace DatabaseInterface
     public partial class formPrincipal : Form
     {
 
+        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado).GetType(), "nif");
+
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
             initializeComboBox();
 
+            DataModel.ObjectEvents<Empleado>.UserSaved += DataModel.ObjectEvents<Empleado>.UserSavedTrigger;
+            
+            
+            
+            db.setObjectList(EmpleadoDebug.createEmpleadoList());
+            db.getBindingList().ResetBindings();
+            db.getBindingList().Add(db.getObjectList()[0]);
+            
 
-            SUEC.UserSaved += U_DB_C.userReceived;
-
-
-            initializeDataGridViewWithObject<Empleado>(U_DB_C.getUserBindingList());
-            U_DB_C.getUserBindingList().ListChanged += ReactToChangesToList;
+            initializeDataGridViewWithObject(db.getBindingList());
+            db.getBindingList().ListChanged += ReactToChangesToList;
 
 
             //Hardcoded, 
@@ -52,11 +61,17 @@ namespace DatabaseInterface
 
         }
 
-        public void initializeDataGridViewWithObject<T>(BindingList<T> list)
+        public void initializeDataGridViewWithObject(BindingList<object> list)
         {
             this.PrincipalDataGridView.DataSource = list;
 
-            formatTableDateTime(list[0]);
+            if (list.Count > 0)
+            {
+                formatTableDateTime(list[0]);
+            } else
+            {
+                throw new Exception("wow, empty table");
+            }
 
             initializeDataGridView();
 
@@ -133,7 +148,7 @@ namespace DatabaseInterface
 
         private void enableSaveAndRevertAllButtonsIfNeeded()
         {
-            if (Utils.isThereAnyTempUser())
+            if (db.isThereAnyTempUser())
             {
                 buttonRevertAll.Enabled = true;
                 buttonSaveAll.Enabled = true;
@@ -213,7 +228,7 @@ namespace DatabaseInterface
 
             if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
-                U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
+                db.TurnTempIntoPermanent(db.getObjectList());
             }
         }
 
@@ -221,7 +236,7 @@ namespace DatabaseInterface
         {
             if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
-                U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(U_DB_C.getUserList());
+                db.restoreFromBackupAndEmptyBackup(db.getObjectList());
             }
         }
 
@@ -233,9 +248,9 @@ namespace DatabaseInterface
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado u = row.DataBoundItem as Empleado;
-                    U_DB_C.saveUser(u);
+                    db.saveObject(u);
                 }
-                U_DB_C.getUserBindingList().ResetBindings();
+                db.getBindingList().ResetBindings();
             }
         }
 
@@ -247,15 +262,15 @@ namespace DatabaseInterface
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado u = row.DataBoundItem as Empleado;
-                    U_DB_C.getUserBindingList().Remove(u);
+                    db.getBindingList().Remove(u);
                 }
-                U_DB_C.getUserBindingList().ResetBindings();
+                db.getBindingList().ResetBindings();
             }
         }
 
         private void saveAll_Menu_Click(object sender, EventArgs e)
         {
-            if (U_DB_C.getUsersBackupList().Count > 0)
+            if (db.getBackupList().Count > 0)
             {
                 buttonSaveAll_Click(sender, e);
             }
@@ -263,13 +278,13 @@ namespace DatabaseInterface
 
         private void Search_Menu_Click(object sender, EventArgs e)
         {
-            Form DetailedView = new FormBuscarUser(this);
+            Form DetailedView = new FormBuscarUser(this, db);
             DetailedView.ShowDialog(this);
         }
 
         private void New_Menu_Click(object sender, EventArgs e)
         {
-            Form newUserForm = new FormUser(this, false);
+            Form newUserForm = new FormUser(this, false, db);
             newUserForm.ShowDialog(this);
         }
 
@@ -280,14 +295,14 @@ namespace DatabaseInterface
 
         private void Print_Menu_Click(object sender, EventArgs e)
         {
-            Form reportForm = new ReportForm(U_DB_C.getUserList());
+            Form reportForm = new ReportForm(db.getObjectList());
             reportForm.ShowDialog();
         }
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            Empleado userToEdit = (Empleado)PrincipalDataGridView.SelectedRows[0].DataBoundItem;
-            U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
+            object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
+            db.modifyObject(userToEdit, db.getBindingList(), this, db);
         }
 
         private void maximizarToolStrip_Click(object sender, EventArgs e)
@@ -309,14 +324,14 @@ namespace DatabaseInterface
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado userToRevert = row.DataBoundItem as Empleado;
-                    U_DB_C.revertSingleUser(userToRevert, U_DB_C.getUserBindingList());
+                    db.revertSingleObject(userToRevert, db.getBindingList());
                 }
             }
         }
 
         private void formPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Utils.preventClosingWithUncommittedChanges(e);
+            db.preventClosingWithUncommittedChanges(e);
         }
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)

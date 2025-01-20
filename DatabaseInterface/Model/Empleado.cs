@@ -30,7 +30,7 @@ namespace DatabaseInterface.Model
 
         [DisplayName("Fecha Nacimiento")]
         public DateTime birthdate { get; set; }
-        private Boolean tempStatus { get; set; }
+        public Boolean tempStatus { get; set; }
         public void setTempStatus(Boolean temp)
         {
             this.tempStatus = temp;

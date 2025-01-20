@@ -1,19 +1,20 @@
-﻿using DatabaseInterface.Model;
+﻿using DatabaseInterface.Controller;
+using DatabaseInterface.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Utils = DatabaseInterface.Controller;
- 
 
 namespace DatabaseInterfaceDemo.Controller
 {
-    internal class EmpleadoDatabaseController
+    public static class EmpleadoDebug
     {
-        static List<Empleado> empleadoList = createUserList<Empleado>();
-        public static void addUserToList<T>(T obj)
+        public static List<object> createEmpleadoList()
         {
+            List<object> empleadoList = new List<object>();
             String[] listaNombres = { "Mrsha", "Lyonette", "Numbtongue", "Erin", "Bird" };
             String[] listaApellido1 = { "du", "du", "Redfang", "Summer", "" };
             String[] listaApellido2 = { "Marquin", "Marquin", "Solstice", "Solstice", "" };
@@ -30,8 +31,8 @@ namespace DatabaseInterfaceDemo.Controller
 
             for (int i = 0; i < listaNIF.Length; i++)
             {
-                objectList.Add(
-                   new l(
+                empleadoList.Add(
+                   new Empleado(
                     false,
                     listaNombres[i],
                     listaApellido1[i],
@@ -41,6 +42,7 @@ namespace DatabaseInterfaceDemo.Controller
                     listaNIF[i]));
             }
 
+            return empleadoList;
         }
     }
 }

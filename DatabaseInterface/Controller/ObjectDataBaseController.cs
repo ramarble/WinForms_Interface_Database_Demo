@@ -13,32 +13,36 @@ using DatabaseInterface.View;
 
 namespace DatabaseInterface.Controller
 {
-    public abstract class ObjectDataBaseController<T> where T : class
+    public class ObjectDataBaseController<T> where T : class
 
     {
-        public ObjectDataBaseController(T obj, string primary_key)
+        public ObjectDataBaseController(Type objType, string primary_key)
         {
-            objectReference = obj;
-            PRIMARY_KEY = obj.GetType().GetProperty(primary_key);
-            temp = obj.GetType().GetProperty("temp");
+            objectReference = objType;
+            PRIMARY_KEY = objType.GetProperty(primary_key);
+            temp = objType.GetProperty("tempStatus");
         }
 
         static object objectReference;
         static PropertyInfo temp;
         static PropertyInfo PRIMARY_KEY;
-        static List<T> ObjectList = new List<T>();
-        static List<T> ObjectBackupList = new List<T>();
-        static BindingList<T> ObjectBindingList = new BindingList<T>();
+        public static List<object> ObjectList = new List<object>();
+        static List<object> ObjectBackupList = new List<object>();
+        static BindingList<object> ObjectBindingList = new BindingList<object>(ObjectList);
 
 
-        public static List<T> createUserList<T>(object obj)
+        public void setObjectList(List<object> list)
         {
+            ObjectList = list;
+        }
 
+        public List<T> createUserList<T>(object obj)
+        {
             List<T> objectList = new List<T>();
             return objectList;
         }
         
-        public static object getKey(object obj)
+        public object getKey(object obj)
         {
             for (int i = 0; i < obj.GetType().GetProperties().Length; i++)
             {
@@ -50,7 +54,7 @@ namespace DatabaseInterface.Controller
             return null;
         }
 
-        public static void turnIntoXMLFile<T>(List<T> lista)
+        public void turnIntoXMLFile(List<object> lista)
         {
 
             XmlSerializer serializer = new XmlSerializer(lista.GetType());
@@ -62,7 +66,7 @@ namespace DatabaseInterface.Controller
             }
         }
 
-        public static Boolean isKEYPresentInList(List<T> listToParse, object ob1)
+        public Boolean isKEYPresentInList(List<object> listToParse, object ob1)
         {
             foreach (T ob2 in listToParse)
             {
@@ -75,13 +79,13 @@ namespace DatabaseInterface.Controller
             return false;
         }
 
-        public static void userReceived<T>(object sender, EventSendObject<object> e)
+        public void objectReceived(object sender, ObjectEvents<object> e)
         {
-            addUserToList(getList(), e.getObject(), e.getEditMode());
+            addObjectToList(getObjectList(), e.getObject(), e.getEditMode());
         }
 
 
-        public static void addUserToList(List<T> listToAppendTo, object userToAdd, Boolean editMode)
+        public void addObjectToList(List<object> listToAppendTo, object userToAdd, Boolean editMode)
         {
             if (listToAppendTo.Count > 0)
             {
@@ -104,120 +108,161 @@ namespace DatabaseInterface.Controller
             }
         }
 
-        public static BindingList<T> getBindingList()
+        public BindingList<object> getBindingList()
         {
             return ObjectBindingList;
         }
 
-        public static List<T> getBackupList()
+        public List<object> getBackupList()
         {
             return ObjectBackupList;
         }
-        public static List<T> getList()
+        public List<object> getObjectList()
         {
             return ObjectList;
         }
 
-        public static void getTempStatus(object ob)
+        public Boolean getTempStatus(object ob)
         {
-            if (ob.GetType().getT)
+            try
+            {
+                Boolean b = (Boolean) ob.GetType().GetProperty("tempStatus").GetValue(ob);
+
+                if (b == true)
+                {
+                    MessageBox.Show("it's temp");
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            } catch (Exception e)
+            {
+                throw new Exception(ob.GetType().GetProperty("tempStatus").ToString());
+            }
         }
 
-        public static void TurnTempIntoPermanent(List<T> list)
+        public void setTempStatus(object ob, Boolean b)
+        {
+            var prop = ob.GetType().GetProperty("temp");
+            var aValue = prop.GetValue(ob);
+            var aProp = aValue.GetType().GetProperty("temp");
+            aProp.SetValue(aValue, b);
+        }
+
+        public void TurnTempIntoPermanent(List<object> list)
         {
             //TODO: check for deletions later
 
-            foreach (T u in list)
+            foreach (object ob in list)
             {
-                if (u.getTempStatus())
+                if (getTempStatus(ob))
                 {
                     getBackupList().Remove(getBackupList().Find(it => getKey(it) == getKey(it)));
-                    u.setTempStatus(false);
+                    setTempStatus(ob, false);
                     ObjectBindingList.ResetBindings();
                 }
             }
         }
 
-        public static List<Empleado> getSlicedListWithTempUsers(List<Empleado> userList)
+        public List<object> getSlicedListWithTempUsers(List<object> userList)
         {
-            List<Empleado> tempUsers = new List<Empleado>();
-            foreach (Empleado u in userList)
+            List<object> tempList = new List<object>();
+            foreach (object ob in userList)
             {
-                if (u.getTempStatus())
+                if (getTempStatus(ob))
                 {
-                    tempUsers.Add(u);
+                    tempList.Add(ob);
                 }
             }
-            return tempUsers;
+            return tempList;
         }
 
-        public static void restoreAllUsersFromBackupAndEmptyBackup(List<Empleado> userList)
+        public void restoreFromBackupAndEmptyBackup(List<object> objectList)
         {
-            List<Empleado> tempUsers = getSlicedListWithTempUsers(userList);
-            foreach (Empleado utemp in tempUsers)
+            List<object> tempUsers = getSlicedListWithTempUsers(objectList);
+            foreach (object utemp in tempUsers)
             {
-                revertSingleUser(utemp, getUserBindingList());
+                revertSingleObject(utemp, getBindingList());
             }
-            getUsersBackupList().Clear();
-            getUserBindingList().ResetBindings();
+            getBackupList().Clear();
+            getBindingList().ResetBindings();
         }
 
-        public static Empleado fetchUserByNIF(List<Empleado> listToSearch, int nifKey)
+        public object fetchUserByNIF(List<object> listToSearch, object key)
         {
-            return listToSearch.Find(u => u.nif == nifKey);
+            return listToSearch.Find(ob => getKey(ob) == key);
         }
 
-        public static Boolean isUserRevertable(Empleado user)
+        public Boolean isUserRevertable(object ob)
         {
-            return !(fetchUserByNIF(getUsersBackupList(), user.nif) == null);
+            return !(fetchUserByNIF(getBackupList(), getKey(ob)) == null);
         }
 
         //I'm SHOCKED beyond relief that this worked first try.
 
-        public static void revertSingleUser(Empleado userToRevert, BindingList<Empleado> listToUpdate)
+        public void revertSingleObject(object objectToRevert, BindingList<object> listToUpdate)
         {
-            if (isUserRevertable(userToRevert))
+            if (isUserRevertable(objectToRevert))
             {
-                Empleado sameUserInBackup = fetchUserByNIF(getUsersBackupList(), userToRevert.nif);
-                listToUpdate.Remove(userToRevert);
+                object sameUserInBackup = fetchUserByNIF(getBackupList(), getKey(objectToRevert));
+                listToUpdate.Remove(objectToRevert);
                 listToUpdate.Add(sameUserInBackup);
-                getUsersBackupList().Remove(sameUserInBackup);
+                getBackupList().Remove(sameUserInBackup);
             }
             else
             {
-                listToUpdate.Remove(userToRevert);
+                listToUpdate.Remove(objectToRevert);
             }
 
             listToUpdate.ResetBindings();
 
         }
 
-        public static void modifyUser(Empleado userToEdit, BindingList<Empleado> userList, Form SourceForm)
+        public void modifyObject(object objectToEdit, BindingList<object> objectList, Form SourceForm, ObjectDataBaseController<object> db)
         {
-            getUsersBackupList().Add(userToEdit);
-            userList.Remove(userToEdit);
+            getBackupList().Add(objectToEdit);
+            objectList.Remove(objectToEdit);
 
             //This form is the responsible for adding the new user to the list.
-            FormUser f = new FormUser(SourceForm, userToEdit, true);
+            FormUser f = new FormUser(SourceForm, objectToEdit, true, db);
             SourceForm.Hide();
             f.ShowDialog();
 
 
             //In case the form exited abruptly
-            if (!userList.Any(u => u.nif == userToEdit.nif))
+            if (!objectList.Any(u => getKey(u) == getKey(objectToEdit)))
             {
-                userList.Add(userToEdit);
-                getUsersBackupList().Remove(userToEdit);
+                objectList.Add(objectToEdit);
+                getBackupList().Remove(objectToEdit);
                 MessageBox.Show("Form exited without any changes");
             }
 
         }
 
-        public static void saveUser(Empleado user)
+        public void saveObject(object obj)
         {
-            Empleado sameUserInBackup = fetchUserByNIF(getUsersBackupList(), user.nif);
-            getUsersBackupList().Remove(sameUserInBackup);
-            user.setTempStatus(false);
+            object sameObjectInBackup = fetchUserByNIF(getBackupList(), getKey(obj));
+            getBackupList().Remove(sameObjectInBackup);
+            setTempStatus(obj, false);
         }
+
+        public Boolean isThereAnyTempUser()
+        {
+            return (getBackupList().Count > 0 |
+                (getSlicedListWithTempUsers(getObjectList()).Count > 0));
+        }
+
+
+        public void preventClosingWithUncommittedChanges(FormClosingEventArgs e)
+        {
+            if (isThereAnyTempUser())
+            {
+                DialogBoxes.WARN_UncommittedChanges();
+                e.Cancel = true;
+            }
+        }
+
     }
 }
