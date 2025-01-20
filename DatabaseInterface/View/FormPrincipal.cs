@@ -8,13 +8,16 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
-using RA4_Ejercicios.Controller;
-using RA4_Ejercicios.Model;
-using RA4_Ejercicios.View;
-using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
-using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
+using DatabaseInterface.Controller;
+using System.Collections.Generic;
+using DatabaseInterface.Model;
+using DatabaseInterface.View;
+using System.Collections.ObjectModel;
+using System.Reflection;
+using Utils = DatabaseInterface.Controller;
 
-namespace RA4_Ejercicios
+
+namespace DatabaseInterface
 {
     public partial class formPrincipal : Form
     {
@@ -22,22 +25,57 @@ namespace RA4_Ejercicios
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-            ComboBox_Style_Load();
+            initializeComboBox();
 
-            this.userDataGridView.DataSource = U_DB_C.getUserBindingList();
+
             SUEC.UserSaved += U_DB_C.userReceived;
-            this.userDataGridView.AutoGenerateColumns = true;
-            this.userDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.userDataGridView.Columns[0].Width = 15;
-            this.userDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
+
+
+            initializeDataGridViewWithObject<Empleado>(U_DB_C.getUserBindingList());
             U_DB_C.getUserBindingList().ListChanged += ReactToChangesToList;
-            this.userDataGridView.SelectionChanged += ReactToChangesToList;
-            this.userDataGridView.AllowUserToAddRows = false;
-            this.userDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+
             //Hardcoded, 
-            this.userDataGridView.Columns[6].DefaultCellStyle.Format = "dd/MM/yyyy";
         }
+
+        public void initializeDataGridView()
+        {
+            this.PrincipalDataGridView.AutoGenerateColumns = true;
+            this.PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.PrincipalDataGridView.Columns[0].Width = 18;
+            this.PrincipalDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
+            this.PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
+            this.PrincipalDataGridView.AllowUserToAddRows = false;
+            this.PrincipalDataGridView.SelectionChanged += ReactToChangesToList;
+            this.PrincipalDataGridView.DataSourceChanged += ReactToChangesToList;
+            this.PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+        }
+
+        public void initializeDataGridViewWithObject<T>(BindingList<T> list)
+        {
+            this.PrincipalDataGridView.DataSource = list;
+
+            formatTableDateTime(list[0]);
+
+            initializeDataGridView();
+
+        }
+
+
+        //Checks the object of the list to see if it contains a DateTime, formats it accordingly.
+        public void formatTableDateTime<T>(T obj)
+        {
+            for (int i = 0; i < obj.GetType().GetProperties().Length; i++)
+            {
+                if (Type.Equals(obj.GetType().GetProperties()[i].PropertyType, typeof(DateTime)))
+                {
+                    this.PrincipalDataGridView.Columns[i].DefaultCellStyle.Format = "dd/MM/yyyy";
+                }
+
+            }
+        }
+
         public formPrincipal()
         {
             InitializeComponent();
@@ -62,17 +100,18 @@ namespace RA4_Ejercicios
         private void CenterComboBoxTextBox(object sender, DrawItemEventArgs e)
         {
             var c = sender as ComboBox;
-
+            Font font = new Font(c.Font.FontFamily, c.Font.Size, FontStyle.Italic);
+            
             if (e.Index >= 0)
             {
                 StringFormat sf = new StringFormat();
                 sf.LineAlignment = StringAlignment.Center;
                 sf.Alignment = StringAlignment.Center;
-                e.Graphics.DrawString(c.Items[e.Index].ToString(), c.Font, new SolidBrush(c.ForeColor), e.Bounds, sf);
+                e.Graphics.DrawString(c.Items[e.Index].ToString(), font, new SolidBrush(c.ForeColor), e.Bounds, sf);
             }
         }
 
-        private void ComboBox_Style_Load()
+        private void initializeComboBox()
         {
             this.comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
             if (comboBoxCargarDatos.Items.Count == 0)
@@ -110,12 +149,12 @@ namespace RA4_Ejercicios
         private void ReactToChangesToList(object sender, EventArgs e)
         {
 
-            if (userDataGridView.SelectedRows.Count > 0)
+            if (PrincipalDataGridView.SelectedRows.Count > 0)
             {
                 //Always a possibility
                 buttonDeleteSelected.Enabled = true;
-                enableOrDisableModifyButton(userDataGridView);
-                OneOrManySaveOrRevertButtons(userDataGridView);
+                enableOrDisableModifyButton(PrincipalDataGridView);
+                OneOrManySaveOrRevertButtons(PrincipalDataGridView);
             }
             else
             {
@@ -145,10 +184,10 @@ namespace RA4_Ejercicios
             //this is kinda very gorey
 
             Boolean exitCond = false;
-            User us;
+            Empleado us;
             for (int i = 0; i < dgvUsers.SelectedRows.Count; i++)
             {
-                us = dgvUsers.SelectedRows[i].DataBoundItem as User;
+                us = dgvUsers.SelectedRows[i].DataBoundItem as Empleado;
                 if (us.getTempStatus())
                 {
                     exitCond = true;
@@ -161,9 +200,9 @@ namespace RA4_Ejercicios
 
         }
 
-        private void addListToBindingList(List<User> sourceList, BindingList<User> bindingList)
+        private void addListToBindingList(List<Empleado> sourceList, BindingList<Empleado> bindingList)
         {
-            foreach (User u in sourceList)
+            foreach (Empleado u in sourceList)
             {
                 bindingList.Add(u);
             }
@@ -191,9 +230,9 @@ namespace RA4_Ejercicios
         {
             if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
-                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    User u = row.DataBoundItem as User;
+                    Empleado u = row.DataBoundItem as Empleado;
                     U_DB_C.saveUser(u);
                 }
                 U_DB_C.getUserBindingList().ResetBindings();
@@ -205,9 +244,9 @@ namespace RA4_Ejercicios
             //TODO: Actually save the deletion and stuff for refetching
             if (DialogBoxes.DeleteConfirm() == DialogResult.Yes)
             {
-                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    User u = row.DataBoundItem as User;
+                    Empleado u = row.DataBoundItem as Empleado;
                     U_DB_C.getUserBindingList().Remove(u);
                 }
                 U_DB_C.getUserBindingList().ResetBindings();
@@ -247,7 +286,7 @@ namespace RA4_Ejercicios
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
+            Empleado userToEdit = (Empleado)PrincipalDataGridView.SelectedRows[0].DataBoundItem;
             U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
         }
 
@@ -267,9 +306,9 @@ namespace RA4_Ejercicios
         {
             if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
-                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    User userToRevert = row.DataBoundItem as User;
+                    Empleado userToRevert = row.DataBoundItem as Empleado;
                     U_DB_C.revertSingleUser(userToRevert, U_DB_C.getUserBindingList());
                 }
             }

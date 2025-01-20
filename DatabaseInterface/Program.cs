@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace RA4_Ejercicios
+namespace DatabaseInterface
 {
     internal static class Program
     {

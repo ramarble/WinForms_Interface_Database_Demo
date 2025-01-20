@@ -4,19 +4,19 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
-using RA4_Ejercicios.Model;
+using DatabaseInterface.Model;
 
-namespace RA4_Ejercicios.View
+namespace DatabaseInterface.View
 {
     public partial class ReportForm : Form
     {
-        public ReportForm(List<User> list)
+        public ReportForm(List<Empleado> list)
         {
             InitializeComponent();
             userList = list;
         }
 
-        List<User> userList;
+        List<Empleado> userList;
 
         private void ReportForm_Load(object sender, EventArgs e)
         {

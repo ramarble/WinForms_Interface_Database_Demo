@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace RA4_Ejercicios.Controller
+namespace DatabaseInterface.Controller
 {
     internal class Utils
     {
@@ -66,8 +66,8 @@ namespace RA4_Ejercicios.Controller
 
         public static Boolean isThereAnyTempUser()
         {
-            return (UserDatabaseController.getUsersBackupList().Count > 0 |
-                (UserDatabaseController.getSlicedListWithTempUsers(UserDatabaseController.getUserList()).Count > 0));
+            return (EmpleadoDataBaseController.getUsersBackupList().Count > 0 |
+                (EmpleadoDataBaseController.getSlicedListWithTempUsers(EmpleadoDataBaseController.getUserList()).Count > 0));
         }
     }
 }

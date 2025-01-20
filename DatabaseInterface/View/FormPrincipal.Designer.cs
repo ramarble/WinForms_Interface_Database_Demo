@@ -1,8 +1,8 @@
-﻿using RA4_Ejercicios.Controller;
-using RA4_Ejercicios.Model;
+﻿using DatabaseInterface.Controller;
+using DatabaseInterface.Model;
 using System.Collections.Generic;
 
-namespace RA4_Ejercicios
+namespace DatabaseInterface
 {
     partial class formPrincipal
     {
@@ -47,7 +47,7 @@ namespace RA4_Ejercicios
             this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userDataGridView = new System.Windows.Forms.DataGridView();
+            this.PrincipalDataGridView = new System.Windows.Forms.DataGridView();
             this.buttonSaveAll = new System.Windows.Forms.Button();
             this.buttonRevertAll = new System.Windows.Forms.Button();
             this.saveSelectedButton = new System.Windows.Forms.Button();
@@ -58,7 +58,7 @@ namespace RA4_Ejercicios
             this.buttonSaveToFile = new System.Windows.Forms.Button();
             this.buttonLoadData = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PrincipalDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -234,17 +234,17 @@ namespace RA4_Ejercicios
             // 
             // userDataGridView
             // 
-            this.userDataGridView.AccessibleDescription = "Vista de la información de los usuarios cargados en celdas";
-            this.userDataGridView.AccessibleName = "Vista de usuarios en celdas";
-            this.userDataGridView.AllowUserToAddRows = false;
-            this.userDataGridView.AllowUserToDeleteRows = false;
-            this.userDataGridView.AllowUserToResizeRows = false;
-            this.userDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.userDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.userDataGridView.Location = new System.Drawing.Point(12, 90);
-            this.userDataGridView.Name = "userDataGridView";
-            this.userDataGridView.Size = new System.Drawing.Size(1081, 419);
-            this.userDataGridView.TabIndex = 14;
+            this.PrincipalDataGridView.AccessibleDescription = "Vista de la información de los usuarios cargados en celdas";
+            this.PrincipalDataGridView.AccessibleName = "Vista de usuarios en celdas";
+            this.PrincipalDataGridView.AllowUserToAddRows = false;
+            this.PrincipalDataGridView.AllowUserToDeleteRows = false;
+            this.PrincipalDataGridView.AllowUserToResizeRows = false;
+            this.PrincipalDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PrincipalDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.PrincipalDataGridView.Location = new System.Drawing.Point(12, 90);
+            this.PrincipalDataGridView.Name = "userDataGridView";
+            this.PrincipalDataGridView.Size = new System.Drawing.Size(1081, 419);
+            this.PrincipalDataGridView.TabIndex = 14;
             // 
             // buttonSaveAll
             // 
@@ -389,7 +389,7 @@ namespace RA4_Ejercicios
             this.Controls.Add(this.saveSelectedButton);
             this.Controls.Add(this.buttonRevertAll);
             this.Controls.Add(this.buttonSaveAll);
-            this.Controls.Add(this.userDataGridView);
+            this.Controls.Add(this.PrincipalDataGridView);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
@@ -400,7 +400,7 @@ namespace RA4_Ejercicios
             this.Load += new System.EventHandler(this.formPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.userDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PrincipalDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,7 +422,7 @@ namespace RA4_Ejercicios
         private System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem maximizarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
-        private System.Windows.Forms.DataGridView userDataGridView;
+        private System.Windows.Forms.DataGridView PrincipalDataGridView;
         private System.Windows.Forms.Button buttonSaveAll;
         private System.Windows.Forms.Button buttonRevertAll;
         private System.Windows.Forms.Button saveSelectedButton;

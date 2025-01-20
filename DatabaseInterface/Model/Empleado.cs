@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace RA4_Ejercicios.Model
+namespace DatabaseInterface.Model
 {
     /*
      * IN ORDER FOR AN ATTRIBUTE TO BE SERIALIZABLE IT HAS TO HAVE A SETTER
      */
     [Serializable]
-    public class User
+    public class Empleado
     {
         [DisplayName("*")]
         public char tempChar { get; set; }
@@ -40,7 +40,7 @@ namespace RA4_Ejercicios.Model
 
         public override bool Equals(object obj)
         {
-            return obj is User user &&
+            return obj is Empleado user &&
                    tempChar == user.tempChar &&
                    name == user.name &&
                    surname1 == user.surname1 &&
@@ -51,8 +51,8 @@ namespace RA4_Ejercicios.Model
                    tempStatus == user.tempStatus;
         }
 
-        public User() { }
-        public User(Boolean temp, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
+        public Empleado() { }
+        public Empleado(Boolean temp, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
         {
             this.tempStatus = temp;
 

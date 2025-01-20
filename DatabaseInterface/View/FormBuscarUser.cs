@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using RA4_Ejercicios.Controller;
-using RA4_Ejercicios.Model;
-using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
+using DatabaseInterface.Controller;
+using DatabaseInterface.Model;
+using U_DB_C = DatabaseInterface.Controller.EmpleadoDataBaseController;
 
-namespace RA4_Ejercicios.View
+namespace DatabaseInterface.View
 {
     public partial class FormBuscarUser : Form
     {
@@ -59,7 +59,7 @@ namespace RA4_Ejercicios.View
         }
 
         //Unsure as to what this was used for. Staying here in case I need it in the future.
-        private void userSent(object sender, EventSendUser e)
+        private void userSent(object sender, EventSendObject e)
         {
             U_DB_C.addUserToList(U_DB_C.getUserList(), e.getUsuario(), e.getEditMode());
         }
@@ -73,7 +73,7 @@ namespace RA4_Ejercicios.View
 
             if (userListBox.SelectedItems.Count > 0)
             {
-                User u = userListBox.SelectedItem as User;
+                Empleado u = userListBox.SelectedItem as Empleado;
                 if (u.getTempStatus())
                 {
                     buttonRevert.Enabled = true;
@@ -100,7 +100,7 @@ namespace RA4_Ejercicios.View
 
         private void DynamicSearchBarUpdate(object sender, KeyEventArgs e)
         {
-            List<User> lista = U_DB_C.getUserBindingList().Where(user => user.nif.ToString().Contains(filterFindUserTextBox.Text)).ToList();
+            List<Empleado> lista = U_DB_C.getUserBindingList().Where(user => user.nif.ToString().Contains(filterFindUserTextBox.Text)).ToList();
 
             if (filterFindUserTextBox.Text != "")
             {
@@ -115,7 +115,7 @@ namespace RA4_Ejercicios.View
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
-            User userToEdit = (User)userPropertyGrid.SelectedObject;
+            Empleado userToEdit = (Empleado)userPropertyGrid.SelectedObject;
             int nifKey = userToEdit.nif;
             U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
             //Sets the pointer correctly
@@ -127,7 +127,7 @@ namespace RA4_Ejercicios.View
         {
             if (SelectedItem != null)
             {
-                int nifKey = (SelectedItem as User).nif;
+                int nifKey = (SelectedItem as Empleado).nif;
                 int userIndex =
                     U_DB_C.getUserBindingList().IndexOf(
                     U_DB_C.getUserBindingList().FirstOrDefault(user => user.nif == nifKey));
@@ -146,7 +146,7 @@ namespace RA4_Ejercicios.View
 
         private void buttonRevert_Click(object sender, EventArgs e)
         {
-            User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
+            Empleado userWithTempFlag = (Empleado)userPropertyGrid.SelectedObject;
             U_DB_C.revertSingleUser(userWithTempFlag, U_DB_C.getUserBindingList());
             UpdateListBoxPointerByNIF(userWithTempFlag);
             userListBox.DataSource = U_DB_C.getUserBindingList();
@@ -159,7 +159,7 @@ namespace RA4_Ejercicios.View
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            User userWithTempFlag = (User)userPropertyGrid.SelectedObject;
+            Empleado userWithTempFlag = (Empleado)userPropertyGrid.SelectedObject;
             U_DB_C.saveUser(userWithTempFlag);
             UpdateObjectView(this, e);
 

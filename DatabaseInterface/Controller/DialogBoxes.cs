@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace RA4_Ejercicios.Controller
+namespace DatabaseInterface.Controller
 {
     internal class DialogBoxes
     {

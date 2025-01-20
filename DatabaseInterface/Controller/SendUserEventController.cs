@@ -1,12 +1,12 @@
 ﻿using System;
-using RA4_Ejercicios.Model;
+using DatabaseInterface.Model;
 
-namespace RA4_Ejercicios.Controller
+namespace DatabaseInterface.Controller
 {
-    public class SendUserEventController
+    public class SendUserEventController<T>
     {
-        public static event EventHandler<EventSendUser> UserSaved;
-        public static void UserSavedTrigger(Object sender, EventSendUser e)
+        public static event EventHandler<EventSendObject<T>> UserSaved;
+        public static void UserSavedTrigger(Object sender, EventSendObject<T> e)
         {
             UserSaved.Invoke(sender, e);
         }

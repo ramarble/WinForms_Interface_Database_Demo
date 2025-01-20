@@ -3,18 +3,18 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
-using RA4_Ejercicios.Controller;
-using RA4_Ejercicios.Model;
-using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
-using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
+using DatabaseInterface.Controller;
+using DatabaseInterface.Model;
+using SUEC = DatabaseInterface.Controller.SendUserEventController;
+using U_DB_C = DatabaseInterface.Controller.EmpleadoDataBaseController;
 
-namespace RA4_Ejercicios.View
+namespace DatabaseInterface.View
 {
     public partial class FormUser : Form
     {
         Form parent;
         Boolean editMode;
-        User userReference = new User(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
+        Empleado userReference = new Empleado(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
 
         private void UserForm_Load(object sender, EventArgs e)
         {
@@ -46,7 +46,7 @@ namespace RA4_Ejercicios.View
             base.OnClosed(e);
         }
 
-        public FormUser(Form sender, User u, Boolean editMode)
+        public FormUser(Form sender, Empleado u, Boolean editMode)
         {
             this.parent = sender;
             //Constructor used by Edit mode
@@ -106,7 +106,7 @@ namespace RA4_Ejercicios.View
             }
             else
             {
-                User u = new User(userReference.getTempStatus(), tbNombre.Text.ToString(),
+                Empleado u = new Empleado(userReference.getTempStatus(), tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
                     decimal.Parse(numSalary.Text.ToString(), NumberStyles.Any),
@@ -121,7 +121,7 @@ namespace RA4_Ejercicios.View
                 {
                     u.setTempStatus(true);
                 };
-                SUEC.UserSavedTrigger(this, new EventSendUser(
+                SUEC.UserSavedTrigger(this, new EventSendObject(
                     u, editMode));
 
             }
