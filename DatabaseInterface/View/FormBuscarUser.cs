@@ -61,12 +61,6 @@ namespace DatabaseInterface.View
             base.OnClosed(e);
         }
 
-        //Unsure as to what this was used for. Staying here in case I need it in the future.
-        private void userSent(object sender, ObjectEvents<object> e)
-        {
-            db.addObjectToList(db.getObjectList(), e.getObject(), e.getEditMode());
-        }
-
 
         //This updates the buttons whenever you change the object being viewed
         //So if a user is temp it can be reverted
@@ -180,7 +174,7 @@ namespace DatabaseInterface.View
         {
             if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
-                db.TurnTempIntoPermanent(db.getObjectList());
+                db.TurnTempIntoPermanent(db.getBindingList());
                 UpdateListBoxPointerByKey((userListBox.SelectedItem));
             }
         }
@@ -189,7 +183,7 @@ namespace DatabaseInterface.View
         {
             if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
-                db.restoreFromBackupAndEmptyBackup(db.getObjectList());
+                db.restoreFromBackupAndEmptyBackup(db.getBindingList());
                 UpdateListBoxPointerByKey(userListBox.SelectedItem);
 
             }

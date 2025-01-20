@@ -5,18 +5,19 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
 using DatabaseInterface.Model;
+using System.ComponentModel;
 
 namespace DatabaseInterface.View
 {
     public partial class ReportForm : Form
     {
-        public ReportForm(List<object> list)
+        public ReportForm(BindingList<object> list)
         {
             InitializeComponent();
             objectList = list;
         }
 
-        List<object> objectList;
+        BindingList<object> objectList;
 
         private void ReportForm_Load(object sender, EventArgs e)
         {

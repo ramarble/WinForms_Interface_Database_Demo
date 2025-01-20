@@ -102,7 +102,7 @@ namespace DatabaseInterface.View
                 highlightEmptyTextBoxes();
 
             }
-            else if (db.isKEYPresentInList(db.getObjectList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""))))
+            else if (db.isKEYPresentInList(db.getBindingList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""))))
             {
                 MessageBox.Show("Ya hay un usuario con ese NIF presente.");
                 DialogResult = DialogResult.None;
@@ -124,8 +124,7 @@ namespace DatabaseInterface.View
                 {
                     u.setTempStatus(true);
                 };
-                ObjectEvents<object>.UserSavedTrigger(this, new ObjectEvents<object>(
-                    u, editMode));
+                db.addObjectToList(db.getBindingList(), u, editMode);
 
             }
 

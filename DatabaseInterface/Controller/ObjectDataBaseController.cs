@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,24 +17,27 @@ namespace DatabaseInterface.Controller
     public class ObjectDataBaseController<T> where T : class
 
     {
-        public ObjectDataBaseController(Type objType, string primary_key)
+        public ObjectDataBaseController(Type objType, string primary_key, string tempKey)
         {
             objectReference = objType;
-            PRIMARY_KEY = objType.GetProperty(primary_key);
-            temp = objType.GetProperty("tempStatus");
+            PRIMARY_KEY = primary_key;
+            tempStatus = tempKey;
         }
 
         static object objectReference;
-        static PropertyInfo temp;
-        static PropertyInfo PRIMARY_KEY;
-        public static List<object> ObjectList = new List<object>();
+        static string tempStatus;
+        static string PRIMARY_KEY;
         static List<object> ObjectBackupList = new List<object>();
-        static BindingList<object> ObjectBindingList = new BindingList<object>(ObjectList);
+        static BindingList<object> ObjectBindingList = new BindingList<object>();
 
 
-        public void setObjectList(List<object> list)
+        public void setObjectBindingList(List<object> list)
         {
-            ObjectList = list;
+            ObjectBindingList = new BindingList<object>(list);
+        }
+        public void setObjectBindingList(BindingList<object> list)
+        {
+            ObjectBindingList = list;
         }
 
         public List<T> createUserList<T>(object obj)
@@ -41,18 +45,20 @@ namespace DatabaseInterface.Controller
             List<T> objectList = new List<T>();
             return objectList;
         }
-        
+
         public object getKey(object obj)
         {
             for (int i = 0; i < obj.GetType().GetProperties().Length; i++)
             {
-                if(Type.Equals(obj.GetType().GetProperties()[i].PropertyType, PRIMARY_KEY))
+                if (Type.Equals(obj.GetType().GetProperties()[i].Name, PRIMARY_KEY))
                 {
+                    Debug.Print(obj.GetType().ToString());
                     return obj.GetType();
                 }
             }
             return null;
         }
+
 
         public void turnIntoXMLFile(List<object> lista)
         {
@@ -66,9 +72,9 @@ namespace DatabaseInterface.Controller
             }
         }
 
-        public Boolean isKEYPresentInList(List<object> listToParse, object ob1)
+        public Boolean isKEYPresentInList(BindingList<object> listToParse, object ob1)
         {
-            foreach (T ob2 in listToParse)
+            foreach (object ob2 in listToParse)
             {
                 if (getKey(ob2).Equals(getKey(ob1)))
                 {
@@ -79,21 +85,17 @@ namespace DatabaseInterface.Controller
             return false;
         }
 
-        public void objectReceived(object sender, ObjectEvents<object> e)
-        {
-            addObjectToList(getObjectList(), e.getObject(), e.getEditMode());
-        }
-
-
-        public void addObjectToList(List<object> listToAppendTo, object userToAdd, Boolean editMode)
+        public void addObjectToList(BindingList<object> listToAppendTo, object userToAdd, Boolean editMode)
         {
             if (listToAppendTo.Count > 0)
             {
 
                 if (listToAppendTo[0].GetType() == userToAdd.GetType())
                 {
+                    
                     if (!isKEYPresentInList(listToAppendTo, userToAdd) | editMode)
                     {
+                        MessageBox.Show("Key is present in list");
                         listToAppendTo.Add((T)userToAdd);
                         ObjectBindingList.ResetBindings();
                     }
@@ -117,10 +119,7 @@ namespace DatabaseInterface.Controller
         {
             return ObjectBackupList;
         }
-        public List<object> getObjectList()
-        {
-            return ObjectList;
-        }
+
 
         public Boolean getTempStatus(object ob)
         {
@@ -151,7 +150,7 @@ namespace DatabaseInterface.Controller
             aProp.SetValue(aValue, b);
         }
 
-        public void TurnTempIntoPermanent(List<object> list)
+        public void TurnTempIntoPermanent(BindingList<object> list)
         {
             //TODO: check for deletions later
 
@@ -166,7 +165,7 @@ namespace DatabaseInterface.Controller
             }
         }
 
-        public List<object> getSlicedListWithTempUsers(List<object> userList)
+        public List<object> getSlicedListWithTempUsers(BindingList<object> userList)
         {
             List<object> tempList = new List<object>();
             foreach (object ob in userList)
@@ -179,7 +178,7 @@ namespace DatabaseInterface.Controller
             return tempList;
         }
 
-        public void restoreFromBackupAndEmptyBackup(List<object> objectList)
+        public void restoreFromBackupAndEmptyBackup(BindingList<object> objectList)
         {
             List<object> tempUsers = getSlicedListWithTempUsers(objectList);
             foreach (object utemp in tempUsers)
@@ -192,7 +191,7 @@ namespace DatabaseInterface.Controller
 
         public object fetchUserByNIF(List<object> listToSearch, object key)
         {
-            return listToSearch.Find(ob => getKey(ob) == key);
+            return listToSearch.SingleOrDefault(ob => getKey(ob) == key);
         }
 
         public Boolean isUserRevertable(object ob)
@@ -251,7 +250,7 @@ namespace DatabaseInterface.Controller
         public Boolean isThereAnyTempUser()
         {
             return (getBackupList().Count > 0 |
-                (getSlicedListWithTempUsers(getObjectList()).Count > 0));
+                (getSlicedListWithTempUsers(getBindingList()).Count > 0));
         }
 
 

@@ -24,20 +24,17 @@ namespace DatabaseInterface
     public partial class formPrincipal : Form
     {
 
-        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado).GetType(), "nif");
+        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado).GetType(), "nif", "tempStatus");
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-            initializeComboBox();
-
-            DataModel.ObjectEvents<Empleado>.UserSaved += DataModel.ObjectEvents<Empleado>.UserSavedTrigger;
+            initializeComboBox();            
             
             
-            
-            db.setObjectList(EmpleadoDebug.createEmpleadoList());
+            db.setObjectBindingList(EmpleadoDebug.createEmpleadoList());
             db.getBindingList().ResetBindings();
-            db.getBindingList().Add(db.getObjectList()[0]);
+            db.getBindingList().Add(db.getBindingList()[0]);
             
 
             initializeDataGridViewWithObject(db.getBindingList());
@@ -228,7 +225,7 @@ namespace DatabaseInterface
 
             if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
-                db.TurnTempIntoPermanent(db.getObjectList());
+                db.TurnTempIntoPermanent(db.getBindingList());
             }
         }
 
@@ -236,7 +233,7 @@ namespace DatabaseInterface
         {
             if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
-                db.restoreFromBackupAndEmptyBackup(db.getObjectList());
+                db.restoreFromBackupAndEmptyBackup(db.getBindingList());
             }
         }
 
@@ -295,7 +292,7 @@ namespace DatabaseInterface
 
         private void Print_Menu_Click(object sender, EventArgs e)
         {
-            Form reportForm = new ReportForm(db.getObjectList());
+            Form reportForm = new ReportForm(db.getBindingList());
             reportForm.ShowDialog();
         }
 
