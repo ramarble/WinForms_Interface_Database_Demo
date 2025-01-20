@@ -101,15 +101,12 @@ namespace DatabaseInterface.View
                 DialogResult = DialogResult.None;
                 highlightEmptyTextBoxes();
 
-            }
-            else if (db.isKEYPresentInList(db.getBindingList(), usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""))))
+            } else
             {
-                MessageBox.Show("Ya hay un usuario con ese NIF presente.");
-                DialogResult = DialogResult.None;
-            }
-            else
-            {
-                Empleado u = new Empleado(userReference.getTempStatus(), tbNombre.Text.ToString(),
+                usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""));
+                Empleado u = new Empleado(
+                    userReference.getTempStatus(), 
+                    tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
                     decimal.Parse(numSalary.Text.ToString(), NumberStyles.Any),

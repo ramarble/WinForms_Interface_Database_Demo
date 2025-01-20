@@ -232,7 +232,7 @@ namespace DatabaseInterface
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
             this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
-            // userDataGridView
+            // PrincipalDataGridView
             // 
             this.PrincipalDataGridView.AccessibleDescription = "Vista de la información de los usuarios cargados en celdas";
             this.PrincipalDataGridView.AccessibleName = "Vista de usuarios en celdas";
@@ -242,7 +242,7 @@ namespace DatabaseInterface
             this.PrincipalDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PrincipalDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.PrincipalDataGridView.Location = new System.Drawing.Point(12, 90);
-            this.PrincipalDataGridView.Name = "userDataGridView";
+            this.PrincipalDataGridView.Name = "PrincipalDataGridView";
             this.PrincipalDataGridView.Size = new System.Drawing.Size(1081, 419);
             this.PrincipalDataGridView.TabIndex = 14;
             // 

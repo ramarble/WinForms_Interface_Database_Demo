@@ -19,12 +19,12 @@ namespace DatabaseInterface.Controller
     {
         public ObjectDataBaseController(Type objType, string primary_key, string tempKey)
         {
-            objectReference = objType;
+            objectReferenceType = objType;
             PRIMARY_KEY = primary_key;
             tempStatus = tempKey;
         }
 
-        static object objectReference;
+        static Type objectReferenceType;
         static string tempStatus;
         static string PRIMARY_KEY;
         static List<object> ObjectBackupList = new List<object>();
@@ -48,15 +48,9 @@ namespace DatabaseInterface.Controller
 
         public object getKey(object obj)
         {
-            for (int i = 0; i < obj.GetType().GetProperties().Length; i++)
-            {
-                if (Type.Equals(obj.GetType().GetProperties()[i].Name, PRIMARY_KEY))
-                {
-                    Debug.Print(obj.GetType().ToString());
-                    return obj.GetType();
-                }
-            }
-            return null;
+            var result = obj.GetType().GetProperty(PRIMARY_KEY);
+            return result.GetValue(obj);
+
         }
 
 
@@ -72,7 +66,9 @@ namespace DatabaseInterface.Controller
             }
         }
 
-        public Boolean isKEYPresentInList(BindingList<object> listToParse, object ob1)
+
+        //This works for now :D
+        public Boolean isObjectPresentInList(BindingList<object> listToParse, object ob1)
         {
             foreach (object ob2 in listToParse)
             {
@@ -89,19 +85,16 @@ namespace DatabaseInterface.Controller
         {
             if (listToAppendTo.Count > 0)
             {
-
                 if (listToAppendTo[0].GetType() == userToAdd.GetType())
                 {
                     
-                    if (!isKEYPresentInList(listToAppendTo, userToAdd) | editMode)
+                    if (!isObjectPresentInList(listToAppendTo, userToAdd) | editMode)
                     {
-                        MessageBox.Show("Key is present in list");
                         listToAppendTo.Add((T)userToAdd);
                         ObjectBindingList.ResetBindings();
                     }
                     else
                     {
-                        //this should NEVER trigger
                         DialogResult d = MessageBox.Show("Ya hay un usuario con ese NIF presente.");
                         d = DialogResult.None;
                     }
@@ -129,7 +122,6 @@ namespace DatabaseInterface.Controller
 
                 if (b == true)
                 {
-                    MessageBox.Show("it's temp");
                     return true;
                 }
                 else
@@ -144,10 +136,8 @@ namespace DatabaseInterface.Controller
 
         public void setTempStatus(object ob, Boolean b)
         {
-            var prop = ob.GetType().GetProperty("temp");
-            var aValue = prop.GetValue(ob);
-            var aProp = aValue.GetType().GetProperty("temp");
-            aProp.SetValue(aValue, b);
+            var prop = ob.GetType().GetProperty(tempStatus);
+            prop.SetValue(ob, b);
         }
 
         public void TurnTempIntoPermanent(BindingList<object> list)

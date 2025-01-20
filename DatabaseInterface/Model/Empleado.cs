@@ -26,10 +26,11 @@ namespace DatabaseInterface.Model
 
         [DisplayName("NIF")]
         public Int32 nif { get; set; }
-        public Int32 getNif() { return this.nif; }
 
         [DisplayName("Fecha Nacimiento")]
         public DateTime birthdate { get; set; }
+
+        [Browsable(false)]
         public Boolean tempStatus { get; set; }
         public void setTempStatus(Boolean temp)
         {

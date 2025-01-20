@@ -24,17 +24,16 @@ namespace DatabaseInterface
     public partial class formPrincipal : Form
     {
 
-        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado).GetType(), "nif", "tempStatus");
+        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado), "nif", "tempStatus");
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-            initializeComboBox();            
-            
+
+            initializeComboBox();                        
             
             db.setObjectBindingList(EmpleadoDebug.createEmpleadoList());
             db.getBindingList().ResetBindings();
-            db.getBindingList().Add(db.getBindingList()[0]);
             
 
             initializeDataGridViewWithObject(db.getBindingList());
@@ -48,15 +47,39 @@ namespace DatabaseInterface
         {
             this.PrincipalDataGridView.AutoGenerateColumns = true;
             this.PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.PrincipalDataGridView.Columns[0].Width = 18;
+            this.PrincipalDataGridView.Columns[0].Width = 25;
+            this.PrincipalDataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.PrincipalDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
             this.PrincipalDataGridView.AllowUserToAddRows = false;
             this.PrincipalDataGridView.SelectionChanged += ReactToChangesToList;
+            this.VisibleChanged += ReactToChangesToList;
             this.PrincipalDataGridView.DataSourceChanged += ReactToChangesToList;
             this.PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
         }
+        //Enables or disables the buttons
+        private void ReactToChangesToList(object sender, EventArgs e)
+        {
+
+            if (PrincipalDataGridView.SelectedRows.Count > 0)
+            {
+                //Always a possibility
+                buttonDeleteSelected.Enabled = true;
+                enableOrDisableModifyButton(PrincipalDataGridView);
+                OneOrManySaveOrRevertButtons(PrincipalDataGridView);
+            }
+            else
+            {
+                buttonModify.Enabled = false;
+                buttonDeleteSelected.Enabled = false;
+                saveSelectedButton.Enabled = false;
+                revertSelectedButton.Enabled = false;
+            }
+            enableSaveAndRevertAllButtonsIfNeeded();
+        }
+
+
 
         public void initializeDataGridViewWithObject(BindingList<object> list)
         {
@@ -157,26 +180,6 @@ namespace DatabaseInterface
             }
         }
 
-        //Enables or disables the buttons
-        private void ReactToChangesToList(object sender, EventArgs e)
-        {
-
-            if (PrincipalDataGridView.SelectedRows.Count > 0)
-            {
-                //Always a possibility
-                buttonDeleteSelected.Enabled = true;
-                enableOrDisableModifyButton(PrincipalDataGridView);
-                OneOrManySaveOrRevertButtons(PrincipalDataGridView);
-            }
-            else
-            {
-                buttonModify.Enabled = false;
-                buttonDeleteSelected.Enabled = false;
-                saveSelectedButton.Enabled = false;
-                revertSelectedButton.Enabled = false;
-            }
-            enableSaveAndRevertAllButtonsIfNeeded();
-        }
 
         private void enableOrDisableModifyButton(DataGridView dgvUsers)
         {
@@ -336,5 +339,7 @@ namespace DatabaseInterface
             Form acercaDe = new AcercaDe();
             acercaDe.ShowDialog();
         }
+
+
     }
 }
