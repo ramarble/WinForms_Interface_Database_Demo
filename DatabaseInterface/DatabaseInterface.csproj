@@ -63,8 +63,10 @@
   <ItemGroup>
     <Compile Include="Controller\DialogBoxes.cs" />
     <Compile Include="Controller\EmpleadoDebug.cs" />
+    <Compile Include="Controller\FormattedFileDialog.cs" />
     <Compile Include="Controller\Utils.cs" />
     <Compile Include="Controller\ObjectDataBaseController.cs" />
+    <Compile Include="Controller\CustomXMLParser.cs" />
     <Compile Include="Model\Empleado.cs" />
     <Compile Include="View\AcercaDe.cs">
       <SubType>Form</SubType>
@@ -144,6 +146,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Data\listaEmpleados.xml" />
     <Content Include="Data\listaUsuarios.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

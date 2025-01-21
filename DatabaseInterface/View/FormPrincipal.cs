@@ -9,12 +9,10 @@ using System.Security.Cryptography;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
 using DatabaseInterface.Controller;
-using System.Collections.Generic;
 using DatabaseInterface.Model;
 using DatabaseInterface.View;
 using System.Collections.ObjectModel;
 using System.Reflection;
-using Utils = DatabaseInterface.Controller;
 using DataModel = DatabaseInterface.Model;
 using DatabaseInterfaceDemo.Controller;
 
@@ -24,23 +22,23 @@ namespace DatabaseInterface
     public partial class formPrincipal : Form
     {
 
-        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado), "nif", "tempStatus");
+        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado), "nif");
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-
             initializeComboBox();                        
             
             db.setObjectBindingList(EmpleadoDebug.createEmpleadoList());
+            db.turnIntoXMLFile(db.getBindingList().ToList<object>());
             db.getBindingList().ResetBindings();
-            
 
-            initializeDataGridViewWithObject(db.getBindingList());
+            CustomXMLParser.test(new List<Empleado>());
+
+            //initializeDataGridViewWithObject(db.getBindingList());
             db.getBindingList().ListChanged += ReactToChangesToList;
 
 
-            //Hardcoded, 
         }
 
         public void initializeDataGridView()
@@ -81,7 +79,7 @@ namespace DatabaseInterface
 
 
 
-        public void initializeDataGridViewWithObject(BindingList<object> list)
+        public void initializeDataGridViewWithObjects(BindingList<object> list)
         {
             this.PrincipalDataGridView.DataSource = list;
 
@@ -151,9 +149,8 @@ namespace DatabaseInterface
             this.comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
             if (comboBoxCargarDatos.Items.Count == 0)
             {
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Title = "<--Abrir Archivo-->";
-                
+                OpenFileDialog ofd = FormattedFileDialog.formattedOpenFileDialog();
+
                 this.comboBoxCargarDatos.Items.Add(ofd.Title);
 
                 this.comboBoxCargarDatos.DrawItem += StyleTextBox;

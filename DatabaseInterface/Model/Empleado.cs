@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace DatabaseInterface.Model
 {
@@ -10,6 +12,7 @@ namespace DatabaseInterface.Model
     public class Empleado
     {
         [DisplayName("*")]
+        [XmlIgnore]
         public char tempChar { get; set; }
 
         [DisplayName("Nombre")]
@@ -31,6 +34,7 @@ namespace DatabaseInterface.Model
         public DateTime birthdate { get; set; }
 
         [Browsable(false)]
+        [XmlIgnore]
         public Boolean tempStatus { get; set; }
         public void setTempStatus(Boolean temp)
         {
@@ -69,6 +73,11 @@ namespace DatabaseInterface.Model
             this.birthdate = birthdate;
         }
 
+        //This is a needed reverse-engineered recreation of a generic
+        public Empleado(List<object> l)
+        {
+
+        }
 
     }
 }
