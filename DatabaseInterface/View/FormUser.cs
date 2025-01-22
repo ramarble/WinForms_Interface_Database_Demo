@@ -132,8 +132,6 @@ namespace DatabaseInterface.View
                     db.setTempStatus(u, true);
                 };
                 db.addObjectToList(db.getBindingList(), u, editMode);
-                MessageBox.Show(db.getBindingList()[0].ToString());
-
             }
 
         }
