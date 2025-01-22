@@ -52,7 +52,7 @@ namespace DatabaseInterfaceDemo.Controller
         public static Type findTypeFromParsedXMLFile(string[] readLines)
         {
             //TODO:
-            //This should be outside and fetched at program starrt
+            //This should be outside and fetched at program start
             List<Type> classes = new List<Type>{typeof(Empleado)};
             string offendingLine = null;
             for (int i = 0; i < 10; i++)

@@ -20,6 +20,7 @@ namespace DatabaseInterface.View
         {
             this.KeyPreview = true;
             loadListenersForTextBoxes();
+            checkForDBListExisting();
             //For edit mode you're editing an existing user, and can't change its primary key
             if (editMode)
             {
@@ -30,6 +31,15 @@ namespace DatabaseInterface.View
                 tbNIF.ReadOnly = false;
             }
         }
+
+        public void checkForDBListExisting()
+        {
+            if (db.getBindingList().Count == 0)
+            {
+                //MessageBox.Show("hi");
+            }
+        }
+
         public FormUser(Form sender, Boolean editMode, ObjectDataBaseController<object> db)
         {
 
@@ -97,8 +107,8 @@ namespace DatabaseInterface.View
             int usernif;
             if (Utils.isAnyTextBoxEmptyInForm(this))
             {
-                MessageBox.Show("Por favor rellena todos los campos");
-                DialogResult = DialogResult.None;
+                DialogBoxes.WARN_FillAllData();
+                this.DialogResult = DialogResult.None; //Why the frick is this how it has to work
                 highlightEmptyTextBoxes();
 
             } else
@@ -122,6 +132,7 @@ namespace DatabaseInterface.View
                     u.setTempStatus(true);
                 };
                 db.addObjectToList(db.getBindingList(), u, editMode);
+                MessageBox.Show(db.getBindingList()[0].ToString());
 
             }
 

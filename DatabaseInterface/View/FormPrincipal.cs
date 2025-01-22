@@ -17,6 +17,11 @@ namespace DatabaseInterface
     public partial class formPrincipal : Form
     {
 
+        public formPrincipal()
+        {
+            InitializeComponent();
+        }
+
         static ObjectDataBaseController<object> DB = new ObjectDataBaseController<object>(typeof(Empleado), "nif");
 
         static List<string> GLOBAL_PATHS_FILES = new List<string>();
@@ -28,7 +33,10 @@ namespace DatabaseInterface
         {
 
             initializeComboBox();
-            DB.getBindingList().ListChanged += ReactToChangesToList;
+            DB.getBindingList().ListChanged += onListChangeUpdateButtons;
+            DB.getBindingList().ListChanged += firstTimeLoadEvent;
+            PrincipalDataGridView.DataSourceChanged += onListChangeUpdateButtons;
+
 
             //CustomXMLParser.turnIntoXMLFile(db.getBindingList().ToList<object>(), path);
 
@@ -44,8 +52,32 @@ namespace DatabaseInterface
             DB.setObjectBindingList(CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]));
 
             initializeDataGridViewWithObjects(DB.getBindingList());
-            initializeDataGridViewStyling();
 
+        }
+
+        //This listener removes itself and reacts to an edge case where you add an item and the datagridview wouldn't have been populated
+        public void firstTimeLoadEvent(object sender, EventArgs e)
+        {
+            if (DB.getBindingList().Count == 1)
+            {
+                initializeDataGridViewWithObjects(DB.getBindingList());
+            }
+            DB.getBindingList().ListChanged -= firstTimeLoadEvent;
+        }
+
+
+        public void initializeDataGridViewWithObjects(BindingList<object> list)
+        {
+            this.PrincipalDataGridView.DataSource = list;
+
+            if (list.Count > 0)
+            {
+                initializeDataGridViewStyling();
+            }
+            else
+            {
+                throw new Exception("wow, empty table");
+            }
 
         }
 
@@ -61,20 +93,18 @@ namespace DatabaseInterface
                 PrincipalDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
                 PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
                 PrincipalDataGridView.AllowUserToAddRows = false;
-                PrincipalDataGridView.SelectionChanged += ReactToChangesToList;
-                PrincipalDataGridView.DataSourceChanged += ReactToChangesToList;
+                PrincipalDataGridView.SelectionChanged += onListChangeUpdateButtons;
                 PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
+                formatTableDateTime(DB.getBindingList()[0]);
                 //Doesn't work yet but what I want is that when the form changes visibility the buttons update
-                VisibleChanged += ReactToChangesToList;
-
+                VisibleChanged += onListChangeUpdateButtons;
 
             }
          }
 
         
         //Enables or disables the buttons
-        private void ReactToChangesToList(object sender, EventArgs e)
+        private void onListChangeUpdateButtons(object sender, EventArgs e)
         {
 
             if (PrincipalDataGridView.SelectedRows.Count > 0)
@@ -95,40 +125,18 @@ namespace DatabaseInterface
         }
 
 
-
-        public void initializeDataGridViewWithObjects(BindingList<object> list)
-        {
-            this.PrincipalDataGridView.DataSource = list;
-
-            if (list.Count > 0)
-            {
-                formatTableDateTime(list[0]);
-            } else
-            {
-                throw new Exception("wow, empty table");
-            }
-            
-        }
-
-
         //Checks the object of the list to see if it contains a DateTime, formats it accordingly.
-        public void formatTableDateTime<T>(T obj)
+        public void formatTableDateTime(object obj)
         {
-            for (int i = 0; i < obj.GetType().GetProperties().Length; i++)
+            for (int i = 0; i < PrincipalDataGridView.Columns.Count; i++)
             {
-                if (Type.Equals(obj.GetType().GetProperties()[i].PropertyType, typeof(DateTime)))
+                if (PrincipalDataGridView.Columns[i].ValueType == typeof(DateTime))
                 {
                     PrincipalDataGridView.Columns[i].DefaultCellStyle.Format = "dd/MM/yyyy";
                 }
-
             }
+                  
         }
-
-        public formPrincipal()
-        {
-            InitializeComponent();
-        }
-
 
         private void StyleTextBox(object sender, DrawItemEventArgs e)
         {
@@ -231,17 +239,19 @@ namespace DatabaseInterface
             }
 
         }
-
-        private void OneOrManySaveOrRevertButtons(DataGridView dgvUsers)
+        
+        //Why am I sending the global dgv as a parameter? it's a mystery.
+        private void OneOrManySaveOrRevertButtons(DataGridView dgv)
         {
             //this is kinda very gorey
 
             Boolean exitCond = false;
-            Empleado us;
-            for (int i = 0; i < dgvUsers.SelectedRows.Count; i++)
+            object obj;
+            //huh? int i = 0 crashed all of a sudden,but 1 didn't
+            for (int i = 1; i < dgv.SelectedRows.Count; i++)
             {
-                us = dgvUsers.SelectedRows[i].DataBoundItem as Empleado;
-                if (us.getTempStatus())
+                obj = dgv.SelectedRows[i].DataBoundItem;
+                if (DB.getTempStatus(obj))
                 {
                     exitCond = true;
                 }

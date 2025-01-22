@@ -69,24 +69,33 @@ namespace DatabaseInterface.Controller
 
         public void addObjectToList(BindingList<object> listToAppendTo, object userToAdd, Boolean editMode)
         {
-            if (listToAppendTo.Count > 0)
+            Type typeOfList;
+            //Can initialize a list but can't update it with the wrong type
+            if (listToAppendTo.Count == 0)
             {
-                if (listToAppendTo[0].GetType() == userToAdd.GetType())
-                {
-                    
-                    if (!isObjectPresentInList(listToAppendTo, userToAdd) | editMode)
-                    {
-                        listToAppendTo.Add((T)userToAdd);
-                        ObjectBindingList.ResetBindings();
-                    }
-                    else
-                    {
-                        DialogResult d = MessageBox.Show("Ya hay un usuario con ese NIF presente.");
-                        d = DialogResult.None;
-                    }
-                }
-
+                typeOfList = userToAdd.GetType();
+                
             }
+            else
+            {
+                typeOfList = listToAppendTo[0].GetType();
+            }
+
+            if (typeOfList == userToAdd.GetType())
+            {
+                    
+                if (!isObjectPresentInList(listToAppendTo, userToAdd) | editMode)
+                {
+                    listToAppendTo.Add(userToAdd);
+                    ObjectBindingList.ResetBindings();
+                }
+                else
+                {
+                    DialogResult d = MessageBox.Show("Ya hay un usuario con ese NIF presente.");
+                    d = DialogResult.None;
+                }
+            }
+
         }
 
         public BindingList<object> getBindingList()

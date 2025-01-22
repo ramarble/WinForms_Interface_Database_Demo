@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 
 namespace DatabaseInterface.Controller
 {
@@ -27,6 +28,11 @@ namespace DatabaseInterface.Controller
         {
             DialogResult d = MessageBox.Show("Por favor confirma o revierte todos los cambios antes de salir", "Advertencia");
             d = DialogResult.None;
+        }
+
+        public static DialogResult WARN_FillAllData()
+        {
+            return MessageBox.Show("Por favor rellena todos los campos", "Advertencia");
         }
     }
 
