@@ -11,9 +11,13 @@ using contr = DatabaseInterface.Controller;
 
 namespace DatabaseInterface.Controller
 {
+    /*List of methods that I assume are going to be accessed from
+     * multiple files. If this turns out to not be the case I'll refactor
+     * them somewhere else
+    */
     internal abstract class Utils
     {
-        public static void cutText(TextBoxBase tbb)
+        public static void CutText(TextBoxBase tbb)
         {
             if (tbb.SelectedText != "")
             {
@@ -21,7 +25,7 @@ namespace DatabaseInterface.Controller
             }
         }
 
-        public static Dictionary<Type, string> typeDictionary()
+        public static Dictionary<Type, string> TypeDictionary()
         {
             Dictionary<Type, string> dict = new Dictionary<Type, string>();
             dict.Add(typeof(Empleado), "nif");
@@ -30,7 +34,7 @@ namespace DatabaseInterface.Controller
         } 
 
 
-        public static OpenFileDialog formattedOpenFileDialog()
+        public static OpenFileDialog FormattedOpenFileDialog()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "<--Abrir Archivo-->";
@@ -39,7 +43,7 @@ namespace DatabaseInterface.Controller
             return ofd;
         }
 
-        public static string returnPathFromOFD(OpenFileDialog ofd)
+        public static string ReturnPathFromOFD(OpenFileDialog ofd)
         {
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -71,18 +75,18 @@ namespace DatabaseInterface.Controller
             }
             else if (c is NumericUpDown)
             {
-                return getTextBoxFromNumericUpDown(c as NumericUpDown);
+                return GetTextBoxFromNumericUpDown(c as NumericUpDown);
             }
             return null;
 
         }
 
-        public static TextBox getTextBoxFromNumericUpDown(NumericUpDown nud)
+        public static TextBox GetTextBoxFromNumericUpDown(NumericUpDown nud)
         {
             return nud.Controls.OfType<TextBox>().FirstOrDefault() as TextBox;
         }
 
-        public static List<TextBoxBase> listOfTextBoxesInForm(Form sender)
+        public static List<TextBoxBase> ListOfTextBoxesInForm(Form sender)
         {
             List<TextBoxBase> ListOfTextBoxBases = new List<TextBoxBase>();
             foreach (Object o in sender.Controls)
@@ -93,14 +97,14 @@ namespace DatabaseInterface.Controller
                 }
                 if (o is NumericUpDown)
                 {
-                    ListOfTextBoxBases.Add((getTextBoxFromNumericUpDown(o as NumericUpDown)));
+                    ListOfTextBoxBases.Add((GetTextBoxFromNumericUpDown(o as NumericUpDown)));
                 }
             }
             return ListOfTextBoxBases;
         }
         public static Boolean isAnyTextBoxEmptyInForm(Form sender)
         {
-            return listOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
+            return ListOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
         }
     }
 }

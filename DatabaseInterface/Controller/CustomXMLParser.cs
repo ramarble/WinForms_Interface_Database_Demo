@@ -53,7 +53,7 @@ namespace DatabaseInterfaceDemo.Controller
 
         public static Type findTypeFromParsedXMLFile(string[] readLines)
         {
-            Dictionary<Type,string> dict = Utils.typeDictionary();
+            Dictionary<Type,string> dict = Utils.TypeDictionary();
 
 
             string offendingLine = null;

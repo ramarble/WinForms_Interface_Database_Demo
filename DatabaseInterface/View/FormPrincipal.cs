@@ -26,9 +26,9 @@ namespace DatabaseInterface
 
         static List<string> GLOBAL_PATHS_FILES = new List<string>();
 
-        static OpenFileDialog OFD = Utils.formattedOpenFileDialog();
+        static OpenFileDialog OFD = Utils.FormattedOpenFileDialog();
 
-        static Dictionary<Type, string> TypeDict = Utils.typeDictionary();
+        static Dictionary<Type, string> TypeDict = Utils.TypeDictionary();
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
@@ -207,7 +207,7 @@ namespace DatabaseInterface
             if (comboBoxCargarDatos.SelectedIndex == comboBoxCargarDatos.Items.Count - 1)
             {
                 string filePathReturned;
-                if ((filePathReturned = Utils.returnPathFromOFD(OFD)) != null)
+                if ((filePathReturned = Utils.ReturnPathFromOFD(OFD)) != null)
                 {
                     GLOBAL_PATHS_FILES.Insert(0, filePathReturned);
                     comboBoxCargarDatos.Items.Insert(0, Path.GetFileName(filePathReturned));

@@ -70,7 +70,7 @@ namespace DatabaseInterface.View
 
         private void loadListenersForTextBoxes()
         {
-            foreach(TextBoxBase t in Utils.listOfTextBoxesInForm(this))
+            foreach(TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
             {
                 t.ContextMenuStrip = contextMenuStrip1;
                 t.Enter += resetColorToDefault;
@@ -84,7 +84,7 @@ namespace DatabaseInterface.View
 
         private void highlightEmptyTextBoxes()
         {
-            foreach (TextBoxBase t in Utils.listOfTextBoxesInForm(this))
+            foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
             {
                 if (String.IsNullOrWhiteSpace(t.Text.ToString()))
                 {
@@ -134,7 +134,7 @@ namespace DatabaseInterface.View
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            foreach (TextBoxBase t in Utils.listOfTextBoxesInForm(this))
+            foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
             {
 
                 if (!t.ReadOnly)
@@ -165,7 +165,7 @@ namespace DatabaseInterface.View
 
         private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utils.cutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
+            Utils.CutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
         }
 
         private void pegarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -180,7 +180,7 @@ namespace DatabaseInterface.View
 
         private void cortarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Utils.cutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
+            Utils.CutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
         }
 
         private void pegarToolStripMenuItem1_Click(object sender, EventArgs e)
