@@ -82,6 +82,7 @@ namespace DatabaseInterface
         }
 
         //This is specific to Empleado
+        //This should check for tempStatus whenever loading and put it at the first possible column
         public void initializeDataGridViewStyling()
         {
             if (PrincipalDataGridView.DataSource != null)
@@ -143,7 +144,6 @@ namespace DatabaseInterface
 
             var c = sender as ComboBox;
             e.DrawBackground();
-
 
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
             {
@@ -265,7 +265,6 @@ namespace DatabaseInterface
 
         private void buttonSaveAll_Click(object sender, EventArgs e)
         {
-
             if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
                 DB.TurnTempIntoPermanent(DB.getBindingList());

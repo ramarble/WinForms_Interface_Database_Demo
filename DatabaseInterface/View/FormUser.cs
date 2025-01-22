@@ -124,12 +124,12 @@ namespace DatabaseInterface.View
                     usernif);
                 if (u.Equals(userReference))
                 {
-                    u.setTempStatus(false);
+                    db.setTempStatus(u,false);
                     db.getBackupList().Remove(userReference);
                 }
                 else
                 {
-                    u.setTempStatus(true);
+                    db.setTempStatus(u, true);
                 };
                 db.addObjectToList(db.getBindingList(), u, editMode);
                 MessageBox.Show(db.getBindingList()[0].ToString());
