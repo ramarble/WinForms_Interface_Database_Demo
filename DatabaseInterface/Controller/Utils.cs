@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using contr = DatabaseInterface.Controller;
@@ -25,6 +26,16 @@ namespace DatabaseInterface.Controller
             ofd.Filter = "XML (*.xml)|*.xml|JSON (*.json)|*.json|All Files|*.*";
 
             return ofd;
+        }
+
+        public static FileStream returnPathFromOFD(OpenFileDialog ofd)
+        {
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                //Get the path of specified file
+                return File.Create(ofd.FileName);
+            }
+            return null;
         }
 
         public static TextBoxBase TextBoxBaseFromControl(Control c)

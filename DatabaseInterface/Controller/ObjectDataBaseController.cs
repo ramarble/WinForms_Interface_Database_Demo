@@ -51,18 +51,6 @@ namespace DatabaseInterface.Controller
         }
 
 
-        public void turnIntoXMLFile(List<object> lista)
-        {
-
-            XmlSerializer serializer = new XmlSerializer(lista.GetType(), new Type[] { lista[0].GetType() });
-
-            using (StreamWriter writer = new StreamWriter("../../Data/listaEmpleados.xml"))
-            {
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add(string.Empty, string.Empty);
-                serializer.Serialize(writer, lista, ns);
-            }
-        }
 
 
         //This works for now :D

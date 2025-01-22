@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Windows.Forms;
-using DatabaseInterfaceDemo.View;
-using DatabaseInterface.Controller;
+﻿using DatabaseInterface.Controller;
 using DatabaseInterface.Model;
 using DatabaseInterface.View;
-using System.Collections.ObjectModel;
-using System.Reflection;
-using DataModel = DatabaseInterface.Model;
 using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.View;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 
 namespace DatabaseInterface
@@ -23,34 +18,34 @@ namespace DatabaseInterface
     {
 
         static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado), "nif");
-
+        static string GLOBAL_PATH;
+        static OpenFileDialog ofd = Utils.formattedOpenFileDialog();
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
             initializeComboBox();                        
             
-            db.setObjectBindingList(EmpleadoDebug.createEmpleadoList());
-            
-            
-            db.turnIntoXMLFile(db.getBindingList().ToList<object>());
+            //CustomXMLParser.turnIntoXMLFile(db.getBindingList().ToList<object>(), path);
+
+        }
+
+        private void buttonLoadData_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(comboBoxCargarDatos.SelectedItem.ToString());
             
             
             db.getBindingList().ResetBindings();
 
+            List<object> lista = CustomXMLParser.XMLReadObjects(typeof(Empleado), GLOBAL_PATH);
 
-
-            //This is the read one I don't know why it's here
-            CustomXMLParser.XMLParserEmpleado(db.getBindingList());
-
-            //initializeDataGridViewWithObject(db.getBindingList());
+            db.setObjectBindingList(lista);
+            initializeDataGridViewWithObjects(db.getBindingList());
+            initializeDataGridViewStyling();
             db.getBindingList().ListChanged += ReactToChangesToList;
 
         }
 
-
-
-
-        public void initializeDataGridView()
+        public void initializeDataGridViewStyling()
         {
             if (PrincipalDataGridView.DataSource != null)
             {
@@ -107,9 +102,9 @@ namespace DatabaseInterface
             {
                 throw new Exception("wow, empty table");
             }
-            }
-
-
+            
+            
+        }
 
 
         //Checks the object of the list to see if it contains a DateTime, formats it accordingly.
@@ -163,19 +158,24 @@ namespace DatabaseInterface
         private void initializeComboBox()
         {
             comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
-            if (comboBoxCargarDatos.Items.Count == 0)
+            this.comboBoxCargarDatos.Items.Add(ofd.Title);
+            comboBoxCargarDatos.DrawItem += StyleTextBox;
+            comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
+            comboBoxCargarDatos.ForeColor = System.Drawing.Color.Black;
+            comboBoxCargarDatos.SelectionChangeCommitted += manageComboBoxEntries;
+        }
+
+        private void manageComboBoxEntries(object sender, EventArgs e)
+        {
+            if (comboBoxCargarDatos.SelectedIndex == comboBoxCargarDatos.Items.Count - 1)
             {
-                OpenFileDialog ofd = Utils.formattedOpenFileDialog();
-
-                this.comboBoxCargarDatos.Items.Add(ofd.Title);
-
-                comboBoxCargarDatos.DrawItem += StyleTextBox;
-                comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
-                comboBoxCargarDatos.ForeColor = System.Drawing.Color.Black;
-                comboBoxCargarDatos.SelectionChangeCommitted += new EventHandler(delegate (Object o, EventArgs e)
+                FileStream fileReturned;
+                if ((fileReturned = Utils.returnPathFromOFD(ofd)) != null)
                 {
-                    ofd.ShowDialog();
-                });
+                    GLOBAL_PATH = fileReturned.Name;
+                    comboBoxCargarDatos.Items.Insert(0, fileReturned);
+                    comboBoxCargarDatos.Items[comboBoxCargarDatos.FindStringExact(fileReturned.ToString())] = Path.GetFileName(fileReturned.Name);
+                }
             }
         }
 
@@ -344,5 +344,7 @@ namespace DatabaseInterface
             Form acercaDe = new AcercaDe();
             acercaDe.ShowDialog();
         }
+
+
     }
 }

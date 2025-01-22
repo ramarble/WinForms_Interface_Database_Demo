@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace DatabaseInterface.Model
@@ -9,6 +12,9 @@ namespace DatabaseInterface.Model
      * IN ORDER FOR AN ATTRIBUTE TO BE SERIALIZABLE IT HAS TO HAVE A SETTER
      */
     [Serializable]
+    [DataContract(Namespace ="")]
+    [KnownType(typeof(Empleado))]
+    [XmlRoot("Empleado")]
     public class Empleado
     {
         [DisplayName("*")]
@@ -50,6 +56,8 @@ namespace DatabaseInterface.Model
                    tempStatus == user.tempStatus;
         }
 
+        
+
         public Empleado() { }
         public Empleado(Boolean temp, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
         {
@@ -79,5 +87,10 @@ namespace DatabaseInterface.Model
             this.tempChar = temp ? '*' : '\0';
         }
         public Boolean getTempStatus() { return this.tempStatus; }
+
+        public override string ToString()
+        {
+            return this.name;
+        }
     }
 }
