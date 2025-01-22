@@ -13,7 +13,6 @@ using DatabaseInterface.Model;
 using DatabaseInterface.View;
 using System.Collections.ObjectModel;
 using System.Reflection;
-using Utils = DatabaseInterface.Controller;
 using DataModel = DatabaseInterface.Model;
 using DatabaseInterfaceDemo.Controller;
 
@@ -23,40 +22,25 @@ namespace DatabaseInterface
     public partial class formPrincipal : Form
     {
 
-        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado), "nif", "tempStatus");
+        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado), "nif");
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-
             initializeComboBox();                        
             
+            db.setObjectBindingList(EmpleadoDebug.createEmpleadoList());
+            db.turnIntoXMLFile(db.getBindingList().ToList<object>());
             db.getBindingList().ResetBindings();
-            
+
+            CustomXMLParser.test(new List<Empleado>());
 
             //initializeDataGridViewWithObject(db.getBindingList());
-
-            initializeDataGridView();
-            
-            
             db.getBindingList().ListChanged += ReactToChangesToList;
 
         }
 
-
-
-        public void initializeDataGridViewWithObject(BindingList<object> list)
-        {
-            PrincipalDataGridView.DataSource = list;
-
-            if (list.Count > 0)
-            {
-                formatTableDateTime(list[0]);
-            }
-            else
-            {
-                throw new Exception("wow, empty table");
-            }
+        }
 
         }
 
@@ -104,6 +88,19 @@ namespace DatabaseInterface
             enableSaveAndRevertAllButtonsIfNeeded();
         }
 
+
+
+        public void initializeDataGridViewWithObjects(BindingList<object> list)
+        {
+            this.PrincipalDataGridView.DataSource = list;
+
+            if (list.Count > 0)
+            {
+                formatTableDateTime(list[0]);
+            } else
+            {
+                throw new Exception("wow, empty table");
+            }
 
 
 
@@ -161,9 +158,9 @@ namespace DatabaseInterface
             comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
             if (comboBoxCargarDatos.Items.Count == 0)
             {
-                OpenFileDialog ofd = Utils.Utils.FileLoader();
+                OpenFileDialog ofd = FormattedFileDialog.formattedOpenFileDialog();
 
-                comboBoxCargarDatos.Items.Add(ofd.Title);
+                this.comboBoxCargarDatos.Items.Add(ofd.Title);
 
                 comboBoxCargarDatos.DrawItem += StyleTextBox;
                 comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;

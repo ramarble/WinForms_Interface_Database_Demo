@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -68,6 +69,5 @@ namespace DatabaseInterface.Controller
         {
             return listOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
         }
-
     }
 }

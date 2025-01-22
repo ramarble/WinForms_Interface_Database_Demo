@@ -1,4 +1,6 @@
 ﻿using System;
+using System.CodeDom;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -12,15 +14,15 @@ namespace DatabaseInterface.Controller
     public class ObjectDataBaseController<T> where T : class
 
     {
-        public ObjectDataBaseController(Type objType, string primary_key, string tempKey)
+        public ObjectDataBaseController(Type objType, string primary_key)
         {
             objectReferenceType = objType;
             PRIMARY_KEY = primary_key;
-            tempStatus = tempKey;
         }
 
         static Type objectReferenceType;
-        static string tempStatus;
+        static string tempStatus = "tempStatus";
+        static string tempChar = "tempChar";
         static string PRIMARY_KEY;
         static List<object> ObjectBackupList = new List<object>();
         static BindingList<object> ObjectBindingList = new BindingList<object>();
@@ -52,8 +54,9 @@ namespace DatabaseInterface.Controller
         public void turnIntoXMLFile(List<object> lista)
         {
 
-            XmlSerializer serializer = new XmlSerializer(lista.GetType());
-            using (StreamWriter writer = new StreamWriter("../../Data/listaUsuarios.xml"))
+            XmlSerializer serializer = new XmlSerializer(lista.GetType(), new Type[] { lista[0].GetType() });
+
+            using (StreamWriter writer = new StreamWriter("../../Data/listaEmpleados.xml"))
             {
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
                 ns.Add(string.Empty, string.Empty);
@@ -126,8 +129,10 @@ namespace DatabaseInterface.Controller
 
         public void setTempStatus(object ob, Boolean b)
         {
-            var prop = ob.GetType().GetProperty(tempStatus);
-            prop.SetValue(ob, b);
+            var tempbool = ob.GetType().GetProperty(tempStatus);
+            var tempchar = ob.GetType().GetProperty(tempChar);
+            tempbool.SetValue(ob, b);
+            tempchar.SetValue(ob, '\0');
         }
 
         public void TurnTempIntoPermanent(BindingList<object> list)
@@ -140,7 +145,7 @@ namespace DatabaseInterface.Controller
                 {
                     getBackupList().Remove(getBackupList().Find(it => getKey(it) == getKey(it)));
                     setTempStatus(ob, false);
-                    ObjectBindingList.ResetBindings();
+                    list.ResetBindings();
                 }
             }
         }
