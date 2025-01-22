@@ -70,7 +70,6 @@ namespace DatabaseInterface.Controller
             if (listToAppendTo.Count == 0)
             {
                 typeOfList = userToAdd.GetType();
-                
             }
             else
             {
@@ -125,7 +124,12 @@ namespace DatabaseInterface.Controller
             var tempbool = ob.GetType().GetProperty(tempStatus);
             var tempchar = ob.GetType().GetProperty(tempChar);
             tempbool.SetValue(ob, b);
-            tempchar.SetValue(ob, '\0');
+            char visualTempFlag = '\0';
+            if (b)
+            {
+                visualTempFlag = '*';
+            }
+            tempchar.SetValue(ob, visualTempFlag);
         }
 
         public void TurnTempIntoPermanent(BindingList<object> list)

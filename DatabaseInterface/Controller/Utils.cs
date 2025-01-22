@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Windows.Forms;
 using contr = DatabaseInterface.Controller;
 
@@ -34,6 +35,20 @@ namespace DatabaseInterface.Controller
             {
                 //Get the path of specified file
                 return ofd.FileName;
+            }
+            return null;
+        }
+
+        public static string GetFilePathFromSaveFileDialog()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "XML (*.xml)|*.xml|JSON (*.json)|*.json";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (sfd.FileName != "")
+                {
+                    return sfd.FileName;
+                }
             }
             return null;
         }

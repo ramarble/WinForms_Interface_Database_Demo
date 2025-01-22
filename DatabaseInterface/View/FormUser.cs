@@ -15,7 +15,7 @@ namespace DatabaseInterface.View
         ObjectDataBaseController<object> db;
 
         //wtf was I cooking here 
-        Empleado userReference = new Empleado(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
+        Empleado objectBeingModified = new Empleado(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
         private void UserForm_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
@@ -115,17 +115,17 @@ namespace DatabaseInterface.View
             {
                 usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""));
                 Empleado u = new Empleado(
-                    userReference.getTempStatus(), 
+                    objectBeingModified.getTempStatus(), 
                     tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
                     decimal.Parse(numSalary.Text.ToString(), NumberStyles.Any),
                     dtpFechaNacimiento.Value,
                     usernif);
-                if (u.Equals(userReference))
+                if (u.Equals(objectBeingModified))
                 {
-                    db.setTempStatus(u,false);
-                    db.getBackupList().Remove(userReference);
+                    db.setTempStatus(u,objectBeingModified.tempStatus);
+                    db.getBackupList().Remove(objectBeingModified);
                 }
                 else
                 {

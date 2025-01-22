@@ -32,13 +32,11 @@ namespace DatabaseInterface
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-            initializeComboBox();
+            InitializeComboBox();
             DB.getBindingList().ListChanged += onListChangeUpdateButtons;
             DB.getBindingList().ListChanged += firstTimeLoadEvent;
             PrincipalDataGridView.DataSourceChanged += onListChangeUpdateButtons;
 
-
-            //CustomXMLParser.turnIntoXMLFile(db.getBindingList().ToList<object>(), path);
 
         }
 
@@ -96,7 +94,7 @@ namespace DatabaseInterface
                 PrincipalDataGridView.AllowUserToAddRows = false;
                 PrincipalDataGridView.SelectionChanged += onListChangeUpdateButtons;
                 PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                formatTableDateTime(DB.getBindingList()[0]);
+                FormatDateTimeColumn(DB.getBindingList()[0]);
                 //Doesn't work yet but what I want is that when the form changes visibility the buttons update
                 VisibleChanged += onListChangeUpdateButtons;
 
@@ -112,8 +110,8 @@ namespace DatabaseInterface
             {
                 //Always a possibility
                 buttonDeleteSelected.Enabled = true;
-                enableOrDisableModifyButton(PrincipalDataGridView);
-                OneOrManySaveOrRevertButtons(PrincipalDataGridView);
+                ManageModifyButton(PrincipalDataGridView);
+                ManageSaveAndRevertButtons(PrincipalDataGridView);
             }
             else
             {
@@ -122,12 +120,12 @@ namespace DatabaseInterface
                 saveSelectedButton.Enabled = false;
                 revertSelectedButton.Enabled = false;
             }
-            enableSaveAndRevertAllButtonsIfNeeded();
+            ManageButtonsForTempUsers();
         }
 
 
         //Checks the object of the list to see if it contains a DateTime, formats it accordingly.
-        public void formatTableDateTime(object obj)
+        public void FormatDateTimeColumn(object obj)
         {
             for (int i = 0; i < PrincipalDataGridView.Columns.Count; i++)
             {
@@ -167,15 +165,15 @@ namespace DatabaseInterface
             }
         }
 
-        private void initializeComboBox()
+        private void InitializeComboBox()
         {
             comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
-            this.comboBoxCargarDatos.Items.Add(OFD.Title);
+            comboBoxCargarDatos.Items.Add(OFD.Title);
             comboBoxCargarDatos.DrawItem += StyleTextBox;
             comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
-            comboBoxCargarDatos.ForeColor = System.Drawing.Color.Black;
+            comboBoxCargarDatos.ForeColor = Color.Black;
             comboBoxCargarDatos.SelectionChangeCommitted += manageComboBoxEntries;
-            comboBoxCargarDatos.SelectedIndexChanged += checkLoadButtonEligibility;
+            comboBoxCargarDatos.SelectedIndexChanged += CheckLoadButtonEligibility;
         }
 
         //This event starts an OpenFileDialog if you select its entry, and adds the according file returned to the list
@@ -201,7 +199,7 @@ namespace DatabaseInterface
             }
         }
 
-        private void checkLoadButtonEligibility(object sender, EventArgs e)
+        private void CheckLoadButtonEligibility(object sender, EventArgs e)
         {
             if (comboBoxCargarDatos.Items.Count > 1 && comboBoxCargarDatos.SelectedIndex != -1)
             {
@@ -212,22 +210,27 @@ namespace DatabaseInterface
             }
         }
 
-        private void enableSaveAndRevertAllButtonsIfNeeded()
+        private void ManageButtonsForTempUsers()
         {
-            if (DB.isThereAnyTempUser())
+
+            if (DB.getBackupList().Count > 0 | DB.isThereAnyTempUser())
             {
                 buttonRevertAll.Enabled = true;
-                buttonSaveAll.Enabled = true;
+                buttonSaveTemp.Enabled = true;
+
+                buttonSaveToFile.Enabled = false;
             }
             else
             {
                 buttonRevertAll.Enabled = false;
-                buttonSaveAll.Enabled = false;
+                buttonSaveTemp.Enabled = false;
+
+                buttonSaveToFile.Enabled = true;
             }
         }
 
 
-        private void enableOrDisableModifyButton(DataGridView dgvUsers)
+        private void ManageModifyButton(DataGridView dgvUsers)
         {
             if (dgvUsers.SelectedRows.Count == 1)
             {
@@ -241,14 +244,13 @@ namespace DatabaseInterface
         }
         
         //Why am I sending the global dgv as a parameter? it's a mystery.
-        private void OneOrManySaveOrRevertButtons(DataGridView dgv)
+        private void ManageSaveAndRevertButtons(DataGridView dgv)
         {
-            //this is kinda very gorey
-
+            //this has crashed before for no real reason.
             Boolean exitCond = false;
             object obj;
-            //huh? int i = 0 crashed all of a sudden,but 1 didn't
-            for (int i = 1; i < dgv.SelectedRows.Count; i++)
+
+            for (int i = 0; i < dgv.SelectedRows.Count; i++)
             {
                 obj = dgv.SelectedRows[i].DataBoundItem;
                 if (DB.getTempStatus(obj))
@@ -379,6 +381,13 @@ namespace DatabaseInterface
             acercaDe.ShowDialog();
         }
 
-
+        private void buttonSaveToFile_Click(object sender, EventArgs e)
+        {
+            string path;
+            if ((path = Utils.GetFilePathFromSaveFileDialog()) != null)
+            {
+                CustomXMLParser.turnIntoXMLFile(DB.getBindingList().ToList<object>(), path);
+            }
+        }
     }
 }

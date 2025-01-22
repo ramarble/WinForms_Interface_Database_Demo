@@ -48,7 +48,7 @@ namespace DatabaseInterface
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PrincipalDataGridView = new System.Windows.Forms.DataGridView();
-            this.buttonSaveAll = new System.Windows.Forms.Button();
+            this.buttonSaveTemp = new System.Windows.Forms.Button();
             this.buttonRevertAll = new System.Windows.Forms.Button();
             this.saveSelectedButton = new System.Windows.Forms.Button();
             this.buttonDeleteSelected = new System.Windows.Forms.Button();
@@ -246,20 +246,20 @@ namespace DatabaseInterface
             this.PrincipalDataGridView.Size = new System.Drawing.Size(1081, 419);
             this.PrincipalDataGridView.TabIndex = 14;
             // 
-            // buttonSaveAll
+            // buttonSaveTemp
             // 
-            this.buttonSaveAll.AccessibleDescription = "Botón para guardar todos los cambios no guardados";
-            this.buttonSaveAll.AccessibleName = "Botón Guardar Todo";
-            this.buttonSaveAll.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
-            this.buttonSaveAll.Enabled = false;
-            this.buttonSaveAll.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonSaveAll.Location = new System.Drawing.Point(822, 583);
-            this.buttonSaveAll.Name = "buttonSaveAll";
-            this.buttonSaveAll.Size = new System.Drawing.Size(132, 62);
-            this.buttonSaveAll.TabIndex = 7;
-            this.buttonSaveAll.Text = "Guardar Todo";
-            this.buttonSaveAll.UseVisualStyleBackColor = true;
-            this.buttonSaveAll.Click += new System.EventHandler(this.buttonSaveAll_Click);
+            this.buttonSaveTemp.AccessibleDescription = "Botón para guardar todos los cambios temporales";
+            this.buttonSaveTemp.AccessibleName = "Botón Guardar Cambios Temporales";
+            this.buttonSaveTemp.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
+            this.buttonSaveTemp.Enabled = false;
+            this.buttonSaveTemp.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonSaveTemp.Location = new System.Drawing.Point(724, 583);
+            this.buttonSaveTemp.Name = "buttonSaveTemp";
+            this.buttonSaveTemp.Size = new System.Drawing.Size(124, 62);
+            this.buttonSaveTemp.TabIndex = 7;
+            this.buttonSaveTemp.Text = "Guardar Modificaciones Temporales";
+            this.buttonSaveTemp.UseVisualStyleBackColor = true;
+            this.buttonSaveTemp.Click += new System.EventHandler(this.buttonSaveAll_Click);
             // 
             // buttonRevertAll
             // 
@@ -278,16 +278,16 @@ namespace DatabaseInterface
             // 
             // saveSelectedButton
             // 
-            this.saveSelectedButton.AccessibleDescription = "Botón para guardar los usuarios seleccionados";
+            this.saveSelectedButton.AccessibleDescription = "Botón para guardar los objetos temporales seleccionados";
             this.saveSelectedButton.AccessibleName = "Botón guardar seleccionados";
             this.saveSelectedButton.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
             this.saveSelectedButton.Enabled = false;
             this.saveSelectedButton.Font = new System.Drawing.Font("Arial", 12F);
-            this.saveSelectedButton.Location = new System.Drawing.Point(684, 583);
+            this.saveSelectedButton.Location = new System.Drawing.Point(586, 583);
             this.saveSelectedButton.Name = "saveSelectedButton";
             this.saveSelectedButton.Size = new System.Drawing.Size(132, 62);
             this.saveSelectedButton.TabIndex = 6;
-            this.saveSelectedButton.Text = "Guardar Seleccionados";
+            this.saveSelectedButton.Text = "Guardar Modificaciones Seleccionadas";
             this.saveSelectedButton.UseVisualStyleBackColor = true;
             this.saveSelectedButton.Click += new System.EventHandler(this.saveSelectedButton_Click);
             // 
@@ -312,7 +312,7 @@ namespace DatabaseInterface
             this.buttonModify.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonModify.Enabled = false;
             this.buttonModify.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonModify.Location = new System.Drawing.Point(546, 583);
+            this.buttonModify.Location = new System.Drawing.Point(360, 583);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(132, 62);
             this.buttonModify.TabIndex = 5;
@@ -358,8 +358,9 @@ namespace DatabaseInterface
             this.buttonSaveToFile.Name = "buttonSaveToFile";
             this.buttonSaveToFile.Size = new System.Drawing.Size(132, 62);
             this.buttonSaveToFile.TabIndex = 8;
-            this.buttonSaveToFile.Text = "Guardar Cambios a Archivo";
+            this.buttonSaveToFile.Text = "Guardar a Archivo";
             this.buttonSaveToFile.UseVisualStyleBackColor = true;
+            this.buttonSaveToFile.Click += new System.EventHandler(this.buttonSaveToFile_Click);
             // 
             // buttonLoadData
             // 
@@ -389,7 +390,7 @@ namespace DatabaseInterface
             this.Controls.Add(this.buttonDeleteSelected);
             this.Controls.Add(this.saveSelectedButton);
             this.Controls.Add(this.buttonRevertAll);
-            this.Controls.Add(this.buttonSaveAll);
+            this.Controls.Add(this.buttonSaveTemp);
             this.Controls.Add(this.PrincipalDataGridView);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -424,7 +425,7 @@ namespace DatabaseInterface
         private System.Windows.Forms.ToolStripMenuItem maximizarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.DataGridView PrincipalDataGridView;
-        private System.Windows.Forms.Button buttonSaveAll;
+        private System.Windows.Forms.Button buttonSaveTemp;
         private System.Windows.Forms.Button buttonRevertAll;
         private System.Windows.Forms.Button saveSelectedButton;
         private System.Windows.Forms.Button buttonDeleteSelected;
