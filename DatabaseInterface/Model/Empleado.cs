@@ -32,12 +32,6 @@ namespace DatabaseInterface.Model
 
         [Browsable(false)]
         public Boolean tempStatus { get; set; }
-        public void setTempStatus(Boolean temp)
-        {
-            this.tempStatus = temp;
-            this.tempChar = temp ? '*' : '\0';
-        }
-        public Boolean getTempStatus() { return this.tempStatus; }
 
         public override bool Equals(object obj)
         {
@@ -69,6 +63,11 @@ namespace DatabaseInterface.Model
             this.birthdate = birthdate;
         }
 
-
+        public void setTempStatus(Boolean temp)
+        {
+            this.tempStatus = temp;
+            this.tempChar = temp ? '*' : '\0';
+        }
+        public Boolean getTempStatus() { return this.tempStatus; }
     }
 }

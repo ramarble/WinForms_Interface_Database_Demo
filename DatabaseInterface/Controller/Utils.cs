@@ -17,6 +17,18 @@ namespace DatabaseInterface.Controller
             }
         }
 
+        public static OpenFileDialog FileLoader()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "<--Abrir Archivo-->";
+            ofd.Filter = 
+                "JSON (*.json)|*.json|" +
+                "XML (*.xml)|*.xml|" +
+                "All Files (*.*)|*.*";
+
+            return ofd;
+        }
+
         public static TextBoxBase TextBoxBaseFromControl(Control c)
         {
             if (c is TextBoxBase)

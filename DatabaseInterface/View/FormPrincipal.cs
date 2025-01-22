@@ -9,7 +9,6 @@ using System.Security.Cryptography;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
 using DatabaseInterface.Controller;
-using System.Collections.Generic;
 using DatabaseInterface.Model;
 using DatabaseInterface.View;
 using System.Collections.ObjectModel;
@@ -32,30 +31,56 @@ namespace DatabaseInterface
 
             initializeComboBox();                        
             
-            db.setObjectBindingList(EmpleadoDebug.createEmpleadoList());
             db.getBindingList().ResetBindings();
             
 
-            initializeDataGridViewWithObject(db.getBindingList());
+            //initializeDataGridViewWithObject(db.getBindingList());
+
+            initializeDataGridView();
+            
+            
             db.getBindingList().ListChanged += ReactToChangesToList;
 
-
-            //Hardcoded, 
         }
+
+
+
+        public void initializeDataGridViewWithObject(BindingList<object> list)
+        {
+            PrincipalDataGridView.DataSource = list;
+
+            if (list.Count > 0)
+            {
+                formatTableDateTime(list[0]);
+            }
+            else
+            {
+                throw new Exception("wow, empty table");
+            }
+
+        }
+
 
         public void initializeDataGridView()
         {
-            this.PrincipalDataGridView.AutoGenerateColumns = true;
-            this.PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.PrincipalDataGridView.Columns[0].Width = 25;
-            this.PrincipalDataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.PrincipalDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            this.PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            this.PrincipalDataGridView.AllowUserToAddRows = false;
-            this.PrincipalDataGridView.SelectionChanged += ReactToChangesToList;
-            this.VisibleChanged += ReactToChangesToList;
-            this.PrincipalDataGridView.DataSourceChanged += ReactToChangesToList;
-            this.PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            if (PrincipalDataGridView.DataSource != null)
+            {
+                PrincipalDataGridView.AutoGenerateColumns = true;
+                PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                PrincipalDataGridView.Columns[0].Width = 25;
+                PrincipalDataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                PrincipalDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
+                PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
+                PrincipalDataGridView.AllowUserToAddRows = false;
+                PrincipalDataGridView.SelectionChanged += ReactToChangesToList;
+                PrincipalDataGridView.DataSourceChanged += ReactToChangesToList;
+                PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                //Doesn't work yet but what I want is that when the form changes visibility the buttons update
+                VisibleChanged += ReactToChangesToList;
+
+
+            }
 
         }
         //Enables or disables the buttons
@@ -81,21 +106,6 @@ namespace DatabaseInterface
 
 
 
-        public void initializeDataGridViewWithObject(BindingList<object> list)
-        {
-            this.PrincipalDataGridView.DataSource = list;
-
-            if (list.Count > 0)
-            {
-                formatTableDateTime(list[0]);
-            } else
-            {
-                throw new Exception("wow, empty table");
-            }
-
-            initializeDataGridView();
-
-        }
 
 
         //Checks the object of the list to see if it contains a DateTime, formats it accordingly.
@@ -105,7 +115,7 @@ namespace DatabaseInterface
             {
                 if (Type.Equals(obj.GetType().GetProperties()[i].PropertyType, typeof(DateTime)))
                 {
-                    this.PrincipalDataGridView.Columns[i].DefaultCellStyle.Format = "dd/MM/yyyy";
+                    PrincipalDataGridView.Columns[i].DefaultCellStyle.Format = "dd/MM/yyyy";
                 }
 
             }
@@ -148,17 +158,16 @@ namespace DatabaseInterface
 
         private void initializeComboBox()
         {
-            this.comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
             if (comboBoxCargarDatos.Items.Count == 0)
             {
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Title = "<--Abrir Archivo-->";
-                
-                this.comboBoxCargarDatos.Items.Add(ofd.Title);
+                OpenFileDialog ofd = Utils.Utils.FileLoader();
 
-                this.comboBoxCargarDatos.DrawItem += StyleTextBox;
-                this.comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
-                this.comboBoxCargarDatos.ForeColor = System.Drawing.Color.Black;
+                comboBoxCargarDatos.Items.Add(ofd.Title);
+
+                comboBoxCargarDatos.DrawItem += StyleTextBox;
+                comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
+                comboBoxCargarDatos.ForeColor = System.Drawing.Color.Black;
                 comboBoxCargarDatos.SelectionChangeCommitted += new EventHandler(delegate (Object o, EventArgs e)
                 {
                     ofd.ShowDialog();
@@ -213,14 +222,6 @@ namespace DatabaseInterface
             saveSelectedButton.Enabled = exitCond;
             revertSelectedButton.Enabled = exitCond;
 
-        }
-
-        private void addListToBindingList(List<Empleado> sourceList, BindingList<Empleado> bindingList)
-        {
-            foreach (Empleado u in sourceList)
-            {
-                bindingList.Add(u);
-            }
         }
 
         private void buttonSaveAll_Click(object sender, EventArgs e)
@@ -290,7 +291,7 @@ namespace DatabaseInterface
 
         private void Exit_Menu_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Print_Menu_Click(object sender, EventArgs e)
@@ -339,7 +340,5 @@ namespace DatabaseInterface
             Form acercaDe = new AcercaDe();
             acercaDe.ShowDialog();
         }
-
-
     }
 }

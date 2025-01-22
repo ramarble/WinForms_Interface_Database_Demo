@@ -1,15 +1,10 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using DatabaseInterface.Model;
 using DatabaseInterface.View;
 
 namespace DatabaseInterface.Controller
@@ -40,7 +35,7 @@ namespace DatabaseInterface.Controller
             ObjectBindingList = list;
         }
 
-        public List<T> createUserList<T>(object obj)
+        public List<T> createUserList(object obj)
         {
             List<T> objectList = new List<T>();
             return objectList;
@@ -116,22 +111,17 @@ namespace DatabaseInterface.Controller
 
         public Boolean getTempStatus(object ob)
         {
-            try
-            {
-                Boolean b = (Boolean) ob.GetType().GetProperty("tempStatus").GetValue(ob);
+            Boolean b = (Boolean) ob.GetType().GetProperty("tempStatus").GetValue(ob);
 
-                if (b == true)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            } catch (Exception e)
+            if (b == true)
             {
-                throw new Exception(ob.GetType().GetProperty("tempStatus").ToString());
+                return true;
             }
+            else
+            {
+                return false;
+            }
+            
         }
 
         public void setTempStatus(object ob, Boolean b)
@@ -179,23 +169,23 @@ namespace DatabaseInterface.Controller
             getBindingList().ResetBindings();
         }
 
-        public object fetchUserByNIF(List<object> listToSearch, object key)
+        public object fetchUserByKey(List<object> listToSearch, object key)
         {
             return listToSearch.SingleOrDefault(ob => getKey(ob) == key);
         }
 
-        public Boolean isUserRevertable(object ob)
+        public Boolean isObjectRevertable(object ob)
         {
-            return !(fetchUserByNIF(getBackupList(), getKey(ob)) == null);
+            return !(fetchUserByKey(getBackupList(), getKey(ob)) == null);
         }
 
         //I'm SHOCKED beyond relief that this worked first try.
 
         public void revertSingleObject(object objectToRevert, BindingList<object> listToUpdate)
         {
-            if (isUserRevertable(objectToRevert))
+            if (isObjectRevertable(objectToRevert))
             {
-                object sameUserInBackup = fetchUserByNIF(getBackupList(), getKey(objectToRevert));
+                object sameUserInBackup = fetchUserByKey(getBackupList(), getKey(objectToRevert));
                 listToUpdate.Remove(objectToRevert);
                 listToUpdate.Add(sameUserInBackup);
                 getBackupList().Remove(sameUserInBackup);
@@ -232,7 +222,7 @@ namespace DatabaseInterface.Controller
 
         public void saveObject(object obj)
         {
-            object sameObjectInBackup = fetchUserByNIF(getBackupList(), getKey(obj));
+            object sameObjectInBackup = fetchUserByKey(getBackupList(), getKey(obj));
             getBackupList().Remove(sameObjectInBackup);
             setTempStatus(obj, false);
         }
