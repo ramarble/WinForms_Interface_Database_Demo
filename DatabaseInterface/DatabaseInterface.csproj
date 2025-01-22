@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\DialogBoxes.cs" />
+    <Compile Include="Data\DialogBoxes.cs" />
     <Compile Include="Controller\EmpleadoDebug.cs" />
     <Compile Include="Controller\Utils.cs" />
     <Compile Include="Controller\ObjectDataBaseController.cs" />
