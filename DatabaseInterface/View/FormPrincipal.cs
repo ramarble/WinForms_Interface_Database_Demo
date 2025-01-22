@@ -40,9 +40,7 @@ namespace DatabaseInterface
 
         }
 
-        }
 
-        }
 
 
         public void initializeDataGridView()
@@ -65,8 +63,9 @@ namespace DatabaseInterface
 
 
             }
+         }
 
-        }
+        
         //Enables or disables the buttons
         private void ReactToChangesToList(object sender, EventArgs e)
         {
@@ -100,6 +99,7 @@ namespace DatabaseInterface
             } else
             {
                 throw new Exception("wow, empty table");
+            }
             }
 
 
