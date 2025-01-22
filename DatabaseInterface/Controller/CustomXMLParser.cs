@@ -3,27 +3,26 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using DatabaseInterface.Model;
+using System.ComponentModel;
 
 namespace DatabaseInterfaceDemo.Controller
 {
     internal class CustomXMLParser
     {
-        public static void test(List<Empleado> list)
+        public static void XMLParserEmpleado(BindingList<object> list)
         {
+
+            object objarr;
             try
             {
                 string xml = File.ReadAllText("../../Data/listaUsuarios.xml");
                 using (var reader = new StringReader(xml))
                 {
-                    XmlSerializer serializer = new
-                    XmlSerializer(typeof(Empleado));
-                    list = (List<Empleado>)serializer.Deserialize(reader);
+                    XmlSerializer serializer = new XmlSerializer(typeof(Empleado));
+                    objarr = serializer.Deserialize(reader);
                 }
 
-                foreach(var item in list)
-                {
-                    Console.WriteLine(item);
-                }
+                Console.WriteLine(objarr);
             }
             catch (Exception e)
             {

@@ -30,10 +30,17 @@ namespace DatabaseInterface
             initializeComboBox();                        
             
             db.setObjectBindingList(EmpleadoDebug.createEmpleadoList());
+            
+            
             db.turnIntoXMLFile(db.getBindingList().ToList<object>());
+            
+            
             db.getBindingList().ResetBindings();
 
-            CustomXMLParser.test(new List<Empleado>());
+
+
+            //This is the read one I don't know why it's here
+            CustomXMLParser.XMLParserEmpleado(db.getBindingList());
 
             //initializeDataGridViewWithObject(db.getBindingList());
             db.getBindingList().ListChanged += ReactToChangesToList;
