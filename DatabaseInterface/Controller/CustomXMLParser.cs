@@ -2,37 +2,13 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
+using System.Linq;
 using DatabaseInterface.Model;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO.IsolatedStorage;
 
 namespace DatabaseInterfaceDemo.Controller
 {
     internal class CustomXMLParser
     {
-        public static List<object> XMLReadObjects(Type type, string path)
-        { 
-            Type objType = type;
-            Type listType = (new List<object>()).GetType();
-            List<object> parsedObjList;
-            try
-            {
-                string xml = File.ReadAllText(path);
-                using (var reader = new StringReader(xml))
-                {
-                    XmlSerializer serializer = new XmlSerializer(listType, new Type[] {objType});
-                    parsedObjList= (List<object>) serializer.Deserialize(reader);
-                }
-                return parsedObjList;
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error leyendo xml " + e.StackTrace + " " + e.InnerException);
-            }
-            throw new Exception("Xml File was empty, probably");
-        }
 
         public static void turnIntoXMLFile(List<object> lista, string path)
         {
@@ -46,6 +22,56 @@ namespace DatabaseInterfaceDemo.Controller
                 serializer.Serialize(writer, lista, ns);
             }
         }
+
+        public static List<object> XMLReadObjects(string path)
+        {
+            List<object> parsedObjList;
+            try
+            {
+                string[] xml = File.ReadAllLines(path);
+                Type objType = findTypeFromParsedXMLFile(xml);
+                
+                Type listType = (new List<object>()).GetType();
+
+                string fullThing = String.Concat(xml);
+                using (var reader = new StringReader(fullThing))
+                {
+                    XmlSerializer serializer = new XmlSerializer(listType, new Type[] { objType });
+                    parsedObjList = (List<object>)serializer.Deserialize(reader);
+                }
+                return parsedObjList;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error leyendo xml " + e.StackTrace + " " + e.InnerException);
+            }
+            throw new Exception("XML File was empty, probably");
+        }
+
+        public static Type findTypeFromParsedXMLFile(string[] readLines)
+        {
+            //TODO:
+            //This should be outside and fetched at program starrt
+            List<Type> classes = new List<Type>{typeof(Empleado)};
+            string offendingLine = null;
+            for (int i = 0; i < 10; i++)
+            {
+                if (readLines[i].Contains("type=")) {
+                    offendingLine = readLines[i];
+                    break;
+                }
+            }
+            if (offendingLine == null)
+            {
+                throw new Exception("XML Data did not include a matching class to deserialize");
+            }
+
+            Type typeFound = classes.FirstOrDefault(c => offendingLine.Contains(c.Name));
+            return typeFound;
+
+        }
+
     }
 
 }

@@ -17,34 +17,39 @@ namespace DatabaseInterface
     public partial class formPrincipal : Form
     {
 
-        static ObjectDataBaseController<object> db = new ObjectDataBaseController<object>(typeof(Empleado), "nif");
-        static string GLOBAL_PATH;
-        static OpenFileDialog ofd = Utils.formattedOpenFileDialog();
+        static ObjectDataBaseController<object> DB = new ObjectDataBaseController<object>(typeof(Empleado), "nif");
+
+        static List<string> GLOBAL_PATHS_FILES = new List<string>();
+
+        static OpenFileDialog OFD = Utils.formattedOpenFileDialog();
+
+
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-            initializeComboBox();                        
-            
+            initializeComboBox();
+            DB.getBindingList().ListChanged += ReactToChangesToList;
+
             //CustomXMLParser.turnIntoXMLFile(db.getBindingList().ToList<object>(), path);
 
         }
 
+        //This button will only be up when there's 2+ entries to select from
         private void buttonLoadData_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(comboBoxCargarDatos.SelectedItem.ToString());
-            
-            
-            db.getBindingList().ResetBindings();
+            //There's a memory leak somewhere here :D
+            DB.getBindingList().ResetBindings();
+            //Flush it all away
+            DB.getBindingList().Clear();
+            DB.setObjectBindingList(CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]));
 
-            List<object> lista = CustomXMLParser.XMLReadObjects(typeof(Empleado), GLOBAL_PATH);
-
-            db.setObjectBindingList(lista);
-            initializeDataGridViewWithObjects(db.getBindingList());
+            initializeDataGridViewWithObjects(DB.getBindingList());
             initializeDataGridViewStyling();
-            db.getBindingList().ListChanged += ReactToChangesToList;
+
 
         }
 
+        //This is specific to Empleado
         public void initializeDataGridViewStyling()
         {
             if (PrincipalDataGridView.DataSource != null)
@@ -103,7 +108,6 @@ namespace DatabaseInterface
                 throw new Exception("wow, empty table");
             }
             
-            
         }
 
 
@@ -158,30 +162,51 @@ namespace DatabaseInterface
         private void initializeComboBox()
         {
             comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
-            this.comboBoxCargarDatos.Items.Add(ofd.Title);
+            this.comboBoxCargarDatos.Items.Add(OFD.Title);
             comboBoxCargarDatos.DrawItem += StyleTextBox;
             comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
             comboBoxCargarDatos.ForeColor = System.Drawing.Color.Black;
             comboBoxCargarDatos.SelectionChangeCommitted += manageComboBoxEntries;
+            comboBoxCargarDatos.SelectedIndexChanged += checkLoadButtonEligibility;
         }
 
+        //This event starts an OpenFileDialog if you select its entry, and adds the according file returned to the list
         private void manageComboBoxEntries(object sender, EventArgs e)
         {
             if (comboBoxCargarDatos.SelectedIndex == comboBoxCargarDatos.Items.Count - 1)
             {
-                FileStream fileReturned;
-                if ((fileReturned = Utils.returnPathFromOFD(ofd)) != null)
+                string filePathReturned;
+                if ((filePathReturned = Utils.returnPathFromOFD(OFD)) != null)
                 {
-                    GLOBAL_PATH = fileReturned.Name;
-                    comboBoxCargarDatos.Items.Insert(0, fileReturned);
-                    comboBoxCargarDatos.Items[comboBoxCargarDatos.FindStringExact(fileReturned.ToString())] = Path.GetFileName(fileReturned.Name);
+                    GLOBAL_PATHS_FILES.Insert(0, filePathReturned);
+                    comboBoxCargarDatos.Items.Insert(0, Path.GetFileName(filePathReturned));
+                    
+                    //Old code to find entry and change the name, sadly this also changes the entry and I don't want that.
+                    //comboBoxCargarDatos.Items[comboBoxCargarDatos.FindStringExact(filePathReturned.ToString())] = Path.GetFileName(filePathReturned);
+                    
+                    comboBoxCargarDatos.SelectedIndex = 0;
+                } else
+                {
+                    comboBoxCargarDatos.SelectedIndex = -1;
                 }
+
+            }
+        }
+
+        private void checkLoadButtonEligibility(object sender, EventArgs e)
+        {
+            if (comboBoxCargarDatos.Items.Count > 1 && comboBoxCargarDatos.SelectedIndex != -1)
+            {
+                buttonLoadData.Enabled = true;
+            } else
+            {
+                buttonLoadData.Enabled = false;
             }
         }
 
         private void enableSaveAndRevertAllButtonsIfNeeded()
         {
-            if (db.isThereAnyTempUser())
+            if (DB.isThereAnyTempUser())
             {
                 buttonRevertAll.Enabled = true;
                 buttonSaveAll.Enabled = true;
@@ -233,7 +258,7 @@ namespace DatabaseInterface
 
             if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
             {
-                db.TurnTempIntoPermanent(db.getBindingList());
+                DB.TurnTempIntoPermanent(DB.getBindingList());
             }
         }
 
@@ -241,7 +266,7 @@ namespace DatabaseInterface
         {
             if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
             {
-                db.restoreFromBackupAndEmptyBackup(db.getBindingList());
+                DB.restoreFromBackupAndEmptyBackup(DB.getBindingList());
             }
         }
 
@@ -253,9 +278,9 @@ namespace DatabaseInterface
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado u = row.DataBoundItem as Empleado;
-                    db.saveObject(u);
+                    DB.saveObject(u);
                 }
-                db.getBindingList().ResetBindings();
+                DB.getBindingList().ResetBindings();
             }
         }
 
@@ -267,15 +292,15 @@ namespace DatabaseInterface
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado u = row.DataBoundItem as Empleado;
-                    db.getBindingList().Remove(u);
+                    DB.getBindingList().Remove(u);
                 }
-                db.getBindingList().ResetBindings();
+                DB.getBindingList().ResetBindings();
             }
         }
 
         private void saveAll_Menu_Click(object sender, EventArgs e)
         {
-            if (db.getBackupList().Count > 0)
+            if (DB.getBackupList().Count > 0)
             {
                 buttonSaveAll_Click(sender, e);
             }
@@ -283,13 +308,13 @@ namespace DatabaseInterface
 
         private void Search_Menu_Click(object sender, EventArgs e)
         {
-            Form DetailedView = new FormBuscarUser(this, db);
+            Form DetailedView = new FormBuscarUser(this, DB);
             DetailedView.ShowDialog(this);
         }
 
         private void New_Menu_Click(object sender, EventArgs e)
         {
-            Form newUserForm = new FormUser(this, false, db);
+            Form newUserForm = new FormUser(this, false, DB);
             newUserForm.ShowDialog(this);
         }
 
@@ -300,14 +325,14 @@ namespace DatabaseInterface
 
         private void Print_Menu_Click(object sender, EventArgs e)
         {
-            Form reportForm = new ReportForm(db.getBindingList());
+            Form reportForm = new ReportForm(DB.getBindingList());
             reportForm.ShowDialog();
         }
 
         private void buttonModify_Click(object sender, EventArgs e)
         {
             object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
-            db.modifyObject(userToEdit, db.getBindingList(), this, db);
+            DB.modifyObject(userToEdit, DB.getBindingList(), this, DB);
         }
 
         private void maximizarToolStrip_Click(object sender, EventArgs e)
@@ -329,14 +354,14 @@ namespace DatabaseInterface
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado userToRevert = row.DataBoundItem as Empleado;
-                    db.revertSingleObject(userToRevert, db.getBindingList());
+                    DB.revertSingleObject(userToRevert, DB.getBindingList());
                 }
             }
         }
 
         private void formPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            db.preventClosingWithUncommittedChanges(e);
+            DB.preventClosingWithUncommittedChanges(e);
         }
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)

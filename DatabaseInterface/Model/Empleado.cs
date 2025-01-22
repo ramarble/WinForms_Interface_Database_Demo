@@ -12,8 +12,6 @@ namespace DatabaseInterface.Model
      * IN ORDER FOR AN ATTRIBUTE TO BE SERIALIZABLE IT HAS TO HAVE A SETTER
      */
     [Serializable]
-    [DataContract(Namespace ="")]
-    [KnownType(typeof(Empleado))]
     [XmlRoot("Empleado")]
     public class Empleado
     {

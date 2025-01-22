@@ -28,12 +28,12 @@ namespace DatabaseInterface.Controller
             return ofd;
         }
 
-        public static FileStream returnPathFromOFD(OpenFileDialog ofd)
+        public static string returnPathFromOFD(OpenFileDialog ofd)
         {
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 //Get the path of specified file
-                return File.Create(ofd.FileName);
+                return ofd.FileName;
             }
             return null;
         }
