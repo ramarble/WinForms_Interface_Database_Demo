@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace DatabaseInterface.Controller
 {
-    internal class DialogBoxes
+    internal class LocalizationText
     {
         public static DialogResult RevertConfirm()
         {
@@ -33,6 +33,13 @@ namespace DatabaseInterface.Controller
         public static DialogResult WARN_FillAllData()
         {
             return MessageBox.Show("Por favor rellena todos los campos", "Advertencia");
+        }
+
+        public static string NOTICE_DatabaseNotInitialized = "Inicia una base de datos de uno de los siguientes tipos";
+
+        public static DialogResult ERR_DBNotInitialized()
+        {
+            return MessageBox.Show("NO HAY UNA BASE DE DATOS INICIADA", "ERROR");
         }
     }
 

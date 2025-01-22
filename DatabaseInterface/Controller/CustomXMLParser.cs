@@ -4,10 +4,12 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Linq;
 using DatabaseInterface.Model;
+using DatabaseInterface.Controller;
+using System.Windows.Forms;
 
 namespace DatabaseInterfaceDemo.Controller
 {
-    internal class CustomXMLParser
+    internal abstract class CustomXMLParser
     {
 
         public static void turnIntoXMLFile(List<object> lista, string path)
@@ -45,15 +47,15 @@ namespace DatabaseInterfaceDemo.Controller
             catch (Exception e)
             {
                 Console.WriteLine("Error leyendo xml " + e.StackTrace + " " + e.InnerException);
+                throw e;
             }
-            throw new Exception("XML File was empty, probably");
         }
 
         public static Type findTypeFromParsedXMLFile(string[] readLines)
         {
-            //TODO:
-            //This should be outside and fetched at program start
-            List<Type> classes = new List<Type>{typeof(Empleado)};
+            Dictionary<Type,string> dict = Utils.typeDictionary();
+
+
             string offendingLine = null;
             for (int i = 0; i < 10; i++)
             {
@@ -67,7 +69,9 @@ namespace DatabaseInterfaceDemo.Controller
                 throw new Exception("XML Data did not include a matching class to deserialize");
             }
 
-            Type typeFound = classes.FirstOrDefault(c => offendingLine.Contains(c.Name));
+
+            Type typeFound = dict.FirstOrDefault(c => offendingLine.Contains(c.Key.Name)).Key;
+
             return typeFound;
 
         }

@@ -172,7 +172,7 @@ namespace DatabaseInterface.View
 
         private void buttonSaveAll_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
+            if (LocalizationText.SaveConfirm() == DialogResult.Yes)
             {
                 db.TurnTempIntoPermanent(db.getBindingList());
                 UpdateListBoxPointerByKey((userListBox.SelectedItem));
@@ -181,7 +181,7 @@ namespace DatabaseInterface.View
 
         private void buttonRevertAll_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
+            if (LocalizationText.RevertConfirm() == DialogResult.Yes)
             {
                 db.restoreFromBackupAndEmptyBackup(db.getBindingList());
                 UpdateListBoxPointerByKey(userListBox.SelectedItem);

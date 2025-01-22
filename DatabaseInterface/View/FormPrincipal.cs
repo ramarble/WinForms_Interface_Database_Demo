@@ -22,21 +22,21 @@ namespace DatabaseInterface
             InitializeComponent();
         }
 
-        static ObjectDataBaseController<object> DB = new ObjectDataBaseController<object>(typeof(Empleado), "nif");
+        private Boolean databaseInitialized = false; 
+        static ObjectDataBaseController<object> DB;
 
         static List<string> GLOBAL_PATHS_FILES = new List<string>();
 
         static OpenFileDialog OFD = Utils.formattedOpenFileDialog();
 
+        static Dictionary<Type, string> TypeDict = Utils.typeDictionary();
 
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
             InitializeComboBox();
-            DB.getBindingList().ListChanged += onListChangeUpdateButtons;
-            DB.getBindingList().ListChanged += firstTimeLoadEvent;
-            PrincipalDataGridView.DataSourceChanged += onListChangeUpdateButtons;
-
+            
+            PrincipalDataGridView.DataSourceChanged += OnListChangeUpdateButtons;
 
         }
 
@@ -44,29 +44,40 @@ namespace DatabaseInterface
         private void buttonLoadData_Click(object sender, EventArgs e)
         {
             //There's a memory leak somewhere here :D
-            DB.getBindingList().ResetBindings();
-            //Flush it all away
-            DB.getBindingList().Clear();
-            DB.setObjectBindingList(CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]));
+            List<object> objList = CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]);
+            string primary_key = null;
+            TypeDict.TryGetValue(objList[0].GetType(), out primary_key);
 
-            initializeDataGridViewWithObjects(DB.getBindingList());
-
-        }
-
-        //This listener removes itself and reacts to an edge case where you add an item and the datagridview wouldn't have been populated
-        public void firstTimeLoadEvent(object sender, EventArgs e)
-        {
-            if (DB.getBindingList().Count == 1)
+            if (primary_key != null)
             {
-                initializeDataGridViewWithObjects(DB.getBindingList());
+                DB = new ObjectDataBaseController<object>(primary_key);
+                OnFirstDatabaseLoad();
+                //Flush it all away
+                StartDataGridViewSource(objList);
             }
-            DB.getBindingList().ListChanged -= firstTimeLoadEvent;
+        }
+
+        private void StartDataGridViewSource(List<object> objList)
+        {
+            DB.getBindingList().ResetBindings();
+            DB.getBindingList().Clear();
+            DB.setObjectBindingList(objList);
+            InitializeDataGridViewWithObjects(DB.getBindingList());
+            DB.getBindingList().ListChanged += OnListChangeUpdateButtons;
+
+        }
+
+        public void OnFirstDatabaseLoad()
+        {
+            //I needed listeners to load on database load, I changed this functionality,
+            //kept In case I need to revisit it
+            databaseInitialized = true;
         }
 
 
-        public void initializeDataGridViewWithObjects(BindingList<object> list)
+        public void InitializeDataGridViewWithObjects(BindingList<object> list)
         {
-            this.PrincipalDataGridView.DataSource = list;
+            PrincipalDataGridView.DataSource = list;
 
             if (list.Count > 0)
             {
@@ -92,18 +103,19 @@ namespace DatabaseInterface
                 PrincipalDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
                 PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
                 PrincipalDataGridView.AllowUserToAddRows = false;
-                PrincipalDataGridView.SelectionChanged += onListChangeUpdateButtons;
+                PrincipalDataGridView.SelectionChanged += OnListChangeUpdateButtons;
                 PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 FormatDateTimeColumn(DB.getBindingList()[0]);
-                //Doesn't work yet but what I want is that when the form changes visibility the buttons update
-                VisibleChanged += onListChangeUpdateButtons;
+
+                //Doesn't work? but what I want is that when the form changes visibility the buttons update
+                VisibleChanged += OnListChangeUpdateButtons;
 
             }
          }
 
         
         //Enables or disables the buttons
-        private void onListChangeUpdateButtons(object sender, EventArgs e)
+        private void OnListChangeUpdateButtons(object sender, EventArgs e)
         {
 
             if (PrincipalDataGridView.SelectedRows.Count > 0)
@@ -267,7 +279,7 @@ namespace DatabaseInterface
 
         private void buttonSaveAll_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
+            if (LocalizationText.SaveConfirm() == DialogResult.Yes)
             {
                 DB.TurnTempIntoPermanent(DB.getBindingList());
             }
@@ -275,7 +287,7 @@ namespace DatabaseInterface
 
         private void buttonRevertAll_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
+            if (LocalizationText.RevertConfirm() == DialogResult.Yes)
             {
                 DB.restoreFromBackupAndEmptyBackup(DB.getBindingList());
             }
@@ -284,7 +296,7 @@ namespace DatabaseInterface
 
         private void saveSelectedButton_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
+            if (LocalizationText.SaveConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -298,7 +310,7 @@ namespace DatabaseInterface
         private void deleteSelectedButton_Click(object sender, EventArgs e)
         {
             //TODO: Actually save the deletion and stuff for refetching
-            if (DialogBoxes.DeleteConfirm() == DialogResult.Yes)
+            if (LocalizationText.DeleteConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -319,14 +331,29 @@ namespace DatabaseInterface
 
         private void Search_Menu_Click(object sender, EventArgs e)
         {
-            Form DetailedView = new FormBuscarUser(this, DB);
-            DetailedView.ShowDialog(this);
+            if (DB != null) 
+            {
+                Form DetailedView = new FormBuscarUser(this, DB);
+                DetailedView.ShowDialog(this);
+            } else
+            {
+                DialogResult d = LocalizationText.ERR_DBNotInitialized();
+                d = DialogResult.None;
+            }
         }
 
         private void New_Menu_Click(object sender, EventArgs e)
         {
-            Form newUserForm = new FormUser(this, false, DB);
-            newUserForm.ShowDialog(this);
+            if (DB != null)
+            {
+                Form newUserForm = new FormUser(this, false, DB);
+                newUserForm.ShowDialog(this);
+            }
+            else
+            {
+                DialogResult d = LocalizationText.ERR_DBNotInitialized();
+                d = DialogResult.None;
+            }
         }
 
         private void Exit_Menu_Click(object sender, EventArgs e)
@@ -336,8 +363,15 @@ namespace DatabaseInterface
 
         private void Print_Menu_Click(object sender, EventArgs e)
         {
-            Form reportForm = new ReportForm(DB.getBindingList());
-            reportForm.ShowDialog();
+            if (DB != null)
+            {
+                Form reportForm = new ReportForm(DB.getBindingList());
+                reportForm.ShowDialog();
+            } else
+            {
+                DialogResult d = LocalizationText.ERR_DBNotInitialized();
+                d = DialogResult.None;
+            }
         }
 
         private void buttonModify_Click(object sender, EventArgs e)
@@ -360,7 +394,7 @@ namespace DatabaseInterface
 
         private void revertSelectedButton_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
+            if (LocalizationText.RevertConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -372,7 +406,10 @@ namespace DatabaseInterface
 
         private void formPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DB.preventClosingWithUncommittedChanges(e);
+            if (DB != null)
+            {
+                DB.preventClosingWithUncommittedChanges(e);
+            } 
         }
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)

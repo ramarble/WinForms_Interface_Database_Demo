@@ -20,7 +20,6 @@ namespace DatabaseInterface.View
         {
             this.KeyPreview = true;
             loadListenersForTextBoxes();
-            checkForDBListExisting();
             //For edit mode you're editing an existing user, and can't change its primary key
             if (editMode)
             {
@@ -29,14 +28,6 @@ namespace DatabaseInterface.View
             else
             {
                 tbNIF.ReadOnly = false;
-            }
-        }
-
-        public void checkForDBListExisting()
-        {
-            if (db.getBindingList().Count == 0)
-            {
-                //MessageBox.Show("hi");
             }
         }
 
@@ -107,7 +98,7 @@ namespace DatabaseInterface.View
             int usernif;
             if (Utils.isAnyTextBoxEmptyInForm(this))
             {
-                DialogBoxes.WARN_FillAllData();
+                LocalizationText.WARN_FillAllData();
                 this.DialogResult = DialogResult.None; //Why the frick is this how it has to work
                 highlightEmptyTextBoxes();
 
@@ -158,7 +149,7 @@ namespace DatabaseInterface.View
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.ExitWithoutSaving() == DialogResult.Yes)
+            if (LocalizationText.ExitWithoutSaving() == DialogResult.Yes)
             {
                 this.Close();
             }

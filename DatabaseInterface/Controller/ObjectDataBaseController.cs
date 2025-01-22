@@ -10,13 +10,11 @@ namespace DatabaseInterface.Controller
     public class ObjectDataBaseController<T> where T : class
 
     {
-        public ObjectDataBaseController(Type objType, string primary_key)
+        public ObjectDataBaseController(string primary_key)
         {
-            objectReferenceType = objType;
             PRIMARY_KEY = primary_key;
         }
 
-        static Type objectReferenceType;
         static string tempStatus = "tempStatus";
         static string tempChar = "tempChar";
         static string PRIMARY_KEY;
@@ -33,21 +31,12 @@ namespace DatabaseInterface.Controller
             ObjectBindingList = list;
         }
 
-        public List<T> createUserList(object obj)
-        {
-            List<T> objectList = new List<T>();
-            return objectList;
-        }
-
         public object getKey(object obj)
         {
             var result = obj.GetType().GetProperty(PRIMARY_KEY);
             return result.GetValue(obj);
 
         }
-
-
-
 
         //This works for now :D
         public Boolean isObjectPresentInList(BindingList<object> listToParse, object ob1)
@@ -240,7 +229,7 @@ namespace DatabaseInterface.Controller
         {
             if (isThereAnyTempUser())
             {
-                DialogBoxes.WARN_UncommittedChanges();
+                LocalizationText.WARN_UncommittedChanges();
                 e.Cancel = true;
             }
         }

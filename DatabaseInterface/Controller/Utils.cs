@@ -5,12 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Windows.Forms;
+using DatabaseInterface.Model;
 using contr = DatabaseInterface.Controller;
 
 
 namespace DatabaseInterface.Controller
 {
-    internal class Utils
+    internal abstract class Utils
     {
         public static void cutText(TextBoxBase tbb)
         {
@@ -19,6 +20,15 @@ namespace DatabaseInterface.Controller
                 tbb.Cut();
             }
         }
+
+        public static Dictionary<Type, string> typeDictionary()
+        {
+            Dictionary<Type, string> dict = new Dictionary<Type, string>();
+            dict.Add(typeof(Empleado), "nif");
+
+            return dict;
+        } 
+
 
         public static OpenFileDialog formattedOpenFileDialog()
         {
