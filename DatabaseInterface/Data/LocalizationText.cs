@@ -35,8 +35,10 @@ namespace DatabaseInterface.Controller
             return MessageBox.Show("Por favor rellena todos los campos", "Advertencia");
         }
 
-        public static string NOTICE_DatabaseNotInitialized = "Inicia una base de datos de uno de los siguientes tipos";
-
+        public static string INFO_DatabaseNotInitialized = "Selecciona un tipo de datos o carga un archivo";
+        public static string LABEL_DataType = "Tipo de Dato";
+        public static string LABEL_File = "Archivo";
+        
         public static DialogResult ERR_DBNotInitialized()
         {
             return MessageBox.Show("NO HAY UNA BASE DE DATOS INICIADA", "ERROR");

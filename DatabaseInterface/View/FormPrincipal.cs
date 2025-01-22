@@ -22,7 +22,6 @@ namespace DatabaseInterface
             InitializeComponent();
         }
 
-        private Boolean databaseInitialized = false; 
         static ObjectDataBaseController<object> DB;
 
         static List<string> GLOBAL_PATHS_FILES = new List<string>();
@@ -35,9 +34,26 @@ namespace DatabaseInterface
         {
 
             InitializeComboBox();
-            
+            setLocalizedStringText();
+            InitializeDataTypeComboBox();
             PrincipalDataGridView.DataSourceChanged += OnListChangeUpdateButtons;
 
+        }
+
+        private void setLocalizedStringText()
+        {
+            labelDatabase.Text = LocalizationText.INFO_DatabaseNotInitialized;
+            labelFile.Text = LocalizationText.LABEL_File;
+            labelDataType.Text = LocalizationText.LABEL_DataType;
+        }
+
+        private void InitializeDataTypeComboBox()
+        {
+
+            foreach (Type type in TypeDict.Keys)
+            {
+                comboBoxDataType.Items.Add(type.Name);
+            }
         }
 
         //This button will only be up when there's 2+ entries to select from
@@ -50,34 +66,22 @@ namespace DatabaseInterface
 
             if (primary_key != null)
             {
-                DB = new ObjectDataBaseController<object>(primary_key);
-                OnFirstDatabaseLoad();
-                //Flush it all away
-                StartDataGridViewSource(objList);
+                StartDatabaseController(primary_key, objList);
+                InitializeDataGridViewWithObjects(DB.getBindingList());
             }
         }
-
-        private void StartDataGridViewSource(List<object> objList)
+        public void StartDatabaseController(string primary_key, List<object> objList)
         {
-            DB.getBindingList().ResetBindings();
-            DB.getBindingList().Clear();
+            DB = new ObjectDataBaseController<object>(primary_key);
             DB.setObjectBindingList(objList);
-            InitializeDataGridViewWithObjects(DB.getBindingList());
-            DB.getBindingList().ListChanged += OnListChangeUpdateButtons;
-
+            comboBoxDataType.SelectedItem = DB.getBindingList()[0].GetType().Name;
         }
-
-        public void OnFirstDatabaseLoad()
-        {
-            //I needed listeners to load on database load, I changed this functionality,
-            //kept In case I need to revisit it
-            databaseInitialized = true;
-        }
-
 
         public void InitializeDataGridViewWithObjects(BindingList<object> list)
         {
             PrincipalDataGridView.DataSource = list;
+
+            DB.getBindingList().ListChanged += OnListChangeUpdateButtons;
 
             if (list.Count > 0)
             {
@@ -157,24 +161,33 @@ namespace DatabaseInterface
 
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
             {
-                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), e.Bounds);
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(220,220,220)), e.Bounds);
                 e.DrawFocusRectangle();
             }
 
         }
 
-        private void CenterComboBoxTextBox(object sender, DrawItemEventArgs e)
+        private void StyleTextInComboBox(object sender, DrawItemEventArgs e)
         {
             var c = sender as ComboBox;
-            Font font = new Font(c.Font.FontFamily, c.Font.Size, FontStyle.Italic);
-            
-            if (e.Index >= 0)
+            Font font = new Font(c.Font.FontFamily, c.Font.Size-1, FontStyle.Bold);
+            StringFormat sf = new StringFormat();
+
+            if (e.Index == comboBoxCargarDatos.Items.Count -1 )
             {
-                StringFormat sf = new StringFormat();
+                font = new Font(c.Font.FontFamily, c.Font.Size-2, FontStyle.Italic);
                 sf.LineAlignment = StringAlignment.Center;
                 sf.Alignment = StringAlignment.Center;
+                e.Graphics.DrawString(c.Items[e.Index].ToString(), font, new SolidBrush(Color.FromArgb(25,25,25)), e.Bounds, sf);
+
+            }
+            else if (e.Index >= 0)
+            {
+                sf.LineAlignment = StringAlignment.Near;
+                sf.Alignment = StringAlignment.Near;
                 e.Graphics.DrawString(c.Items[e.Index].ToString(), font, new SolidBrush(c.ForeColor), e.Bounds, sf);
             }
+
         }
 
         private void InitializeComboBox()
@@ -182,7 +195,7 @@ namespace DatabaseInterface
             comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
             comboBoxCargarDatos.Items.Add(OFD.Title);
             comboBoxCargarDatos.DrawItem += StyleTextBox;
-            comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
+            comboBoxCargarDatos.DrawItem += StyleTextInComboBox;
             comboBoxCargarDatos.ForeColor = Color.Black;
             comboBoxCargarDatos.SelectionChangeCommitted += manageComboBoxEntries;
             comboBoxCargarDatos.SelectedIndexChanged += CheckLoadButtonEligibility;

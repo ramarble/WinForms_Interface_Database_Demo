@@ -57,6 +57,10 @@ namespace DatabaseInterface
             this.comboBoxCargarDatos = new System.Windows.Forms.ComboBox();
             this.buttonSaveToFile = new System.Windows.Forms.Button();
             this.buttonLoadData = new System.Windows.Forms.Button();
+            this.labelDatabase = new System.Windows.Forms.Label();
+            this.labelFile = new System.Windows.Forms.Label();
+            this.labelDataType = new System.Windows.Forms.Label();
+            this.comboBoxDataType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PrincipalDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -241,7 +245,7 @@ namespace DatabaseInterface
             this.PrincipalDataGridView.AllowUserToResizeRows = false;
             this.PrincipalDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PrincipalDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.PrincipalDataGridView.Location = new System.Drawing.Point(12, 90);
+            this.PrincipalDataGridView.Location = new System.Drawing.Point(12, 105);
             this.PrincipalDataGridView.Name = "PrincipalDataGridView";
             this.PrincipalDataGridView.Size = new System.Drawing.Size(1081, 419);
             this.PrincipalDataGridView.TabIndex = 14;
@@ -253,7 +257,7 @@ namespace DatabaseInterface
             this.buttonSaveTemp.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonSaveTemp.Enabled = false;
             this.buttonSaveTemp.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonSaveTemp.Location = new System.Drawing.Point(724, 583);
+            this.buttonSaveTemp.Location = new System.Drawing.Point(724, 598);
             this.buttonSaveTemp.Name = "buttonSaveTemp";
             this.buttonSaveTemp.Size = new System.Drawing.Size(124, 62);
             this.buttonSaveTemp.TabIndex = 7;
@@ -268,7 +272,7 @@ namespace DatabaseInterface
             this.buttonRevertAll.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonRevertAll.Enabled = false;
             this.buttonRevertAll.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonRevertAll.Location = new System.Drawing.Point(12, 583);
+            this.buttonRevertAll.Location = new System.Drawing.Point(12, 598);
             this.buttonRevertAll.Name = "buttonRevertAll";
             this.buttonRevertAll.Size = new System.Drawing.Size(132, 62);
             this.buttonRevertAll.TabIndex = 3;
@@ -283,7 +287,7 @@ namespace DatabaseInterface
             this.saveSelectedButton.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
             this.saveSelectedButton.Enabled = false;
             this.saveSelectedButton.Font = new System.Drawing.Font("Arial", 12F);
-            this.saveSelectedButton.Location = new System.Drawing.Point(586, 583);
+            this.saveSelectedButton.Location = new System.Drawing.Point(586, 598);
             this.saveSelectedButton.Name = "saveSelectedButton";
             this.saveSelectedButton.Size = new System.Drawing.Size(132, 62);
             this.saveSelectedButton.TabIndex = 6;
@@ -297,7 +301,7 @@ namespace DatabaseInterface
             this.buttonDeleteSelected.AccessibleName = "Botón borrar seleccionados";
             this.buttonDeleteSelected.Enabled = false;
             this.buttonDeleteSelected.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonDeleteSelected.Location = new System.Drawing.Point(150, 583);
+            this.buttonDeleteSelected.Location = new System.Drawing.Point(150, 598);
             this.buttonDeleteSelected.Name = "buttonDeleteSelected";
             this.buttonDeleteSelected.Size = new System.Drawing.Size(132, 62);
             this.buttonDeleteSelected.TabIndex = 4;
@@ -312,7 +316,7 @@ namespace DatabaseInterface
             this.buttonModify.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonModify.Enabled = false;
             this.buttonModify.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonModify.Location = new System.Drawing.Point(360, 583);
+            this.buttonModify.Location = new System.Drawing.Point(360, 598);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(132, 62);
             this.buttonModify.TabIndex = 5;
@@ -327,7 +331,7 @@ namespace DatabaseInterface
             this.revertSelectedButton.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
             this.revertSelectedButton.Enabled = false;
             this.revertSelectedButton.Font = new System.Drawing.Font("Arial", 12F);
-            this.revertSelectedButton.Location = new System.Drawing.Point(12, 515);
+            this.revertSelectedButton.Location = new System.Drawing.Point(12, 530);
             this.revertSelectedButton.Name = "revertSelectedButton";
             this.revertSelectedButton.Size = new System.Drawing.Size(132, 62);
             this.revertSelectedButton.TabIndex = 2;
@@ -342,7 +346,7 @@ namespace DatabaseInterface
             this.comboBoxCargarDatos.AccessibleRole = System.Windows.Forms.AccessibleRole.ComboBox;
             this.comboBoxCargarDatos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCargarDatos.FormattingEnabled = true;
-            this.comboBoxCargarDatos.Location = new System.Drawing.Point(12, 40);
+            this.comboBoxCargarDatos.Location = new System.Drawing.Point(656, 61);
             this.comboBoxCargarDatos.Name = "comboBoxCargarDatos";
             this.comboBoxCargarDatos.Size = new System.Drawing.Size(319, 32);
             this.comboBoxCargarDatos.TabIndex = 15;
@@ -354,7 +358,7 @@ namespace DatabaseInterface
             this.buttonSaveToFile.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonSaveToFile.Enabled = false;
             this.buttonSaveToFile.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonSaveToFile.Location = new System.Drawing.Point(960, 583);
+            this.buttonSaveToFile.Location = new System.Drawing.Point(961, 598);
             this.buttonSaveToFile.Name = "buttonSaveToFile";
             this.buttonSaveToFile.Size = new System.Drawing.Size(132, 62);
             this.buttonSaveToFile.TabIndex = 8;
@@ -369,19 +373,65 @@ namespace DatabaseInterface
             this.buttonLoadData.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.buttonLoadData.Enabled = false;
             this.buttonLoadData.Font = new System.Drawing.Font("Arial", 12F);
-            this.buttonLoadData.Location = new System.Drawing.Point(337, 33);
+            this.buttonLoadData.Location = new System.Drawing.Point(981, 55);
             this.buttonLoadData.Name = "buttonLoadData";
-            this.buttonLoadData.Size = new System.Drawing.Size(112, 47);
+            this.buttonLoadData.Size = new System.Drawing.Size(112, 44);
             this.buttonLoadData.TabIndex = 1;
             this.buttonLoadData.Text = "Cargar datos";
             this.buttonLoadData.UseVisualStyleBackColor = true;
             this.buttonLoadData.Click += new System.EventHandler(this.buttonLoadData_Click);
+            // 
+            // labelDatabase
+            // 
+            this.labelDatabase.AutoSize = true;
+            this.labelDatabase.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDatabase.Location = new System.Drawing.Point(12, 27);
+            this.labelDatabase.Name = "labelDatabase";
+            this.labelDatabase.Size = new System.Drawing.Size(232, 21);
+            this.labelDatabase.TabIndex = 16;
+            this.labelDatabase.Text = "INFO_DatabaseNotInitialized";
+            // 
+            // labelFile
+            // 
+            this.labelFile.AutoSize = true;
+            this.labelFile.Location = new System.Drawing.Point(541, 64);
+            this.labelFile.Name = "labelFile";
+            this.labelFile.Size = new System.Drawing.Size(109, 24);
+            this.labelFile.TabIndex = 17;
+            this.labelFile.Text = "LABEL_File";
+            this.labelFile.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelDataType
+            // 
+            this.labelDataType.AutoSize = true;
+            this.labelDataType.Location = new System.Drawing.Point(12, 64);
+            this.labelDataType.Name = "labelDataType";
+            this.labelDataType.Size = new System.Drawing.Size(158, 24);
+            this.labelDataType.TabIndex = 18;
+            this.labelDataType.Text = "LABEL_DataType";
+            this.labelDataType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboBoxDataType
+            // 
+            this.comboBoxDataType.AccessibleDescription = "Combo Box Carga Tipo de Datos";
+            this.comboBoxDataType.AccessibleName = "Combo Box Carga Tipo";
+            this.comboBoxDataType.AccessibleRole = System.Windows.Forms.AccessibleRole.ComboBox;
+            this.comboBoxDataType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDataType.FormattingEnabled = true;
+            this.comboBoxDataType.Location = new System.Drawing.Point(176, 61);
+            this.comboBoxDataType.Name = "comboBoxDataType";
+            this.comboBoxDataType.Size = new System.Drawing.Size(185, 32);
+            this.comboBoxDataType.TabIndex = 19;
             // 
             // formPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 672);
+            this.Controls.Add(this.comboBoxDataType);
+            this.Controls.Add(this.labelDataType);
+            this.Controls.Add(this.labelFile);
+            this.Controls.Add(this.labelDatabase);
             this.Controls.Add(this.buttonLoadData);
             this.Controls.Add(this.buttonSaveToFile);
             this.Controls.Add(this.comboBoxCargarDatos);
@@ -435,6 +485,10 @@ namespace DatabaseInterface
         private System.Windows.Forms.ComboBox comboBoxCargarDatos;
         private System.Windows.Forms.Button buttonSaveToFile;
         private System.Windows.Forms.Button buttonLoadData;
+        private System.Windows.Forms.Label labelDatabase;
+        private System.Windows.Forms.Label labelFile;
+        private System.Windows.Forms.Label labelDataType;
+        private System.Windows.Forms.ComboBox comboBoxDataType;
     }
 }
 

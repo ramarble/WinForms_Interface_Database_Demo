@@ -80,12 +80,6 @@
     <Compile Include="View\FormBuscarUser.Designer.cs">
       <DependentUpon>FormBuscarUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FormInitializeDatabase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\FormInitializeDatabase.Designer.cs">
-      <DependentUpon>FormInitializeDatabase.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,9 +115,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\FormBuscarUser.resx">
       <DependentUpon>FormBuscarUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\FormInitializeDatabase.resx">
-      <DependentUpon>FormInitializeDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
