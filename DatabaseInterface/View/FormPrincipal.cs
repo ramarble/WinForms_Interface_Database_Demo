@@ -158,7 +158,7 @@ namespace DatabaseInterface
             comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
             if (comboBoxCargarDatos.Items.Count == 0)
             {
-                OpenFileDialog ofd = FormattedFileDialog.formattedOpenFileDialog();
+                OpenFileDialog ofd = Utils.formattedOpenFileDialog();
 
                 this.comboBoxCargarDatos.Items.Add(ofd.Title);
 
