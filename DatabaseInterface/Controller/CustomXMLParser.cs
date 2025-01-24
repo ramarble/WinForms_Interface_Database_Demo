@@ -46,8 +46,8 @@ namespace DatabaseInterfaceDemo.Controller
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error leyendo xml " + e.StackTrace + " " + e.InnerException);
-                throw e;
+                MessageBox.Show("Error leyendo xml. Puede estar vacío o mal formateado. \n" + e.StackTrace + "\n " + e.InnerException);
+                return null;
             }
         }
 

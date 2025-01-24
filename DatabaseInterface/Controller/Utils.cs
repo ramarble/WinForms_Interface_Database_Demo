@@ -29,6 +29,7 @@ namespace DatabaseInterface.Controller
         {
             Dictionary<Type, string> dict = new Dictionary<Type, string>();
             dict.Add(typeof(Empleado), "nif");
+            dict.Add(typeof(Producto), "ID");
 
             return dict;
         } 

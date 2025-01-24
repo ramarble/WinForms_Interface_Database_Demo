@@ -57,13 +57,13 @@ namespace DatabaseInterface.Model
         
 
         public Empleado() { }
-        public Empleado(Boolean temp, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
+        public Empleado(Boolean tempStatus, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
         {
-            this.tempStatus = temp;
+            this.tempStatus = tempStatus;
 
             //This is a read-only attribute for display in spreadsheet format,
             //also probably unnecessary if I did things a different way
-            this.tempChar = temp ? '*' : '\0';
+            this.tempChar = tempStatus ? '*' : '\0';
 
             this.name = nombre;
             this.salary = salario;
@@ -72,6 +72,8 @@ namespace DatabaseInterface.Model
             this.nif = nif;
             this.birthdate = birthdate;
         }
+
+
 
         //This is a needed reverse-engineered recreation of a generic
         public Empleado(List<object> l)
@@ -89,6 +91,20 @@ namespace DatabaseInterface.Model
         public override string ToString()
         {
             return this.name;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 610695206;
+            hashCode = hashCode * -1521134295 + tempChar.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(surname1);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(surname2);
+            hashCode = hashCode * -1521134295 + salary.GetHashCode();
+            hashCode = hashCode * -1521134295 + nif.GetHashCode();
+            hashCode = hashCode * -1521134295 + birthdate.GetHashCode();
+            hashCode = hashCode * -1521134295 + tempStatus.GetHashCode();
+            return hashCode;
         }
     }
 }

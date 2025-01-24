@@ -61,6 +61,12 @@ namespace DatabaseInterface
         {
             //There's a memory leak somewhere here :D
             List<object> objList = CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]);
+            
+            if (objList == null)
+            {
+                return;
+            }
+            
             string primary_key = null;
             TypeDict.TryGetValue(objList[0].GetType(), out primary_key);
 
