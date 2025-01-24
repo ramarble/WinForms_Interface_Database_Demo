@@ -1,47 +1,81 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
-namespace DatabaseInterface.Controller
+namespace DatabaseInterfaceDemo.Data
 {
     internal class LocalizationText
     {
-        public static DialogResult RevertConfirm()
+
+        //Move this to a json :D
+        //add every text in the DialogResults
+        public static Dictionary<string, string> localizedStrings = new Dictionary<string, string>()
         {
-            return MessageBox.Show("¿Revertir cambios? ", "Advertencia", MessageBoxButtons.YesNo);
+            {"TEMPCHAR_TOOLTIP", "[*] = Revertible\n[ ] = Guardado Temporal"},
+            {"WARNING","Advertencia"},
+            {"ERROR", "Error"},
+            {"INFO", "Información"},
+            {"DATA_TYPE", "Tipo de Dato"},
+            {"FILE", "Archivo" },
+            {"INFO_DatabaseNotInitialized", "Selecciona un tipo de datos o carga un archivo" },
+            {"ERR_ObjPresent", "Ya existe un objeto con la clave primaria: "},
+            {"WARN_RevertConfirm", "¿Revertir cambios?"},
+            {"WARN_SaveConfirm", "¿Guardar cambios?"},
+            {"WARN_DeleteConfirm","¿Borrar Seleccionado?"},
+            {"WARN_ExitWithoutSaving", "¿Salir sin guardar?"},
+            {"WARN_UncommittedChanges", "Por favor confirma o revierte todos los cambios antes de salir"},
+            {"WARN_FillAllData", "Por favor rellena todos los campos"},
+            {"WARN_DatabaseOverwrite", "La base de datos no está vacía"},
+            {"ERR_DBNotInitialized", "NO HAY UNA BASE DE DATOS INICIADA"}
+
+
+        };
+       
+
+        public static DialogResult WARN_RevertConfirm()
+        {
+            return MessageBox.Show(localizedStrings["WARN_RevertConfirm"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
         }
-        public static DialogResult SaveConfirm()
+        public static DialogResult WARN_SaveConfirm()
         {
-            return MessageBox.Show("¿Guardar Cambios? ", "Info", MessageBoxButtons.YesNo);
+            return MessageBox.Show(localizedStrings["WARN_SaveConfirm"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
         }
 
-        public static DialogResult DeleteConfirm()
+        public static DialogResult WARN_DeleteConfirm()
         {
-            return MessageBox.Show("¿Borrar Seleccionado?", "Advertencia", MessageBoxButtons.YesNo);
+            return MessageBox.Show(localizedStrings["WARN_DeleteConfirm"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
         }
 
-        public static DialogResult ExitWithoutSaving()
+        public static DialogResult WARN_ExitWithoutSaving()
         {
-            return MessageBox.Show("¿Salir sin guardar?", "Advertencia", MessageBoxButtons.YesNo);
+            return MessageBox.Show(localizedStrings["WARN_ExitWithoutSaving"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
         }
 
         public static void WARN_UncommittedChanges()
         {
-            DialogResult d = MessageBox.Show("Por favor confirma o revierte todos los cambios antes de salir", "Advertencia");
+            DialogResult d = MessageBox.Show(localizedStrings["WARN_UncommittedChanges"], localizedStrings["WARNING"]);
             d = DialogResult.None;
         }
 
         public static DialogResult WARN_FillAllData()
         {
-            return MessageBox.Show("Por favor rellena todos los campos", "Advertencia");
+            return MessageBox.Show(localizedStrings["WARN_FillAllData"], localizedStrings["WARNING"]);
         }
 
-        public static string INFO_DatabaseNotInitialized = "Selecciona un tipo de datos o carga un archivo";
-        public static string LABEL_DataType = "Tipo de Dato";
-        public static string LABEL_File = "Archivo";
+        public static DialogResult WARN_DatabaseOverwrite()
+        {
+            return MessageBox.Show(localizedStrings["WARN_DatabaseOverwrite"], localizedStrings["WARNING"]);
+        }
+
+        public static DialogResult ERR_ObjPresent(string primaryKey, string keyValue)
+        {
+            DialogResult d = MessageBox.Show(localizedStrings["ERR_ObjPresent"] + " " + primaryKey + ": " + keyValue);
+            return DialogResult.None;
+        }
         
         public static DialogResult ERR_DBNotInitialized()
         {
-            return MessageBox.Show("NO HAY UNA BASE DE DATOS INICIADA", "ERROR");
+            return MessageBox.Show(localizedStrings["ERR_DBNotInitialized"], localizedStrings["ERROR"]);
         }
     }
 

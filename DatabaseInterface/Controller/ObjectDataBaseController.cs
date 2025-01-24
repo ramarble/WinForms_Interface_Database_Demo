@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using DatabaseInterface.View;
+using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.View;
 
-namespace DatabaseInterface.Controller
+namespace DatabaseInterfaceDemo.Controller
 {
     public class ObjectDataBaseController<T> where T : class
 
@@ -47,16 +48,16 @@ namespace DatabaseInterface.Controller
                 {
                     return true;
                 }
-
             }
             return false;
         }
 
         public void addObjectToList(BindingList<object> listToAppendTo, object userToAdd, Boolean editMode)
         {
-            Type typeOfList;
-            //Can initialize a list but can't update it with the wrong type
-            if (listToAppendTo.Count == 0)
+            Type typeOfList = listToAppendTo[0].GetType();
+            //I'm pretty sure this part of code isn't needed in the current architecture
+            /*
+             * if (listToAppendTo.Count == 0)
             {
                 typeOfList = userToAdd.GetType();
             }
@@ -64,6 +65,7 @@ namespace DatabaseInterface.Controller
             {
                 typeOfList = listToAppendTo[0].GetType();
             }
+            */
 
             if (typeOfList == userToAdd.GetType())
             {
@@ -75,12 +77,13 @@ namespace DatabaseInterface.Controller
                 }
                 else
                 {
-                    DialogResult d = MessageBox.Show("Ya hay un usuario con ese NIF presente.");
+                    DialogResult d = LocalizationText.ERR_ObjPresent(PRIMARY_KEY, getKey(userToAdd).ToString());
                     d = DialogResult.None;
                 }
             }
-
         }
+
+
 
         public BindingList<object> getBindingList()
         {
@@ -104,8 +107,7 @@ namespace DatabaseInterface.Controller
             else
             {
                 return false;
-            }
-            
+            }   
         }
 
         public void setTempStatus(object ob, Boolean b)

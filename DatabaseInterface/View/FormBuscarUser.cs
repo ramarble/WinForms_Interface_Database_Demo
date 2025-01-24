@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using DatabaseInterface.Controller;
-using DatabaseInterface.Model;
-using Utils = DatabaseInterface.Controller;
-using DataModel = DatabaseInterface.Model;
+using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.Model;
+using Utils = DatabaseInterfaceDemo.Controller;
+using DataModel = DatabaseInterfaceDemo.Model;
 
-namespace DatabaseInterface.View
+namespace DatabaseInterfaceDemo.View
 {
     public partial class FormBuscarUser : Form
     {
@@ -181,7 +181,7 @@ namespace DatabaseInterface.View
 
         private void buttonRevertAll_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.RevertConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
                 db.restoreFromBackupAndEmptyBackup(db.getBindingList());
                 UpdateListBoxPointerByKey(userListBox.SelectedItem);

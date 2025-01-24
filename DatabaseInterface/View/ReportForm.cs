@@ -4,10 +4,10 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
-using DatabaseInterface.Model;
+using DatabaseInterfaceDemo.Model;
 using System.ComponentModel;
 
-namespace DatabaseInterface.View
+namespace DatabaseInterfaceDemo.View
 {
     public partial class ReportForm : Form
     {

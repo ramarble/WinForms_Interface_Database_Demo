@@ -3,10 +3,10 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
-using DatabaseInterface.Controller;
-using DatabaseInterface.Model;
+using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.Model;
 
-namespace DatabaseInterface.View
+namespace DatabaseInterfaceDemo.View
 {
     public partial class FormUser : Form
     {
@@ -149,7 +149,7 @@ namespace DatabaseInterface.View
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.ExitWithoutSaving() == DialogResult.Yes)
+            if (LocalizationText.WARN_ExitWithoutSaving() == DialogResult.Yes)
             {
                 this.Close();
             }

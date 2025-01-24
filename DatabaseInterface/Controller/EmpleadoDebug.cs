@@ -1,4 +1,4 @@
-﻿using DatabaseInterface.Model;
+﻿using DatabaseInterfaceDemo.Model;
 using System;
 using System.Collections.Generic;
 namespace DatabaseInterfaceDemo.Controller

@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace DatabaseInterface.Model
+namespace DatabaseInterfaceDemo.Model
 {
     public enum Category
     {

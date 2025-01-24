@@ -1,4 +1,4 @@
-﻿namespace DatabaseInterface.View
+﻿namespace DatabaseInterfaceDemo.View
 {
     partial class ReportForm
     {

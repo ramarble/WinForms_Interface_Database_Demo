@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace DatabaseInterface
+namespace DatabaseInterfaceDemo
 {
     internal static class Program
     {

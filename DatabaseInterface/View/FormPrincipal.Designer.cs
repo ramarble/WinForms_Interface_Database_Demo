@@ -1,8 +1,8 @@
-﻿using DatabaseInterface.Controller;
-using DatabaseInterface.Model;
+﻿using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.Model;
 using System.Collections.Generic;
 
-namespace DatabaseInterface
+namespace DatabaseInterfaceDemo
 {
     partial class formPrincipal
     {

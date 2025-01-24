@@ -1,8 +1,7 @@
-﻿using DatabaseInterface.Controller;
-using DatabaseInterface.Model;
-using DatabaseInterface.View;
-using DatabaseInterfaceDemo.Controller;
+﻿using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.Model;
 using DatabaseInterfaceDemo.View;
+using DatabaseInterfaceDemo.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +11,7 @@ using System.Linq;
 using System.Windows.Forms;
 
 
-namespace DatabaseInterface
+namespace DatabaseInterfaceDemo
 {
     public partial class formPrincipal : Form
     {
@@ -30,10 +29,12 @@ namespace DatabaseInterface
 
         static Dictionary<Type, string> TypeDict = Utils.TypeDictionary();
 
+        static Dictionary<string, string> localizedStrings = LocalizationText.localizedStrings;
+
         private void formPrincipal_Load(object sender, EventArgs e)
         {
 
-            InitializeComboBox();
+            InitializeLoadFileComboBox();
             setLocalizedStringText();
             InitializeDataTypeComboBox();
             PrincipalDataGridView.DataSourceChanged += OnListChangeUpdateButtons;
@@ -42,17 +43,26 @@ namespace DatabaseInterface
 
         private void setLocalizedStringText()
         {
-            labelDatabase.Text = LocalizationText.INFO_DatabaseNotInitialized;
-            labelFile.Text = LocalizationText.LABEL_File;
-            labelDataType.Text = LocalizationText.LABEL_DataType;
+            labelDatabase.Text = localizedStrings["INFO_DatabaseNotInitialized"];
+            labelFile.Text = localizedStrings["FILE"];
+            labelDataType.Text = localizedStrings["DATA_TYPE"];
         }
 
         private void InitializeDataTypeComboBox()
         {
-
             foreach (Type type in TypeDict.Keys)
             {
                 comboBoxDataType.Items.Add(type.Name);
+            }
+            comboBoxDataType.SelectedIndexChanged += InitializeDatabaseChange;
+        }
+
+        private void InitializeDatabaseChange(object sender, EventArgs e)
+        {
+            if (DB != null && DB.getBindingList().Count > 0)
+            {
+                LocalizationText.WARN_DatabaseOverwrite();
+                
             }
         }
 
@@ -110,8 +120,8 @@ namespace DatabaseInterface
                 PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 PrincipalDataGridView.Columns[0].Width = 25;
                 PrincipalDataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                PrincipalDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-                PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
+                PrincipalDataGridView.Columns[0].ToolTipText = localizedStrings["TEMPCHAR_TOOLTIP"];
+                PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = localizedStrings["TEMPCHAR_TOOLTIP"];
                 PrincipalDataGridView.AllowUserToAddRows = false;
                 PrincipalDataGridView.SelectionChanged += OnListChangeUpdateButtons;
                 PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -196,7 +206,7 @@ namespace DatabaseInterface
 
         }
 
-        private void InitializeComboBox()
+        private void InitializeLoadFileComboBox()
         {
             comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
             comboBoxCargarDatos.Items.Add(OFD.Title);
@@ -298,7 +308,7 @@ namespace DatabaseInterface
 
         private void buttonSaveAll_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.SaveConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
                 DB.TurnTempIntoPermanent(DB.getBindingList());
             }
@@ -306,7 +316,7 @@ namespace DatabaseInterface
 
         private void buttonRevertAll_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.RevertConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
                 DB.restoreFromBackupAndEmptyBackup(DB.getBindingList());
             }
@@ -315,7 +325,7 @@ namespace DatabaseInterface
 
         private void saveSelectedButton_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.SaveConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -329,7 +339,7 @@ namespace DatabaseInterface
         private void deleteSelectedButton_Click(object sender, EventArgs e)
         {
             //TODO: Actually save the deletion and stuff for refetching
-            if (LocalizationText.DeleteConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_DeleteConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -413,7 +423,7 @@ namespace DatabaseInterface
 
         private void revertSelectedButton_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.RevertConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {

@@ -5,11 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Windows.Forms;
-using DatabaseInterface.Model;
-using contr = DatabaseInterface.Controller;
+using DatabaseInterfaceDemo.Model;
+using contr = DatabaseInterfaceDemo.Controller;
 
 
-namespace DatabaseInterface.Controller
+namespace DatabaseInterfaceDemo.Controller
 {
     /*List of methods that I assume are going to be accessed from
      * multiple files. If this turns out to not be the case I'll refactor

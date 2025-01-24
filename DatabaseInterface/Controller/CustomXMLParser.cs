@@ -3,8 +3,8 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using System.Linq;
-using DatabaseInterface.Model;
-using DatabaseInterface.Controller;
+using DatabaseInterfaceDemo.Model;
+using DatabaseInterfaceDemo.Controller;
 using System.Windows.Forms;
 
 namespace DatabaseInterfaceDemo.Controller
