@@ -7,6 +7,7 @@ using DatabaseInterfaceDemo.Controller;
 using DatabaseInterfaceDemo.Model;
 using Utils = DatabaseInterfaceDemo.Controller;
 using DataModel = DatabaseInterfaceDemo.Model;
+using DatabaseInterfaceDemo.Data;
 
 namespace DatabaseInterfaceDemo.View
 {
@@ -16,26 +17,26 @@ namespace DatabaseInterfaceDemo.View
         //have been edited in the case they need to be fetched back
 
         Form owner;
-        ObjectDataBaseController<object> db;
+        ObjectDataBaseController<object> DB;
         
         public FormBuscarUser(Form sender, ObjectDataBaseController<object> db)
         {
             InitializeComponent();
-            this.db = db;
+            this.DB = db;
             this.owner = sender;
             sender.Visible = false;
         }
 
         private void FormBuscarUser_Load(object sender, EventArgs e)
         {
-            userListBox.DataSource = db.getBindingList();
+            userListBox.DataSource = DB.GetBindingList();
             userListBox.ValueMember = "";
             userListBox.DisplayMember = "Name";
             userListBox.SelectedValueChanged += UpdateObjectView;
-            db.getBindingList().ListChanged += UpdateObjectView;
+            DB.GetBindingList().ListChanged += UpdateObjectView;
 
 
-            if (db.getBindingList().Count > 0)
+            if (DB.GetBindingList().Count > 0)
             {
                 userListBox.SetSelected(0, true);
             }
@@ -82,7 +83,7 @@ namespace DatabaseInterfaceDemo.View
                     buttonSave.Enabled = false;
                 }
 
-                if (db.isThereAnyTempUser())
+                if (DB.isThereAnyTempUser())
                 {
                     buttonRevertAll.Enabled = true;
                     buttonSaveAll.Enabled = true;
@@ -121,8 +122,8 @@ namespace DatabaseInterfaceDemo.View
         private void buttonModify_Click(object sender, EventArgs e)
         {
             object objectToEdit = userPropertyGrid.SelectedObject;
-            object nifKey = db.getKey(objectToEdit);
-            db.modifyObject(objectToEdit, db.getBindingList(), this, db);
+            object nifKey = DB.getKey(objectToEdit);
+            DB.modifyObject(objectToEdit, DB.GetBindingList(), this, DB);
             //Sets the pointer correctly
             UpdateListBoxPointerByKey(objectToEdit);
 
@@ -132,10 +133,10 @@ namespace DatabaseInterfaceDemo.View
         {
             if (SelectedItem != null)
             {
-                object nifKey = db.getKey(SelectedItem);
+                object nifKey = DB.getKey(SelectedItem);
                 int userIndex =
-                    db.getBindingList().IndexOf(
-                    db.getBindingList().FirstOrDefault(user => db.getKey(user) == nifKey));
+                    DB.GetBindingList().IndexOf(
+                    DB.GetBindingList().FirstOrDefault(user => DB.getKey(user) == nifKey));
                 if (userIndex != -1)
                 {
                     userListBox.SetSelected(userIndex, true);
@@ -145,36 +146,36 @@ namespace DatabaseInterfaceDemo.View
                     userListBox.ClearSelected();
                 }
             }
-            db.getBindingList().ResetBindings();
+            DB.GetBindingList().ResetBindings();
         }
 
 
         private void buttonRevert_Click(object sender, EventArgs e)
         {
             object objectWithTempFlag = userPropertyGrid.SelectedObject;
-            db.revertSingleObject(objectWithTempFlag, db.getBindingList());
+            DB.revertSingleObject(objectWithTempFlag, DB.GetBindingList());
             UpdateListBoxPointerByKey(objectWithTempFlag);
-            userListBox.DataSource = db.getBindingList();
+            userListBox.DataSource = DB.GetBindingList();
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
         {
-            db.preventClosingWithUncommittedChanges(e);
+            DB.PreventClosingWithUncommittedChanges(e);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
             object userWithTempFlag = (Empleado)userPropertyGrid.SelectedObject;
-            db.saveObject(userWithTempFlag);
+            DB.saveObject(userWithTempFlag);
             UpdateObjectView(this, e);
 
         }
 
         private void buttonSaveAll_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.SaveConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
-                db.TurnTempIntoPermanent(db.getBindingList());
+                DB.TurnTempIntoPermanent(DB.GetBindingList());
                 UpdateListBoxPointerByKey((userListBox.SelectedItem));
             }
         }
@@ -183,7 +184,7 @@ namespace DatabaseInterfaceDemo.View
         {
             if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
-                db.restoreFromBackupAndEmptyBackup(db.getBindingList());
+                DB.restoreFromBackupAndEmptyBackup(DB.GetBindingList());
                 UpdateListBoxPointerByKey(userListBox.SelectedItem);
 
             }

@@ -5,11 +5,16 @@ using System.Windows.Forms;
 using DatabaseInterfaceDemo.View;
 using DatabaseInterfaceDemo.Controller;
 using DatabaseInterfaceDemo.Model;
+using DatabaseInterfaceDemo.Data;
+using System.Collections.Generic;
 
 namespace DatabaseInterfaceDemo.View
 {
+
     public partial class FormUser : Form
     {
+        static readonly Dictionary<string, string> LOC_STRINGS = LocalizationText.localizedStrings;
+
         Form parent;
         Boolean editMode;
         ObjectDataBaseController<object> db;
@@ -115,14 +120,14 @@ namespace DatabaseInterfaceDemo.View
                     usernif);
                 if (u.Equals(objectBeingModified))
                 {
-                    db.setTempStatus(u,objectBeingModified.tempStatus);
-                    db.getBackupList().Remove(objectBeingModified);
+                    db.SetTempStatus(u,objectBeingModified.tempStatus);
+                    db.GetBackupList().Remove(objectBeingModified);
                 }
                 else
                 {
-                    db.setTempStatus(u, true);
+                    db.SetTempStatus(u, true);
                 };
-                db.addObjectToList(db.getBindingList(), u, editMode);
+                db.AddObjectToList(db.GetBindingList(), u, editMode);
             }
 
         }

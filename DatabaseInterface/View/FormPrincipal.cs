@@ -9,14 +9,17 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
+using System.Reflection;
+using System.Data;
 
 
 namespace DatabaseInterfaceDemo
 {
-    public partial class formPrincipal : Form
+    partial class FormPrincipal : Form
     {
 
-        public formPrincipal()
+        public FormPrincipal()
         {
             InitializeComponent();
         }
@@ -57,13 +60,43 @@ namespace DatabaseInterfaceDemo
             comboBoxDataType.SelectedIndexChanged += InitializeDatabaseChange;
         }
 
+        //Today I decided to reverse engineer my own program
+        private Type GetTypeFromComboBox()
+        {
+            return Type.GetType(typeof(TEMPLATE_Class).Namespace + "." + comboBoxDataType.SelectedItem.ToString());
+        }
+
+
         private void InitializeDatabaseChange(object sender, EventArgs e)
         {
-            if (DB != null && DB.getBindingList().Count > 0)
+            if (DB == null || DB.GetBindingList().Count == 0)
             {
-                LocalizationText.WARN_DatabaseOverwrite();
-                
+                InitDGVColumnsWithEmptyList();
             }
+            if (DB.GetBindingList().Count > 0 && !IsDataTypeSynced())
+            {
+                if (DB.isThereAnyTempUser())
+                {
+                    LocalizationText.WARN_UncommittedChanges();
+                    ReSyncDataTypeComboBoxType();
+                }
+                if (LocalizationText.CHOICE_WARN_DatabaseOverwrite() == DialogResult.Yes)
+                {
+                    //Spaghetti
+                    InitDGVColumnsWithEmptyList();
+                }
+                else
+                {
+                    ReSyncDataTypeComboBoxType();
+                }
+            }
+        }
+
+        private void InitDGVColumnsWithEmptyList()
+        {
+            Type t = GetTypeFromComboBox();
+            StartDatabaseController(t, new List<object>() { Activator.CreateInstance(t) });
+            DB.GetBindingList().RemoveAt(0);
         }
 
         //This button will only be up when there's 2+ entries to select from
@@ -72,50 +105,51 @@ namespace DatabaseInterfaceDemo
             //There's a memory leak somewhere here :D
             List<object> objList = CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]);
             
-            if (objList == null)
+            if (objList == null ||objList.Count < 1)
             {
                 return;
             }
 
-            TYPE_DICT.TryGetValue(objList[0].GetType(), out string primary_key);
-
-            if (primary_key != null)
-            {
-                StartDatabaseController(primary_key, objList);
-                InitializeDataGridViewWithObjects(DB.getBindingList());
-            }
-        }
-        public void StartDatabaseController(string primary_key, List<object> objList)
-        {
-            DB = new ObjectDataBaseController<object>(primary_key);
-            DB.setObjectBindingList(objList);
-            comboBoxDataType.SelectedItem = DB.getBindingList()[0].GetType().Name;
+            StartDatabaseController(objList[0].GetType(), objList);
+            
         }
 
-        public void InitializeDataGridViewWithObjects(BindingList<object> list)
+        //This should be the only method I use for the constructor? 
+        public void StartDatabaseController(Type type, List<object> objList)
+        {    
+            DB = new ObjectDataBaseController<object>(type);
+            DB.SetObjectBindingList(objList);
+            comboBoxDataType.SelectedItem = DB.GetDBObjectType().Name;
+            InitializeDataGridView();
+        }
+
+        private Boolean IsDataTypeSynced()
         {
-            PrincipalDataGridView.DataSource = list;
+            return (string) comboBoxDataType.SelectedItem == DB.GetDBObjectType().Name;        
+        }
+        
+        private void ReSyncDataTypeComboBoxType()
+        {
+            comboBoxDataType.SelectedItem = DB.GetDBObjectType().Name;
+        }
 
-            DB.getBindingList().ListChanged += OnListChangeUpdateButtons;
-
-            if (list.Count > 0)
-            {
-                InitializeDataGridViewStyling();
-            }
-            else
-            {
-                throw new Exception("wow, empty table");
-            }
-
+        public void InitializeDataGridView()
+        {
+            PrincipalDataGridView.AutoGenerateColumns = true;
+            PrincipalDataGridView.DataSource = DB.GetBindingList();
+            DB.GetBindingList().ResetBindings();
+            DB.GetBindingList().ListChanged += OnListChangeUpdateButtons;
+            InitializeDataGridViewStyling();
         }
 
         //This is specific to Empleado
         //This should check for tempStatus whenever loading and put it at the first possible column
         public void InitializeDataGridViewStyling()
         {
+
             if (PrincipalDataGridView.DataSource != null)
             {
-                PrincipalDataGridView.AutoGenerateColumns = true;
+                //PopulateColumnsWithObjectData();
                 PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 PrincipalDataGridView.Columns[0].Width = 25;
                 PrincipalDataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -124,15 +158,14 @@ namespace DatabaseInterfaceDemo
                 PrincipalDataGridView.AllowUserToAddRows = false;
                 PrincipalDataGridView.SelectionChanged += OnListChangeUpdateButtons;
                 PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                FormatDateTimeColumn(DB.getBindingList()[0]);
+                FormatDateTimeColumn();
 
                 //Doesn't work? but what I want is that when the form changes visibility the buttons update
                 VisibleChanged += OnListChangeUpdateButtons;
-
             }
-         }
+        }
+       
 
-        
         //Enables or disables the buttons
         private void OnListChangeUpdateButtons(object sender, EventArgs e)
         {
@@ -156,7 +189,7 @@ namespace DatabaseInterfaceDemo
 
 
         //Checks the object of the list to see if it contains a DateTime, formats it accordingly.
-        public void FormatDateTimeColumn(object obj)
+        public void FormatDateTimeColumn()
         {
             for (int i = 0; i < PrincipalDataGridView.Columns.Count; i++)
             {
@@ -253,7 +286,7 @@ namespace DatabaseInterfaceDemo
         private void ManageButtonsForTempUsers()
         {
 
-            if (DB.getBackupList().Count > 0 | DB.isThereAnyTempUser())
+            if (DB.GetBackupList().Count > 0 | DB.isThereAnyTempUser())
             {
                 buttonRevertAll.Enabled = true;
                 buttonSaveTemp.Enabled = true;
@@ -293,7 +326,7 @@ namespace DatabaseInterfaceDemo
             for (int i = 0; i < dgv.SelectedRows.Count; i++)
             {
                 obj = dgv.SelectedRows[i].DataBoundItem;
-                if (DB.getTempStatus(obj))
+                if (DB.GetTempStatus(obj))
                 {
                     exitCond = true;
                 }
@@ -309,7 +342,7 @@ namespace DatabaseInterfaceDemo
         {
             if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
-                DB.TurnTempIntoPermanent(DB.getBindingList());
+                DB.TurnTempIntoPermanent(DB.GetBindingList());
             }
         }
 
@@ -317,7 +350,7 @@ namespace DatabaseInterfaceDemo
         {
             if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
-                DB.restoreFromBackupAndEmptyBackup(DB.getBindingList());
+                DB.restoreFromBackupAndEmptyBackup(DB.GetBindingList());
             }
         }
 
@@ -331,7 +364,7 @@ namespace DatabaseInterfaceDemo
                     Empleado u = row.DataBoundItem as Empleado;
                     DB.saveObject(u);
                 }
-                DB.getBindingList().ResetBindings();
+                DB.GetBindingList().ResetBindings();
             }
         }
 
@@ -343,15 +376,15 @@ namespace DatabaseInterfaceDemo
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado u = row.DataBoundItem as Empleado;
-                    DB.getBindingList().Remove(u);
+                    DB.GetBindingList().Remove(u);
                 }
-                DB.getBindingList().ResetBindings();
+                DB.GetBindingList().ResetBindings();
             }
         }
 
         private void SaveAll_Menu_Click(object sender, EventArgs e)
         {
-            if (DB.getBackupList().Count > 0)
+            if (DB.GetBackupList().Count > 0)
             {
                 ButtonSaveAll_Click(sender, e);
             }
@@ -393,7 +426,7 @@ namespace DatabaseInterfaceDemo
         {
             if (DB != null)
             {
-                Form reportForm = new ReportForm(DB.getBindingList());
+                Form reportForm = new ReportForm(DB.GetBindingList());
                 reportForm.ShowDialog();
             } else
             {
@@ -405,7 +438,7 @@ namespace DatabaseInterfaceDemo
         private void ButtonModifyObject_Click(object sender, EventArgs e)
         {
             object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
-            DB.modifyObject(userToEdit, DB.getBindingList(), this, DB);
+            DB.modifyObject(userToEdit, DB.GetBindingList(), this, DB);
         }
 
         private void MaximizarToolStrip_Click(object sender, EventArgs e)
@@ -427,7 +460,7 @@ namespace DatabaseInterfaceDemo
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado userToRevert = row.DataBoundItem as Empleado;
-                    DB.revertSingleObject(userToRevert, DB.getBindingList());
+                    DB.revertSingleObject(userToRevert, DB.GetBindingList());
                 }
             }
         }
@@ -436,7 +469,7 @@ namespace DatabaseInterfaceDemo
         {
             if (DB != null)
             {
-                DB.preventClosingWithUncommittedChanges(e);
+                DB.PreventClosingWithUncommittedChanges(e);
             } 
         }
 
@@ -451,7 +484,7 @@ namespace DatabaseInterfaceDemo
             string path;
             if ((path = Utils.GetFilePathFromSaveFileDialog()) != null)
             {
-                CustomXMLParser.turnIntoXMLFile(DB.getBindingList().ToList<object>(), path);
+                CustomXMLParser.turnIntoXMLFile(DB.GetBindingList().ToList<object>(), path);
             }
         }
     }

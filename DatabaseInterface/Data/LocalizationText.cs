@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace DatabaseInterfaceDemo.Data
 {
-    internal class LocalizationText
+    public static class LocalizationText
     {
 
         //Move this to a json :D
@@ -23,9 +23,9 @@ namespace DatabaseInterfaceDemo.Data
             {"WARN_SaveConfirm", "¿Guardar cambios?"},
             {"WARN_DeleteConfirm","¿Borrar Seleccionado?"},
             {"WARN_ExitWithoutSaving", "¿Salir sin guardar?"},
-            {"WARN_UncommittedChanges", "Por favor confirma o revierte todos los cambios antes de salir"},
+            {"WARN_UncommittedChanges", "Por favor confirma o revierte todos los cambios antes de continuar."},
             {"WARN_FillAllData", "Por favor rellena todos los campos"},
-            {"WARN_DatabaseOverwrite", "La base de datos no está vacía"},
+            {"CHOICE_WARN_DatabaseOverwrite", "¿Quieres sobreescribir la base de datos?\nESTO BORRARÁ TODAS LAS ENTRADAS"},
             {"ERR_DBNotInitialized", "NO HAY UNA BASE DE DATOS INICIADA"}
 
 
@@ -62,9 +62,9 @@ namespace DatabaseInterfaceDemo.Data
             return MessageBox.Show(localizedStrings["WARN_FillAllData"], localizedStrings["WARNING"]);
         }
 
-        public static DialogResult WARN_DatabaseOverwrite()
+        public static DialogResult CHOICE_WARN_DatabaseOverwrite()
         {
-            return MessageBox.Show(localizedStrings["WARN_DatabaseOverwrite"], localizedStrings["WARNING"]);
+            return MessageBox.Show(localizedStrings["CHOICE_WARN_DatabaseOverwrite"], localizedStrings["WARNING"],MessageBoxButtons.YesNo);
         }
 
         public static DialogResult ERR_ObjPresent(string primaryKey, string keyValue)

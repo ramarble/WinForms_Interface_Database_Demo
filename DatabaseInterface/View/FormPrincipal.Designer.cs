@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DatabaseInterfaceDemo
 {
-    partial class formPrincipal
+    partial class FormPrincipal
     {
         /// <summary>
         /// Required designer variable.
