@@ -128,7 +128,7 @@ namespace DatabaseInterfaceDemo
             | System.Windows.Forms.Keys.S)));
             this.guardarToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.guardarToolStripMenuItem.Text = "Guardar Todo";
-            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.saveAll_Menu_Click);
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.SaveAll_Menu_Click);
             // 
             // imprimirToolStripMenuItem
             // 
@@ -216,7 +216,7 @@ namespace DatabaseInterfaceDemo
             this.maximizarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.maximizarToolStripMenuItem.Text = "Maximizar";
-            this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.maximizarToolStrip_Click);
+            this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.MaximizarToolStrip_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -234,7 +234,7 @@ namespace DatabaseInterfaceDemo
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
             this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
-            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.AcercaDeToolStripMenuItem_Click);
             // 
             // PrincipalDataGridView
             // 
@@ -263,7 +263,7 @@ namespace DatabaseInterfaceDemo
             this.buttonSaveTemp.TabIndex = 7;
             this.buttonSaveTemp.Text = "Guardar Modificaciones Temporales";
             this.buttonSaveTemp.UseVisualStyleBackColor = true;
-            this.buttonSaveTemp.Click += new System.EventHandler(this.buttonSaveAll_Click);
+            this.buttonSaveTemp.Click += new System.EventHandler(this.ButtonSaveAll_Click);
             // 
             // buttonRevertAll
             // 
@@ -278,7 +278,7 @@ namespace DatabaseInterfaceDemo
             this.buttonRevertAll.TabIndex = 3;
             this.buttonRevertAll.Text = "Revertir Todo";
             this.buttonRevertAll.UseVisualStyleBackColor = true;
-            this.buttonRevertAll.Click += new System.EventHandler(this.buttonRevertAll_Click);
+            this.buttonRevertAll.Click += new System.EventHandler(this.ButtonRevertAll_Click);
             // 
             // saveSelectedButton
             // 
@@ -293,7 +293,7 @@ namespace DatabaseInterfaceDemo
             this.saveSelectedButton.TabIndex = 6;
             this.saveSelectedButton.Text = "Guardar Modificaciones Seleccionadas";
             this.saveSelectedButton.UseVisualStyleBackColor = true;
-            this.saveSelectedButton.Click += new System.EventHandler(this.saveSelectedButton_Click);
+            this.saveSelectedButton.Click += new System.EventHandler(this.SaveSelectedObjectButton_Click);
             // 
             // buttonDeleteSelected
             // 
@@ -307,7 +307,7 @@ namespace DatabaseInterfaceDemo
             this.buttonDeleteSelected.TabIndex = 4;
             this.buttonDeleteSelected.Text = "Borrar Seleccionados";
             this.buttonDeleteSelected.UseVisualStyleBackColor = true;
-            this.buttonDeleteSelected.Click += new System.EventHandler(this.deleteSelectedButton_Click);
+            this.buttonDeleteSelected.Click += new System.EventHandler(this.DeleteSelectedObjectButton_Click);
             // 
             // buttonModify
             // 
@@ -322,7 +322,7 @@ namespace DatabaseInterfaceDemo
             this.buttonModify.TabIndex = 5;
             this.buttonModify.Text = "Modificar Seleccionado";
             this.buttonModify.UseVisualStyleBackColor = true;
-            this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
+            this.buttonModify.Click += new System.EventHandler(this.ButtonModifyObject_Click);
             // 
             // revertSelectedButton
             // 
@@ -337,7 +337,7 @@ namespace DatabaseInterfaceDemo
             this.revertSelectedButton.TabIndex = 2;
             this.revertSelectedButton.Text = "Revertir Seleccionados";
             this.revertSelectedButton.UseVisualStyleBackColor = true;
-            this.revertSelectedButton.Click += new System.EventHandler(this.revertSelectedButton_Click);
+            this.revertSelectedButton.Click += new System.EventHandler(this.RevertSelectedButton_Click);
             // 
             // comboBoxCargarDatos
             // 
@@ -364,7 +364,7 @@ namespace DatabaseInterfaceDemo
             this.buttonSaveToFile.TabIndex = 8;
             this.buttonSaveToFile.Text = "Guardar a Archivo";
             this.buttonSaveToFile.UseVisualStyleBackColor = true;
-            this.buttonSaveToFile.Click += new System.EventHandler(this.buttonSaveToFile_Click);
+            this.buttonSaveToFile.Click += new System.EventHandler(this.ButtonSaveToFile_Click);
             // 
             // buttonLoadData
             // 
@@ -379,7 +379,7 @@ namespace DatabaseInterfaceDemo
             this.buttonLoadData.TabIndex = 1;
             this.buttonLoadData.Text = "Cargar datos";
             this.buttonLoadData.UseVisualStyleBackColor = true;
-            this.buttonLoadData.Click += new System.EventHandler(this.buttonLoadData_Click);
+            this.buttonLoadData.Click += new System.EventHandler(this.LoadDataButton_Click);
             // 
             // labelDatabase
             // 
@@ -448,8 +448,8 @@ namespace DatabaseInterfaceDemo
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "formPrincipal";
             this.Text = "Principal";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formPrincipal_FormClosing);
-            this.Load += new System.EventHandler(this.formPrincipal_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
+            this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PrincipalDataGridView)).EndInit();

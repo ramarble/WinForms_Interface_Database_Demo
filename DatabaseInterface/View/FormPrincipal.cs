@@ -23,34 +23,34 @@ namespace DatabaseInterfaceDemo
 
         static ObjectDataBaseController<object> DB;
 
-        static List<string> GLOBAL_PATHS_FILES = new List<string>();
+        static readonly List<string> GLOBAL_PATHS_FILES = new List<string>();
 
-        static OpenFileDialog OFD = Utils.FormattedOpenFileDialog();
+        static readonly OpenFileDialog OFD = Utils.FormattedOpenFileDialog();
 
-        static Dictionary<Type, string> TypeDict = Utils.TypeDictionary();
+        static readonly Dictionary<Type, string> TYPE_DICT = Utils.TypeDictionary();
 
-        static Dictionary<string, string> localizedStrings = LocalizationText.localizedStrings;
+        static readonly Dictionary<string, string> LOC_STRINGS = LocalizationText.localizedStrings;
 
-        private void formPrincipal_Load(object sender, EventArgs e)
+        private void FormPrincipal_Load(object sender, EventArgs e)
         {
 
             InitializeLoadFileComboBox();
-            setLocalizedStringText();
+            SetLocalizedStringText();
             InitializeDataTypeComboBox();
             PrincipalDataGridView.DataSourceChanged += OnListChangeUpdateButtons;
 
         }
 
-        private void setLocalizedStringText()
+        private void SetLocalizedStringText()
         {
-            labelDatabase.Text = localizedStrings["INFO_DatabaseNotInitialized"];
-            labelFile.Text = localizedStrings["FILE"];
-            labelDataType.Text = localizedStrings["DATA_TYPE"];
+            labelDatabase.Text = LOC_STRINGS["INFO_DatabaseNotInitialized"];
+            labelFile.Text = LOC_STRINGS["FILE"];
+            labelDataType.Text = LOC_STRINGS["DATA_TYPE"];
         }
 
         private void InitializeDataTypeComboBox()
         {
-            foreach (Type type in TypeDict.Keys)
+            foreach (Type type in TYPE_DICT.Keys)
             {
                 comboBoxDataType.Items.Add(type.Name);
             }
@@ -67,7 +67,7 @@ namespace DatabaseInterfaceDemo
         }
 
         //This button will only be up when there's 2+ entries to select from
-        private void buttonLoadData_Click(object sender, EventArgs e)
+        private void LoadDataButton_Click(object sender, EventArgs e)
         {
             //There's a memory leak somewhere here :D
             List<object> objList = CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]);
@@ -76,9 +76,8 @@ namespace DatabaseInterfaceDemo
             {
                 return;
             }
-            
-            string primary_key = null;
-            TypeDict.TryGetValue(objList[0].GetType(), out primary_key);
+
+            TYPE_DICT.TryGetValue(objList[0].GetType(), out string primary_key);
 
             if (primary_key != null)
             {
@@ -101,7 +100,7 @@ namespace DatabaseInterfaceDemo
 
             if (list.Count > 0)
             {
-                initializeDataGridViewStyling();
+                InitializeDataGridViewStyling();
             }
             else
             {
@@ -112,7 +111,7 @@ namespace DatabaseInterfaceDemo
 
         //This is specific to Empleado
         //This should check for tempStatus whenever loading and put it at the first possible column
-        public void initializeDataGridViewStyling()
+        public void InitializeDataGridViewStyling()
         {
             if (PrincipalDataGridView.DataSource != null)
             {
@@ -120,8 +119,8 @@ namespace DatabaseInterfaceDemo
                 PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 PrincipalDataGridView.Columns[0].Width = 25;
                 PrincipalDataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                PrincipalDataGridView.Columns[0].ToolTipText = localizedStrings["TEMPCHAR_TOOLTIP"];
-                PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = localizedStrings["TEMPCHAR_TOOLTIP"];
+                PrincipalDataGridView.Columns[0].ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
+                PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
                 PrincipalDataGridView.AllowUserToAddRows = false;
                 PrincipalDataGridView.SelectionChanged += OnListChangeUpdateButtons;
                 PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -213,12 +212,12 @@ namespace DatabaseInterfaceDemo
             comboBoxCargarDatos.DrawItem += StyleTextBox;
             comboBoxCargarDatos.DrawItem += StyleTextInComboBox;
             comboBoxCargarDatos.ForeColor = Color.Black;
-            comboBoxCargarDatos.SelectionChangeCommitted += manageComboBoxEntries;
+            comboBoxCargarDatos.SelectionChangeCommitted += ManageComboBoxEntries;
             comboBoxCargarDatos.SelectedIndexChanged += CheckLoadButtonEligibility;
         }
 
         //This event starts an OpenFileDialog if you select its entry, and adds the according file returned to the list
-        private void manageComboBoxEntries(object sender, EventArgs e)
+        private void ManageComboBoxEntries(object sender, EventArgs e)
         {
             if (comboBoxCargarDatos.SelectedIndex == comboBoxCargarDatos.Items.Count - 1)
             {
@@ -306,7 +305,7 @@ namespace DatabaseInterfaceDemo
 
         }
 
-        private void buttonSaveAll_Click(object sender, EventArgs e)
+        private void ButtonSaveAll_Click(object sender, EventArgs e)
         {
             if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
@@ -314,7 +313,7 @@ namespace DatabaseInterfaceDemo
             }
         }
 
-        private void buttonRevertAll_Click(object sender, EventArgs e)
+        private void ButtonRevertAll_Click(object sender, EventArgs e)
         {
             if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
@@ -323,7 +322,7 @@ namespace DatabaseInterfaceDemo
         }
 
 
-        private void saveSelectedButton_Click(object sender, EventArgs e)
+        private void SaveSelectedObjectButton_Click(object sender, EventArgs e)
         {
             if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
@@ -336,7 +335,7 @@ namespace DatabaseInterfaceDemo
             }
         }
 
-        private void deleteSelectedButton_Click(object sender, EventArgs e)
+        private void DeleteSelectedObjectButton_Click(object sender, EventArgs e)
         {
             //TODO: Actually save the deletion and stuff for refetching
             if (LocalizationText.WARN_DeleteConfirm() == DialogResult.Yes)
@@ -350,11 +349,11 @@ namespace DatabaseInterfaceDemo
             }
         }
 
-        private void saveAll_Menu_Click(object sender, EventArgs e)
+        private void SaveAll_Menu_Click(object sender, EventArgs e)
         {
             if (DB.getBackupList().Count > 0)
             {
-                buttonSaveAll_Click(sender, e);
+                ButtonSaveAll_Click(sender, e);
             }
         }
 
@@ -403,13 +402,13 @@ namespace DatabaseInterfaceDemo
             }
         }
 
-        private void buttonModify_Click(object sender, EventArgs e)
+        private void ButtonModifyObject_Click(object sender, EventArgs e)
         {
             object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
             DB.modifyObject(userToEdit, DB.getBindingList(), this, DB);
         }
 
-        private void maximizarToolStrip_Click(object sender, EventArgs e)
+        private void MaximizarToolStrip_Click(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Maximized)
             {
@@ -421,7 +420,7 @@ namespace DatabaseInterfaceDemo
             }
         }
 
-        private void revertSelectedButton_Click(object sender, EventArgs e)
+        private void RevertSelectedButton_Click(object sender, EventArgs e)
         {
             if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
@@ -433,7 +432,7 @@ namespace DatabaseInterfaceDemo
             }
         }
 
-        private void formPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (DB != null)
             {
@@ -441,13 +440,13 @@ namespace DatabaseInterfaceDemo
             } 
         }
 
-        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AcercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form acercaDe = new AcercaDe();
             acercaDe.ShowDialog();
         }
 
-        private void buttonSaveToFile_Click(object sender, EventArgs e)
+        private void ButtonSaveToFile_Click(object sender, EventArgs e)
         {
             string path;
             if ((path = Utils.GetFilePathFromSaveFileDialog()) != null)
