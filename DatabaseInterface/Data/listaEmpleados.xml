@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAnyType>
+  <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Mrsha</Name>
+    <Surname1>du</Surname1>
+    <Surname2>Marquin</Surname2>
+    <Salary>1332.30</Salary>
+    <NIF>1234567</NIF>
+    <Birthdate>2016-12-10T00:00:00</Birthdate>
+  </anyType>
+  <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Lyonette</Name>
+    <Surname1>du</Surname1>
+    <Surname2>Marquin</Surname2>
+    <Salary>11234.68</Salary>
+    <NIF>99999999</NIF>
+    <Birthdate>2004-08-30T00:00:00</Birthdate>
+  </anyType>
+  <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Numbtongue</Name>
+    <Surname1>Redfang</Surname1>
+    <Surname2>Solstice</Surname2>
+    <Salary>1134.7</Salary>
+    <NIF>1</NIF>
+    <Birthdate>2016-02-23T00:00:00</Birthdate>
+  </anyType>
+  <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Erin</Name>
+    <Surname1>Summer</Surname1>
+    <Surname2>Solstice</Surname2>
+    <Salary>1222.66</Salary>
+    <NIF>0</NIF>
+    <Birthdate>2003-06-21T00:00:00</Birthdate>
+  </anyType>
+  <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Bird</Name>
+    <Surname1>&lt;empty&gt;</Surname1>
+    <Surname2>&lt;empty&gt;</Surname2>
+    <Salary>10.80</Salary>
+    <NIF>87665443</NIF>
+    <Birthdate>2020-04-04T00:00:00</Birthdate>
+  </anyType>
+</ArrayOfAnyType>

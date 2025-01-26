@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace RA4_Ejercicios
+namespace DatabaseInterfaceDemo
 {
     internal static class Program
     {
@@ -13,7 +13,7 @@ namespace RA4_Ejercicios
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new formPrincipal());
+            Application.Run(new FormPrincipal());
         }
     }
 }

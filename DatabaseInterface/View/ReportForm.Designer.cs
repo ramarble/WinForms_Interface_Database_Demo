@@ -1,4 +1,4 @@
-﻿namespace RA4_Ejercicios.View
+﻿namespace DatabaseInterfaceDemo.View
 {
     partial class ReportForm
     {

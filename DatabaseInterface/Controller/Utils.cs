@@ -2,17 +2,68 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using DatabaseInterfaceDemo.Model;
 
-namespace RA4_Ejercicios.Controller
+
+namespace DatabaseInterfaceDemo.Controller
 {
-    internal class Utils
+    /*List of methods that I assume are going to be accessed from
+     * multiple files. If this turns out to not be the case I'll refactor
+     * them somewhere else
+    */
+    internal abstract class Utils
     {
-        public static void cutText(TextBoxBase tbb)
+        public static void CutText(TextBoxBase tbb)
         {
             if (tbb.SelectedText != "")
             {
                 tbb.Cut();
             }
+        }
+
+        public static Dictionary<Type, string> TypeDictionary()
+        {
+            Dictionary<Type, string> dict = new Dictionary<Type, string>
+            {
+                { typeof(Empleado), "NIF" },
+                { typeof(Producto), "ID" }
+            };
+
+            return dict;
+        } 
+
+
+        public static OpenFileDialog FormattedOpenFileDialog()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "<--Abrir Archivo-->";
+            ofd.Filter = "XML (*.xml)|*.xml|JSON (*.json)|*.json|All Files|*.*";
+
+            return ofd;
+        }
+
+        public static string ReturnPathFromOFD(OpenFileDialog ofd)
+        {
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                //Get the path of specified file
+                return ofd.FileName;
+            }
+            return null;
+        }
+
+        public static string GetFilePathFromSaveFileDialog()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "XML (*.xml)|*.xml|JSON (*.json)|*.json";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (sfd.FileName != "")
+                {
+                    return sfd.FileName;
+                }
+            }
+            return null;
         }
 
         public static TextBoxBase TextBoxBaseFromControl(Control c)
@@ -23,18 +74,18 @@ namespace RA4_Ejercicios.Controller
             }
             else if (c is NumericUpDown)
             {
-                return getTextBoxFromNumericUpDown(c as NumericUpDown);
+                return GetTextBoxFromNumericUpDown(c as NumericUpDown);
             }
             return null;
 
         }
 
-        public static TextBox getTextBoxFromNumericUpDown(NumericUpDown nud)
+        public static TextBox GetTextBoxFromNumericUpDown(NumericUpDown nud)
         {
             return nud.Controls.OfType<TextBox>().FirstOrDefault() as TextBox;
         }
 
-        public static List<TextBoxBase> listOfTextBoxesInForm(Form sender)
+        public static List<TextBoxBase> ListOfTextBoxesInForm(Form sender)
         {
             List<TextBoxBase> ListOfTextBoxBases = new List<TextBoxBase>();
             foreach (Object o in sender.Controls)
@@ -45,29 +96,14 @@ namespace RA4_Ejercicios.Controller
                 }
                 if (o is NumericUpDown)
                 {
-                    ListOfTextBoxBases.Add((getTextBoxFromNumericUpDown(o as NumericUpDown)));
+                    ListOfTextBoxBases.Add((GetTextBoxFromNumericUpDown(o as NumericUpDown)));
                 }
             }
             return ListOfTextBoxBases;
         }
-        public static Boolean isAnyTextBoxEmptyInForm(Form sender)
+        public static Boolean IsAnyTextBoxEmptyInForm(Form sender)
         {
-            return listOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
-        }
-
-        public static void preventClosingWithUncommittedChanges(FormClosingEventArgs e)
-        {
-            if (isThereAnyTempUser())
-            {
-                DialogBoxes.WARN_UncommittedChanges();
-                e.Cancel = true;
-            }
-        }
-
-        public static Boolean isThereAnyTempUser()
-        {
-            return (UserDatabaseController.getUsersBackupList().Count > 0 |
-                (UserDatabaseController.getSlicedListWithTempUsers(UserDatabaseController.getUserList()).Count > 0));
+            return ListOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
         }
     }
 }

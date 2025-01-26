@@ -1,121 +1,176 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Windows.Forms;
+﻿using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.Model;
 using DatabaseInterfaceDemo.View;
-using RA4_Ejercicios.Controller;
-using RA4_Ejercicios.Model;
-using RA4_Ejercicios.View;
-using SUEC = RA4_Ejercicios.Controller.SendUserEventController;
-using U_DB_C = RA4_Ejercicios.Controller.UserDatabaseController;
+using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.View.ObjectCreationForms;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using System.CodeDom;
 
-namespace RA4_Ejercicios
+
+namespace DatabaseInterfaceDemo
 {
-    public partial class formPrincipal : Form
+    partial class FormPrincipal : Form
     {
 
-        private void formPrincipal_Load(object sender, EventArgs e)
-        {
-
-            ComboBox_Style_Load();
-
-            this.userDataGridView.DataSource = U_DB_C.getUserBindingList();
-            SUEC.UserSaved += U_DB_C.userReceived;
-            this.userDataGridView.AutoGenerateColumns = true;
-            this.userDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.userDataGridView.Columns[0].Width = 15;
-            this.userDataGridView.Columns[0].ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            this.userDataGridView.Columns[0].CellTemplate.ToolTipText = "[*] = Temporary\n[ ] = Permanent";
-            U_DB_C.getUserBindingList().ListChanged += ReactToChangesToList;
-            this.userDataGridView.SelectionChanged += ReactToChangesToList;
-            this.userDataGridView.AllowUserToAddRows = false;
-            this.userDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //Hardcoded, 
-            this.userDataGridView.Columns[6].DefaultCellStyle.Format = "dd/MM/yyyy";
-        }
-        public formPrincipal()
+        public FormPrincipal()
         {
             InitializeComponent();
         }
 
+        static ObjectDataBaseController<object> DB;
 
-        private void StyleTextBox(object sender, DrawItemEventArgs e)
+        static readonly List<string> GLOBAL_PATHS_FILES = new List<string>();
+
+        static readonly OpenFileDialog OFD = Utils.FormattedOpenFileDialog();
+
+        static readonly Dictionary<Type, string> TYPE_DICT = Utils.TypeDictionary();
+
+        static readonly Dictionary<string, string> LOC_STRINGS = LocalizationText.localizedStrings;
+
+        private void FormPrincipal_Load(object sender, EventArgs e)
         {
 
-            var c = sender as ComboBox;
-            e.DrawBackground();
-
-
-            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-            {
-                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), e.Bounds);
-                e.DrawFocusRectangle();
-            }
+            InitializeLoadFileComboBox();
+            SetLocalizedStringText();
+            InitializeDataTypeComboBox();
+            PrincipalDataGridView.DataSourceChanged += OnListChangeUpdateButtons;
 
         }
 
-        private void CenterComboBoxTextBox(object sender, DrawItemEventArgs e)
+        private void SetLocalizedStringText()
         {
-            var c = sender as ComboBox;
-
-            if (e.Index >= 0)
-            {
-                StringFormat sf = new StringFormat();
-                sf.LineAlignment = StringAlignment.Center;
-                sf.Alignment = StringAlignment.Center;
-                e.Graphics.DrawString(c.Items[e.Index].ToString(), c.Font, new SolidBrush(c.ForeColor), e.Bounds, sf);
-            }
+            labelDatabase.Text = LOC_STRINGS["INFO_DatabaseNotInitialized"];
+            labelFile.Text = LOC_STRINGS["FILE"];
+            labelDataType.Text = LOC_STRINGS["DATA_TYPE"];
         }
 
-        private void ComboBox_Style_Load()
+        private void InitializeDataTypeComboBox()
         {
-            this.comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
-            if (comboBoxCargarDatos.Items.Count == 0)
+            foreach (Type type in TYPE_DICT.Keys)
             {
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Title = "<--Abrir Archivo-->";
-                
-                this.comboBoxCargarDatos.Items.Add(ofd.Title);
+                comboBoxDataType.Items.Add(type.Name);
+            }
+            comboBoxDataType.SelectedIndexChanged += InitializeDatabaseChange;
+        }
 
-                this.comboBoxCargarDatos.DrawItem += StyleTextBox;
-                this.comboBoxCargarDatos.DrawItem += CenterComboBoxTextBox;
-                this.comboBoxCargarDatos.ForeColor = System.Drawing.Color.Black;
-                comboBoxCargarDatos.SelectionChangeCommitted += new EventHandler(delegate (Object o, EventArgs e)
+        //Today I decided to reverse engineer my own program
+        private Type GetTypeFromComboBox()
+        {
+            return Type.GetType(typeof(TEMPLATE_Class).Namespace + "." + comboBoxDataType.SelectedItem.ToString());
+        }
+
+
+        private void InitializeDatabaseChange(object sender, EventArgs e)
+        {
+            if (DB == null || DB.GetBindingList().Count == 0)
+            {
+                InitDGVColumnsWithEmptyList();
+            }
+            if (DB.GetBindingList().Count > 0 && !IsDataTypeSynced())
+            {
+                if (DB.IsThereAnyTempUser())
                 {
-                    ofd.ShowDialog();
-                });
+                    LocalizationText.WARN_UncommittedChanges();
+                    ReSyncDataTypeComboBoxType();
+                }
+                if (LocalizationText.CHOICE_WARN_DatabaseOverwrite() == DialogResult.Yes)
+                {
+                    //Spaghetti
+                    InitDGVColumnsWithEmptyList();
+                }
+                else
+                {
+                    ReSyncDataTypeComboBoxType();
+                }
             }
         }
 
-        private void enableSaveAndRevertAllButtonsIfNeeded()
+        private void InitDGVColumnsWithEmptyList()
         {
-            if (Utils.isThereAnyTempUser())
+            Type t = GetTypeFromComboBox();
+            StartDatabaseController(t, new List<object>() { Activator.CreateInstance(t) });
+            //StartDatabaseController(t, ObjectFactory.createEmpleadoList());
+            //StartDatabaseController(t, ObjectFactory.createProductList());
+
+            DB.GetBindingList().RemoveAt(0);
+        }
+
+        private void LoadDataButton_Click(object sender, EventArgs e)
+        {
+            //There's a memory leak somewhere here :D
+            List<object> objList = CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]);
+            
+            if (objList == null ||objList.Count < 1)
             {
-                buttonRevertAll.Enabled = true;
-                buttonSaveAll.Enabled = true;
+                return;
             }
-            else
+
+            StartDatabaseController(objList[0].GetType(), objList);
+            
+        }
+
+
+        private void StartDatabaseController(Type type, List<object> objList)
+        {    
+            DB = new ObjectDataBaseController<object>(type);
+            DB.SetObjectBindingList(objList);
+            ReSyncDataTypeComboBoxType();
+            InitializeDataGridView();
+        }
+
+        private Boolean IsDataTypeSynced()
+        {
+            return (string) comboBoxDataType.SelectedItem == DB.GetDBObjectType().Name;        
+        }
+        
+        private void ReSyncDataTypeComboBoxType()
+        {
+            comboBoxDataType.SelectedItem = DB.GetDBObjectType().Name;
+        }
+
+        private void InitializeDataGridView()
+        {
+            PrincipalDataGridView.AutoGenerateColumns = true;
+            PrincipalDataGridView.DataSource = DB.GetBindingList();
+            DB.GetBindingList().ResetBindings();
+            DB.GetBindingList().ListChanged += OnListChangeUpdateButtons;
+            InitializeDataGridViewStyling();
+        }
+
+        private void InitializeDataGridViewStyling()
+        {
+
+            if (PrincipalDataGridView.DataSource != null)
             {
-                buttonRevertAll.Enabled = false;
-                buttonSaveAll.Enabled = false;
+                //PopulateColumnsWithObjectData();
+                PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                PrincipalDataGridView.AllowUserToAddRows = false;
+                PrincipalDataGridView.SelectionChanged += OnListChangeUpdateButtons;
+                PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                FormatDateTimeColumn();
+                FormatTempStatusColumn();
+
+                //Doesn't work? but what I want is that when the form changes visibility the buttons update
+                VisibleChanged += OnListChangeUpdateButtons;
             }
         }
+       
 
         //Enables or disables the buttons
-        private void ReactToChangesToList(object sender, EventArgs e)
+        private void OnListChangeUpdateButtons(object sender, EventArgs e)
         {
 
-            if (userDataGridView.SelectedRows.Count > 0)
+            if (PrincipalDataGridView.SelectedRows.Count > 0)
             {
                 //Always a possibility
                 buttonDeleteSelected.Enabled = true;
-                enableOrDisableModifyButton(userDataGridView);
-                OneOrManySaveOrRevertButtons(userDataGridView);
+                ManageModifyButton();
+                ManageSaveAndRevertButtons();
             }
             else
             {
@@ -124,12 +179,137 @@ namespace RA4_Ejercicios
                 saveSelectedButton.Enabled = false;
                 revertSelectedButton.Enabled = false;
             }
-            enableSaveAndRevertAllButtonsIfNeeded();
+            ManageButtonsForTempUsers();
         }
 
-        private void enableOrDisableModifyButton(DataGridView dgvUsers)
+
+        //Checks the object of the list to see if it contains a DateTime, formats it accordingly.
+        public void FormatDateTimeColumn()
         {
-            if (dgvUsers.SelectedRows.Count == 1)
+            for (int i = 0; i < PrincipalDataGridView.Columns.Count; i++)
+            {
+                if (PrincipalDataGridView.Columns[i].ValueType == typeof(DateTime))
+                {
+                    PrincipalDataGridView.Columns[i].DefaultCellStyle.Format = "dd/MM/yyyy";
+                }
+            }
+        }
+
+        public void FormatTempStatusColumn()
+        {
+            DataGridViewColumn dgvc = PrincipalDataGridView.Columns[PrincipalDataGridView.Columns["TempChar"].Index]; 
+            dgvc.DisplayIndex = 0;
+            dgvc.Width = 25;
+            dgvc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvc.ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
+            dgvc.CellTemplate.ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
+
+        }
+
+        private void StyleTextBox(object sender, DrawItemEventArgs e)
+        {
+            var c = sender as ComboBox;
+            e.DrawBackground();
+
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(220,220,220)), e.Bounds);
+                e.DrawFocusRectangle();
+            }
+
+        }
+
+        private void StyleTextInComboBox(object sender, DrawItemEventArgs e)
+        {
+            var c = sender as ComboBox;
+            Font font = new Font(c.Font.FontFamily, c.Font.Size-1, FontStyle.Bold);
+            StringFormat sf = new StringFormat();
+
+            if (e.Index == comboBoxCargarDatos.Items.Count -1 )
+            {
+                font = new Font(c.Font.FontFamily, c.Font.Size-2, FontStyle.Italic);
+                sf.LineAlignment = StringAlignment.Center;
+                sf.Alignment = StringAlignment.Center;
+                e.Graphics.DrawString(c.Items[e.Index].ToString(), font, new SolidBrush(Color.FromArgb(25,25,25)), e.Bounds, sf);
+
+            }
+            else if (e.Index >= 0)
+            {
+                sf.LineAlignment = StringAlignment.Near;
+                sf.Alignment = StringAlignment.Near;
+                e.Graphics.DrawString(c.Items[e.Index].ToString(), font, new SolidBrush(c.ForeColor), e.Bounds, sf);
+            }
+
+        }
+
+        private void InitializeLoadFileComboBox()
+        {
+            comboBoxCargarDatos.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBoxCargarDatos.Items.Add(OFD.Title);
+            comboBoxCargarDatos.DrawItem += StyleTextBox;
+            comboBoxCargarDatos.DrawItem += StyleTextInComboBox;
+            comboBoxCargarDatos.ForeColor = Color.Black;
+            comboBoxCargarDatos.SelectionChangeCommitted += ManageComboBoxEntries;
+            comboBoxCargarDatos.SelectedIndexChanged += CheckLoadButtonEligibility;
+        }
+
+        //This event starts an OpenFileDialog if you select its entry, and adds the according file returned to the list
+        private void ManageComboBoxEntries(object sender, EventArgs e)
+        {
+            if (comboBoxCargarDatos.SelectedIndex == comboBoxCargarDatos.Items.Count - 1)
+            {
+                string filePathReturned;
+                if ((filePathReturned = Utils.ReturnPathFromOFD(OFD)) != null)
+                {
+                    GLOBAL_PATHS_FILES.Insert(0, filePathReturned);
+                    comboBoxCargarDatos.Items.Insert(0, Path.GetFileName(filePathReturned));
+                    
+                    //Old code to find entry and change the name, sadly this also changes the entry and I don't want that.
+                    //comboBoxCargarDatos.Items[comboBoxCargarDatos.FindStringExact(filePathReturned.ToString())] = Path.GetFileName(filePathReturned);
+                    
+                    comboBoxCargarDatos.SelectedIndex = 0;
+                } else
+                {
+                    comboBoxCargarDatos.SelectedIndex = -1;
+                }
+
+            }
+        }
+
+        private void CheckLoadButtonEligibility(object sender, EventArgs e)
+        {
+            if (comboBoxCargarDatos.Items.Count > 1 && comboBoxCargarDatos.SelectedIndex != -1)
+            {
+                buttonLoadData.Enabled = true;
+            } else
+            {
+                buttonLoadData.Enabled = false;
+            }
+        }
+
+        private void ManageButtonsForTempUsers()
+        {
+
+            if (DB.GetBackupList().Count > 0 | DB.IsThereAnyTempUser())
+            {
+                buttonRevertAll.Enabled = true;
+                buttonSaveTemp.Enabled = true;
+
+                buttonSaveToFile.Enabled = false;
+            }
+            else
+            {
+                buttonRevertAll.Enabled = false;
+                buttonSaveTemp.Enabled = false;
+
+                buttonSaveToFile.Enabled = true;
+            }
+        }
+
+
+        private void ManageModifyButton()
+        {
+            if (PrincipalDataGridView.SelectedRows.Count == 1)
             {
                 buttonModify.Enabled = true;
             }
@@ -139,17 +319,17 @@ namespace RA4_Ejercicios
             }
 
         }
-
-        private void OneOrManySaveOrRevertButtons(DataGridView dgvUsers)
+        
+        private void ManageSaveAndRevertButtons()
         {
-            //this is kinda very gorey
-
+            //this has crashed before for no real reason.
             Boolean exitCond = false;
-            User us;
-            for (int i = 0; i < dgvUsers.SelectedRows.Count; i++)
+            object obj;
+
+            for (int i = 0; i < PrincipalDataGridView.SelectedRows.Count; i++)
             {
-                us = dgvUsers.SelectedRows[i].DataBoundItem as User;
-                if (us.getTempStatus())
+                obj = PrincipalDataGridView.SelectedRows[i].DataBoundItem;
+                if (DB.GetTempStatus(obj))
                 {
                     exitCond = true;
                 }
@@ -161,97 +341,117 @@ namespace RA4_Ejercicios
 
         }
 
-        private void addListToBindingList(List<User> sourceList, BindingList<User> bindingList)
+        private void ButtonSaveAll_Click(object sender, EventArgs e)
         {
-            foreach (User u in sourceList)
+            if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
-                bindingList.Add(u);
+                DB.TurnTempIntoPermanent(DB.GetBindingList());
             }
         }
 
-        private void buttonSaveAll_Click(object sender, EventArgs e)
+        private void ButtonRevertAll_Click(object sender, EventArgs e)
         {
-
-            if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
-                U_DB_C.TurnTempUsersIntoPermanent(U_DB_C.getUserList());
-            }
-        }
-
-        private void buttonRevertAll_Click(object sender, EventArgs e)
-        {
-            if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
-            {
-                U_DB_C.restoreAllUsersFromBackupAndEmptyBackup(U_DB_C.getUserList());
+                DB.RestoreFromBackupAndEmptyBackup(DB.GetBindingList());
             }
         }
 
 
-        private void saveSelectedButton_Click(object sender, EventArgs e)
+        private void SaveSelectedObjectButton_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.SaveConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
-                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    User u = row.DataBoundItem as User;
-                    U_DB_C.saveUser(u);
+                    object ob = row.DataBoundItem;
+                    DB.SaveObject(ob);
                 }
-                U_DB_C.getUserBindingList().ResetBindings();
+                DB.GetBindingList().ResetBindings();
             }
         }
 
-        private void deleteSelectedButton_Click(object sender, EventArgs e)
+        private void DeleteSelectedObjectButton_Click(object sender, EventArgs e)
         {
             //TODO: Actually save the deletion and stuff for refetching
-            if (DialogBoxes.DeleteConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_DeleteConfirm() == DialogResult.Yes)
             {
-                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    User u = row.DataBoundItem as User;
-                    U_DB_C.getUserBindingList().Remove(u);
+                    object ob = row.DataBoundItem;
+                    DB.GetBindingList().Remove(ob);
                 }
-                U_DB_C.getUserBindingList().ResetBindings();
+                DB.GetBindingList().ResetBindings();
             }
         }
 
-        private void saveAll_Menu_Click(object sender, EventArgs e)
+        private void SaveAll_Menu_Click(object sender, EventArgs e)
         {
-            if (U_DB_C.getUsersBackupList().Count > 0)
+            if (DB.GetBackupList().Count > 0)
             {
-                buttonSaveAll_Click(sender, e);
+                ButtonSaveAll_Click(sender, e);
             }
         }
 
         private void Search_Menu_Click(object sender, EventArgs e)
         {
-            Form DetailedView = new FormBuscarUser(this);
-            DetailedView.ShowDialog(this);
+            MessageBox.Show("Here were dragons");
         }
 
         private void New_Menu_Click(object sender, EventArgs e)
         {
-            Form newUserForm = new FormUser(this, false);
-            newUserForm.ShowDialog(this);
+            if (DB != null)
+            {
+                GetFormBasedOnDBType().ShowDialog();
+            }
+            else
+            {
+                DialogResult d = LocalizationText.ERR_DBNotInitialized();
+                d = DialogResult.None;
+            }
+        }
+
+        private Form GetFormBasedOnDBType()
+        {
+            Form NewObjectForm = null;
+            switch (DB.GetDBObjectType().Name)
+            {
+                case nameof(Empleado):
+                    NewObjectForm = new FormCreateEmployee(this, false, DB);
+                    break;
+                case nameof(Producto):
+                    NewObjectForm = new FormCreateProduct(this, false, DB);
+                    break;
+                  
+            }
+            return NewObjectForm;
         }
 
         private void Exit_Menu_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Print_Menu_Click(object sender, EventArgs e)
         {
-            Form reportForm = new ReportForm(U_DB_C.getUserList());
-            reportForm.ShowDialog();
+            if (DB != null)
+            {
+                Form reportForm = new ReportForm(DB.GetBindingList());
+                reportForm.ShowDialog();
+            } else
+            {
+                DialogResult d = LocalizationText.ERR_DBNotInitialized();
+                d = DialogResult.None;
+            }
         }
 
-        private void buttonModify_Click(object sender, EventArgs e)
+        private void ButtonModifyObject_Click(object sender, EventArgs e)
         {
-            User userToEdit = (User)userDataGridView.SelectedRows[0].DataBoundItem;
-            U_DB_C.modifyUser(userToEdit, U_DB_C.getUserBindingList(), this);
+            object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
+            DB.ModifyObject(userToEdit, this, GetFormBasedOnDBType(), DB);
         }
 
-        private void maximizarToolStrip_Click(object sender, EventArgs e)
+        private void MaximizarToolStrip_Click(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Maximized)
             {
@@ -263,27 +463,37 @@ namespace RA4_Ejercicios
             }
         }
 
-        private void revertSelectedButton_Click(object sender, EventArgs e)
+        private void RevertSelectedButton_Click(object sender, EventArgs e)
         {
-            if (DialogBoxes.RevertConfirm() == DialogResult.Yes)
+            if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
-                foreach (DataGridViewRow row in userDataGridView.SelectedRows)
+                foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    User userToRevert = row.DataBoundItem as User;
-                    U_DB_C.revertSingleUser(userToRevert, U_DB_C.getUserBindingList());
+                    object ObjectToRevert = row.DataBoundItem;
+                    DB.RevertSingleObject(ObjectToRevert);
                 }
             }
         }
 
-        private void formPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Utils.preventClosingWithUncommittedChanges(e);
+            //this is an if(!null) in c#
+            DB?.PreventClosingWithUncommittedChanges(e); 
         }
 
-        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AcercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form acercaDe = new AcercaDe();
             acercaDe.ShowDialog();
+        }
+
+        private void ButtonSaveToFile_Click(object sender, EventArgs e)
+        {
+            string path;
+            if ((path = Utils.GetFilePathFromSaveFileDialog()) != null)
+            {
+                CustomXMLParser.TurnIntoXMLFile(DB.GetBindingList().ToList<object>(), path);
+            }
         }
     }
 }

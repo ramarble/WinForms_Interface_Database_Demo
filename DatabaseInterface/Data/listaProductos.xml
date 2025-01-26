@@ -1,0 +1,1187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAnyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Banana</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.72</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>69</Stock>
+    <ID>1</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Orange</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.61</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>64</Stock>
+    <ID>2</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Bread</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.61</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>92</Stock>
+    <ID>3</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Milk</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.67</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>35</Stock>
+    <ID>4</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cheese</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.56</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>46</Stock>
+    <ID>5</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Yogurt</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.95</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>61</Stock>
+    <ID>6</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Eggs</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.91</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>32</Stock>
+    <ID>7</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Chicken Breast</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.50</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>88</Stock>
+    <ID>8</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Pasta</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.60</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>82</Stock>
+    <ID>9</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Rice</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.57</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>2</Stock>
+    <ID>10</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Tomato</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.76</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>34</Stock>
+    <ID>11</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Lettuce</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.75</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>68</Stock>
+    <ID>12</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cucumber</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.90</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>97</Stock>
+    <ID>13</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Carrot</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.77</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>90</Stock>
+    <ID>14</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cabbage</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.89</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>22</Stock>
+    <ID>15</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Potato</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.54</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>66</Stock>
+    <ID>16</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Onion</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.72</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>27</Stock>
+    <ID>17</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Garlic</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.98</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>88</Stock>
+    <ID>18</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Salt</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.64</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>27</Stock>
+    <ID>19</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Pepper</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.78</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>81</Stock>
+    <ID>20</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Olive Oil</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.60</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>37</Stock>
+    <ID>21</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Honey</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.99</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>77</Stock>
+    <ID>22</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Chocolate Bar</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.88</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>67</Stock>
+    <ID>23</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cereal</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.61</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>67</Stock>
+    <ID>24</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Peanut Butter</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.66</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>12</Stock>
+    <ID>25</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Jam</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.65</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>54</Stock>
+    <ID>26</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cookies</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.75</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>60</Stock>
+    <ID>27</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Frozen Pizza</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.55</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>10</Stock>
+    <ID>28</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Frozen Vegetables</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.60</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>54</Stock>
+    <ID>29</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Mushrooms</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.92</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>24</Stock>
+    <ID>30</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Spinach</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.69</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>42</Stock>
+    <ID>31</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Apple Juice</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.78</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>88</Stock>
+    <ID>32</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Orange Juice</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.70</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>22</Stock>
+    <ID>33</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Water</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.58</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>55</Stock>
+    <ID>34</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Soda</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.68</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>12</Stock>
+    <ID>35</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Energy Drink</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.81</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>92</Stock>
+    <ID>36</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Coffee</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.63</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>31</Stock>
+    <ID>37</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Tea</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.91</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>14</Stock>
+    <ID>38</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Lemonade</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.69</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>72</Stock>
+    <ID>39</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Fruit Salad</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.96</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>11</Stock>
+    <ID>40</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Sandwich</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.88</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>86</Stock>
+    <ID>41</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Granola Bar</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.79</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>66</Stock>
+    <ID>42</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Pineapple</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.97</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>53</Stock>
+    <ID>43</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Strawberry</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.58</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>83</Stock>
+    <ID>44</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Blueberry</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.58</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>86</Stock>
+    <ID>45</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Chicken Nuggets</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.84</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>72</Stock>
+    <ID>46</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Burger</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.71</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>30</Stock>
+    <ID>47</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Hot Dog</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.72</PricePerUnit>
+    <UnitType>Per_100g</UnitType>
+    <Stock>77</Stock>
+    <ID>48</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Ketchup</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.90</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>8</Stock>
+    <ID>49</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Mustard</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.69</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>53</Stock>
+    <ID>50</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Vinegar</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.75</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>66</Stock>
+    <ID>51</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Coke</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.66</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>19</Stock>
+    <ID>52</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Pepsi</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.75</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>36</Stock>
+    <ID>53</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Beer</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.64</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>18</Stock>
+    <ID>54</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Wine</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.89</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>96</Stock>
+    <ID>55</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Whiskey</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.86</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>48</Stock>
+    <ID>56</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Vodka</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.81</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>72</Stock>
+    <ID>57</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Gin</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.75</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>50</Stock>
+    <ID>58</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Tequila</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.92</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>90</Stock>
+    <ID>59</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Rum</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.98</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>85</Stock>
+    <ID>60</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cocktail Mix</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.53</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>33</Stock>
+    <ID>61</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Iced Tea</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.69</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>48</Stock>
+    <ID>62</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Fruit Smoothie</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.73</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>88</Stock>
+    <ID>63</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Sparkling Water</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.75</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>95</Stock>
+    <ID>64</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Mineral Water</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.94</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>4</Stock>
+    <ID>65</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Milkshake</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.67</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>28</Stock>
+    <ID>66</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Hot Chocolate</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.67</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>38</Stock>
+    <ID>67</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Sports Drink</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.80</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>9</Stock>
+    <ID>68</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Fruit Punch</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.77</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>38</Stock>
+    <ID>69</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Green Tea</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.58</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>56</Stock>
+    <ID>70</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Black Tea</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.63</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>98</Stock>
+    <ID>71</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cappuccino</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.53</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>20</Stock>
+    <ID>72</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Latte</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>0.57</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>18</Stock>
+    <ID>73</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Espresso</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>50.38</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>7</Stock>
+    <ID>74</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Macchiato</Name>
+    <Category>FOOD_DRINK</Category>
+    <PricePerUnit>249.33</PricePerUnit>
+    <UnitType>Per_100ml</UnitType>
+    <Stock>9</Stock>
+    <ID>75</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Sofa</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>281.73</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>9</Stock>
+    <ID>76</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Coffee Table</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>58.01</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>5</Stock>
+    <ID>77</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Dining Table</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>154.65</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>1</Stock>
+    <ID>78</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Chair</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>98.59</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>8</Stock>
+    <ID>79</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Armchair</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>229.20</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>6</Stock>
+    <ID>80</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Bookshelf</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>263.28</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>3</Stock>
+    <ID>81</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Bed</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>106.06</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>7</Stock>
+    <ID>82</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Dresser</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>197.21</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>4</Stock>
+    <ID>83</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Wardrobe</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>60.66</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>2</Stock>
+    <ID>84</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>TV Stand</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>52.76</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>3</Stock>
+    <ID>85</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Desk</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>290.12</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>4</Stock>
+    <ID>86</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Office Chair</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>230.31</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>3</Stock>
+    <ID>87</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Nightstand</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>186.32</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>0</Stock>
+    <ID>88</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Recliner</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>95.46</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>1</Stock>
+    <ID>89</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Lampshade</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>116.43</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>2</Stock>
+    <ID>90</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Chest of Drawers</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>237.28</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>7</Stock>
+    <ID>91</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Mirror</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>59.15</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>9</Stock>
+    <ID>92</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cabinet</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>51.30</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>4</Stock>
+    <ID>93</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Bookshelf</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>61.43</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>8</Stock>
+    <ID>94</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>TV Unit</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>272.60</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>4</Stock>
+    <ID>95</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cushion</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>246.92</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>7</Stock>
+    <ID>96</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Curtains</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>197.84</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>5</Stock>
+    <ID>97</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Dining Chairs</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>214.87</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>9</Stock>
+    <ID>98</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Storage Bench</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>209.22</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>3</Stock>
+    <ID>99</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Side Table</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>179.35</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>6</Stock>
+    <ID>100</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Patio Chair</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>32.03</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>8</Stock>
+    <ID>101</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Filing Cabinet</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>184.29</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>4</Stock>
+    <ID>102</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Coffee Mug Holder</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>290.65</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>4</Stock>
+    <ID>103</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Bean Bag</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>23.76</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>37</Stock>
+    <ID>104</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Laundry Basket</Name>
+    <Category>FURNITURE</Category>
+    <PricePerUnit>93.57</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>20</Stock>
+    <ID>105</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>T-shirt</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>91.88</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>4</Stock>
+    <ID>106</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Jeans</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>54.82</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>24</Stock>
+    <ID>107</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Sweater</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>86.38</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>3</Stock>
+    <ID>108</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Jacket</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>25.57</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>18</Stock>
+    <ID>109</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Coat</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>65.79</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>10</Stock>
+    <ID>110</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Dress</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>36.77</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>16</Stock>
+    <ID>111</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Skirt</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>40.20</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>34</Stock>
+    <ID>112</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Shorts</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>63.02</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>13</Stock>
+    <ID>113</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Blouse</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>84.27</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>11</Stock>
+    <ID>114</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Shirt</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>72.21</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>32</Stock>
+    <ID>115</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Sweatpants</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>45.91</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>47</Stock>
+    <ID>116</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Leggings</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>65.39</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>32</Stock>
+    <ID>117</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Hoodie</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>29.93</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>45</Stock>
+    <ID>118</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Jumpsuit</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>28.76</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>36</Stock>
+    <ID>119</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Belt</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>98.09</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>31</Stock>
+    <ID>120</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Socks</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>34.82</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>19</Stock>
+    <ID>121</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Gloves</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>90.06</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>24</Stock>
+    <ID>122</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Hat</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>56.78</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>35</Stock>
+    <ID>123</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Scarf</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>28.22</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>7</Stock>
+    <ID>124</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Pajamas</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>71.26</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>31</Stock>
+    <ID>125</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Shoes</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>79.96</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>15</Stock>
+    <ID>126</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Sneakers</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>73.86</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>18</Stock>
+    <ID>127</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Boots</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>45.72</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>35</Stock>
+    <ID>128</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Flip Flops</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>58.16</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>44</Stock>
+    <ID>129</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Sandals</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>84.73</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>35</Stock>
+    <ID>130</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Dress Shoes</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>68.42</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>46</Stock>
+    <ID>131</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Slippers</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>15.17</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>14</Stock>
+    <ID>132</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Tie</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>10.64</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>48</Stock>
+    <ID>133</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Tank Top</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>53.27</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>42</Stock>
+    <ID>134</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Cardigan</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>33.53</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>47</Stock>
+    <ID>135</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Robe</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>87.87</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>22</Stock>
+    <ID>136</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Raincoat</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>44.49</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>49</Stock>
+    <ID>137</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Underwear</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>93.56</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>44</Stock>
+    <ID>138</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Bra</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>49.38</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>41</Stock>
+    <ID>139</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Bikini</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>25.09</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>43</Stock>
+    <ID>140</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Swimwear</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>15.58</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>33</Stock>
+    <ID>141</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Vest</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>58.70</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>3</Stock>
+    <ID>142</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Tracksuit</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>87.97</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>4</Stock>
+    <ID>143</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Overcoat</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>30.75</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>12</Stock>
+    <ID>144</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Blazer</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>32.78</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>25</Stock>
+    <ID>145</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Suit</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>43.31</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>15</Stock>
+    <ID>146</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Tights</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>90.10</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>13</Stock>
+    <ID>147</ID>
+  </anyType>
+  <anyType d2p1:type="Producto" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Denim Jacket</Name>
+    <Category>CLOTHING</Category>
+    <PricePerUnit>98.95</PricePerUnit>
+    <UnitType>Per_Unit</UnitType>
+    <Stock>17</Stock>
+    <ID>148</ID>
+  </anyType>
+</ArrayOfAnyType>

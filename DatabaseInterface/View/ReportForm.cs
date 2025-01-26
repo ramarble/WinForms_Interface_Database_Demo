@@ -4,24 +4,25 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
-using RA4_Ejercicios.Model;
+using DatabaseInterfaceDemo.Model;
+using System.ComponentModel;
 
-namespace RA4_Ejercicios.View
+namespace DatabaseInterfaceDemo.View
 {
     public partial class ReportForm : Form
     {
-        public ReportForm(List<User> list)
+        public ReportForm(BindingList<object> list)
         {
             InitializeComponent();
-            userList = list;
+            objectList = list;
         }
 
-        List<User> userList;
+        BindingList<object> objectList;
 
         private void ReportForm_Load(object sender, EventArgs e)
         {
             this.reportViewer1.LocalReport.ReportPath = "../../View/Report1.rdlc";
-            ReportDataSource r = new ReportDataSource("DataSet1", userList);
+            ReportDataSource r = new ReportDataSource("DataSet1", objectList);
             this.reportViewer1.LocalReport.DataSources.Add(r);
             this.reportViewer1.RefreshReport();
 
@@ -35,10 +36,11 @@ namespace RA4_Ejercicios.View
             }
             else
             {
+                //THIS WON'T WORK FOR NOW
                 this.reportViewer1.LocalReport.DataSources.Clear();
-                var newUserList = userList.Where(it => it.nif.ToString().Contains(maskedTextBox1.Text.ToString()));
-                this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", newUserList));
-                this.reportViewer1.RefreshReport();
+                //var newUserList = objectList.Where(it => it.nif.ToString().Contains(maskedTextBox1.Text.ToString()));
+                //this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", newUserList));
+                //this.reportViewer1.RefreshReport();
             }
         }
     }
