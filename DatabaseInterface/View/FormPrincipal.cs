@@ -115,11 +115,11 @@ namespace DatabaseInterfaceDemo
         }
 
         //This should be the only method I use for the constructor? 
-        public void StartDatabaseController(Type type, List<object> objList)
+        private void StartDatabaseController(Type type, List<object> objList)
         {    
             DB = new ObjectDataBaseController<object>(type);
             DB.SetObjectBindingList(objList);
-            comboBoxDataType.SelectedItem = DB.GetDBObjectType().Name;
+            ReSyncDataTypeComboBoxType();
             InitializeDataGridView();
         }
 
@@ -133,7 +133,7 @@ namespace DatabaseInterfaceDemo
             comboBoxDataType.SelectedItem = DB.GetDBObjectType().Name;
         }
 
-        public void InitializeDataGridView()
+        private void InitializeDataGridView()
         {
             PrincipalDataGridView.AutoGenerateColumns = true;
             PrincipalDataGridView.DataSource = DB.GetBindingList();
@@ -142,9 +142,7 @@ namespace DatabaseInterfaceDemo
             InitializeDataGridViewStyling();
         }
 
-        //This is specific to Empleado
-        //This should check for tempStatus whenever loading and put it at the first possible column
-        public void InitializeDataGridViewStyling()
+        private void InitializeDataGridViewStyling()
         {
 
             if (PrincipalDataGridView.DataSource != null)
@@ -174,8 +172,8 @@ namespace DatabaseInterfaceDemo
             {
                 //Always a possibility
                 buttonDeleteSelected.Enabled = true;
-                ManageModifyButton(PrincipalDataGridView);
-                ManageSaveAndRevertButtons(PrincipalDataGridView);
+                ManageModifyButton();
+                ManageSaveAndRevertButtons();
             }
             else
             {
@@ -203,7 +201,6 @@ namespace DatabaseInterfaceDemo
 
         private void StyleTextBox(object sender, DrawItemEventArgs e)
         {
-
             var c = sender as ComboBox;
             e.DrawBackground();
 
@@ -303,9 +300,9 @@ namespace DatabaseInterfaceDemo
         }
 
 
-        private void ManageModifyButton(DataGridView dgvUsers)
+        private void ManageModifyButton()
         {
-            if (dgvUsers.SelectedRows.Count == 1)
+            if (PrincipalDataGridView.SelectedRows.Count == 1)
             {
                 buttonModify.Enabled = true;
             }
@@ -316,16 +313,15 @@ namespace DatabaseInterfaceDemo
 
         }
         
-        //Why am I sending the global dgv as a parameter? it's a mystery.
-        private void ManageSaveAndRevertButtons(DataGridView dgv)
+        private void ManageSaveAndRevertButtons()
         {
             //this has crashed before for no real reason.
             Boolean exitCond = false;
             object obj;
 
-            for (int i = 0; i < dgv.SelectedRows.Count; i++)
+            for (int i = 0; i < PrincipalDataGridView.SelectedRows.Count; i++)
             {
-                obj = dgv.SelectedRows[i].DataBoundItem;
+                obj = PrincipalDataGridView.SelectedRows[i].DataBoundItem;
                 if (DB.GetTempStatus(obj))
                 {
                     exitCond = true;
