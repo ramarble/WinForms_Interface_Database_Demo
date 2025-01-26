@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.Data;
-using DatabaseInterfaceDemo.View;
 using DatabaseInterfaceDemo.View.ObjectCreationForms;
 
 namespace DatabaseInterfaceDemo.Controller
@@ -169,7 +168,7 @@ namespace DatabaseInterfaceDemo.Controller
             return tempList;
         }
 
-        public void restoreFromBackupAndEmptyBackup(BindingList<object> objectList)
+        public void RestoreFromBackupAndEmptyBackup(BindingList<object> objectList)
         {
             List<object> tempUsers = GetSlicedListWithTempUsers(objectList);
             foreach (object utemp in tempUsers)
@@ -210,7 +209,7 @@ namespace DatabaseInterfaceDemo.Controller
 
         }
 
-        public void modifyObject(object objectToEdit, BindingList<object> objectList, Form SourceForm, ObjectDataBaseController<object> db)
+        public void ModifyObject(object objectToEdit, BindingList<object> objectList, Form SourceForm, ObjectDataBaseController<object> db)
         {
             GetBackupList().Add(objectToEdit);
             objectList.Remove(objectToEdit);
@@ -231,14 +230,14 @@ namespace DatabaseInterfaceDemo.Controller
 
         }
 
-        public void saveObject(object obj)
+        public void SaveObject(object obj)
         {
             object sameObjectInBackup = FetchUserByKey(GetBackupList(), GetKey(obj));
             GetBackupList().Remove(sameObjectInBackup);
             SetTempStatus(obj, false);
         }
 
-        public Boolean isThereAnyTempUser()
+        public Boolean IsThereAnyTempUser()
         {
             return (GetBackupList().Count > 0 |
                 (GetSlicedListWithTempUsers(GetBindingList()).Count > 0));
@@ -247,7 +246,7 @@ namespace DatabaseInterfaceDemo.Controller
 
         public void PreventClosingWithUncommittedChanges(FormClosingEventArgs e)
         {
-            if (isThereAnyTempUser())
+            if (IsThereAnyTempUser())
             {
                 LocalizationText.WARN_UncommittedChanges();
                 e.Cancel = true;

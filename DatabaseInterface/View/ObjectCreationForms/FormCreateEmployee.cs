@@ -99,7 +99,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         private void SaveUserAsTemp(object sender, EventArgs e)
         {
             int usernif;
-            if (Utils.isAnyTextBoxEmptyInForm(this))
+            if (Utils.IsAnyTextBoxEmptyInForm(this))
             {
                 LocalizationText.WARN_FillAllData();
                 this.DialogResult = DialogResult.None; //Why the frick is this how it has to work

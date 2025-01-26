@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -36,7 +35,7 @@ namespace DatabaseInterfaceDemo.Model
         public Boolean GetTempStatus() { return this.TempStatus; }
         public override string ToString()
         {
-            return "THIS IS A TEMPLATE CLASS AND SHOULDN'T BE INSTANCED";
+            return "THIS METHOD'S TOSTRING SHOULD BE OVERWRITTEN";
         }
     }
 }

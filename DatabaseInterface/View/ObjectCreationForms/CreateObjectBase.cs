@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 {
-    internal abstract class CreateObject
+    internal abstract class CreateObjectBase
     {
     }
 }

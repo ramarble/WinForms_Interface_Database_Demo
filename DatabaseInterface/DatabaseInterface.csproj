@@ -90,7 +90,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\ObjectCreationForms\CreateObject.cs" />
+    <Compile Include="View\ObjectCreationForms\CreateObjectBase.cs" />
     <Compile Include="View\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>

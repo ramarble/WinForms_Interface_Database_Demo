@@ -3,8 +3,6 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 using System.Linq;
-using DatabaseInterfaceDemo.Model;
-using DatabaseInterfaceDemo.Controller;
 using System.Windows.Forms;
 
 namespace DatabaseInterfaceDemo.Controller
@@ -12,7 +10,7 @@ namespace DatabaseInterfaceDemo.Controller
     internal abstract class CustomXMLParser
     {
 
-        public static void turnIntoXMLFile(List<object> lista, string path)
+        public static void TurnIntoXMLFile(List<object> lista, string path)
         {
 
             XmlSerializer serializer = new XmlSerializer(lista.GetType(), new Type[] { lista[0].GetType() });

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.Model;
-using contr = DatabaseInterfaceDemo.Controller;
 
 
 namespace DatabaseInterfaceDemo.Controller
@@ -105,7 +101,7 @@ namespace DatabaseInterfaceDemo.Controller
             }
             return ListOfTextBoxBases;
         }
-        public static Boolean isAnyTextBoxEmptyInForm(Form sender)
+        public static Boolean IsAnyTextBoxEmptyInForm(Form sender)
         {
             return ListOfTextBoxesInForm(sender).Any(x => x.Text.ToString() == "");
         }

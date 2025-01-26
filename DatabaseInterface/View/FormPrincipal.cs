@@ -72,7 +72,7 @@ namespace DatabaseInterfaceDemo
             }
             if (DB.GetBindingList().Count > 0 && !IsDataTypeSynced())
             {
-                if (DB.isThereAnyTempUser())
+                if (DB.IsThereAnyTempUser())
                 {
                     LocalizationText.WARN_UncommittedChanges();
                     ReSyncDataTypeComboBoxType();
@@ -287,7 +287,7 @@ namespace DatabaseInterfaceDemo
         private void ManageButtonsForTempUsers()
         {
 
-            if (DB.GetBackupList().Count > 0 | DB.isThereAnyTempUser())
+            if (DB.GetBackupList().Count > 0 | DB.IsThereAnyTempUser())
             {
                 buttonRevertAll.Enabled = true;
                 buttonSaveTemp.Enabled = true;
@@ -350,7 +350,7 @@ namespace DatabaseInterfaceDemo
         {
             if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
-                DB.restoreFromBackupAndEmptyBackup(DB.GetBindingList());
+                DB.RestoreFromBackupAndEmptyBackup(DB.GetBindingList());
             }
         }
 
@@ -362,7 +362,7 @@ namespace DatabaseInterfaceDemo
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado u = row.DataBoundItem as Empleado;
-                    DB.saveObject(u);
+                    DB.SaveObject(u);
                 }
                 DB.GetBindingList().ResetBindings();
             }
@@ -438,7 +438,7 @@ namespace DatabaseInterfaceDemo
         private void ButtonModifyObject_Click(object sender, EventArgs e)
         {
             object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
-            DB.modifyObject(userToEdit, DB.GetBindingList(), this, DB);
+            DB.ModifyObject(userToEdit, DB.GetBindingList(), this, DB);
         }
 
         private void MaximizarToolStrip_Click(object sender, EventArgs e)
@@ -482,7 +482,7 @@ namespace DatabaseInterfaceDemo
             string path;
             if ((path = Utils.GetFilePathFromSaveFileDialog()) != null)
             {
-                CustomXMLParser.turnIntoXMLFile(DB.GetBindingList().ToList<object>(), path);
+                CustomXMLParser.TurnIntoXMLFile(DB.GetBindingList().ToList<object>(), path);
             }
         }
     }

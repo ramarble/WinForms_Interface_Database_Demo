@@ -83,7 +83,7 @@ namespace DatabaseInterfaceDemo.View
                     buttonSave.Enabled = false;
                 }
 
-                if (DB.isThereAnyTempUser())
+                if (DB.IsThereAnyTempUser())
                 {
                     buttonRevertAll.Enabled = true;
                     buttonSaveAll.Enabled = true;
@@ -123,7 +123,7 @@ namespace DatabaseInterfaceDemo.View
         {
             object objectToEdit = userPropertyGrid.SelectedObject;
             object nifKey = DB.GetKey(objectToEdit);
-            DB.modifyObject(objectToEdit, DB.GetBindingList(), this, DB);
+            DB.ModifyObject(objectToEdit, DB.GetBindingList(), this, DB);
             //Sets the pointer correctly
             UpdateListBoxPointerByKey(objectToEdit);
 
@@ -166,7 +166,7 @@ namespace DatabaseInterfaceDemo.View
         private void ButtonSave_Click(object sender, EventArgs e)
         {
             object userWithTempFlag = (Empleado)userPropertyGrid.SelectedObject;
-            DB.saveObject(userWithTempFlag);
+            DB.SaveObject(userWithTempFlag);
             UpdateObjectView(this, e);
 
         }
@@ -184,7 +184,7 @@ namespace DatabaseInterfaceDemo.View
         {
             if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {
-                DB.restoreFromBackupAndEmptyBackup(DB.GetBindingList());
+                DB.RestoreFromBackupAndEmptyBackup(DB.GetBindingList());
                 UpdateListBoxPointerByKey(userListBox.SelectedItem);
 
             }
