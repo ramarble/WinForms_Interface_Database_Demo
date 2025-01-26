@@ -9,35 +9,35 @@
     <Birthdate>2016-12-10T00:00:00</Birthdate>
   </anyType>
   <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Lyonette</name>
-    <surname1>du</surname1>
-    <surname2>Marquin</surname2>
-    <salary>11234.68</salary>
-    <nif>99999999</nif>
-    <birthdate>2004-08-30T00:00:00</birthdate>
+    <Name>Lyonette</Name>
+    <Surname1>du</Surname1>
+    <Surname2>Marquin</Surname2>
+    <Salary>11234.68</Salary>
+    <NIF>99999999</NIF>
+    <Birthdate>2004-08-30T00:00:00</Birthdate>
   </anyType>
   <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Numbtongue</name>
-    <surname1>Redfang</surname1>
-    <surname2>Solstice</surname2>
-    <salary>1134.7</salary>
-    <nif>1</nif>
-    <birthdate>2016-02-23T00:00:00</birthdate>
+    <Name>Numbtongue</Name>
+    <Surname1>Redfang</Surname1>
+    <Surname2>Solstice</Surname2>
+    <Salary>1134.7</Salary>
+    <NIF>1</NIF>
+    <Birthdate>2016-02-23T00:00:00</Birthdate>
   </anyType>
   <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Erin</name>
-    <surname1>Summer</surname1>
-    <surname2>Solstice</surname2>
-    <salary>1222.66</salary>
-    <nif>0</nif>
-    <birthdate>2003-06-21T00:00:00</birthdate>
+    <Name>Erin</Name>
+    <Surname1>Summer</Surname1>
+    <Surname2>Solstice</Surname2>
+    <Salary>1222.66</Salary>
+    <NIF>0</NIF>
+    <Birthdate>2003-06-21T00:00:00</Birthdate>
   </anyType>
   <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Bird</name>
-    <surname1>&lt;empty&gt;</surname1>
-    <surname2>&lt;empty&gt;</surname2>
-    <salary>10.80</salary>
-    <nif>87665443</nif>
-    <birthdate>2020-04-04T00:00:00</birthdate>
+    <Name>Bird</Name>
+    <Surname1>&lt;empty&gt;</Surname1>
+    <Surname2>&lt;empty&gt;</Surname2>
+    <Salary>10.80</Salary>
+    <NIF>87665443</NIF>
+    <Birthdate>2020-04-04T00:00:00</Birthdate>
   </anyType>
 </ArrayOfAnyType>

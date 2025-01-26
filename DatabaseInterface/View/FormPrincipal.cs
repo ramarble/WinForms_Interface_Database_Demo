@@ -94,6 +94,9 @@ namespace DatabaseInterfaceDemo
         {
             Type t = GetTypeFromComboBox();
             StartDatabaseController(t, new List<object>() { Activator.CreateInstance(t) });
+            //StartDatabaseController(t, ObjectFactory.createEmpleadoList());
+            //StartDatabaseController(t, ObjectFactory.createProductList());
+
             DB.GetBindingList().RemoveAt(0);
         }
 
@@ -417,7 +420,7 @@ namespace DatabaseInterfaceDemo
                     NewObjectForm = new FormCreateEmployee(this, false, DB);
                     break;
                 case nameof(Producto):
-                    NewObjectForm = new FormCreateEmployee(this, false, DB);
+                    NewObjectForm = new FormCreateProduct(this, false, DB);
                     break;
                   
             }

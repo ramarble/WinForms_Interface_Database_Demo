@@ -16,12 +16,12 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             InitializeComponent();
         }
         //wtf was I cooking here 
-        Empleado objectBeingModified = (Empleado)Activator.CreateInstance(typeof(Empleado));
+        object objectBeingModified = (Empleado)Activator.CreateInstance(typeof(Empleado));
 
         public FormCreateEmployee(Form sender, bool editMode, ObjectDataBaseController<object> db) : base(sender, editMode, db)
         {
             InitializeComponent();
-
+            DB.SetTempStatus(objectBeingModified, true);
             InitializePrimaryKeyTextBox(tbNIF);
             LateLoadBaseFormDesign();
 
@@ -64,7 +64,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             {
                 usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""));
                 Empleado u = new Empleado(
-                    objectBeingModified.GetTempStatus(),
+                    DB.GetTempStatus(objectBeingModified),
                     tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),

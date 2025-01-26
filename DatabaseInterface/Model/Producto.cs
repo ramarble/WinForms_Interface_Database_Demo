@@ -34,7 +34,7 @@ namespace DatabaseInterfaceDemo.Model
         public Category Category { get; set; }
 
         [DisplayName("Price/unit")]
-        public int PricePerUnit { get; set; }
+        public decimal PricePerUnit { get; set; }
 
         [DisplayName("Unit Type")]
         public Unit_Type UnitType { get; set; }
@@ -79,7 +79,7 @@ namespace DatabaseInterfaceDemo.Model
             return hashCode;
         }
 
-        public Producto(char tempChar, string name, Category category, int pricePerUnit, Unit_Type unitType, int stock, int iD, bool tempStatus)
+        public Producto(Boolean tempStatus, string name, Category category, decimal pricePerUnit, Unit_Type unitType, int stock, int ID)
         {
             this.TempChar = tempStatus ? '*' : '\0';
             this.Name = name;
@@ -87,7 +87,7 @@ namespace DatabaseInterfaceDemo.Model
             this.PricePerUnit = pricePerUnit;
             this.UnitType = unitType;
             Stock = stock;
-            ID = iD;
+            this.ID = ID;
             this.TempStatus = tempStatus;
         }
 
