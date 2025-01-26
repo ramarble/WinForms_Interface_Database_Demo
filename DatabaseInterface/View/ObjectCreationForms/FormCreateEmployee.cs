@@ -16,28 +16,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             InitializeComponent();
         }
         //wtf was I cooking here 
-        Empleado objectBeingModified = new Empleado(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
-
-        protected override void OnClosed(EventArgs e)
-        {
-            this.parent.Show();
-            base.OnClosed(e);
-        }
-
-        /*public FormCreateEmployee(Form sender, object ob, Boolean editMode, ObjectDataBaseController<object> db)
-        {
-            //UserFormInitialize(sender);
-            
-             * userReference = ob;
-            tbNombre.Text = ob.name;
-            tbApe1.Text = ob.surname1;
-            tbApe2.Text = ob.surname2;
-            numSalary.Text = ob.salary.ToString();
-            tbNIF.Text = ob.nif.ToString();
-            dtpFechaNacimiento.Value = ob.birthdate;
-          
-        }
-          */
+        Empleado objectBeingModified = (Empleado)Activator.CreateInstance(typeof(Empleado));
 
         public FormCreateEmployee(Form sender, bool editMode, ObjectDataBaseController<object> db) : base(sender, editMode, db)
         {
@@ -53,11 +32,25 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             InitializeComponent();
 
             InitializePrimaryKeyTextBox(tbNIF);
+            objectBeingModified = (Empleado)ob;
             LateLoadBaseFormDesign();
+            LoadValuesFromObject(ob);
 
         }
 
-        private void SaveUserAsTemp(object sender, EventArgs e)
+        private void LoadValuesFromObject(object obj)
+        {
+            var ob = obj as Empleado;
+            tbNombre.Text = ob.Name;
+            tbApe1.Text = ob.Surname1;
+            tbApe2.Text = ob.Surname2;
+            numSalary.Text = ob.Salary.ToString();
+            tbNIF.Text = ob.NIF.ToString();
+            dtpFechaNacimiento.Value = ob.Birthdate;
+
+        }
+
+        public override void SaveUserAsTemp(object sender, EventArgs e)
         {
             int usernif;
             if (Utils.IsAnyTextBoxEmptyInForm(this))
@@ -78,16 +71,19 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
                     decimal.Parse(numSalary.Text.ToString(), NumberStyles.Any),
                     dtpFechaNacimiento.Value,
                     usernif);
-                if (u.Equals(objectBeingModified))
+
+                if (DB.AddObjectToList(DB.GetBindingList(), u, EditMode))
                 {
-                    db.SetTempStatus(u, objectBeingModified.TempStatus);
-                    db.GetBackupList().Remove(objectBeingModified);
-                }
-                else
-                {
-                    db.SetTempStatus(u, true);
+                    LocalizationText.INFO_ObjectAddedToList();
+                    ClearAllTextBoxes(null,null);
+
+                    //These 3 lines of code are holding the weight of the entire program
+                    if (EditMode)
+                    {
+                        DB.SetTempStatus(u, true);
+                        this.Close();
+                    }
                 };
-                db.AddObjectToList(db.GetBindingList(), u, editMode);
             }
 
         }

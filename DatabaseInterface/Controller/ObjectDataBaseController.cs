@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.Model;
 using DatabaseInterfaceDemo.View.ObjectCreationForms;
 
 namespace DatabaseInterfaceDemo.Controller
@@ -29,7 +30,7 @@ namespace DatabaseInterfaceDemo.Controller
         static readonly string TempStatus = "TempStatus";
         static readonly string TempChar = "TempChar";
         static string PRIMARY_KEY;
-        static List<object> ObjectBackupList = new List<object>();
+        static BindingList<object> ObjectBackupList = new BindingList<object>();
         static BindingList<object> ObjectBindingList = new BindingList<object>();
 
 
@@ -68,37 +69,28 @@ namespace DatabaseInterfaceDemo.Controller
             return false;
         }
 
-        public void AddObjectToList(BindingList<object> listToAppendTo, object userToAdd, Boolean editMode)
+        public Boolean AddObjectToList(BindingList<object> listToAppendTo, object userToAdd, Boolean editMode)
         {
             Type typeOfList = GetDBObjectType();
-            MessageBox.Show(listToAppendTo.Count.ToString());
-            //I'm pretty sure this part of code isn't needed in the current architecture
-            /*
-             * if (listToAppendTo.Count == 0)
-            {
-                typeOfList = userToAdd.GetType();
-            }
-            else
-            {
-                typeOfList = listToAppendTo[0].GetType();
-            }
-            */
 
             if (typeOfList == userToAdd.GetType())
             {
                 //In any of these 3 cases the if will trigger
 
-                if (listToAppendTo.Count == 0 || !IsObjectPresentInList(listToAppendTo, userToAdd) || editMode)
+                if (!IsObjectPresentInList(listToAppendTo, userToAdd) || editMode)
                  {
                     listToAppendTo.Add(userToAdd);
                     ObjectBindingList.ResetBindings();
+                    return true;
                 }
                 else
                 {
                     DialogResult d = LocalizationText.ERR_ObjPresent(PRIMARY_KEY, GetKey(userToAdd).ToString());
                     d = DialogResult.None;
+                    return false;
                 }
             }
+            throw new Exception("I didn't expect this code path");
         }
 
 
@@ -108,7 +100,7 @@ namespace DatabaseInterfaceDemo.Controller
             return ObjectBindingList;
         }
 
-        public List<object> GetBackupList()
+        public BindingList<object> GetBackupList()
         {
             return ObjectBackupList;
         }
@@ -142,13 +134,12 @@ namespace DatabaseInterfaceDemo.Controller
 
         public void TurnTempIntoPermanent(BindingList<object> list)
         {
-            //TODO: check for deletions later
 
             foreach (object ob in list)
             {
                 if (GetTempStatus(ob))
-                {
-                    GetBackupList().Remove(GetBackupList().Find(it => GetKey(it) == GetKey(it)));
+                { 
+                    GetBackupList().Remove(ob);    
                     SetTempStatus(ob, false);
                     list.ResetBindings();
                 }
@@ -173,67 +164,76 @@ namespace DatabaseInterfaceDemo.Controller
             List<object> tempUsers = GetSlicedListWithTempUsers(objectList);
             foreach (object utemp in tempUsers)
             {
-                RevertSingleObject(utemp, GetBindingList());
+                RevertSingleObject(utemp);
             }
             GetBackupList().Clear();
             GetBindingList().ResetBindings();
         }
 
-        public object FetchUserByKey(List<object> listToSearch, object key)
+        public object FetchUserByKey(BindingList<object> listToSearch, object key)
         {
-            return listToSearch.SingleOrDefault(ob => GetKey(ob) == key);
+            if (listToSearch.Count > 0)
+            {
+                return listToSearch.First(ob => GetKey(ob).Equals(key));
+            }
+            return null;
         }
 
-        public Boolean IsObjectRevertable(object ob)
+        public Boolean IsObjectInBackupList(object ob)
         {
             return !(FetchUserByKey(GetBackupList(), GetKey(ob)) == null);
         }
 
         //I'm SHOCKED beyond relief that this worked first try.
+        //I'm also not shocked it stopped working 3 days later
 
-        public void RevertSingleObject(object objectToRevert, BindingList<object> listToUpdate)
+        public void RevertSingleObject(object objectToRevert)
         {
-            if (IsObjectRevertable(objectToRevert))
+            if (IsObjectInBackupList(objectToRevert))
             {
                 object sameUserInBackup = FetchUserByKey(GetBackupList(), GetKey(objectToRevert));
-                listToUpdate.Remove(objectToRevert);
-                listToUpdate.Add(sameUserInBackup);
+                
+                GetBindingList().Remove(objectToRevert);
+                GetBindingList().Add(sameUserInBackup);
                 GetBackupList().Remove(sameUserInBackup);
             }
             else
             {
-                listToUpdate.Remove(objectToRevert);
+                GetBindingList().Remove(objectToRevert);
             }
 
-            listToUpdate.ResetBindings();
+            GetBindingList().ResetBindings();
 
         }
 
-        public void ModifyObject(object objectToEdit, BindingList<object> objectList, Form SourceForm, ObjectDataBaseController<object> db)
+        public void ModifyObject(object objectToEdit, Form SourceForm, ObjectDataBaseController<object> db)
         {
-            GetBackupList().Add(objectToEdit);
-            objectList.Remove(objectToEdit);
+            db.GetBackupList().Add(objectToEdit);
+
+            db.GetBindingList().Remove(objectToEdit);
 
             //This form is the responsible for adding the new user to the list.
             FormCreateEmployee f = new FormCreateEmployee(SourceForm, objectToEdit, true, db);
-            SourceForm.Hide();
             f.ShowDialog();
 
 
             //In case the form exited abruptly
-            if (!objectList.Any(u => GetKey(u) == GetKey(objectToEdit)))
+            if (!IsObjectPresentInList(db.GetBindingList(), objectToEdit))
             {
-                objectList.Add(objectToEdit);
-                GetBackupList().Remove(objectToEdit);
-                MessageBox.Show("Form exited without any changes");
+                db.GetBindingList().Add(objectToEdit);
+                db.GetBackupList().Remove(objectToEdit);
+                MessageBox.Show("Form exited without any changes MOVE THIS TO THE LOCALIZATION FILE");
             }
 
         }
 
         public void SaveObject(object obj)
         {
-            object sameObjectInBackup = FetchUserByKey(GetBackupList(), GetKey(obj));
-            GetBackupList().Remove(sameObjectInBackup);
+            if (IsObjectInBackupList(obj))
+            {
+                object sameObjectInBackup = FetchUserByKey(GetBackupList(), GetKey(obj));
+                GetBackupList().Remove(sameObjectInBackup);
+            }
             SetTempStatus(obj, false);
         }
 

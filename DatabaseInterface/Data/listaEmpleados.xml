@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAnyType>
   <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
-    <name>Mrsha</name>
-    <surname1>du</surname1>
-    <surname2>Marquin</surname2>
-    <salary>1332.30</salary>
-    <nif>1234567</nif>
-    <birthdate>2016-12-10T00:00:00</birthdate>
+    <Name>Mrsha</Name>
+    <Surname1>du</Surname1>
+    <Surname2>Marquin</Surname2>
+    <Salary>1332.30</Salary>
+    <NIF>1234567</NIF>
+    <Birthdate>2016-12-10T00:00:00</Birthdate>
   </anyType>
   <anyType d2p1:type="Empleado" xmlns:d2p1="http://www.w3.org/2001/XMLSchema-instance">
     <name>Lyonette</name>

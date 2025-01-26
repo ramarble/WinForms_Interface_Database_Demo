@@ -96,11 +96,13 @@ namespace DatabaseInterfaceDemo
             DB.GetBindingList().RemoveAt(0);
         }
 
-        //This button will only be up when there's 2+ entries to select from
         private void LoadDataButton_Click(object sender, EventArgs e)
         {
             //There's a memory leak somewhere here :D
             List<object> objList = CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]);
+
+            var a = objList[0] as Empleado;
+            MessageBox.Show(a.Name);
             
             if (objList == null ||objList.Count < 1)
             {
@@ -111,7 +113,7 @@ namespace DatabaseInterfaceDemo
             
         }
 
-        //This should be the only method I use for the constructor? 
+
         private void StartDatabaseController(Type type, List<object> objList)
         {    
             DB = new ObjectDataBaseController<object>(type);
@@ -438,7 +440,7 @@ namespace DatabaseInterfaceDemo
         private void ButtonModifyObject_Click(object sender, EventArgs e)
         {
             object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
-            DB.ModifyObject(userToEdit, DB.GetBindingList(), this, DB);
+            DB.ModifyObject(userToEdit, this, DB);
         }
 
         private void MaximizarToolStrip_Click(object sender, EventArgs e)
@@ -459,8 +461,8 @@ namespace DatabaseInterfaceDemo
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    Empleado userToRevert = row.DataBoundItem as Empleado;
-                    DB.RevertSingleObject(userToRevert, DB.GetBindingList());
+                    object ObjectToRevert = row.DataBoundItem;
+                    DB.RevertSingleObject(ObjectToRevert);
                 }
             }
         }

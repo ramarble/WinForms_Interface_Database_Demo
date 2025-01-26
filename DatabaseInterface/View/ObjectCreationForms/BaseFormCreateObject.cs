@@ -17,15 +17,11 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         }
         static readonly Dictionary<string, string> LOC_STRINGS = LocalizationText.localizedStrings;
 
-        public Form parent;
-        public Boolean editMode;
-        public ObjectDataBaseController<object> db;
+        public Form ParentForm;
+        public Boolean EditMode;
+        public ObjectDataBaseController<object> DB;
         public Type TypeBeingModified;
         public TextBoxBase PrimaryKeyControl;
-
-        //wtf was I cooking here 
-        object objectBeingModified = new Empleado(true, "debug", "debug", "debug", 123.0M, DateTime.Today, 1234556);
-
 
 
         public void InitializePrimaryKeyTextBox(Control c)
@@ -48,46 +44,28 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             InitializeComponent();
 
-            parent = sender;
-            this.db = db;
+            ParentForm = sender;
+            this.DB = db;
             this.TypeBeingModified = db.GetDBObjectType();
 
             //Constructor used by ADD NEW mode
-            this.editMode = editMode;
+            this.EditMode = editMode;
             //UserFormInitialize(sender);
         }
 
         public BaseFormCreateObject(Form sender, object ob, Boolean editMode, ObjectDataBaseController<object> db)
         {
             InitializeComponent();
-            this.parent = sender;
-            this.db = db;
+            this.ParentForm = sender;
+            this.DB = db;
             this.TypeBeingModified = db.GetDBObjectType();
 
             //Constructor used by Edit mode
             this.Text = "DO THE THING WITH THE LOCALIZATION";
-            this.editMode = editMode;
+            this.EditMode = editMode;
 
-
-            //iN THIS FORM WE HAVE TO PULL THE DATA FROM THE OBJECT BEING MODIFIED
-            //UserFormInitialize(sender);
-            /*
-             * userReference = ob;
-            tbNombre.Text = ob.name;
-            tbApe1.Text = ob.surname1;
-            tbApe2.Text = ob.surname2;
-            numSalary.Text = ob.salary.ToString();
-            tbNIF.Text = ob.nif.ToString();
-            dtpFechaNacimiento.Value = ob.birthdate;
-            */
         }
 
-
-        protected override void OnClosed(EventArgs e)
-        {
-            this.parent.Show();
-            base.OnClosed(e);
-        }
 
 
         public void LoadListenersForTextBoxes()
@@ -118,38 +96,6 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
         public virtual void SaveUserAsTemp(object sender, EventArgs e)
         {
-            if (Utils.IsAnyTextBoxEmptyInForm(this))
-            {
-                LocalizationText.WARN_FillAllData();
-                this.DialogResult = DialogResult.None; //Why the frick is this how it has to work
-                HighlightEmptyTextBoxes();
-
-            }
-            else
-            {
-                /*
-                usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""));
-                Empleado u = new Empleado(
-                    objectBeingModified.GetTempStatus(),
-                    tbNombre.Text.ToString(),
-                    tbApe1.Text.ToString(),
-                    tbApe2.Text.ToString(),
-                    decimal.Parse(numSalary.Text.ToString(), NumberStyles.Any),
-                    dtpFechaNacimiento.Value,
-                    usernif);
-                if (u.Equals(objectBeingModified))
-                {
-                    db.SetTempStatus(u, objectBeingModified.TempStatus);
-                    db.GetBackupList().Remove(objectBeingModified);
-                }
-                else
-                {
-                    db.SetTempStatus(u, true);
-                };
-                db.AddObjectToList(db.GetBindingList(), u, editMode);
-                */
-            }
-
         }
 
         public void LateLoadBaseFormDesign()
@@ -157,7 +103,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             KeyPreview = true;
             LoadListenersForTextBoxes();
             //For edit mode you're editing an existing user, and can't change its primary key
-            if (editMode)
+            if (EditMode)
             {
                 PrimaryKeyControl.ReadOnly = true;
             }
@@ -167,7 +113,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             }
 
 
-            buttonClear.Click += ButtonClear_Click;
+            buttonClear.Click += ClearAllTextBoxes;
 
             buttonClose.Click += ButtonClose_Click;
             cortarToolStripMenuItem.Click += CortarToolStripMenuItem_Click;
@@ -177,34 +123,28 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             copiarToolStripMenuItem.Click += CopiarToolStripMenuItem_Click;
             copiarContextStripMenuItem.Click += CopiarToolStripMenuItem_Click;
             acercaDeToolStripMenuItem.Click += AcercaDeToolStripMenuItem_Click;
+            buttonSave.Click += SaveUserAsTemp;
+            buttonSave.DialogResult = DialogResult.None;
         }
 
-        public virtual void UserAdd_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.parent.Show();
-        }
 
-        public virtual void ButtonClear_Click(object sender, EventArgs e)
+        public virtual void ClearAllTextBoxes(object sender, EventArgs e)
         {
             foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
             {
-
                 if (!t.ReadOnly)
                 {
                     t.Text = "";
                 }
 
             }
-            this.DialogResult = DialogResult.None;
+            DialogResult = DialogResult.None;
 
         }
 
         public virtual void ButtonClose_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.WARN_ExitWithoutSaving() == DialogResult.Yes)
-            {
-                this.Close();
-            }
+            BaseFormCreateObject_FormClosing(null, null);
         }
 
         public virtual void OnEnterHighlightAllText(object sender, EventArgs e)
@@ -226,7 +166,6 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             Utils.TextBoxBaseFromControl(this.ActiveControl).Paste();
         }
 
-
         public virtual void CopiarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Utils.TextBoxBaseFromControl(this.ActiveControl).Copy();
@@ -236,6 +175,23 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             Form acercaDe = new AcercaDe();
             acercaDe.ShowDialog();
+        }
+
+        public virtual void OnBaseFormClosed(object sender, EventArgs e)
+        {
+            ParentForm.Show();
+            base.OnClosed(e);
+        }
+
+        public virtual void BaseFormCreateObject_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!Utils.IsAnyTextBoxEmptyInForm(this))
+            {
+                if (LocalizationText.WARN_ExitWithoutSaving() != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

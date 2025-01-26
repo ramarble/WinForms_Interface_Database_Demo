@@ -25,11 +25,16 @@ namespace DatabaseInterfaceDemo.Data
             {"WARN_UncommittedChanges", "Por favor confirma o revierte todos los cambios antes de continuar."},
             {"WARN_FillAllData", "Por favor rellena todos los campos"},
             {"CHOICE_WARN_DatabaseOverwrite", "¿Quieres sobreescribir la base de datos?\nESTO BORRARÁ TODAS LAS ENTRADAS"},
-            {"ERR_DBNotInitialized", "NO HAY UNA BASE DE DATOS INICIADA"}
-
+            {"ERR_DBNotInitialized", "NO HAY UNA BASE DE DATOS INICIADA"},
+            {"INFO_ObjectAddedToList", "Objeto añadido a la lista correctamente."}
 
         };
        
+        public static DialogResult INFO_ObjectAddedToList()
+        {
+            return MessageBox.Show(localizedStrings["INFO_ObjectAddedToList"], localizedStrings["INFO"]);
+
+        }
 
         public static DialogResult WARN_RevertConfirm()
         {

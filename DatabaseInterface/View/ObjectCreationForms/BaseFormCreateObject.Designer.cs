@@ -81,7 +81,6 @@
             this.buttonSave.TabIndex = 9;
             this.buttonSave.Text = "Guardar";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.SaveUserAsTemp);
             // 
             // buttonClose
             // 
@@ -95,7 +94,6 @@
             this.buttonClose.TabIndex = 7;
             this.buttonClose.Text = "Cerrar";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // menuStrip1
             // 
@@ -179,7 +177,7 @@
             this.cortarToolStripMenuItem.AccessibleName = "Cortar Texto";
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.cortarToolStripMenuItem.Text = "Cortar";
             // 
             // copiarToolStripMenuItem
@@ -188,7 +186,7 @@
             this.copiarToolStripMenuItem.AccessibleName = "Copiar Texto";
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.copiarToolStripMenuItem.Text = "Copiar";
             // 
             // pegarToolStripMenuItem
@@ -197,7 +195,7 @@
             this.pegarToolStripMenuItem.AccessibleName = "Pegar Texto";
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.pegarToolStripMenuItem.Text = "Pegar";
             // 
             // verToolStripMenuItem
@@ -283,7 +281,8 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "BaseFormCreateObject";
             this.Text = "Create a new user";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UserAdd_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BaseFormCreateObject_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnBaseFormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);

@@ -123,7 +123,7 @@ namespace DatabaseInterfaceDemo.View
         {
             object objectToEdit = userPropertyGrid.SelectedObject;
             object nifKey = DB.GetKey(objectToEdit);
-            DB.ModifyObject(objectToEdit, DB.GetBindingList(), this, DB);
+            DB.ModifyObject(objectToEdit, this, DB);
             //Sets the pointer correctly
             UpdateListBoxPointerByKey(objectToEdit);
 
@@ -153,7 +153,7 @@ namespace DatabaseInterfaceDemo.View
         private void ButtonRevert_Click(object sender, EventArgs e)
         {
             object objectWithTempFlag = userPropertyGrid.SelectedObject;
-            DB.RevertSingleObject(objectWithTempFlag, DB.GetBindingList());
+            DB.RevertSingleObject(objectWithTempFlag);
             UpdateListBoxPointerByKey(objectWithTempFlag);
             userListBox.DataSource = DB.GetBindingList();
         }
