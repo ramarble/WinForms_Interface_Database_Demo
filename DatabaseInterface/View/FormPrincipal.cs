@@ -2,16 +2,13 @@
 using DatabaseInterfaceDemo.Model;
 using DatabaseInterfaceDemo.View;
 using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.View.ObjectCreationForms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
-using System.Reflection;
-using System.Data;
 
 
 namespace DatabaseInterfaceDemo
@@ -149,14 +146,11 @@ namespace DatabaseInterfaceDemo
             {
                 //PopulateColumnsWithObjectData();
                 PrincipalDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                PrincipalDataGridView.Columns[0].Width = 25;
-                PrincipalDataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                PrincipalDataGridView.Columns[0].ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
-                PrincipalDataGridView.Columns[0].CellTemplate.ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
                 PrincipalDataGridView.AllowUserToAddRows = false;
                 PrincipalDataGridView.SelectionChanged += OnListChangeUpdateButtons;
                 PrincipalDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 FormatDateTimeColumn();
+                FormatTempStatusColumn();
 
                 //Doesn't work? but what I want is that when the form changes visibility the buttons update
                 VisibleChanged += OnListChangeUpdateButtons;
@@ -196,7 +190,17 @@ namespace DatabaseInterfaceDemo
                     PrincipalDataGridView.Columns[i].DefaultCellStyle.Format = "dd/MM/yyyy";
                 }
             }
-                  
+        }
+
+        public void FormatTempStatusColumn()
+        {
+            DataGridViewColumn dgvc = PrincipalDataGridView.Columns[PrincipalDataGridView.Columns["TempChar"].Index]; 
+            dgvc.DisplayIndex = 0;
+            dgvc.Width = 25;
+            dgvc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvc.ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
+            dgvc.CellTemplate.ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
+
         }
 
         private void StyleTextBox(object sender, DrawItemEventArgs e)
@@ -403,7 +407,7 @@ namespace DatabaseInterfaceDemo
         {
             if (DB != null)
             {
-                Form newUserForm = new FormUser(this, false, DB);
+                Form newUserForm = new FormCreateEmployee(this, false, DB);
                 newUserForm.ShowDialog(this);
             }
             else
@@ -456,17 +460,15 @@ namespace DatabaseInterfaceDemo
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
                     Empleado userToRevert = row.DataBoundItem as Empleado;
-                    DB.revertSingleObject(userToRevert, DB.GetBindingList());
+                    DB.RevertSingleObject(userToRevert, DB.GetBindingList());
                 }
             }
         }
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (DB != null)
-            {
-                DB.PreventClosingWithUncommittedChanges(e);
-            } 
+            //this is an if(!null) in c#
+            DB?.PreventClosingWithUncommittedChanges(e); 
         }
 
         private void AcercaDeToolStripMenuItem_Click(object sender, EventArgs e)

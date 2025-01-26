@@ -1,6 +1,6 @@
-﻿namespace DatabaseInterfaceDemo.View
+﻿namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 {
-    partial class FormUser
+    partial class FormCreateEmployee
     {
         /// <summary>
         /// Required designer variable.
@@ -179,7 +179,7 @@
             this.buttonClear.TabIndex = 8;
             this.buttonClear.Text = "Limpiar";
             this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            this.buttonClear.Click += new System.EventHandler(this.ButtonClear_Click);
             // 
             // buttonSave
             // 
@@ -217,7 +217,7 @@
             this.buttonClose.TabIndex = 7;
             this.buttonClose.Text = "Cerrar";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // lblSalary
             // 
@@ -244,7 +244,7 @@
             this.numSalary.Name = "numSalary";
             this.numSalary.Size = new System.Drawing.Size(120, 29);
             this.numSalary.TabIndex = 4;
-            this.numSalary.Enter += new System.EventHandler(this.numSalary_Enter);
+            this.numSalary.Enter += new System.EventHandler(this.NumSalary_Enter);
             // 
             // menuStrip1
             // 
@@ -330,7 +330,7 @@
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.cortarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cortarToolStripMenuItem.Text = "Cortar";
-            this.cortarToolStripMenuItem.Click += new System.EventHandler(this.cortarToolStripMenuItem_Click);
+            this.cortarToolStripMenuItem.Click += new System.EventHandler(this.CortarToolStripMenuItem_Click);
             // 
             // copiarToolStripMenuItem
             // 
@@ -340,7 +340,7 @@
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copiarToolStripMenuItem.Text = "Copiar";
-            this.copiarToolStripMenuItem.Click += new System.EventHandler(this.copiarToolStripMenuItem_Click);
+            this.copiarToolStripMenuItem.Click += new System.EventHandler(this.CopiarToolStripMenuItem_Click);
             // 
             // pegarToolStripMenuItem
             // 
@@ -350,7 +350,7 @@
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pegarToolStripMenuItem.Text = "Pegar";
-            this.pegarToolStripMenuItem.Click += new System.EventHandler(this.pegarToolStripMenuItem_Click);
+            this.pegarToolStripMenuItem.Click += new System.EventHandler(this.PegarToolStripMenuItem_Click);
             // 
             // verToolStripMenuItem
             // 
@@ -389,7 +389,7 @@
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
             this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de";
-            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.AcercaDeToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -406,7 +406,7 @@
             this.cortarToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.cortarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.cortarToolStripMenuItem1.Text = "Cortar";
-            this.cortarToolStripMenuItem1.Click += new System.EventHandler(this.cortarToolStripMenuItem1_Click);
+            this.cortarToolStripMenuItem1.Click += new System.EventHandler(this.CortarToolStripMenuItem1_Click);
             // 
             // copiarToolStripMenuItem1
             // 
@@ -414,7 +414,7 @@
             this.copiarToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copiarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.copiarToolStripMenuItem1.Text = "Copiar";
-            this.copiarToolStripMenuItem1.Click += new System.EventHandler(this.copiarToolStripMenuItem1_Click);
+            this.copiarToolStripMenuItem1.Click += new System.EventHandler(this.CopiarToolStripMenuItem1_Click);
             // 
             // pegarToolStripMenuItem1
             // 
@@ -422,7 +422,7 @@
             this.pegarToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.pegarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.pegarToolStripMenuItem1.Text = "Pegar";
-            this.pegarToolStripMenuItem1.Click += new System.EventHandler(this.pegarToolStripMenuItem1_Click);
+            this.pegarToolStripMenuItem1.Click += new System.EventHandler(this.PegarToolStripMenuItem1_Click);
             // 
             // FormUser
             // 
@@ -451,7 +451,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "FormUser";
             this.Text = "Create a new user";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UserAdd_FormClosed);
             this.Load += new System.EventHandler(this.UserForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numSalary)).EndInit();

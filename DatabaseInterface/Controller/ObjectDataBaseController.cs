@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.Data;
 using DatabaseInterfaceDemo.View;
+using DatabaseInterfaceDemo.View.ObjectCreationForms;
 
 namespace DatabaseInterfaceDemo.Controller
 {
@@ -26,8 +27,8 @@ namespace DatabaseInterfaceDemo.Controller
         }
 
         static Type OBJ_TYPE;
-        static string tempStatus = "tempStatus";
-        static string tempChar = "tempChar";
+        static readonly string TempStatus = "TempStatus";
+        static readonly string TempChar = "TempChar";
         static string PRIMARY_KEY;
         static List<object> ObjectBackupList = new List<object>();
         static BindingList<object> ObjectBindingList = new BindingList<object>();
@@ -48,7 +49,7 @@ namespace DatabaseInterfaceDemo.Controller
             ObjectBindingList.ResetBindings();
         }
 
-        public object getKey(object obj)
+        public object GetKey(object obj)
         {
             var result = obj.GetType().GetProperty(PRIMARY_KEY);
             return result.GetValue(obj);
@@ -60,7 +61,7 @@ namespace DatabaseInterfaceDemo.Controller
         {
             foreach (object ob2 in listToParse)
             {
-                if (getKey(ob2).Equals(getKey(ob1)))
+                if (GetKey(ob2).Equals(GetKey(ob1)))
                 {
                     return true;
                 }
@@ -95,7 +96,7 @@ namespace DatabaseInterfaceDemo.Controller
                 }
                 else
                 {
-                    DialogResult d = LocalizationText.ERR_ObjPresent(PRIMARY_KEY, getKey(userToAdd).ToString());
+                    DialogResult d = LocalizationText.ERR_ObjPresent(PRIMARY_KEY, GetKey(userToAdd).ToString());
                     d = DialogResult.None;
                 }
             }
@@ -115,7 +116,7 @@ namespace DatabaseInterfaceDemo.Controller
 
         public Boolean GetTempStatus(object ob)
         {
-            Boolean b = (Boolean) ob.GetType().GetProperty("tempStatus").GetValue(ob);
+            Boolean b = (Boolean) ob.GetType().GetProperty("TempStatus").GetValue(ob);
 
             if (b == true)
             {
@@ -129,8 +130,8 @@ namespace DatabaseInterfaceDemo.Controller
 
         public void SetTempStatus(object ob, Boolean b)
         {
-            var tempbool = ob.GetType().GetProperty(tempStatus);
-            var tempchar = ob.GetType().GetProperty(tempChar);
+            var tempbool = ob.GetType().GetProperty(TempStatus);
+            var tempchar = ob.GetType().GetProperty(TempChar);
             tempbool.SetValue(ob, b);
             char visualTempFlag = '\0';
             if (b)
@@ -148,7 +149,7 @@ namespace DatabaseInterfaceDemo.Controller
             {
                 if (GetTempStatus(ob))
                 {
-                    GetBackupList().Remove(GetBackupList().Find(it => getKey(it) == getKey(it)));
+                    GetBackupList().Remove(GetBackupList().Find(it => GetKey(it) == GetKey(it)));
                     SetTempStatus(ob, false);
                     list.ResetBindings();
                 }
@@ -173,29 +174,29 @@ namespace DatabaseInterfaceDemo.Controller
             List<object> tempUsers = GetSlicedListWithTempUsers(objectList);
             foreach (object utemp in tempUsers)
             {
-                revertSingleObject(utemp, GetBindingList());
+                RevertSingleObject(utemp, GetBindingList());
             }
             GetBackupList().Clear();
             GetBindingList().ResetBindings();
         }
 
-        public object fetchUserByKey(List<object> listToSearch, object key)
+        public object FetchUserByKey(List<object> listToSearch, object key)
         {
-            return listToSearch.SingleOrDefault(ob => getKey(ob) == key);
+            return listToSearch.SingleOrDefault(ob => GetKey(ob) == key);
         }
 
-        public Boolean isObjectRevertable(object ob)
+        public Boolean IsObjectRevertable(object ob)
         {
-            return !(fetchUserByKey(GetBackupList(), getKey(ob)) == null);
+            return !(FetchUserByKey(GetBackupList(), GetKey(ob)) == null);
         }
 
         //I'm SHOCKED beyond relief that this worked first try.
 
-        public void revertSingleObject(object objectToRevert, BindingList<object> listToUpdate)
+        public void RevertSingleObject(object objectToRevert, BindingList<object> listToUpdate)
         {
-            if (isObjectRevertable(objectToRevert))
+            if (IsObjectRevertable(objectToRevert))
             {
-                object sameUserInBackup = fetchUserByKey(GetBackupList(), getKey(objectToRevert));
+                object sameUserInBackup = FetchUserByKey(GetBackupList(), GetKey(objectToRevert));
                 listToUpdate.Remove(objectToRevert);
                 listToUpdate.Add(sameUserInBackup);
                 GetBackupList().Remove(sameUserInBackup);
@@ -215,13 +216,13 @@ namespace DatabaseInterfaceDemo.Controller
             objectList.Remove(objectToEdit);
 
             //This form is the responsible for adding the new user to the list.
-            FormUser f = new FormUser(SourceForm, objectToEdit, true, db);
+            FormCreateEmployee f = new FormCreateEmployee(SourceForm, objectToEdit, true, db);
             SourceForm.Hide();
             f.ShowDialog();
 
 
             //In case the form exited abruptly
-            if (!objectList.Any(u => getKey(u) == getKey(objectToEdit)))
+            if (!objectList.Any(u => GetKey(u) == GetKey(objectToEdit)))
             {
                 objectList.Add(objectToEdit);
                 GetBackupList().Remove(objectToEdit);
@@ -232,7 +233,7 @@ namespace DatabaseInterfaceDemo.Controller
 
         public void saveObject(object obj)
         {
-            object sameObjectInBackup = fetchUserByKey(GetBackupList(), getKey(obj));
+            object sameObjectInBackup = FetchUserByKey(GetBackupList(), GetKey(obj));
             GetBackupList().Remove(sameObjectInBackup);
             SetTempStatus(obj, false);
         }

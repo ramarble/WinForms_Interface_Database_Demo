@@ -72,7 +72,7 @@ namespace DatabaseInterfaceDemo.View
             if (userListBox.SelectedItems.Count > 0)
             {
                 Empleado u = userListBox.SelectedItem as Empleado;
-                if (u.getTempStatus())
+                if (u.GetTempStatus())
                 {
                     buttonRevert.Enabled = true;
                     buttonSave.Enabled = true;
@@ -119,10 +119,10 @@ namespace DatabaseInterfaceDemo.View
         }
 
 
-        private void buttonModify_Click(object sender, EventArgs e)
+        private void ButtonModify_Click(object sender, EventArgs e)
         {
             object objectToEdit = userPropertyGrid.SelectedObject;
-            object nifKey = DB.getKey(objectToEdit);
+            object nifKey = DB.GetKey(objectToEdit);
             DB.modifyObject(objectToEdit, DB.GetBindingList(), this, DB);
             //Sets the pointer correctly
             UpdateListBoxPointerByKey(objectToEdit);
@@ -133,10 +133,10 @@ namespace DatabaseInterfaceDemo.View
         {
             if (SelectedItem != null)
             {
-                object nifKey = DB.getKey(SelectedItem);
+                object nifKey = DB.GetKey(SelectedItem);
                 int userIndex =
                     DB.GetBindingList().IndexOf(
-                    DB.GetBindingList().FirstOrDefault(user => DB.getKey(user) == nifKey));
+                    DB.GetBindingList().FirstOrDefault(user => DB.GetKey(user) == nifKey));
                 if (userIndex != -1)
                 {
                     userListBox.SetSelected(userIndex, true);
@@ -150,10 +150,10 @@ namespace DatabaseInterfaceDemo.View
         }
 
 
-        private void buttonRevert_Click(object sender, EventArgs e)
+        private void ButtonRevert_Click(object sender, EventArgs e)
         {
             object objectWithTempFlag = userPropertyGrid.SelectedObject;
-            DB.revertSingleObject(objectWithTempFlag, DB.GetBindingList());
+            DB.RevertSingleObject(objectWithTempFlag, DB.GetBindingList());
             UpdateListBoxPointerByKey(objectWithTempFlag);
             userListBox.DataSource = DB.GetBindingList();
         }
@@ -163,7 +163,7 @@ namespace DatabaseInterfaceDemo.View
             DB.PreventClosingWithUncommittedChanges(e);
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
             object userWithTempFlag = (Empleado)userPropertyGrid.SelectedObject;
             DB.saveObject(userWithTempFlag);
@@ -171,7 +171,7 @@ namespace DatabaseInterfaceDemo.View
 
         }
 
-        private void buttonSaveAll_Click(object sender, EventArgs e)
+        private void ButtonSaveAll_Click(object sender, EventArgs e)
         {
             if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
             {
@@ -180,7 +180,7 @@ namespace DatabaseInterfaceDemo.View
             }
         }
 
-        private void buttonRevertAll_Click(object sender, EventArgs e)
+        private void ButtonRevertAll_Click(object sender, EventArgs e)
         {
             if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
             {

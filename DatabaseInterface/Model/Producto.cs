@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.Serialization;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace DatabaseInterfaceDemo.Model
@@ -27,23 +24,20 @@ namespace DatabaseInterfaceDemo.Model
      */
     [Serializable]
     [XmlRoot("Producto")]
-    public class Producto
+    public class Producto : TEMPLATE_Class
     {
-        [DisplayName("*")]
-        [XmlIgnore]
-        public char tempChar { get; set; }
 
         [DisplayName("Nombre")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [DisplayName("Categoría")]
-        public Category category { get; set; }
+        public Category Category { get; set; }
 
         [DisplayName("Price/unit")]
-        public int pricePerUnit { get; set; }
+        public int PricePerUnit { get; set; }
 
         [DisplayName("Unit Type")]
-        public Unit_Type unitType { get; set; }
+        public Unit_Type UnitType { get; set; }
 
         [DisplayName("Stock")]
         public Int32 Stock { get; set; }
@@ -51,68 +45,50 @@ namespace DatabaseInterfaceDemo.Model
         [DisplayName("Product ID")]
         public Int32 ID { get; set; }
 
-        [Browsable(false)]
-        [XmlIgnore]
-        public Boolean tempStatus { get; set; }
-
         public Producto() { }
         
-
-        //This is (will?) be needed reverse-engineered recreation of a generic
-        public Producto(List<object> l)
-        {
-
-        }
-
-        public void setTempStatus(Boolean temp)
-        {
-            this.tempStatus = temp;
-            this.tempChar = temp ? '*' : '\0';
-        }
-        public Boolean getTempStatus() { return this.tempStatus; }
-
         public override string ToString()
         {
-            return this.name;
+            return this.Name;
         }
 
         public override bool Equals(object obj)
         {
             return obj is Producto producto &&
-                   tempChar == producto.tempChar &&
-                   name == producto.name &&
-                   category == producto.category &&
-                   pricePerUnit == producto.pricePerUnit &&
-                   unitType == producto.unitType &&
+                   TempChar == producto.TempChar &&
+                   Name == producto.Name &&
+                   Category == producto.Category &&
+                   PricePerUnit == producto.PricePerUnit &&
+                   UnitType == producto.UnitType &&
                    Stock == producto.Stock &&
                    ID == producto.ID &&
-                   tempStatus == producto.tempStatus;
+                   TempStatus == producto.TempStatus;
         }
 
         public override int GetHashCode()
         {
             int hashCode = 19390550;
-            hashCode = hashCode * -1521134295 + tempChar.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
-            hashCode = hashCode * -1521134295 + category.GetHashCode();
-            hashCode = hashCode * -1521134295 + pricePerUnit.GetHashCode();
-            hashCode = hashCode * -1521134295 + unitType.GetHashCode();
+            hashCode = hashCode * -1521134295 + TempChar.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + Category.GetHashCode();
+            hashCode = hashCode * -1521134295 + PricePerUnit.GetHashCode();
+            hashCode = hashCode * -1521134295 + UnitType.GetHashCode();
             hashCode = hashCode * -1521134295 + Stock.GetHashCode();
             hashCode = hashCode * -1521134295 + ID.GetHashCode();
-            hashCode = hashCode * -1521134295 + tempStatus.GetHashCode();
+            hashCode = hashCode * -1521134295 + TempStatus.GetHashCode();
             return hashCode;
         }
 
         public Producto(char tempChar, string name, Category category, int pricePerUnit, Unit_Type unitType, int stock, int iD, bool tempStatus)
         {
-            this.tempChar = tempStatus ? '*' : '\0';
-            this.name = name;
-            this.category = category;
-            this.pricePerUnit = pricePerUnit;
-            this.unitType = unitType;
+            this.TempChar = tempStatus ? '*' : '\0';
+            this.Name = name;
+            this.Category = category;
+            this.PricePerUnit = pricePerUnit;
+            this.UnitType = unitType;
             Stock = stock;
             ID = iD;
-            this.tempStatus = tempStatus;
+            this.TempStatus = tempStatus;
         }
 
 

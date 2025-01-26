@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Windows.Forms;
-using DatabaseInterfaceDemo.View;
-using DatabaseInterfaceDemo.Controller;
-using DatabaseInterfaceDemo.Model;
-using DatabaseInterfaceDemo.Data;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Windows.Forms;
+using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.Model;
 
-namespace DatabaseInterfaceDemo.View
+namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 {
 
-    public partial class FormUser : Form
+    public partial class FormCreateEmployee : Form
     {
         static readonly Dictionary<string, string> LOC_STRINGS = LocalizationText.localizedStrings;
 
@@ -24,7 +22,7 @@ namespace DatabaseInterfaceDemo.View
         private void UserForm_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
-            loadListenersForTextBoxes();
+            LoadListenersForTextBoxes();
             //For edit mode you're editing an existing user, and can't change its primary key
             if (editMode)
             {
@@ -36,7 +34,7 @@ namespace DatabaseInterfaceDemo.View
             }
         }
 
-        public FormUser(Form sender, Boolean editMode, ObjectDataBaseController<object> db)
+        public FormCreateEmployee(Form sender, Boolean editMode, ObjectDataBaseController<object> db)
         {
 
             this.parent = sender;
@@ -53,7 +51,7 @@ namespace DatabaseInterfaceDemo.View
             base.OnClosed(e);
         }
 
-        public FormUser(Form sender, object ob, Boolean editMode, ObjectDataBaseController<object> db)
+        public FormCreateEmployee(Form sender, object ob, Boolean editMode, ObjectDataBaseController<object> db)
         {
             this.parent = sender;
             this.db = db;
@@ -73,21 +71,21 @@ namespace DatabaseInterfaceDemo.View
             */
         }
 
-        private void loadListenersForTextBoxes()
+        private void LoadListenersForTextBoxes()
         {
-            foreach(TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
+            foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
             {
                 t.ContextMenuStrip = contextMenuStrip1;
-                t.Enter += resetColorToDefault;
+                t.Enter += ResetColorToDefault;
             }
         }
 
-        private void resetColorToDefault(object sender, EventArgs e)
+        private void ResetColorToDefault(object sender, EventArgs e)
         {
             (sender as TextBoxBase).BackColor = System.Drawing.Color.White;
         }
 
-        private void highlightEmptyTextBoxes()
+        private void HighlightEmptyTextBoxes()
         {
             foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
             {
@@ -105,13 +103,14 @@ namespace DatabaseInterfaceDemo.View
             {
                 LocalizationText.WARN_FillAllData();
                 this.DialogResult = DialogResult.None; //Why the frick is this how it has to work
-                highlightEmptyTextBoxes();
+                HighlightEmptyTextBoxes();
 
-            } else
+            }
+            else
             {
                 usernif = Int32.Parse(tbNIF.Text.ToString().Replace(" ", ""));
                 Empleado u = new Empleado(
-                    objectBeingModified.getTempStatus(), 
+                    objectBeingModified.GetTempStatus(),
                     tbNombre.Text.ToString(),
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
@@ -120,7 +119,7 @@ namespace DatabaseInterfaceDemo.View
                     usernif);
                 if (u.Equals(objectBeingModified))
                 {
-                    db.SetTempStatus(u,objectBeingModified.tempStatus);
+                    db.SetTempStatus(u, objectBeingModified.TempStatus);
                     db.GetBackupList().Remove(objectBeingModified);
                 }
                 else
@@ -137,7 +136,7 @@ namespace DatabaseInterfaceDemo.View
             this.parent.Show();
         }
 
-        private void buttonClear_Click(object sender, EventArgs e)
+        private void ButtonClear_Click(object sender, EventArgs e)
         {
             foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
             {
@@ -152,7 +151,7 @@ namespace DatabaseInterfaceDemo.View
 
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             if (LocalizationText.WARN_ExitWithoutSaving() == DialogResult.Yes)
             {
@@ -160,7 +159,7 @@ namespace DatabaseInterfaceDemo.View
             }
         }
 
-        private void numSalary_Enter(object sender, EventArgs e)
+        private void NumSalary_Enter(object sender, EventArgs e)
         {
             if (numSalary.Text.ToString() != "")
             {
@@ -168,43 +167,43 @@ namespace DatabaseInterfaceDemo.View
             }
         }
 
-        private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CortarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Utils.CutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
         }
 
-        private void pegarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PegarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Utils.TextBoxBaseFromControl(this.ActiveControl).Paste();
         }
 
-        private void onClosing(object sender, FormClosingEventArgs e)
+        private void OnClosing(object sender, FormClosingEventArgs e)
         {
 
         }
 
-        private void cortarToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CortarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Utils.CutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
         }
 
-        private void pegarToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void PegarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Utils.TextBoxBaseFromControl(this.ActiveControl).Paste();
 
         }
 
-        private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CopiarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Utils.TextBoxBaseFromControl(this.ActiveControl).Copy();
         }
 
-        private void copiarToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CopiarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Utils.TextBoxBaseFromControl(this.ActiveControl).Copy();
         }
 
-        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AcercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form acercaDe = new AcercaDe();
             acercaDe.ShowDialog();

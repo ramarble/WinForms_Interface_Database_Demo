@@ -71,7 +71,7 @@
             this.buttonModify.TabIndex = 5;
             this.buttonModify.Text = "Modificar";
             this.buttonModify.UseVisualStyleBackColor = true;
-            this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
+            this.buttonModify.Click += new System.EventHandler(this.ButtonModify_Click);
             // 
             // buttonRevert
             // 
@@ -82,7 +82,7 @@
             this.buttonRevert.TabIndex = 3;
             this.buttonRevert.Text = "Revertir";
             this.buttonRevert.UseVisualStyleBackColor = true;
-            this.buttonRevert.Click += new System.EventHandler(this.buttonRevert_Click);
+            this.buttonRevert.Click += new System.EventHandler(this.ButtonRevert_Click);
             // 
             // buttonSave
             // 
@@ -96,7 +96,7 @@
             this.buttonSave.TabIndex = 6;
             this.buttonSave.Text = "Guardar";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // userPropertyGrid
             // 
@@ -131,7 +131,7 @@
             this.buttonRevertAll.TabIndex = 4;
             this.buttonRevertAll.Text = "Revertir TODO";
             this.buttonRevertAll.UseVisualStyleBackColor = true;
-            this.buttonRevertAll.Click += new System.EventHandler(this.buttonRevertAll_Click);
+            this.buttonRevertAll.Click += new System.EventHandler(this.ButtonRevertAll_Click);
             // 
             // buttonSaveAll
             // 
@@ -146,7 +146,7 @@
             this.buttonSaveAll.TabIndex = 7;
             this.buttonSaveAll.Text = "Guardar TODO";
             this.buttonSaveAll.UseVisualStyleBackColor = true;
-            this.buttonSaveAll.Click += new System.EventHandler(this.buttonSaveAll_Click);
+            this.buttonSaveAll.Click += new System.EventHandler(this.ButtonSaveAll_Click);
             // 
             // FormBuscarUser
             // 

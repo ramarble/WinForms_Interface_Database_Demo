@@ -27,9 +27,11 @@ namespace DatabaseInterfaceDemo.Controller
 
         public static Dictionary<Type, string> TypeDictionary()
         {
-            Dictionary<Type, string> dict = new Dictionary<Type, string>();
-            dict.Add(typeof(Empleado), "nif");
-            dict.Add(typeof(Producto), "ID");
+            Dictionary<Type, string> dict = new Dictionary<Type, string>
+            {
+                { typeof(Empleado), "NIF" },
+                { typeof(Producto), "ID" }
+            };
 
             return dict;
         } 

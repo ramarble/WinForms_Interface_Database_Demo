@@ -31,7 +31,7 @@ namespace DatabaseInterfaceDemo.Controller
             try
             {
                 string[] xml = File.ReadAllLines(path);
-                Type objType = findTypeFromParsedXMLFile(xml);
+                Type objType = FindTypeFromParsedXMLFile(xml);
                 
                 Type listType = (new List<object>()).GetType();
 
@@ -51,7 +51,7 @@ namespace DatabaseInterfaceDemo.Controller
             }
         }
 
-        public static Type findTypeFromParsedXMLFile(string[] readLines)
+        public static Type FindTypeFromParsedXMLFile(string[] readLines)
         {
             Dictionary<Type,string> dict = Utils.TypeDictionary();
 

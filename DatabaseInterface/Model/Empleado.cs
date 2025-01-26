@@ -13,97 +13,74 @@ namespace DatabaseInterfaceDemo.Model
      */
     [Serializable]
     [XmlRoot("Empleado")]
-    public class Empleado
+    public class Empleado : TEMPLATE_Class
     {
-        [DisplayName("*")]
-        [XmlIgnore]
-        public char tempChar { get; set; }
 
         [DisplayName("Nombre")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [DisplayName("Apellido #1")]
-        public string surname1 { get; set; }
+        public string Surname1 { get; set; }
 
         [DisplayName("Apellido #2")]
-        public string surname2 { get; set; }
+        public string Surname2 { get; set; }
 
         [DisplayName("Salario")]
-        public decimal salary { get; set; }
+        public decimal Salary { get; set; }
 
         [DisplayName("NIF")]
-        public Int32 nif { get; set; }
+        public Int32 NIF { get; set; }
 
         [DisplayName("Fecha Nacimiento")]
-        public DateTime birthdate { get; set; }
-
-        [Browsable(false)]
-        [XmlIgnore]
-        public Boolean tempStatus { get; set; }
+        public DateTime Birthdate { get; set; }
 
         public override bool Equals(object obj)
         {
             return obj is Empleado user &&
-                   tempChar == user.tempChar &&
-                   name == user.name &&
-                   surname1 == user.surname1 &&
-                   surname2 == user.surname2 &&
-                   salary == user.salary &&
-                   nif == user.nif &&
-                   birthdate == user.birthdate &&
-                   tempStatus == user.tempStatus;
+                   TempChar == user.TempChar &&
+                   Name == user.Name &&
+                   Surname1 == user.Surname1 &&
+                   Surname2 == user.Surname2 &&
+                   Salary == user.Salary &&
+                   NIF == user.NIF &&
+                   Birthdate == user.Birthdate &&
+                   TempStatus == user.TempStatus;
         }
 
         
-
         public Empleado() { }
         public Empleado(Boolean tempStatus, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
         {
-            this.tempStatus = tempStatus;
+            this.TempStatus = tempStatus;
 
             //This is a read-only attribute for display in spreadsheet format,
             //also probably unnecessary if I did things a different way
-            this.tempChar = tempStatus ? '*' : '\0';
+            this.TempChar = tempStatus ? '*' : '\0';
 
-            this.name = nombre;
-            this.salary = salario;
-            this.surname1 = apellido1 == "" ? "<empty>" : apellido1;
-            this.surname2 = apellido2 == "" ? "<empty>" : apellido2;
-            this.nif = nif;
-            this.birthdate = birthdate;
+            this.Name = nombre;
+            this.Salary = salario;
+            this.Surname1 = apellido1 == "" ? "<empty>" : apellido1;
+            this.Surname2 = apellido2 == "" ? "<empty>" : apellido2;
+            this.NIF = nif;
+            this.Birthdate = birthdate;
         }
-
-
-
-        //This is a needed reverse-engineered recreation of a generic
-        public Empleado(List<object> l)
-        {
-
-        }
-
-        public void setTempStatus(Boolean temp)
-        {
-            this.tempStatus = temp;
-            this.tempChar = temp ? '*' : '\0';
-        }
-        public Boolean getTempStatus() { return this.tempStatus; }
 
         public override string ToString()
         {
-            return this.name;
+            return this.Name;
         }
 
         public override int GetHashCode()
         {
             int hashCode = 610695206;
-            hashCode = hashCode * -1521134295 + tempChar.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(surname1);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(surname2);
-            hashCode = hashCode * -1521134295 + salary.GetHashCode();
-            hashCode = hashCode * -1521134295 + nif.GetHashCode();
-            hashCode = hashCode * -1521134295 + birthdate.GetHashCode();
-            hashCode = hashCode * -1521134295 + tempStatus.GetHashCode();
+            hashCode = hashCode * -1521134295 + TempChar.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Surname1);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Surname2);
+            hashCode = hashCode * -1521134295 + Salary.GetHashCode();
+            hashCode = hashCode * -1521134295 + NIF.GetHashCode();
+            hashCode = hashCode * -1521134295 + Birthdate.GetHashCode();
+            hashCode = hashCode * -1521134295 + TempStatus.GetHashCode();
             return hashCode;
         }
     }
