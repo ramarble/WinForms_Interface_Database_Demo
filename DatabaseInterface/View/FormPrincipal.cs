@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.CodeDom;
 
 
 namespace DatabaseInterfaceDemo
@@ -100,9 +101,6 @@ namespace DatabaseInterfaceDemo
         {
             //There's a memory leak somewhere here :D
             List<object> objList = CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]);
-
-            var a = objList[0] as Empleado;
-            MessageBox.Show(a.Name);
             
             if (objList == null ||objList.Count < 1)
             {
@@ -363,8 +361,8 @@ namespace DatabaseInterfaceDemo
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    Empleado u = row.DataBoundItem as Empleado;
-                    DB.SaveObject(u);
+                    object ob = row.DataBoundItem;
+                    DB.SaveObject(ob);
                 }
                 DB.GetBindingList().ResetBindings();
             }
@@ -377,8 +375,8 @@ namespace DatabaseInterfaceDemo
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
-                    Empleado u = row.DataBoundItem as Empleado;
-                    DB.GetBindingList().Remove(u);
+                    object ob = row.DataBoundItem;
+                    DB.GetBindingList().Remove(ob);
                 }
                 DB.GetBindingList().ResetBindings();
             }
@@ -394,29 +392,36 @@ namespace DatabaseInterfaceDemo
 
         private void Search_Menu_Click(object sender, EventArgs e)
         {
-            if (DB != null) 
-            {
-                Form DetailedView = new FormBuscarUser(this, DB);
-                DetailedView.ShowDialog(this);
-            } else
-            {
-                DialogResult d = LocalizationText.ERR_DBNotInitialized();
-                d = DialogResult.None;
-            }
+            MessageBox.Show("Here were dragons");
         }
 
         private void New_Menu_Click(object sender, EventArgs e)
         {
             if (DB != null)
             {
-                Form newUserForm = new FormCreateEmployee(this, false, DB);
-                newUserForm.ShowDialog(this);
+                GetFormBasedOnDBType().ShowDialog();
             }
             else
             {
                 DialogResult d = LocalizationText.ERR_DBNotInitialized();
                 d = DialogResult.None;
             }
+        }
+
+        private Form GetFormBasedOnDBType()
+        {
+            Form NewObjectForm = null;
+            switch (DB.GetDBObjectType().Name)
+            {
+                case nameof(Empleado):
+                    NewObjectForm = new FormCreateEmployee(this, false, DB);
+                    break;
+                case nameof(Producto):
+                    NewObjectForm = new FormCreateEmployee(this, false, DB);
+                    break;
+                  
+            }
+            return NewObjectForm;
         }
 
         private void Exit_Menu_Click(object sender, EventArgs e)
@@ -440,7 +445,7 @@ namespace DatabaseInterfaceDemo
         private void ButtonModifyObject_Click(object sender, EventArgs e)
         {
             object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
-            DB.ModifyObject(userToEdit, this, DB);
+            DB.ModifyObject(userToEdit, this, GetFormBasedOnDBType(), DB);
         }
 
         private void MaximizarToolStrip_Click(object sender, EventArgs e)

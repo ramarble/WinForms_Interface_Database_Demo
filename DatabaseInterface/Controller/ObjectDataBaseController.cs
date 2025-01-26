@@ -90,7 +90,7 @@ namespace DatabaseInterfaceDemo.Controller
                     return false;
                 }
             }
-            throw new Exception("I didn't expect this code path");
+            throw new Exception("The Database and Object added were not of the same type.");
         }
 
 
@@ -206,7 +206,7 @@ namespace DatabaseInterfaceDemo.Controller
 
         }
 
-        public void ModifyObject(object objectToEdit, Form SourceForm, ObjectDataBaseController<object> db)
+        public void ModifyObject(object objectToEdit, Form SourceForm, Form editForm, ObjectDataBaseController<object> db)
         {
             db.GetBackupList().Add(objectToEdit);
 

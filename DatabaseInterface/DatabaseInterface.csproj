@@ -76,12 +76,6 @@
     <Compile Include="View\AcercaDe.Designer.cs">
       <DependentUpon>AcercaDe.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FormBuscarUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\FormBuscarUser.Designer.cs">
-      <DependentUpon>FormBuscarUser.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,9 +114,6 @@
     </Compile>
     <EmbeddedResource Include="View\AcercaDe.resx">
       <DependentUpon>AcercaDe.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\FormBuscarUser.resx">
-      <DependentUpon>FormBuscarUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
