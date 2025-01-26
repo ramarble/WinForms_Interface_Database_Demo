@@ -379,7 +379,7 @@ namespace DatabaseInterfaceDemo
             this.buttonLoadData.TabIndex = 1;
             this.buttonLoadData.Text = "Cargar datos";
             this.buttonLoadData.UseVisualStyleBackColor = true;
-            this.buttonLoadData.Click += new System.EventHandler(this.LoadDataButton_Click);
+            this.buttonLoadData.Click += new System.EventHandler(this.LoadDataFromFile);
             // 
             // labelDatabase
             // 

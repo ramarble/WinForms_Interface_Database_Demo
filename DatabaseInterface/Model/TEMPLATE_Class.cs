@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
 namespace DatabaseInterfaceDemo.Model
@@ -18,10 +19,12 @@ namespace DatabaseInterfaceDemo.Model
     {
         [DisplayName("*")]
         [XmlIgnore]
+        [JsonIgnore]
         public char TempChar { get; set; }
 
         [Browsable(false)]
         [XmlIgnore]
+        [JsonIgnore]
         public Boolean TempStatus { get; set; }
 
         public TEMPLATE_Class() {

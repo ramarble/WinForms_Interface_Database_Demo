@@ -100,18 +100,33 @@ namespace DatabaseInterfaceDemo
             DB.GetBindingList().RemoveAt(0);
         }
 
-        private void LoadDataButton_Click(object sender, EventArgs e)
+        private void LoadDataFromFile(object sender, EventArgs e)
         {
             //There's a memory leak somewhere here :D
-            List<object> objList = CustomXMLParser.XMLReadObjects(GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex]);
-            
+            string path = GLOBAL_PATHS_FILES[comboBoxCargarDatos.SelectedIndex];
+            List<object> objList = null;
+            List<Empleado> empleadoList;
+
+
+            switch (Path.GetExtension(path))
+            {
+                case ".xml":
+                    objList = CustomXMLParser.XMLReadObjects(path);
+                    break;
+                case ".json":
+                    objList = CustomJSONParser.JSONReadObjects(path);
+                    break;
+                default:
+                    throw new Exception("File Format not accepted (put this in the file)");
+            }
+
             if (objList == null ||objList.Count < 1)
             {
                 return;
             }
 
             StartDatabaseController(objList[0].GetType(), objList);
-            
+
         }
 
 
@@ -492,7 +507,15 @@ namespace DatabaseInterfaceDemo
             string path;
             if ((path = Utils.GetFilePathFromSaveFileDialog()) != null)
             {
-                CustomXMLParser.TurnIntoXMLFile(DB.GetBindingList().ToList<object>(), path);
+                switch (Path.GetExtension(path))
+                {
+                    case ".xml":
+                        CustomXMLParser.TurnIntoXMLFile(DB.GetBindingList().ToList<object>(), path);
+                        break;
+                    case ".json":
+                        CustomJSONParser.TurnIntoJSONFile(DB.GetBindingList().ToList<object>(), path);
+                        break;
+                }
             }
         }
     }

@@ -18,8 +18,9 @@ namespace DatabaseInterfaceDemo.Controller
         {
             PRIMARY_KEY = primary_key;
             OBJ_TYPE = Utils.TypeDictionary().FirstOrDefault(x => x.Value == primary_key).Key;
-
         }
+
+        
         public ObjectDataBaseController(Type type)
         {
             PRIMARY_KEY = Utils.TypeDictionary()[type];
