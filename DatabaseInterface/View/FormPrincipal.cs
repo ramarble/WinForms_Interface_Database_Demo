@@ -442,6 +442,22 @@ namespace DatabaseInterfaceDemo
             return NewObjectForm;
         }
 
+        private Form GetFormBasedOnDBType(object objectToEdit)
+        {
+            Form NewObjectForm = null;
+            switch (DB.GetDBObjectType().Name)
+            {
+                case nameof(Empleado):
+                    NewObjectForm = new FormCreateEmployee(this, objectToEdit, false, DB);
+                    break;
+                case nameof(Producto):
+                    NewObjectForm = new FormCreateProduct(this, objectToEdit, false, DB);
+                    break;
+
+            }
+            return NewObjectForm;
+        }
+
         private void Exit_Menu_Click(object sender, EventArgs e)
         {
             Close();
@@ -462,8 +478,8 @@ namespace DatabaseInterfaceDemo
 
         private void ButtonModifyObject_Click(object sender, EventArgs e)
         {
-            object userToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
-            DB.ModifyObject(userToEdit, this, GetFormBasedOnDBType(), DB);
+            object objectToEdit = PrincipalDataGridView.SelectedRows[0].DataBoundItem;
+            DB.ModifyObject(objectToEdit, this, GetFormBasedOnDBType(objectToEdit), DB);
         }
 
         private void MaximizarToolStrip_Click(object sender, EventArgs e)

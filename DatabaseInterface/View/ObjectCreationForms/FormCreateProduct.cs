@@ -48,8 +48,8 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             var ob = obj as Producto;
             tbNombre.Text = ob.Name;
-            comboBoxCategory.Text = ob.Category.ToString();
-            comboBoxUnitType.SelectedValue = ob.UnitType.ToString();
+            comboBoxCategory.SelectedItem = ob.Category;
+            comboBoxUnitType.SelectedItem = ob.UnitType;
             nudPricePerUnit.Value = ob.PricePerUnit;
             nudID.Value = ob.ID;
 

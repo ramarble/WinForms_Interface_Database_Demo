@@ -214,8 +214,8 @@ namespace DatabaseInterfaceDemo.Controller
             db.GetBindingList().Remove(objectToEdit);
 
             //This form is the responsible for adding the new user to the list.
-            FormCreateEmployee f = new FormCreateEmployee(SourceForm, objectToEdit, true, db);
-            f.ShowDialog();
+            
+            editForm.ShowDialog();
 
 
             //In case the form exited abruptly

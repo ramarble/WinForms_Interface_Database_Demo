@@ -38,6 +38,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             {
                 throw new FieldAccessException("The Primary Key field was not assigned or it's of an incorrect type");
             }
+
         } 
 
         public BaseFormCreateObject(Form sender, Boolean editMode, ObjectDataBaseController<object> db)
@@ -50,7 +51,6 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
             //Constructor used by ADD NEW mode
             this.EditMode = editMode;
-            //UserFormInitialize(sender);
         }
 
         public BaseFormCreateObject(Form sender, object ob, Boolean editMode, ObjectDataBaseController<object> db)
