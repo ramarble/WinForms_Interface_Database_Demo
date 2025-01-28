@@ -173,6 +173,8 @@
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DatabaseInterfaceDemo.Model.Empleado.datasource" />
+    <None Include="Properties\DataSources\DatabaseInterfaceDemo.Model.Producto.datasource" />
     <None Include="Properties\DataSources\RA4_Ejercicios.Model.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
