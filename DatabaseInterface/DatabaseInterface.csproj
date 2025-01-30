@@ -96,7 +96,7 @@
     <Compile Include="Controller\CustomJSONParser.cs" />
     <Compile Include="Data\LocalizationText.cs" />
     <Compile Include="Controller\ObjectFactory.cs" />
-    <Compile Include="Controller\Utils.cs" />
+    <Compile Include="Controller\FormUtils.cs" />
     <Compile Include="Controller\ObjectDataBaseController.cs" />
     <Compile Include="Controller\CustomXMLParser.cs" />
     <Compile Include="Model\Empleado.cs" />
@@ -108,6 +108,7 @@
     <Compile Include="View\AcercaDe.Designer.cs">
       <DependentUpon>AcercaDe.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\FilterControls\FilterControlsBase.cs" />
     <Compile Include="View\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +141,7 @@
     <Compile Include="View\ObjectCreationForms\FormCreateEmployee.Designer.cs">
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\FilterControls\ProductFiltersControls.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

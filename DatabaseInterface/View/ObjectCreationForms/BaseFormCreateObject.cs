@@ -32,7 +32,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             }
             else if (c.GetType() == typeof(NumericUpDown))
             {
-                PrimaryKeyControl = Utils.GetTextBoxFromNumericUpDown(c as NumericUpDown);
+                PrimaryKeyControl = FormUtils.GetTextBoxFromNumericUpDown(c as NumericUpDown);
             }
             else
             {
@@ -70,7 +70,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
         public void LoadListenersForTextBoxes()
         {
-            foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
+            foreach (TextBoxBase t in FormUtils.ListOfTextBoxesInForm(this))
             {
                 t.ContextMenuStrip = contextMenuStrip1;
                 t.Enter += ResetColorToDefault;
@@ -85,7 +85,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
         public void HighlightEmptyTextBoxes()
         {
-            foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
+            foreach (TextBoxBase t in FormUtils.ListOfTextBoxesInForm(this))
             {
                 if (String.IsNullOrWhiteSpace(t.Text.ToString()))
                 {
@@ -130,7 +130,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
         public virtual void ClearAllTextBoxes(object sender, EventArgs e)
         {
-            foreach (TextBoxBase t in Utils.ListOfTextBoxesInForm(this))
+            foreach (TextBoxBase t in FormUtils.ListOfTextBoxesInForm(this))
             {
                 if (!t.ReadOnly)
                 {
@@ -158,17 +158,17 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
         public virtual void CortarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utils.CutText(Utils.TextBoxBaseFromControl(this.ActiveControl));
+            FormUtils.CutText(FormUtils.TextBoxBaseFromControl(this.ActiveControl));
         }
 
         public virtual void PegarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utils.TextBoxBaseFromControl(this.ActiveControl).Paste();
+            FormUtils.TextBoxBaseFromControl(this.ActiveControl).Paste();
         }
 
         public virtual void CopiarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utils.TextBoxBaseFromControl(this.ActiveControl).Copy();
+            FormUtils.TextBoxBaseFromControl(this.ActiveControl).Copy();
         }
 
         public virtual void AcercaDeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -185,7 +185,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
         public virtual void BaseFormCreateObject_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!Utils.IsAnyTextBoxEmptyInForm(this))
+            if (!FormUtils.IsAnyTextBoxEmptyInForm(this))
             {
                 if (LocalizationText.WARN_ExitWithoutSaving() != DialogResult.Yes)
                 {

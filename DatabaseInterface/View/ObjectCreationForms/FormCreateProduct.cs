@@ -57,7 +57,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
         public override void SaveUserAsTemp(object sender, EventArgs e)
         {
-            if (Utils.IsAnyTextBoxEmptyInForm(this))
+            if (FormUtils.IsAnyTextBoxEmptyInForm(this))
             {
                 LocalizationText.WARN_FillAllData();
                 this.DialogResult = DialogResult.None; //Why the frick is this how it has to work

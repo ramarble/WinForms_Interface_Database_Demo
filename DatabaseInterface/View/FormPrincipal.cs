@@ -26,9 +26,9 @@ namespace DatabaseInterfaceDemo
 
         static readonly List<string> GLOBAL_PATHS_FILES = new List<string>();
 
-        static readonly OpenFileDialog OFD = Utils.FormattedOpenFileDialog();
+        static readonly OpenFileDialog OFD = FormUtils.FormattedOpenFileDialog();
 
-        static readonly Dictionary<Type, string> TYPE_DICT = Utils.TypeDictionary();
+        static readonly Dictionary<Type, string> TYPE_DICT = FormUtils.TypeDictionary();
 
         static readonly Dictionary<string, string> LOC_STRINGS = LocalizationText.localizedStrings;
 
@@ -274,7 +274,7 @@ namespace DatabaseInterfaceDemo
             if (comboBoxCargarDatos.SelectedIndex == comboBoxCargarDatos.Items.Count - 1)
             {
                 string filePathReturned;
-                if ((filePathReturned = Utils.ReturnPathFromOFD(OFD)) != null)
+                if ((filePathReturned = FormUtils.ReturnPathFromOFD(OFD)) != null)
                 {
                     GLOBAL_PATHS_FILES.Insert(0, filePathReturned);
                     comboBoxCargarDatos.Items.Insert(0, Path.GetFileName(filePathReturned));
@@ -467,7 +467,8 @@ namespace DatabaseInterfaceDemo
         {
             if (DB != null)
             {
-                Form reportForm = new ReportForm(DB.GetBindingList());
+                MessageBox.Show("Hardcoded value");
+                Form reportForm = new ReportForm(DB.GetBindingList(), FilterControlsBase.FilterFormList.Products);
                 reportForm.ShowDialog();
             } else
             {
@@ -521,7 +522,7 @@ namespace DatabaseInterfaceDemo
         private void ButtonSaveToFile_Click(object sender, EventArgs e)
         {
             string path;
-            if ((path = Utils.GetFilePathFromSaveFileDialog()) != null)
+            if ((path = FormUtils.GetFilePathFromSaveFileDialog()) != null)
             {
                 switch (Path.GetExtension(path))
                 {

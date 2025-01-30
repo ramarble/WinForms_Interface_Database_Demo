@@ -17,13 +17,13 @@ namespace DatabaseInterfaceDemo.Controller
         public ObjectDataBaseController(string primary_key)
         {
             PRIMARY_KEY = primary_key;
-            OBJ_TYPE = Utils.TypeDictionary().FirstOrDefault(x => x.Value == primary_key).Key;
+            OBJ_TYPE = FormUtils.TypeDictionary().FirstOrDefault(x => x.Value == primary_key).Key;
         }
 
         
         public ObjectDataBaseController(Type type)
         {
-            PRIMARY_KEY = Utils.TypeDictionary()[type];
+            PRIMARY_KEY = FormUtils.TypeDictionary()[type];
             OBJ_TYPE = type;
         }
 

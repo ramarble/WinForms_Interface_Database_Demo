@@ -43,7 +43,7 @@ namespace DatabaseInterfaceDemo.Controller
         }
         public static Type FindTypeFromParsedJSONFile(string readObject)
         {
-            Dictionary<Type, string> dict = Utils.TypeDictionary();
+            Dictionary<Type, string> dict = FormUtils.TypeDictionary();
 
             foreach (KeyValuePair<Type,string> entry in dict)
             {
