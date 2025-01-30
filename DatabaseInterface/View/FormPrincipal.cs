@@ -468,7 +468,7 @@ namespace DatabaseInterfaceDemo
             if (DB != null)
             {
                 MessageBox.Show("Hardcoded value");
-                Form reportForm = new ReportForm(DB.GetBindingList(), FilterControlsBase.FilterFormList.Products);
+                Form reportForm = new ReportForm(DB.GetBindingList(), FilterFormList.Products);
                 reportForm.ShowDialog();
             } else
             {

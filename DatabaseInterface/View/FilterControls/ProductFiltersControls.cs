@@ -17,11 +17,11 @@ namespace DatabaseInterfaceDemo.View
         private Label labelStock;
         private NumericUpDown nudStock;
         private CheckedListBox CategoryFilterCheckedBoxes;
+        private Button ButtonUpdateFilters;
+
 
         public ProductFiltersControls(ReportForm form, ReportViewer reportViewer) : base(form, reportViewer)
         {
-
-            base.InitializeComponent();
             InitializeComponent();
 
             CategoryFilterCheckedBoxes.Items.AddRange(Enum.GetNames(typeof(Category)));
@@ -34,7 +34,6 @@ namespace DatabaseInterfaceDemo.View
             Form.Controls.Add(nudStock);
             Form.Controls.Add(CategoryFilterCheckedBoxes);
             Form.Controls.Add(ButtonUpdateFilters);
-
             ButtonUpdateFilters.Click += UpdateFilters_Click;
 
             ProgrammaticallyPlaceFilterControls(null, null);
@@ -42,7 +41,7 @@ namespace DatabaseInterfaceDemo.View
 
         public override void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
         {
-            base.ProgrammaticallyPlaceFilterControls(sender, e);
+            FormUtils.PlaceControlAtBottomMostRight(Form, ButtonUpdateFilters);
             FormUtils.PlaceControlAtBottomMostRight(Form, ButtonUpdateFilters);
             FormUtils.PlaceControlAtBottomMostLeft(Form, CategoryFilterCheckedBoxes);
             FormUtils.PlaceControlAtBottomMostLeft(Form, nudStock, CategoryFilterCheckedBoxes);
@@ -100,7 +99,7 @@ namespace DatabaseInterfaceDemo.View
         }
 
         /// <summary>
-        /// this has to call base.InitializeComponent();
+        ///
         /// </summary>
         public override void InitializeComponent()
         {
@@ -160,16 +159,19 @@ namespace DatabaseInterfaceDemo.View
             this.CategoryFilterCheckedBoxes.Name = "CategoryFilterCheckedBoxes";
             this.CategoryFilterCheckedBoxes.Size = new System.Drawing.Size(120, 49);
             this.CategoryFilterCheckedBoxes.TabIndex = 10;
-            
+            // 
+            // buttonUpdateFilters
+            // 
+            this.ButtonUpdateFilters = new Button();
+            this.ButtonUpdateFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonUpdateFilters.Name = "buttonUpdateFilters";
+            this.ButtonUpdateFilters.Size = new System.Drawing.Size(192, 44);
+            this.ButtonUpdateFilters.TabIndex = 9;
+            this.ButtonUpdateFilters.Text = "Filtrar por categoría";
+            this.ButtonUpdateFilters.UseVisualStyleBackColor = true;
+
             ((ISupportInitialize)(this.nudPrice)).EndInit();
             ((ISupportInitialize)(this.nudStock)).EndInit();
-
-
         }
-
-
     }
-
-
-
 }
