@@ -19,6 +19,7 @@ namespace DatabaseInterfaceDemo
         public FormPrincipal()
         {
             InitializeComponent();
+            new AcercaDe().Show();
         }
 
         static ObjectDataBaseController<object> DB;

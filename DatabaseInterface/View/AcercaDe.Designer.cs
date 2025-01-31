@@ -52,9 +52,10 @@
             this.richTextBox1.Location = new System.Drawing.Point(0, 65);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(384, 100);
+            this.richTextBox1.Size = new System.Drawing.Size(384, 137);
             this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "Database Interface DEMO.\nRaúl Marrupe, 2025";
+            this.richTextBox1.Text = "Database Interface DEMO.\nRaúl Marrupe, 2025.\n\nLos archivos serializables están pr" +
+    "esentes en ./Data/Serialized\n";
             // 
             // AcercaDe
             // 
