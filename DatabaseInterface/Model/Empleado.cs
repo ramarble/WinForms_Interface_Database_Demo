@@ -28,6 +28,9 @@ namespace DatabaseInterfaceDemo.Model
         [DisplayName("Salario")]
         public decimal Salary { get; set; }
 
+        [DisplayName("Días trabajados")]
+        public int DaysWorked { get; set; }
+
         [DisplayName("NIF")]
         public Int32 NIF { get; set; }
 
@@ -42,6 +45,7 @@ namespace DatabaseInterfaceDemo.Model
                    Surname1 == user.Surname1 &&
                    Surname2 == user.Surname2 &&
                    Salary == user.Salary &&
+                   DaysWorked == user.DaysWorked &&
                    NIF == user.NIF &&
                    Birthdate == user.Birthdate &&
                    TempStatus == user.TempStatus;
@@ -49,7 +53,7 @@ namespace DatabaseInterfaceDemo.Model
 
         
         public Empleado() { }
-        public Empleado(Boolean tempStatus, string nombre, string apellido1, string apellido2, decimal salario, DateTime birthdate, Int32 nif)
+        public Empleado(Boolean tempStatus, string nombre, string apellido1, string apellido2, decimal salario, int diastrabajados, DateTime birthdate, Int32 nif)
         {
             this.TempStatus = tempStatus;
 
@@ -59,6 +63,7 @@ namespace DatabaseInterfaceDemo.Model
 
             this.Name = nombre;
             this.Salary = salario;
+            this.DaysWorked = diastrabajados;
             this.Surname1 = apellido1 == "" ? "<empty>" : apellido1;
             this.Surname2 = apellido2 == "" ? "<empty>" : apellido2;
             this.NIF = nif;

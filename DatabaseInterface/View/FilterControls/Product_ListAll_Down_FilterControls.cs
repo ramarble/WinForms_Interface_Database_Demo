@@ -9,7 +9,7 @@ using Microsoft.Reporting.WinForms;
 
 namespace DatabaseInterfaceDemo.View
 {
-    public class Product_ListAll_FilterControls : IFiltersBase
+    public class Product_ListAll_Down_FilterControls : IFiltersBase
     {
 
         private NumericUpDown nudPrice;
@@ -19,52 +19,81 @@ namespace DatabaseInterfaceDemo.View
         private CheckedListBox CategoryFilterCheckedBoxes;
         private Button ButtonUpdateFilters;
 
-        ReportForm IFiltersBase.FormOrigin { get; set; }
-        ReportViewer IFiltersBase.ReportView { get; set; }
+        public List<Control> Controls { get; set; }
 
-        public Product_ListAll_FilterControls(ReportForm form, ReportViewer reportViewer)
+        public ReportForm FormOrigin { get; set; }
+        public ReportViewer ReportView { get; set; }
+
+        public Product_ListAll_Down_FilterControls(ReportForm form, ReportViewer reportViewer)
         {
-            ((IFiltersBase) this).InitializeComponents();
+            InitializeComponents();
 
-            ((IFiltersBase)this).FormOrigin = form;
-            ((IFiltersBase)this).ReportView = reportViewer;
+            FormOrigin = form;
+            ReportView = reportViewer;
 
             CategoryFilterCheckedBoxes.Items.AddRange(Enum.GetNames(typeof(Category)));
             nudStock.Controls.RemoveAt(0);
             nudPrice.Controls.RemoveAt(0);
 
-            ((IFiltersBase)this).FormOrigin.Controls.Add(nudPrice);
-            ((IFiltersBase)this).FormOrigin.Controls.Add(labelPrice);
-            ((IFiltersBase)this).FormOrigin.Controls.Add(labelStock);
-            ((IFiltersBase)this).FormOrigin.Controls.Add(nudStock);
-            ((IFiltersBase)this).FormOrigin.Controls.Add(CategoryFilterCheckedBoxes);
-            ((IFiltersBase)this).FormOrigin.Controls.Add(ButtonUpdateFilters);
-            ButtonUpdateFilters.Click += ((IFiltersBase)this).UpdateFilters_Click;
+            Controls = AddControlsToList();
+            AddControlsToForm(Controls);
 
-            ((IFiltersBase)this).ProgrammaticallyPlaceFilterControls(null, null);
+            ButtonUpdateFilters.Click += UpdateFilters_Click;
+
+            ProgrammaticallyPlaceFilterControls(null, null);
         }
 
-        void IFiltersBase.ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
+        public List<Control> AddControlsToList()
         {
-            FormUtils.PlaceControlBottomRightCorner(((IFiltersBase)this).FormOrigin, ButtonUpdateFilters);
-            FormUtils.PlaceControlBottomLeftCorner(((IFiltersBase)this).FormOrigin, CategoryFilterCheckedBoxes);
+            List<Control> controls = new List<Control>();
+
+            controls.Add(nudPrice);
+            controls.Add(labelPrice);
+            controls.Add(labelStock);
+            controls.Add(nudStock);
+            controls.Add(CategoryFilterCheckedBoxes);
+            controls.Add(ButtonUpdateFilters);
+
+            return controls;
+        }
+
+        public void AddControlsToForm(List<Control> list)
+        {
+            foreach (Control control in Controls)
+            {
+                FormOrigin.Controls.Add(control);
+            }
+        }
+
+        public void RemoveControlsFromForm(List<Control> Controls)
+        {
+            foreach (Control control in Controls)
+            {
+                FormOrigin.Controls.Remove(control);
+            }
+        }
+
+        public void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
+        {
+            FormUtils.PlaceControlBottomRightCorner(FormOrigin, ButtonUpdateFilters);
+            FormUtils.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
             FormUtils.PlaceControlBottomRightOf(nudStock, CategoryFilterCheckedBoxes);
             FormUtils.PlaceControlBottomRightOf(nudPrice, nudStock);
             FormUtils.PlaceControlOnTopOf(labelStock, nudStock);
             FormUtils.PlaceControlOnTopOf(labelPrice, nudPrice);
         }
 
-        void IFiltersBase.UpdateFilters_Click(object sender, EventArgs e)
+        public void UpdateFilters_Click(object sender, EventArgs e)
         {
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnCategoryFilter(ReportForm.InitialList);
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnPriceFilter(ReportForm.ListCurrentlyInUse);
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnStockFilter(ReportForm.ListCurrentlyInUse);
 
 
-            ((IFiltersBase)this).ReportView.LocalReport.DataSources.Remove(ReportForm.ReportData);
+            ReportView.LocalReport.DataSources.Remove(ReportForm.ReportData);
             ReportForm.ReportData = new ReportDataSource("Producto_DataSet", ReportForm.ListCurrentlyInUse);
-            ((IFiltersBase)this).ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
-            ((IFiltersBase)this).ReportView.RefreshReport();
+            ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
+            ReportView.RefreshReport();
         }
 
 
@@ -87,7 +116,7 @@ namespace DatabaseInterfaceDemo.View
             if (nudStock.Value > 0)
             {
                 List<object> slice = new List<object>();
-                slice.AddRange(listWorkedOn.Where(it => (it as Producto).Stock > nudStock.Value));
+                slice.AddRange(listWorkedOn.Where(it => (it as Producto).Stock < nudStock.Value));
 
                 return new BindingList<object>(slice);
             }
@@ -99,7 +128,7 @@ namespace DatabaseInterfaceDemo.View
             if (nudPrice.Value > 0)
             {
                 List<object> slice = new List<object>();
-                slice.AddRange(listWorkedOn.Where(it => nudPrice.Value < (it as Producto).PricePerUnit));
+                slice.AddRange(listWorkedOn.Where(it => nudPrice.Value > (it as Producto).PricePerUnit));
 
                 return new BindingList<object>(slice);
             }
@@ -109,7 +138,7 @@ namespace DatabaseInterfaceDemo.View
         /// <summary>
         ///
         /// </summary>
-        void IFiltersBase.InitializeComponents()
+        public void InitializeComponents()
         {
 
             this.nudPrice = new NumericUpDown();
@@ -138,7 +167,7 @@ namespace DatabaseInterfaceDemo.View
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(127, 20);
             this.labelPrice.TabIndex = 13;
-            this.labelPrice.Text = "Precio superior a";
+            this.labelPrice.Text = "Precio inferior a";
             // 
             // labelStock
             // 
@@ -148,7 +177,7 @@ namespace DatabaseInterfaceDemo.View
             this.labelStock.Name = "labelStock";
             this.labelStock.Size = new System.Drawing.Size(124, 20);
             this.labelStock.TabIndex = 12;
-            this.labelStock.Text = "Stock superior a";
+            this.labelStock.Text = "Stock inferior a";
             // 
             // nudStock
             // 
@@ -179,5 +208,6 @@ namespace DatabaseInterfaceDemo.View
             ((ISupportInitialize)(this.nudPrice)).EndInit();
             ((ISupportInitialize)(this.nudStock)).EndInit();
         }
+
     }
 }

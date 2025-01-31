@@ -45,8 +45,11 @@
             this.copiarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pegarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.nudDaysWorked = new System.Windows.Forms.NumericUpDown();
+            this.labelDaysWorked = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numSalary)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDaysWorked)).BeginInit();
             this.SuspendLayout();
             // 
             // dtpFechaNacimiento
@@ -55,7 +58,7 @@
             this.dtpFechaNacimiento.AccessibleName = "Fecha de Nacimiento";
             this.dtpFechaNacimiento.CustomFormat = "dd/MM/yyyy";
             this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaNacimiento.Location = new System.Drawing.Point(284, 211);
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(284, 240);
             this.dtpFechaNacimiento.Margin = new System.Windows.Forms.Padding(6);
             this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             this.dtpFechaNacimiento.Size = new System.Drawing.Size(367, 29);
@@ -96,7 +99,7 @@
             // 
             this.lblNIF.AutoSize = true;
             this.lblNIF.Font = new System.Drawing.Font("Arial", 14F);
-            this.lblNIF.Location = new System.Drawing.Point(49, 252);
+            this.lblNIF.Location = new System.Drawing.Point(49, 281);
             this.lblNIF.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblNIF.Name = "lblNIF";
             this.lblNIF.Size = new System.Drawing.Size(41, 22);
@@ -107,7 +110,7 @@
             // 
             this.lblFechaNac.AutoSize = true;
             this.lblFechaNac.Font = new System.Drawing.Font("Arial", 14F);
-            this.lblFechaNac.Location = new System.Drawing.Point(49, 215);
+            this.lblFechaNac.Location = new System.Drawing.Point(49, 244);
             this.lblFechaNac.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblFechaNac.Name = "lblFechaNac";
             this.lblFechaNac.Size = new System.Drawing.Size(162, 22);
@@ -151,7 +154,7 @@
             // 
             this.tbNIF.AccessibleDescription = "Introduce el NIF";
             this.tbNIF.AccessibleName = "Caja NIF";
-            this.tbNIF.Location = new System.Drawing.Point(284, 249);
+            this.tbNIF.Location = new System.Drawing.Point(284, 278);
             this.tbNIF.Mask = "00000000";
             this.tbNIF.Name = "tbNIF";
             this.tbNIF.Size = new System.Drawing.Size(367, 29);
@@ -161,7 +164,7 @@
             // 
             this.lblSalary.AutoSize = true;
             this.lblSalary.Font = new System.Drawing.Font("Arial", 14F);
-            this.lblSalary.Location = new System.Drawing.Point(49, 177);
+            this.lblSalary.Location = new System.Drawing.Point(49, 206);
             this.lblSalary.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
             this.lblSalary.Name = "lblSalary";
             this.lblSalary.Size = new System.Drawing.Size(68, 22);
@@ -173,7 +176,7 @@
             this.numSalary.AccessibleDescription = "Introduce el Salario";
             this.numSalary.AccessibleName = "Caja Salario";
             this.numSalary.DecimalPlaces = 2;
-            this.numSalary.Location = new System.Drawing.Point(284, 175);
+            this.numSalary.Location = new System.Drawing.Point(284, 204);
             this.numSalary.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -213,11 +216,39 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(152, 70);
             // 
+            // nudDaysWorked
+            // 
+            this.nudDaysWorked.AccessibleDescription = "Introduce los días trabajados";
+            this.nudDaysWorked.AccessibleName = "Caja días trabajados";
+            this.nudDaysWorked.DecimalPlaces = 2;
+            this.nudDaysWorked.Location = new System.Drawing.Point(284, 172);
+            this.nudDaysWorked.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.nudDaysWorked.Name = "nudDaysWorked";
+            this.nudDaysWorked.Size = new System.Drawing.Size(120, 29);
+            this.nudDaysWorked.TabIndex = 31;
+            // 
+            // labelDaysWorked
+            // 
+            this.labelDaysWorked.AutoSize = true;
+            this.labelDaysWorked.Font = new System.Drawing.Font("Arial", 14F);
+            this.labelDaysWorked.Location = new System.Drawing.Point(49, 174);
+            this.labelDaysWorked.Margin = new System.Windows.Forms.Padding(11, 0, 11, 0);
+            this.labelDaysWorked.Name = "labelDaysWorked";
+            this.labelDaysWorked.Size = new System.Drawing.Size(143, 22);
+            this.labelDaysWorked.TabIndex = 32;
+            this.labelDaysWorked.Text = "Días trabajados";
+            // 
             // FormCreateEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 450);
+            this.Controls.Add(this.nudDaysWorked);
+            this.Controls.Add(this.labelDaysWorked);
             this.Controls.Add(this.numSalary);
             this.Controls.Add(this.lblSalary);
             this.Controls.Add(this.tbNIF);
@@ -243,8 +274,11 @@
             this.Controls.SetChildIndex(this.tbNIF, 0);
             this.Controls.SetChildIndex(this.lblSalary, 0);
             this.Controls.SetChildIndex(this.numSalary, 0);
+            this.Controls.SetChildIndex(this.labelDaysWorked, 0);
+            this.Controls.SetChildIndex(this.nudDaysWorked, 0);
             ((System.ComponentModel.ISupportInitialize)(this.numSalary)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudDaysWorked)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,5 +302,7 @@
         private System.Windows.Forms.ToolStripMenuItem copiarToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem pegarToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.NumericUpDown nudDaysWorked;
+        private System.Windows.Forms.Label labelDaysWorked;
     }
 }

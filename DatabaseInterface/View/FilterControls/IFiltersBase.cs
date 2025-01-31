@@ -1,17 +1,11 @@
 ﻿using System;
 
 using System.Windows.Forms;
-using DatabaseInterfaceDemo.Controller;
+using System.Collections.Generic;
 using Microsoft.Reporting.WinForms;
 
 namespace DatabaseInterfaceDemo.View
 {
-    public enum FilterFormList
-    {
-        Products_General,
-        Products_Stats,
-
-    }
 
     /// <summary>
     /// This will implement a ReportForm and ReportViewer which will be called or instantiated in the constructor that takes this interface.
@@ -21,6 +15,7 @@ namespace DatabaseInterfaceDemo.View
         ReportForm FormOrigin { get; set; }
         ReportViewer ReportView { get; set; }
 
+        List<Control> Controls { get; set; }
 
         /// <summary>
         /// This will get called in the OnResize event for the form, which means every programmatically placed control should be updated here.
@@ -38,6 +33,21 @@ namespace DatabaseInterfaceDemo.View
         /// </summary>
         void InitializeComponents();
 
+        /// <summary>
+        /// Add Controls to List<Control> Controls
+        /// </summary>
+        List<Control> AddControlsToList();
+
+        /// <summary>
+        /// Add List<Control> Controls to the Form
+        /// </summary>
+        /// <param name="Controls"></param>
+        void AddControlsToForm(List<Control> Controls);
+
+        /// <summary>
+        /// Called to remove all the components from the source control
+        /// </summary>
+        void RemoveControlsFromForm(List<Control> Controls);
     }
 
 

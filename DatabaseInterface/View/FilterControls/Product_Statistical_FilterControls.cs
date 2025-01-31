@@ -14,21 +14,65 @@ namespace DatabaseInterfaceDemo.View
         private CheckedListBox CategoryFilterCheckedBoxes;
         private Button ButtonUpdateFilters;
 
-        ReportForm IFiltersBase.FormOrigin { get; set; }
-        ReportViewer IFiltersBase.ReportView { get; set; }
+        public ReportForm FormOrigin { get; set; }
+        public ReportViewer ReportView { get; set; }
+        public List<Control> Controls { get; set; }
+
         public Product_Statistical_FilterControls(ReportForm form, ReportViewer reportViewer) 
         {
-            ((IFiltersBase) this).InitializeComponents();
+            InitializeComponents();
 
-            ((IFiltersBase)this).FormOrigin = form;
-            ((IFiltersBase)this).ReportView = reportViewer;
+            FormOrigin = form;
+            ReportView = reportViewer;
 
 
-            ((IFiltersBase)this).FormOrigin.Controls.Add(CategoryFilterCheckedBoxes);
-            ((IFiltersBase)this).FormOrigin.Controls.Add(ButtonUpdateFilters);
-            ButtonUpdateFilters.Click += ((IFiltersBase)this).UpdateFilters_Click;
+            CategoryFilterCheckedBoxes.Items.AddRange(Enum.GetNames(typeof(Category)));
 
-            ((IFiltersBase)this).ProgrammaticallyPlaceFilterControls(null, null);
+            Controls = AddControlsToList();
+            AddControlsToForm(Controls);
+
+
+
+            ButtonUpdateFilters.Click += UpdateFilters_Click;
+
+            ProgrammaticallyPlaceFilterControls(null, null);
+        }
+
+
+        public List<Control> AddControlsToList()
+        {
+            List<Control> controls = new List<Control>();
+            controls.Add(CategoryFilterCheckedBoxes);
+            controls.Add(ButtonUpdateFilters);
+            return controls;
+        }
+
+
+        public void AddControlsToForm(List<Control> Controls)
+        {
+            foreach (Control control in Controls)
+            {
+                FormOrigin.Controls.Add(control);
+            }
+        }
+
+        public void RemoveControlsFromForm(List<Control> Controls)
+        {
+            foreach (Control control in Controls)
+            {
+                FormOrigin.Controls.Remove(control);
+            }
+        }
+
+
+        public void UpdateFilters_Click(object sender, EventArgs e)
+        {
+            ReportForm.ListCurrentlyInUse = UpdateListBasedOnCategoryFilter(ReportForm.InitialList);
+
+            ReportView.LocalReport.DataSources.Remove(ReportForm.ReportData);
+            ReportForm.ReportData = new ReportDataSource("Producto_DataSet", ReportForm.ListCurrentlyInUse);
+            ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
+            ReportView.RefreshReport();
         }
 
 
@@ -46,23 +90,14 @@ namespace DatabaseInterfaceDemo.View
             else return listWorkedOn;
         }
 
-        void IFiltersBase.ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
+        public void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
         {
-            FormUtils.PlaceControlBottomRightCorner(((IFiltersBase)this).FormOrigin, ButtonUpdateFilters);
-            FormUtils.PlaceControlBottomLeftCorner(((IFiltersBase)this).FormOrigin, CategoryFilterCheckedBoxes);
+            FormUtils.PlaceControlBottomRightCorner(FormOrigin, ButtonUpdateFilters);
+            FormUtils.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
         }
 
-        void IFiltersBase.UpdateFilters_Click(object sender, EventArgs e)
-        {
-            ReportForm.ListCurrentlyInUse = UpdateListBasedOnCategoryFilter(ReportForm.InitialList);
 
-            ((IFiltersBase)this).ReportView.LocalReport.DataSources.Remove(ReportForm.ReportData);
-            ReportForm.ReportData = new ReportDataSource("Producto_DataSet", ReportForm.ListCurrentlyInUse);
-            ((IFiltersBase)this).ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
-            ((IFiltersBase)this).ReportView.RefreshReport();
-        }
-
-        void IFiltersBase.InitializeComponents()
+        public void InitializeComponents()
         {
             this.CategoryFilterCheckedBoxes = new CheckedListBox();
 
@@ -85,5 +120,7 @@ namespace DatabaseInterfaceDemo.View
             this.ButtonUpdateFilters.Text = "Filtrar por categoría";
             this.ButtonUpdateFilters.UseVisualStyleBackColor = true;
         }
+
+
     }
 }

@@ -29,7 +29,7 @@ namespace DatabaseInterfaceDemo.Data
             {"INFO_ObjectAddedToList", "Objeto añadido a la lista correctamente."}
 
         };
-       
+
         public static DialogResult INFO_ObjectAddedToList()
         {
             return MessageBox.Show(localizedStrings["INFO_ObjectAddedToList"], localizedStrings["INFO"]);
@@ -68,7 +68,7 @@ namespace DatabaseInterfaceDemo.Data
 
         public static DialogResult CHOICE_WARN_DatabaseOverwrite()
         {
-            return MessageBox.Show(localizedStrings["CHOICE_WARN_DatabaseOverwrite"], localizedStrings["WARNING"],MessageBoxButtons.YesNo);
+            return MessageBox.Show(localizedStrings["CHOICE_WARN_DatabaseOverwrite"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
         }
 
         public static DialogResult ERR_ObjPresent(string primaryKey, string keyValue)
@@ -76,7 +76,7 @@ namespace DatabaseInterfaceDemo.Data
             DialogResult d = MessageBox.Show(localizedStrings["ERR_ObjPresent"] + " " + primaryKey + ": " + keyValue);
             return DialogResult.None;
         }
-        
+
         public static DialogResult ERR_DBNotInitialized()
         {
             return MessageBox.Show(localizedStrings["ERR_DBNotInitialized"], localizedStrings["ERROR"]);

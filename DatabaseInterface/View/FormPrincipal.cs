@@ -90,6 +90,12 @@ namespace DatabaseInterfaceDemo
             }
         }
 
+
+        /// <summary>
+        /// Intermediary method which calls StartDatabaseController on an empty list based on the type selected from the ComboBox.
+        /// This method creates the empty list by creating a fake object and then deleting it.
+        /// This method has ObjectFactory references commented in the code.
+        /// </summary>
         private void InitDGVColumnsWithEmptyList()
         {
             Type t = GetTypeFromComboBox();
@@ -476,7 +482,7 @@ namespace DatabaseInterfaceDemo
         {
             if (DB != null)
             {
-                Form reportForm = new ReportForm(DB.GetBindingList(), DB.GetDBObjectType(), FilterFormList.Products_General);
+                Form reportForm = new ReportForm(DB.GetBindingList(), DB.GetDBObjectType());
                 reportForm.ShowDialog();
             } else
             {

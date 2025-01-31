@@ -1003,8 +1003,8 @@
             <FixedColumnHeaders>true</FixedColumnHeaders>
             <DataSetName>Producto_DataSet</DataSetName>
             <Top>2.13888in</Top>
-            <Height>0.95192in</Height>
-            <Width>10.11401in</Width>
+            <Height>0.95193in</Height>
+            <Width>10.114in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1724,7 +1724,7 @@
             </ChartNoDataMessage>
             <DataSetName>Producto_DataSet</DataSetName>
             <Top>0.06944in</Top>
-            <Left>3.57292in</Left>
+            <Left>3.58681in</Left>
             <Height>2.06944in</Height>
             <Width>3.57292in</Width>
             <ZIndex>2</ZIndex>

@@ -101,6 +101,7 @@
     <Compile Include="Controller\CustomXMLParser.cs" />
     <Compile Include="Model\Empleado.cs" />
     <Compile Include="Model\Producto.cs" />
+    <Compile Include="Data\ReportReference.cs" />
     <Compile Include="Model\TEMPLATE_Class.cs" />
     <Compile Include="View\AcercaDe.cs">
       <SubType>Form</SubType>
@@ -109,6 +110,7 @@
       <DependentUpon>AcercaDe.cs</DependentUpon>
     </Compile>
     <Compile Include="View\FilterControls\IFiltersBase.cs" />
+    <Compile Include="View\FilterControls\Product_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Product_Statistical_FilterControls.cs" />
     <Compile Include="View\FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -142,7 +144,7 @@
     <Compile Include="View\ObjectCreationForms\FormCreateEmployee.Designer.cs">
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FilterControls\Product_ListAll_FilterControls.cs" />
+    <Compile Include="View\FilterControls\Product_ListAll_Up_FilterControls.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -166,7 +168,10 @@
     <EmbeddedResource Include="View\ObjectCreationForms\BaseFormCreateObject.resx">
       <DependentUpon>BaseFormCreateObject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Report1.rdlc">
+    <EmbeddedResource Include="View\Reports\Report_Product_ListAll.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\Report_Product_Statistical.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ReportForm.resx">
@@ -175,6 +180,8 @@
     <EmbeddedResource Include="View\ObjectCreationForms\FormCreateEmployee.resx">
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Data\LISTAEMPLEADOSWORKING.json" />
+    <None Include="Data\listaProductos.json" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DatabaseInterfaceDemo.Model.Empleado.datasource" />
     <None Include="Properties\DataSources\DatabaseInterfaceDemo.Model.Producto.datasource" />
@@ -192,9 +199,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Data\listaEmpleados.xml" />
+    <Content Include="Data\listaEmpleadosWORKINGNEW.xml" />
+    <Content Include="Data\listaProductos.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

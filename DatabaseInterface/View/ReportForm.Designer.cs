@@ -32,7 +32,8 @@
             this.ReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.comboboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ComboBox_FormSelect = new System.Windows.Forms.ComboBox();
+            this.ComboBox_ReportSelect = new System.Windows.Forms.ComboBox();
+            this.buttonLoadData = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,20 +61,35 @@
             // 
             // ComboBox_FormSelect
             // 
-            this.ComboBox_FormSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBox_FormSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComboBox_FormSelect.FormattingEnabled = true;
-            this.ComboBox_FormSelect.Location = new System.Drawing.Point(125, 31);
-            this.ComboBox_FormSelect.Name = "ComboBox_FormSelect";
-            this.ComboBox_FormSelect.Size = new System.Drawing.Size(536, 32);
-            this.ComboBox_FormSelect.TabIndex = 2;
+            this.ComboBox_ReportSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_ReportSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ComboBox_ReportSelect.FormattingEnabled = true;
+            this.ComboBox_ReportSelect.Location = new System.Drawing.Point(125, 31);
+            this.ComboBox_ReportSelect.Name = "ComboBox_FormSelect";
+            this.ComboBox_ReportSelect.Size = new System.Drawing.Size(536, 32);
+            this.ComboBox_ReportSelect.TabIndex = 2;
+            // 
+            // buttonLoadData
+            // 
+            this.buttonLoadData.AccessibleDescription = "Botón para cargar datos desde archivo";
+            this.buttonLoadData.AccessibleName = "Botón Cargar desde Archivo";
+            this.buttonLoadData.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
+            this.buttonLoadData.Enabled = false;
+            this.buttonLoadData.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonLoadData.Location = new System.Drawing.Point(667, 31);
+            this.buttonLoadData.Name = "buttonLoadData";
+            this.buttonLoadData.Size = new System.Drawing.Size(112, 32);
+            this.buttonLoadData.TabIndex = 3;
+            this.buttonLoadData.Text = "Cargar datos";
+            this.buttonLoadData.UseVisualStyleBackColor = true;
             // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
-            this.Controls.Add(this.ComboBox_FormSelect);
+            this.Controls.Add(this.buttonLoadData);
+            this.Controls.Add(this.ComboBox_ReportSelect);
             this.Controls.Add(this.ReportViewer);
             this.Name = "ReportForm";
             this.Text = "ReportForm";
@@ -85,9 +101,9 @@
         #endregion
 
         private Microsoft.Reporting.WinForms.ReportViewer ReportViewer;
-        private Product_ListAll_FilterControls userControl11;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem comboboxToolStripMenuItem;
-        private System.Windows.Forms.ComboBox ComboBox_FormSelect;
+        private System.Windows.Forms.ComboBox ComboBox_ReportSelect;
+        private System.Windows.Forms.Button buttonLoadData;
     }
 }

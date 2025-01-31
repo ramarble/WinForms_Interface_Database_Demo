@@ -126,12 +126,14 @@ namespace DatabaseInterfaceDemo.Controller
             }
 
             int[] eightDigitNumbers = new int[150];
+            int[] daysWorked = new int[150];
             
             for (int i = 0; i < 150; i++)
             {
                 int randomNumber = random.Next(10000000, 100000000);
-
                 eightDigitNumbers[i] = randomNumber;
+                randomNumber = random.Next(0, 1001);
+                daysWorked[i] = randomNumber;
             }
             for (int i = 0; i < 124; i++)
             {
@@ -142,6 +144,7 @@ namespace DatabaseInterfaceDemo.Controller
                     middleNames[i],
                     lastNames[i],
                     monthlySalaries[i],
+                    daysWorked[i],
                     birthDates[i],
                     eightDigitNumbers[i]));
             }

@@ -24,6 +24,14 @@ namespace DatabaseInterfaceDemo.Controller
             BUTTONS = 112
         }
 
+        public enum EnumReportList
+        {
+            Products_General_FilterUp,
+            Products_General_FilterDown,
+            Products_Stats,
+        }
+
+
         public static void CutText(TextBoxBase tbb)
         {
             if (tbb.SelectedText != "")

@@ -45,6 +45,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             tbApe1.Text = ob.Surname1;
             tbApe2.Text = ob.Surname2;
             numSalary.Text = ob.Salary.ToString();
+            nudDaysWorked.Text = ob.DaysWorked.ToString();
             tbNIF.Text = ob.NIF.ToString();
             dtpFechaNacimiento.Value = ob.Birthdate;
 
@@ -69,6 +70,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
                     tbApe1.Text.ToString(),
                     tbApe2.Text.ToString(),
                     decimal.Parse(numSalary.Text.ToString(), NumberStyles.Any),
+                    int.Parse(nudDaysWorked.Text.ToString()),
                     dtpFechaNacimiento.Value,
                     usernif);
 

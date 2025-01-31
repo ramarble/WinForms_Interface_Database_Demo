@@ -3,8 +3,11 @@ using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
 using System.ComponentModel;
 using System.Drawing;
-using DatabaseInterfaceDemo.Controller;
 using DatabaseInterfaceDemo.Model;
+using DatabaseInterfaceDemo.Model.ReportReferenceTuple;
+using System.Linq;
+using static DatabaseInterfaceDemo.Controller.FormUtils;
+using DatabaseInterfaceDemo.Controller;
 
 namespace DatabaseInterfaceDemo.View
 {
@@ -16,11 +19,13 @@ namespace DatabaseInterfaceDemo.View
         public static BindingList<object> InitialList { get; set; }
         public static IFiltersBase FormTypeFilters;
         public static Type TypeHandled;
+        
 
 
-        public ReportForm(BindingList<object> list, Type DBType, FilterFormList FormType)
+        public ReportForm(BindingList<object> list, Type DBType)
         {
             InitializeComponent();
+            buttonLoadData.Click += ButtonLoadData_Click;
 
             TypeHandled = DBType;
 
@@ -29,41 +34,83 @@ namespace DatabaseInterfaceDemo.View
 
             ProgrammaticallyPlaceControls(null, null);
 
-            FormTypeFilters = InitializeControlsFor(FormType);
+            InitializeComboBox();
+
+            ResizeEnd += ProgrammaticallyPlaceControls;
+        }
+
+        /// <summary>
+        /// On button press, deletes the existing data if it exists and initializes the new Report data and corresponding buttons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonLoadData_Click(object sender, EventArgs e)
+        {
+            //If you keep pressing the button, free memory collapse!
+            //thank you GC
+            if (FormTypeFilters != null)
+            {
+                ResizeEnd -= FormTypeFilters.ProgrammaticallyPlaceFilterControls;
+                FormTypeFilters.RemoveControlsFromForm(FormTypeFilters.Controls);
+            }
+            
+            FormTypeFilters = InitializeControlsFor(
+                (EnumReportList) Enum.Parse(typeof(EnumReportList), ComboBox_ReportSelect.SelectedItem.ToString()));
+            
+            ResizeEnd += FormTypeFilters.ProgrammaticallyPlaceFilterControls;
             
             InitializeReportViewer();
-
-            this.ResizeEnd += ProgrammaticallyPlaceControls;
-            this.ResizeEnd += FormTypeFilters.ProgrammaticallyPlaceFilterControls;
         }
 
-        private IFiltersBase InitializeControlsFor(FilterFormList filterFormList)
+        //HEEEEELP
+        //I WROTE THIS MYSELF
+        //WHAT DOES IT DO
+        /// <summary>
+        /// Initializes an object derived from IFiltersBase based on the content from filterFormList which in this case will be derived from the item selected from the ComboBox
+        /// The Activator creates an instance with parameters (this, ReportViewer)
+        /// </summary>
+        /// <param name="filterFormList"></param>
+        /// <returns></returns>
+        private IFiltersBase InitializeControlsFor(EnumReportList filterFormList)
         {
-            switch (filterFormList)
-            {
-                case FilterFormList.Products_General:
-                {
-                    return new Product_ListAll_FilterControls(this, ReportViewer);
-                }
-                case FilterFormList.Products_Stats: {
-                    return new Product_Statistical_FilterControls(this, ReportViewer);
-                }
-
-            }
-            return null;
+            return (IFiltersBase) Activator.CreateInstance(
+                (ReportReference.ReportReferenceTuple().FirstOrDefault(
+                    it => it.Item1 == filterFormList).Item2),
+                this, ReportViewer);
         }
 
+        /// <summary>
+        /// Initializes the ReportViewer based on the data found in the ComboBox that holds the types of Reports available
+        /// </summary>
         private void InitializeReportViewer()
         {
-            this.ReportViewer.LocalReport.ReportPath = "../../View/Report1.rdlc";
+            if (ReportData != null)
+            {
+                ReportViewer.LocalReport.DataSources.Remove(ReportData);
+            }
 
-            ReportData = new ReportDataSource("Producto_DataSet", ListCurrentlyInUse);
-            this.ReportViewer.LocalReport.DataSources.Add(ReportData);
-            this.ReportViewer.RefreshReport();
+            ReportViewer.LocalReport.ReportPath = GetSelectedReportPathFromComboBox(ComboBox_ReportSelect.SelectedItem);
+
+            ReportData = GetReportDataSourceFromTypeHandled(TypeHandled, InitialList);
+            ReportViewer.LocalReport.DataSources.Add(ReportData);
+            ReportViewer.RefreshReport();
+        }
+
+
+        /// <summary>
+        /// help
+        /// </summary>
+        /// <param name="ComboBox_SelectedItem"></param>
+        /// <returns></returns>
+        private string GetSelectedReportPathFromComboBox(object ComboBox_SelectedItem)
+        {
+            return ReportReference.ReportReferenceTuple().FirstOrDefault(
+                it => it.Item1 == (EnumReportList)Enum.Parse(typeof(EnumReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
         }
 
         private void InitializeComboBox()
         {
+            ComboBox_ReportSelect.SelectedValueChanged += ComboBox_FormSelect_SelectedValueChanged;
             switch (TypeHandled.Name)
             {
                 case nameof(Empleado):
@@ -73,11 +120,38 @@ namespace DatabaseInterfaceDemo.View
                     }
                 case nameof(Producto):
                     {
-                        ComboBox_FormSelect.Items.Clear();
-                        ComboBox_FormSelect.Items.AddRange(Enum.GetNames(typeof(FilterFormList)));
+                        ComboBox_ReportSelect.Items.Clear();
+                        ComboBox_ReportSelect.Items.AddRange(Enum.GetNames(typeof(EnumReportList)));
                         break;
                     }
+            }
+        }
 
+        private ReportDataSource GetReportDataSourceFromTypeHandled(Type type, BindingList<object> InitialList)
+        {
+            switch (TypeHandled.Name)
+            {
+                case nameof(Empleado):
+                    {
+                        return new ReportDataSource("Empleado_DataSet", InitialList);
+                    }
+                case nameof(Producto):
+                    {
+                        return new ReportDataSource("Producto_DataSet", InitialList);
+                    }
+            }
+            throw new InvalidEnumArgumentException("Wrong datasource, somehow");
+
+        }
+
+        private void ComboBox_FormSelect_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (ComboBox_ReportSelect.SelectedItem != null)
+            {
+                buttonLoadData.Enabled = true;
+            } else
+            {
+                buttonLoadData.Enabled = false;
             }
         }
 
@@ -85,9 +159,10 @@ namespace DatabaseInterfaceDemo.View
         {
             this.StartPosition = FormStartPosition.Manual;
 
-            FormUtils.PlaceControlTopLeft(ComboBox_FormSelect);
-            FormUtils.PlaceControlBelow(ReportViewer, ComboBox_FormSelect);
-            ReportViewer.Size = new Size(this.Size.Width - (int)FormUtils.PADDING.RIGHT, this.Size.Height - (int)FormUtils.PADDING.BUTTONS - (int) FormUtils.PADDING.BOTTOM - ComboBox_FormSelect.Height);
+            FormUtils.PlaceControlTopLeft(ComboBox_ReportSelect);
+            FormUtils.PlaceControlBelow(ReportViewer, ComboBox_ReportSelect);
+            FormUtils.PlaceControlTopRightOf(buttonLoadData, ComboBox_ReportSelect);
+            ReportViewer.Size = new Size(this.Size.Width - (int)FormUtils.PADDING.RIGHT, this.Size.Height - (int)FormUtils.PADDING.BUTTONS - (int) FormUtils.PADDING.BOTTOM - ComboBox_ReportSelect.Height);
         }
 
 
