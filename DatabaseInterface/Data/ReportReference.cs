@@ -39,13 +39,17 @@ namespace DatabaseInterfaceDemo.Model.ReportReferenceTuple
                 typeof(Employee_ListAll_Up_FilterControls),
                 BASEPATH + "Report_Employee_ListAll.rdlc"));
             returnList.Add(Tuple.Create(
-                EmployeeReportList.Employee_Stats,
+                EmployeeReportList.Employee_SalaryStats,
                 typeof(Filterless),
-                BASEPATH + "Report_Employee_Statistical.rdlc"));
+                BASEPATH + "Report_Employee_SalaryStats.rdlc"));
             returnList.Add(Tuple.Create(
                 EmployeeReportList.Employee_General_FilterDown,
-                typeof(Product_ListAll_Down_FilterControls),
+                typeof(Employee_ListAll_Down_FilterControls),
                 BASEPATH + "Report_Employee_ListAll.rdlc"));
+            returnList.Add(Tuple.Create(
+                EmployeeReportList.Employee_DaysWorkedStats,
+                typeof(Filterless),
+                BASEPATH + "Report_Employee_DaysWorkedStats.rdlc"));
 
             return returnList;
         }

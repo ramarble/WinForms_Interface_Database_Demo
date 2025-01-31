@@ -9,7 +9,7 @@ using Microsoft.Reporting.WinForms;
 
 namespace DatabaseInterfaceDemo.View
 {
-    public class Employee_ListAll_Down_FilterControls : IFiltersBase
+    public class Employee_ListAll_Up_FilterControls : IFiltersBase
     {
 
         private NumericUpDown nudDaysWorked;
@@ -23,7 +23,7 @@ namespace DatabaseInterfaceDemo.View
         public ReportForm FormOrigin { get; set; }
         public ReportViewer ReportView { get; set; }
 
-        public Employee_ListAll_Down_FilterControls(ReportForm form, ReportViewer reportViewer)
+        public Employee_ListAll_Up_FilterControls(ReportForm form, ReportViewer reportViewer)
         {
             InitializeComponents();
 
@@ -97,7 +97,7 @@ namespace DatabaseInterfaceDemo.View
             if (nudSalary.Value > 0)
             {
                 List<object> slice = new List<object>();
-                slice.AddRange(listWorkedOn.Where(it => (it as Empleado).Salary < nudSalary.Value));
+                slice.AddRange(listWorkedOn.Where(it => (it as Empleado).Salary > nudSalary.Value));
 
                 return new BindingList<object>(slice);
             }
@@ -109,7 +109,7 @@ namespace DatabaseInterfaceDemo.View
             if (nudDaysWorked.Value > 0)
             {
                 List<object> slice = new List<object>();
-                slice.AddRange(listWorkedOn.Where(it => (it as Empleado).DaysWorked < nudDaysWorked.Value));
+                slice.AddRange(listWorkedOn.Where(it => (it as Empleado).DaysWorked > nudDaysWorked.Value));
 
                 return new BindingList<object>(slice);
             }
@@ -147,7 +147,7 @@ namespace DatabaseInterfaceDemo.View
             this.labelDaysWorked.Name = "labelDaysWorked";
             this.labelDaysWorked.Size = new System.Drawing.Size(127, 20);
             this.labelDaysWorked.TabIndex = 13;
-            this.labelDaysWorked.Text = "Días trabajados más que";
+            this.labelDaysWorked.Text = "Días trabajados menor que";
             // 
             // labelSalary
             // 
@@ -157,7 +157,7 @@ namespace DatabaseInterfaceDemo.View
             this.labelSalary.Name = "labelSalary";
             this.labelSalary.Size = new System.Drawing.Size(124, 20);
             this.labelSalary.TabIndex = 12;
-            this.labelSalary.Text = "Salario superior a";
+            this.labelSalary.Text = "Salario inferior a";
             // 
             // nudSalary
             // 

@@ -28,7 +28,8 @@ namespace DatabaseInterfaceDemo.Controller
         {
             Employee_General_FilterUp,
             Employee_General_FilterDown,
-            Employee_Stats,
+            Employee_SalaryStats,
+            Employee_DaysWorkedStats
         }
 
         public enum ProductReportList

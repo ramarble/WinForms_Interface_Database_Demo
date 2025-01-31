@@ -109,6 +109,7 @@
     <Compile Include="View\AcercaDe.Designer.cs">
       <DependentUpon>AcercaDe.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\FilterControls\Employee_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Filterless.cs" />
     <Compile Include="View\FilterControls\IFiltersBase.cs" />
     <Compile Include="View\FilterControls\Product_ListAll_Down_FilterControls.cs" />
@@ -171,6 +172,9 @@
       <DependentUpon>BaseFormCreateObject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Reports\Report_Employee_ListAll.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\Report_Employee_DaysWorkedStats.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Reports\Report_Product_ListAll.rdlc">
