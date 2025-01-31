@@ -19,8 +19,6 @@ namespace DatabaseInterfaceDemo.View
         public static BindingList<object> InitialList { get; set; }
         public static IFiltersBase FormTypeFilters;
         public static Type TypeHandled;
-        
-
 
         public ReportForm(BindingList<object> list, Type DBType)
         {
@@ -54,12 +52,11 @@ namespace DatabaseInterfaceDemo.View
                 FormTypeFilters.RemoveControlsFromForm(FormTypeFilters.Controls);
             }
             
-            FormTypeFilters = InitializeControlsFor(
-                (EnumReportList) Enum.Parse(typeof(EnumReportList), ComboBox_ReportSelect.SelectedItem.ToString()));
+            FormTypeFilters = InitializeControlsFor(ComboBox_ReportSelect.SelectedItem, TypeHandled);
             
             ResizeEnd += FormTypeFilters.ProgrammaticallyPlaceFilterControls;
             
-            InitializeReportViewer();
+            InitializeReportViewer(TypeHandled);
         }
 
         //HEEEEELP
@@ -71,25 +68,41 @@ namespace DatabaseInterfaceDemo.View
         /// </summary>
         /// <param name="filterFormList"></param>
         /// <returns></returns>
-        private IFiltersBase InitializeControlsFor(EnumReportList filterFormList)
+        private IFiltersBase InitializeControlsFor(object filterFormList, Type TypeHandled)
         {
-            return (IFiltersBase) Activator.CreateInstance(
-                (ReportReference.ReportReferenceTuple().FirstOrDefault(
-                    it => it.Item1 == filterFormList).Item2),
-                this, ReportViewer);
+
+            switch (TypeHandled.Name)
+            {
+                case nameof(Empleado):
+                    {
+                        return (IFiltersBase)Activator.CreateInstance(
+                            (ReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
+                                it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), filterFormList.ToString())).Item2),
+                                this, ReportViewer);
+                    }
+                case nameof(Producto):
+                    { 
+                        return (IFiltersBase)Activator.CreateInstance(
+                            (ReportReference.ProductReportReferenceTuple().FirstOrDefault(
+                                it => it.Item1 == (ProductReportList) Enum.Parse(typeof(ProductReportList), filterFormList.ToString())).Item2),
+                                this, ReportViewer);
+                    }
+                }
+            throw new Exception("frick off");
+
         }
 
         /// <summary>
         /// Initializes the ReportViewer based on the data found in the ComboBox that holds the types of Reports available
         /// </summary>
-        private void InitializeReportViewer()
+        private void InitializeReportViewer(Type TypeHandled)
         {
             if (ReportData != null)
             {
                 ReportViewer.LocalReport.DataSources.Remove(ReportData);
             }
 
-            ReportViewer.LocalReport.ReportPath = GetSelectedReportPathFromComboBox(ComboBox_ReportSelect.SelectedItem);
+            ReportViewer.LocalReport.ReportPath = GetSelectedReportPathFromComboBox(ComboBox_ReportSelect.SelectedItem, TypeHandled);
 
             ReportData = GetReportDataSourceFromTypeHandled(TypeHandled, InitialList);
             ReportViewer.LocalReport.DataSources.Add(ReportData);
@@ -102,10 +115,22 @@ namespace DatabaseInterfaceDemo.View
         /// </summary>
         /// <param name="ComboBox_SelectedItem"></param>
         /// <returns></returns>
-        private string GetSelectedReportPathFromComboBox(object ComboBox_SelectedItem)
+        private string GetSelectedReportPathFromComboBox(object ComboBox_SelectedItem, Type TypeHandled)
         {
-            return ReportReference.ReportReferenceTuple().FirstOrDefault(
-                it => it.Item1 == (EnumReportList)Enum.Parse(typeof(EnumReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
+            switch (TypeHandled.Name)
+            {
+                case nameof(Empleado):
+                    {
+                        return ReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
+                            it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
+                    }
+                case nameof(Producto):
+                    {
+                        return ReportReference.ProductReportReferenceTuple().FirstOrDefault(
+                            it => it.Item1 == (ProductReportList)Enum.Parse(typeof(ProductReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
+                    }
+            }
+            throw new Exception("Shouldn't ever get here");
         }
 
         private void InitializeComboBox()
@@ -115,13 +140,14 @@ namespace DatabaseInterfaceDemo.View
             {
                 case nameof(Empleado):
                     {
-                        MessageBox.Show("Not Done yet");
+                        ComboBox_ReportSelect.Items.Clear();
+                        ComboBox_ReportSelect.Items.AddRange(Enum.GetNames(typeof(EmployeeReportList)));
                         break;
                     }
                 case nameof(Producto):
                     {
                         ComboBox_ReportSelect.Items.Clear();
-                        ComboBox_ReportSelect.Items.AddRange(Enum.GetNames(typeof(EnumReportList)));
+                        ComboBox_ReportSelect.Items.AddRange(Enum.GetNames(typeof(ProductReportList)));
                         break;
                     }
             }

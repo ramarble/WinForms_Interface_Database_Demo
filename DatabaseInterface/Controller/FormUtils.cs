@@ -24,13 +24,20 @@ namespace DatabaseInterfaceDemo.Controller
             BUTTONS = 112
         }
 
-        public enum EnumReportList
+        public enum EmployeeReportList
         {
+            Employee_General_FilterUp,
+            Employee_General_FilterDown,
+            Employee_Stats,
+        }
+
+        public enum ProductReportList
+        {
+
             Products_General_FilterUp,
             Products_General_FilterDown,
             Products_Stats,
         }
-
 
         public static void CutText(TextBoxBase tbb)
         {

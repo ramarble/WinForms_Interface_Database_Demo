@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DatabaseInterfaceDemo.View;
+using DatabaseInterfaceDemo.View.FilterControls;
 using static DatabaseInterfaceDemo.Controller.FormUtils;
 
 namespace DatabaseInterfaceDemo.Model.ReportReferenceTuple
@@ -11,21 +12,40 @@ namespace DatabaseInterfaceDemo.Model.ReportReferenceTuple
 
         private static string BASEPATH = "../../View/Reports/";
 
-        public static List<Tuple<EnumReportList, Type, string>> ReportReferenceTuple()
+        public static List<Tuple<ProductReportList, Type, string>> ProductReportReferenceTuple()
         {
-            List<Tuple<EnumReportList, Type, string>> returnList = new List<Tuple<EnumReportList, Type, string>>();
+            List<Tuple<ProductReportList, Type, string>> returnList = new List<Tuple<ProductReportList, Type, string>>();
             returnList.Add(Tuple.Create(
-                EnumReportList.Products_General_FilterUp,
+                ProductReportList.Products_General_FilterUp,
                 typeof(Product_ListAll_Up_FilterControls),
                 BASEPATH + "Report_Product_ListAll.rdlc"));
             returnList.Add(Tuple.Create(
-                EnumReportList.Products_Stats,
+                ProductReportList.Products_Stats,
                 typeof(Product_Statistical_FilterControls),
                 BASEPATH + "Report_Product_Statistical.rdlc"));
             returnList.Add(Tuple.Create(
-                EnumReportList.Products_General_FilterDown,
+                ProductReportList.Products_General_FilterDown,
                 typeof(Product_ListAll_Down_FilterControls),
                 BASEPATH + "Report_Product_ListAll.rdlc"));
+
+            return returnList;
+        }
+
+        public static List<Tuple<EmployeeReportList, Type, string>> EmployeeReportReferenceTuple()
+        {
+            List<Tuple<EmployeeReportList, Type, string>> returnList = new List<Tuple<EmployeeReportList, Type, string>>();
+            returnList.Add(Tuple.Create(
+                EmployeeReportList.Employee_General_FilterUp,
+                typeof(Employee_ListAll_Up_FilterControls),
+                BASEPATH + "Report_Employee_ListAll.rdlc"));
+            returnList.Add(Tuple.Create(
+                EmployeeReportList.Employee_Stats,
+                typeof(Filterless),
+                BASEPATH + "Report_Employee_Statistical.rdlc"));
+            returnList.Add(Tuple.Create(
+                EmployeeReportList.Employee_General_FilterDown,
+                typeof(Product_ListAll_Down_FilterControls),
+                BASEPATH + "Report_Employee_ListAll.rdlc"));
 
             return returnList;
         }
