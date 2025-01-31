@@ -9,7 +9,7 @@ using Microsoft.Reporting.WinForms;
 
 namespace DatabaseInterfaceDemo.View
 {
-    public class ProductFiltersControls : FilterControlsBase
+    public class Product_ListAll_FilterControls : IFiltersBase
     {
 
         private NumericUpDown nudPrice;
@@ -19,44 +19,52 @@ namespace DatabaseInterfaceDemo.View
         private CheckedListBox CategoryFilterCheckedBoxes;
         private Button ButtonUpdateFilters;
 
+        ReportForm IFiltersBase.FormOrigin { get; set; }
+        ReportViewer IFiltersBase.ReportView { get; set; }
 
-        public ProductFiltersControls(ReportForm form, ReportViewer reportViewer) : base(form, reportViewer)
+        public Product_ListAll_FilterControls(ReportForm form, ReportViewer reportViewer)
         {
-            InitializeComponent();
+            ((IFiltersBase) this).InitializeComponents();
+
+            ((IFiltersBase)this).FormOrigin = form;
+            ((IFiltersBase)this).ReportView = reportViewer;
 
             CategoryFilterCheckedBoxes.Items.AddRange(Enum.GetNames(typeof(Category)));
             nudStock.Controls.RemoveAt(0);
             nudPrice.Controls.RemoveAt(0);
 
-            Form.Controls.Add(nudPrice);
-            Form.Controls.Add(labelPrice);
-            Form.Controls.Add(labelStock);
-            Form.Controls.Add(nudStock);
-            Form.Controls.Add(CategoryFilterCheckedBoxes);
-            Form.Controls.Add(ButtonUpdateFilters);
-            ButtonUpdateFilters.Click += UpdateFilters_Click;
+            ((IFiltersBase)this).FormOrigin.Controls.Add(nudPrice);
+            ((IFiltersBase)this).FormOrigin.Controls.Add(labelPrice);
+            ((IFiltersBase)this).FormOrigin.Controls.Add(labelStock);
+            ((IFiltersBase)this).FormOrigin.Controls.Add(nudStock);
+            ((IFiltersBase)this).FormOrigin.Controls.Add(CategoryFilterCheckedBoxes);
+            ((IFiltersBase)this).FormOrigin.Controls.Add(ButtonUpdateFilters);
+            ButtonUpdateFilters.Click += ((IFiltersBase)this).UpdateFilters_Click;
 
-            ProgrammaticallyPlaceFilterControls(null, null);
+            ((IFiltersBase)this).ProgrammaticallyPlaceFilterControls(null, null);
         }
 
-        public override void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
+        void IFiltersBase.ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
         {
-            FormUtils.PlaceControlAtBottomMostRight(Form, ButtonUpdateFilters);
-            FormUtils.PlaceControlAtBottomMostRight(Form, ButtonUpdateFilters);
-            FormUtils.PlaceControlAtBottomMostLeft(Form, CategoryFilterCheckedBoxes);
-            FormUtils.PlaceControlAtBottomMostLeft(Form, nudStock, CategoryFilterCheckedBoxes);
-            FormUtils.PlaceControlAtBottomMostLeft(Form, nudPrice, nudStock);
+            FormUtils.PlaceControlBottomRightCorner(((IFiltersBase)this).FormOrigin, ButtonUpdateFilters);
+            FormUtils.PlaceControlBottomLeftCorner(((IFiltersBase)this).FormOrigin, CategoryFilterCheckedBoxes);
+            FormUtils.PlaceControlBottomRightOf(nudStock, CategoryFilterCheckedBoxes);
+            FormUtils.PlaceControlBottomRightOf(nudPrice, nudStock);
             FormUtils.PlaceControlOnTopOf(labelStock, nudStock);
             FormUtils.PlaceControlOnTopOf(labelPrice, nudPrice);
         }
 
-        public override void UpdateFilters_Click(object sender, EventArgs e)
+        void IFiltersBase.UpdateFilters_Click(object sender, EventArgs e)
         {
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnCategoryFilter(ReportForm.InitialList);
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnPriceFilter(ReportForm.ListCurrentlyInUse);
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnStockFilter(ReportForm.ListCurrentlyInUse);
 
-            base.UpdateFilters_Click(null, null);
+
+            ((IFiltersBase)this).ReportView.LocalReport.DataSources.Remove(ReportForm.ReportData);
+            ReportForm.ReportData = new ReportDataSource("Producto_DataSet", ReportForm.ListCurrentlyInUse);
+            ((IFiltersBase)this).ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
+            ((IFiltersBase)this).ReportView.RefreshReport();
         }
 
 
@@ -101,10 +109,8 @@ namespace DatabaseInterfaceDemo.View
         /// <summary>
         ///
         /// </summary>
-        public override void InitializeComponent()
+        void IFiltersBase.InitializeComponents()
         {
-
-            base.InitializeComponent();
 
             this.nudPrice = new NumericUpDown();
             this.labelPrice = new Label();

@@ -426,6 +426,10 @@ namespace DatabaseInterfaceDemo
             }
         }
 
+        /// <summary>
+        /// Opens a form to create an object of the corresponding database
+        /// </summary>
+        /// <returns></returns>
         private Form GetFormBasedOnDBType()
         {
             Form NewObjectForm = null;
@@ -442,6 +446,11 @@ namespace DatabaseInterfaceDemo
             return NewObjectForm;
         }
 
+        /// <summary>
+        /// Opens a Form to edit an object objectToEdit
+        /// </summary>
+        /// <param name="objectToEdit"></param>
+        /// <returns></returns>
         private Form GetFormBasedOnDBType(object objectToEdit)
         {
             Form NewObjectForm = null;
@@ -467,13 +476,11 @@ namespace DatabaseInterfaceDemo
         {
             if (DB != null)
             {
-                MessageBox.Show("Hardcoded value");
-                Form reportForm = new ReportForm(DB.GetBindingList(), FilterFormList.Products);
+                Form reportForm = new ReportForm(DB.GetBindingList(), DB.GetDBObjectType(), FilterFormList.Products_General);
                 reportForm.ShowDialog();
             } else
             {
-                DialogResult d = LocalizationText.ERR_DBNotInitialized();
-                d = DialogResult.None;
+                LocalizationText.ERR_DBNotInitialized();
             }
         }
 

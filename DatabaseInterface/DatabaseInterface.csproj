@@ -108,7 +108,8 @@
     <Compile Include="View\AcercaDe.Designer.cs">
       <DependentUpon>AcercaDe.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FilterControls\FilterControlsBase.cs" />
+    <Compile Include="View\FilterControls\IFiltersBase.cs" />
+    <Compile Include="View\FilterControls\Product_Statistical_FilterControls.cs" />
     <Compile Include="View\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,7 +142,7 @@
     <Compile Include="View\ObjectCreationForms\FormCreateEmployee.Designer.cs">
       <DependentUpon>FormCreateEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FilterControls\ProductFiltersControls.cs" />
+    <Compile Include="View\FilterControls\Product_ListAll_FilterControls.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
