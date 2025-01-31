@@ -7,16 +7,16 @@ namespace DatabaseInterfaceDemo.Model
 {
     public enum Category
     {
-        FOOD_DRINK,
-        CLOTHING,
-        FURNITURE
+        FOOD_DRINK = 0,
+        CLOTHING = 1,
+        FURNITURE = 2
     }
 
     public enum Unit_Type
     {
-        Per_100g,
-        Per_Unit,
-        Per_100ml,
+        Per_100g = 0,
+        Per_Unit = 1,
+        Per_100ml = 2,
     }
 
     /*

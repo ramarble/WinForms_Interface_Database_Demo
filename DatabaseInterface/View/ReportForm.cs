@@ -188,6 +188,7 @@ namespace DatabaseInterfaceDemo.View
             FormUtils.PlaceControlTopLeft(ComboBox_ReportSelect);
             FormUtils.PlaceControlBelow(ReportViewer, ComboBox_ReportSelect);
             FormUtils.PlaceControlTopRightOf(buttonLoadData, ComboBox_ReportSelect);
+            FormUtils.PlaceControlBottomRightOf(labelLoadData, buttonLoadData);
             ReportViewer.Size = new Size(this.Size.Width - (int)FormUtils.PADDING.RIGHT, this.Size.Height - (int)FormUtils.PADDING.BUTTONS - (int) FormUtils.PADDING.BOTTOM - ComboBox_ReportSelect.Height);
         }
 

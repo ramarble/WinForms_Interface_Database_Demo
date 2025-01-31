@@ -26,7 +26,11 @@ namespace DatabaseInterfaceDemo.Model.ReportReferenceTuple
             returnList.Add(Tuple.Create(
                 ProductReportList.Products_General_FilterDown,
                 typeof(Product_ListAll_Down_FilterControls),
-                BASEPATH + "Report_Product_ListAll.rdlc"));
+                BASEPATH + "Report_Product_ListAll.rdlc")); 
+            returnList.Add(Tuple.Create(
+                ProductReportList.Products_TotalValue,
+                typeof(Product_Statistical_FilterControls),
+                BASEPATH + "Report_Product_TotalValue.rdlc"));
 
             return returnList;
         }

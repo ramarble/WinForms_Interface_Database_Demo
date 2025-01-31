@@ -180,6 +180,9 @@
     <EmbeddedResource Include="View\Reports\Report_Employee_DaysWorkedStats.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\Report_Product_TotalValue.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Reports\Report_Product_ListAll.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

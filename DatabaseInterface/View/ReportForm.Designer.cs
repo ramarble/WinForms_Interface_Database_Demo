@@ -34,6 +34,7 @@
             this.comboboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ComboBox_ReportSelect = new System.Windows.Forms.ComboBox();
             this.buttonLoadData = new System.Windows.Forms.Button();
+            this.labelLoadData = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,13 +60,13 @@
             this.comboboxToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.comboboxToolStripMenuItem.Text = "combobox";
             // 
-            // ComboBox_FormSelect
+            // ComboBox_ReportSelect
             // 
             this.ComboBox_ReportSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBox_ReportSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComboBox_ReportSelect.FormattingEnabled = true;
             this.ComboBox_ReportSelect.Location = new System.Drawing.Point(125, 31);
-            this.ComboBox_ReportSelect.Name = "ComboBox_FormSelect";
+            this.ComboBox_ReportSelect.Name = "ComboBox_ReportSelect";
             this.ComboBox_ReportSelect.Size = new System.Drawing.Size(536, 32);
             this.ComboBox_ReportSelect.TabIndex = 2;
             // 
@@ -83,11 +84,22 @@
             this.buttonLoadData.Text = "Cargar datos";
             this.buttonLoadData.UseVisualStyleBackColor = true;
             // 
+            // labelLoadData
+            // 
+            this.labelLoadData.AutoSize = true;
+            this.labelLoadData.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLoadData.Location = new System.Drawing.Point(785, 34);
+            this.labelLoadData.Name = "labelLoadData";
+            this.labelLoadData.Size = new System.Drawing.Size(301, 24);
+            this.labelLoadData.TabIndex = 4;
+            this.labelLoadData.Text = "Carga datos de la lista desplegable";
+            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.ClientSize = new System.Drawing.Size(1092, 664);
+            this.Controls.Add(this.labelLoadData);
             this.Controls.Add(this.buttonLoadData);
             this.Controls.Add(this.ComboBox_ReportSelect);
             this.Controls.Add(this.ReportViewer);
@@ -95,6 +107,7 @@
             this.Text = "ReportForm";
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -105,5 +118,6 @@
         private System.Windows.Forms.ToolStripMenuItem comboboxToolStripMenuItem;
         private System.Windows.Forms.ComboBox ComboBox_ReportSelect;
         private System.Windows.Forms.Button buttonLoadData;
+        private System.Windows.Forms.Label labelLoadData;
     }
 }

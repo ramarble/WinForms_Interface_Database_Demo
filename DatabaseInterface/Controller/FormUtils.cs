@@ -39,6 +39,7 @@ namespace DatabaseInterfaceDemo.Controller
             Products_General_FilterUp,
             Products_General_FilterDown,
             Products_Stats,
+            Products_TotalValue,
         }
 
         public static void CutText(TextBoxBase tbb)
