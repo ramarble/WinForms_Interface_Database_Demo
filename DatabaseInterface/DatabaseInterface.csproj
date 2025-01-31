@@ -171,6 +171,9 @@
     <EmbeddedResource Include="View\ObjectCreationForms\BaseFormCreateObject.resx">
       <DependentUpon>BaseFormCreateObject.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\Report_Employee_ByAge.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Reports\Report_Employee_ListAll.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -50,6 +50,11 @@ namespace DatabaseInterfaceDemo.Model.ReportReferenceTuple
                 EmployeeReportList.Employee_DaysWorkedStats,
                 typeof(Filterless),
                 BASEPATH + "Report_Employee_DaysWorkedStats.rdlc"));
+            returnList.Add(Tuple.Create(
+                EmployeeReportList.Employee_ByAge,
+                typeof(Filterless),
+                BASEPATH + "Report_Employee_ByAge.rdlc"));
+
 
             return returnList;
         }
