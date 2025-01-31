@@ -37,7 +37,7 @@ namespace DatabaseInterfaceDemo
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FormsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ediciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cortarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,6 +61,7 @@ namespace DatabaseInterfaceDemo
             this.labelFile = new System.Windows.Forms.Label();
             this.labelDataType = new System.Windows.Forms.Label();
             this.comboBoxDataType = new System.Windows.Forms.ComboBox();
+            this.buttonSeeForms = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PrincipalDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +89,7 @@ namespace DatabaseInterfaceDemo
             this.nuevoToolStripMenuItem,
             this.buscarToolStripMenuItem,
             this.guardarToolStripMenuItem,
-            this.imprimirToolStripMenuItem,
+            this.FormsToolStripMenuItem,
             this.salirToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 19);
@@ -130,16 +131,16 @@ namespace DatabaseInterfaceDemo
             this.guardarToolStripMenuItem.Text = "Guardar Todo";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.SaveAll_Menu_Click);
             // 
-            // imprimirToolStripMenuItem
+            // FormsToolStripMenuItem
             // 
-            this.imprimirToolStripMenuItem.AccessibleDescription = "Menú para abrir la vista de impresión de todos los usuarios";
-            this.imprimirToolStripMenuItem.AccessibleName = "Menú vista impresión";
-            this.imprimirToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
-            this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
-            this.imprimirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.imprimirToolStripMenuItem.Text = "Imprimir";
-            this.imprimirToolStripMenuItem.Click += new System.EventHandler(this.Print_Menu_Click);
+            this.FormsToolStripMenuItem.AccessibleDescription = "Menú para abrir los informes de los objetos";
+            this.FormsToolStripMenuItem.AccessibleName = "Menú vista impresión";
+            this.FormsToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
+            this.FormsToolStripMenuItem.Name = "FormsToolStripMenuItem";
+            this.FormsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.FormsToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.FormsToolStripMenuItem.Text = "Formularios (Imprimir)";
+            this.FormsToolStripMenuItem.Click += new System.EventHandler(this.FormsPrint_Menu_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -173,7 +174,7 @@ namespace DatabaseInterfaceDemo
             this.cortarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
             this.cortarToolStripMenuItem.Name = "cortarToolStripMenuItem";
             this.cortarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.cortarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cortarToolStripMenuItem.Text = "Cortar";
             // 
             // copiarToolStripMenuItem
@@ -183,7 +184,7 @@ namespace DatabaseInterfaceDemo
             this.copiarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
             this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
             this.copiarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copiarToolStripMenuItem.Text = "Copiar";
             // 
             // pegarToolStripMenuItem
@@ -193,7 +194,7 @@ namespace DatabaseInterfaceDemo
             this.pegarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
             this.pegarToolStripMenuItem.Name = "pegarToolStripMenuItem";
             this.pegarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.pegarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pegarToolStripMenuItem.Text = "Pegar";
             // 
             // verToolStripMenuItem
@@ -214,7 +215,7 @@ namespace DatabaseInterfaceDemo
             this.maximizarToolStripMenuItem.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuItem;
             this.maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
             this.maximizarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.maximizarToolStripMenuItem.Text = "Maximizar";
             this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.MaximizarToolStrip_Click);
             // 
@@ -423,11 +424,27 @@ namespace DatabaseInterfaceDemo
             this.comboBoxDataType.Size = new System.Drawing.Size(185, 32);
             this.comboBoxDataType.TabIndex = 19;
             // 
-            // formPrincipal
+            // buttonSeeForms
+            // 
+            this.buttonSeeForms.AccessibleDescription = "Botón para ver Informes";
+            this.buttonSeeForms.AccessibleName = "Botón ver informes";
+            this.buttonSeeForms.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
+            this.buttonSeeForms.Enabled = false;
+            this.buttonSeeForms.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonSeeForms.Location = new System.Drawing.Point(360, 530);
+            this.buttonSeeForms.Name = "buttonSeeForms";
+            this.buttonSeeForms.Size = new System.Drawing.Size(132, 62);
+            this.buttonSeeForms.TabIndex = 20;
+            this.buttonSeeForms.Text = "Ver Informes";
+            this.buttonSeeForms.UseVisualStyleBackColor = true;
+            this.buttonSeeForms.Click += new System.EventHandler(this.buttonSeeForms_Click);
+            // 
+            // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1105, 672);
+            this.Controls.Add(this.buttonSeeForms);
             this.Controls.Add(this.comboBoxDataType);
             this.Controls.Add(this.labelDataType);
             this.Controls.Add(this.labelFile);
@@ -446,7 +463,7 @@ namespace DatabaseInterfaceDemo
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "formPrincipal";
+            this.Name = "FormPrincipal";
             this.Text = "Principal";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
@@ -479,7 +496,7 @@ namespace DatabaseInterfaceDemo
         private System.Windows.Forms.Button buttonRevertAll;
         private System.Windows.Forms.Button saveSelectedButton;
         private System.Windows.Forms.Button buttonDeleteSelected;
-        private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FormsToolStripMenuItem;
         private System.Windows.Forms.Button buttonModify;
         private System.Windows.Forms.Button revertSelectedButton;
         private System.Windows.Forms.ComboBox comboBoxCargarDatos;
@@ -489,6 +506,7 @@ namespace DatabaseInterfaceDemo
         private System.Windows.Forms.Label labelFile;
         private System.Windows.Forms.Label labelDataType;
         private System.Windows.Forms.ComboBox comboBoxDataType;
+        private System.Windows.Forms.Button buttonSeeForms;
     }
 }
 

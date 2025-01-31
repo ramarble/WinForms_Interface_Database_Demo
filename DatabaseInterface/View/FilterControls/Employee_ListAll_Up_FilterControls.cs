@@ -147,7 +147,7 @@ namespace DatabaseInterfaceDemo.View
             this.labelDaysWorked.Name = "labelDaysWorked";
             this.labelDaysWorked.Size = new System.Drawing.Size(127, 20);
             this.labelDaysWorked.TabIndex = 13;
-            this.labelDaysWorked.Text = "Días trabajados más que";
+            this.labelDaysWorked.Text = "Días trabajados menos que";
             // 
             // labelSalary
             // 
@@ -157,7 +157,7 @@ namespace DatabaseInterfaceDemo.View
             this.labelSalary.Name = "labelSalary";
             this.labelSalary.Size = new System.Drawing.Size(124, 20);
             this.labelSalary.TabIndex = 12;
-            this.labelSalary.Text = "Salario superior a";
+            this.labelSalary.Text = "Salario inferior a";
             // 
             // nudSalary
             // 

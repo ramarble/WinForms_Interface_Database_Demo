@@ -9,7 +9,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.CodeDom;
 
 
 namespace DatabaseInterfaceDemo
@@ -176,6 +175,8 @@ namespace DatabaseInterfaceDemo
                 FormatDateTimeColumn();
                 FormatTempStatusColumn();
 
+                //should be moved somewhere else
+                buttonSeeForms.Enabled = true;
                 //Doesn't work? but what I want is that when the form changes visibility the buttons update
                 VisibleChanged += OnListChangeUpdateButtons;
             }
@@ -478,7 +479,7 @@ namespace DatabaseInterfaceDemo
             Close();
         }
 
-        private void Print_Menu_Click(object sender, EventArgs e)
+        private void FormsPrint_Menu_Click(object sender, EventArgs e)
         {
             if (DB != null)
             {
@@ -547,6 +548,11 @@ namespace DatabaseInterfaceDemo
                         break;
                 }
             }
+        }
+
+        private void buttonSeeForms_Click(object sender, EventArgs e)
+        {
+            FormsPrint_Menu_Click(null, null);
         }
     }
 }
