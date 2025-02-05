@@ -7,7 +7,8 @@ using DatabaseInterfaceDemo.Controller;
 using DatabaseInterfaceDemo.Model;
 using Microsoft.Reporting.WinForms;
 
-namespace DatabaseInterfaceDemo.View
+namespace DatabaseInterfaceDemo.View.FilterControls
+
 {
     public class Employee_ListAll_Up_FilterControls : IFiltersBase
     {
@@ -33,7 +34,7 @@ namespace DatabaseInterfaceDemo.View
             nudSalary.Controls.RemoveAt(0);
             nudDaysWorked.Controls.RemoveAt(0);
 
-            Controls = AddControlsToList();
+            AddControlsToList();
             AddControlsToForm(Controls);
 
             ButtonUpdateFilters.Click += UpdateFilters_Click;
@@ -41,17 +42,13 @@ namespace DatabaseInterfaceDemo.View
             ProgrammaticallyPlaceFilterControls(null, null);
         }
 
-        public List<Control> AddControlsToList()
+        public void AddControlsToList()
         {
-            List<Control> controls = new List<Control>();
-
-            controls.Add(nudDaysWorked);
-            controls.Add(labelDaysWorked);
-            controls.Add(labelSalary);
-            controls.Add(nudSalary);
-            controls.Add(ButtonUpdateFilters);
-
-            return controls;
+            Controls.Add(nudDaysWorked);
+            Controls.Add(labelDaysWorked);
+            Controls.Add(labelSalary);
+            Controls.Add(nudSalary);
+            Controls.Add(ButtonUpdateFilters);
         }
 
         public void AddControlsToForm(List<Control> list)

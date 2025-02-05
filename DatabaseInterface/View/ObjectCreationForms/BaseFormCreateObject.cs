@@ -15,7 +15,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             InitializeComponent();
         }
-        static readonly Dictionary<string, string> LOC_STRINGS = LocalizationText.localizedStrings;
+        static readonly Dictionary<string, string> LOC_STRINGS = i18n_spanish.i18n;
 
         public Form ParentForm;
         public Boolean EditMode;
@@ -187,7 +187,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             if (!FormUtils.IsAnyTextBoxEmptyInForm(this))
             {
-                if (LocalizationText.WARN_ExitWithoutSaving() != DialogResult.Yes)
+                if (i18n_spanish.WARN_ExitWithoutSaving() != DialogResult.Yes)
                 {
                     e.Cancel = true;
                 }

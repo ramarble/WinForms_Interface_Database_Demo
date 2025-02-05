@@ -7,7 +7,7 @@ using DatabaseInterfaceDemo.Controller;
 using DatabaseInterfaceDemo.Model;
 using Microsoft.Reporting.WinForms;
 
-namespace DatabaseInterfaceDemo.View
+namespace DatabaseInterfaceDemo.View.FilterControls
 {
     public class Product_ListAll_Up_FilterControls : IFiltersBase
     {
@@ -35,7 +35,7 @@ namespace DatabaseInterfaceDemo.View
             nudStock.Controls.RemoveAt(0);
             nudPrice.Controls.RemoveAt(0);
 
-            Controls = AddControlsToList();
+            AddControlsToList();
             AddControlsToForm(Controls);
 
             ButtonUpdateFilters.Click += UpdateFilters_Click;
@@ -43,18 +43,14 @@ namespace DatabaseInterfaceDemo.View
             ProgrammaticallyPlaceFilterControls(null, null);
         }
 
-        public List<Control> AddControlsToList()
+        public void AddControlsToList()
         {
-            List<Control> controls = new List<Control>();
-
-            controls.Add(nudPrice);
-            controls.Add(labelPrice);
-            controls.Add(labelStock);
-            controls.Add(nudStock);
-            controls.Add(CategoryFilterCheckedBoxes);
-            controls.Add(ButtonUpdateFilters);
-
-            return controls;
+            Controls.Add(nudPrice);
+            Controls.Add(labelPrice);
+            Controls.Add(labelStock);
+            Controls.Add(nudStock);
+            Controls.Add(CategoryFilterCheckedBoxes);
+            Controls.Add(ButtonUpdateFilters);
         }
 
         public void AddControlsToForm(List<Control> list)

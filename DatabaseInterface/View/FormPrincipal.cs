@@ -30,7 +30,7 @@ namespace DatabaseInterfaceDemo
 
         static readonly Dictionary<Type, string> TYPE_DICT = FormUtils.TypeDictionary();
 
-        static readonly Dictionary<string, string> LOC_STRINGS = LocalizationText.localizedStrings;
+        static readonly Dictionary<string, string> LOC_STRINGS = i18n_spanish.i18n;
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
@@ -75,10 +75,10 @@ namespace DatabaseInterfaceDemo
             {
                 if (DB.IsThereAnyTempUser())
                 {
-                    LocalizationText.WARN_UncommittedChanges();
+                    i18n_spanish.WARN_UncommittedChanges();
                     ReSyncDataTypeComboBoxType();
                 }
-                if (LocalizationText.CHOICE_WARN_DatabaseOverwrite() == DialogResult.Yes)
+                if (i18n_spanish.CHOICE_WARN_DatabaseOverwrite() == DialogResult.Yes)
                 {
                     //Spaghetti
                     InitDGVColumnsWithEmptyList();
@@ -366,7 +366,7 @@ namespace DatabaseInterfaceDemo
 
         private void ButtonSaveAll_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
+            if (i18n_spanish.WARN_SaveConfirm() == DialogResult.Yes)
             {
                 DB.TurnTempIntoPermanent(DB.GetBindingList());
             }
@@ -374,7 +374,7 @@ namespace DatabaseInterfaceDemo
 
         private void ButtonRevertAll_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
+            if (i18n_spanish.WARN_RevertConfirm() == DialogResult.Yes)
             {
                 DB.RestoreFromBackupAndEmptyBackup(DB.GetBindingList());
             }
@@ -383,7 +383,7 @@ namespace DatabaseInterfaceDemo
 
         private void SaveSelectedObjectButton_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.WARN_SaveConfirm() == DialogResult.Yes)
+            if (i18n_spanish.WARN_SaveConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -397,7 +397,7 @@ namespace DatabaseInterfaceDemo
         private void DeleteSelectedObjectButton_Click(object sender, EventArgs e)
         {
             //TODO: Actually save the deletion and stuff for refetching
-            if (LocalizationText.WARN_DeleteConfirm() == DialogResult.Yes)
+            if (i18n_spanish.WARN_DeleteConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -429,7 +429,7 @@ namespace DatabaseInterfaceDemo
             }
             else
             {
-                DialogResult d = LocalizationText.ERR_DBNotInitialized();
+                DialogResult d = i18n_spanish.ERR_DBNotInitialized();
                 d = DialogResult.None;
             }
         }
@@ -488,7 +488,7 @@ namespace DatabaseInterfaceDemo
                 reportForm.ShowDialog();
             } else
             {
-                LocalizationText.ERR_DBNotInitialized();
+                i18n_spanish.ERR_DBNotInitialized();
             }
         }
 
@@ -512,7 +512,7 @@ namespace DatabaseInterfaceDemo
 
         private void RevertSelectedButton_Click(object sender, EventArgs e)
         {
-            if (LocalizationText.WARN_RevertConfirm() == DialogResult.Yes)
+            if (i18n_spanish.WARN_RevertConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {

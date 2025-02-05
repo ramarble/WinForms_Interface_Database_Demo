@@ -26,9 +26,8 @@ namespace DatabaseInterfaceDemo.View.FilterControls
 
         }
 
-        public List<Control> AddControlsToList()
+        public void AddControlsToList()
         {
-            return null;
         }
 
         public void InitializeComponents()

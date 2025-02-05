@@ -3,12 +3,12 @@ using System.Windows.Forms;
 
 namespace DatabaseInterfaceDemo.Data
 {
-    public static class LocalizationText
+    public static class i18n_spanish
     {
 
         //Move this to a json :D
         //add every text in the DialogResults
-        public static Dictionary<string, string> localizedStrings = new Dictionary<string, string>()
+        public static Dictionary<string, string> i18n = new Dictionary<string, string>()
         {
             {"TEMPCHAR_TOOLTIP", "[*] = Revertible\n[ ] = Guardado Temporal"},
             {"WARNING","Advertencia"},
@@ -32,54 +32,54 @@ namespace DatabaseInterfaceDemo.Data
 
         public static DialogResult INFO_ObjectAddedToList()
         {
-            return MessageBox.Show(localizedStrings["INFO_ObjectAddedToList"], localizedStrings["INFO"]);
+            return MessageBox.Show(i18n["INFO_ObjectAddedToList"], i18n["INFO"]);
 
         }
 
         public static DialogResult WARN_RevertConfirm()
         {
-            return MessageBox.Show(localizedStrings["WARN_RevertConfirm"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
+            return MessageBox.Show(i18n["WARN_RevertConfirm"], i18n["WARNING"], MessageBoxButtons.YesNo);
         }
         public static DialogResult WARN_SaveConfirm()
         {
-            return MessageBox.Show(localizedStrings["WARN_SaveConfirm"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
+            return MessageBox.Show(i18n["WARN_SaveConfirm"], i18n["WARNING"], MessageBoxButtons.YesNo);
         }
 
         public static DialogResult WARN_DeleteConfirm()
         {
-            return MessageBox.Show(localizedStrings["WARN_DeleteConfirm"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
+            return MessageBox.Show(i18n["WARN_DeleteConfirm"], i18n["WARNING"], MessageBoxButtons.YesNo);
         }
 
         public static DialogResult WARN_ExitWithoutSaving()
         {
-            return MessageBox.Show(localizedStrings["WARN_ExitWithoutSaving"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
+            return MessageBox.Show(i18n["WARN_ExitWithoutSaving"], i18n["WARNING"], MessageBoxButtons.YesNo);
         }
 
         public static void WARN_UncommittedChanges()
         {
-            DialogResult d = MessageBox.Show(localizedStrings["WARN_UncommittedChanges"], localizedStrings["WARNING"]);
+            DialogResult d = MessageBox.Show(i18n["WARN_UncommittedChanges"], i18n["WARNING"]);
             d = DialogResult.None;
         }
 
         public static DialogResult WARN_FillAllData()
         {
-            return MessageBox.Show(localizedStrings["WARN_FillAllData"], localizedStrings["WARNING"]);
+            return MessageBox.Show(i18n["WARN_FillAllData"], i18n["WARNING"]);
         }
 
         public static DialogResult CHOICE_WARN_DatabaseOverwrite()
         {
-            return MessageBox.Show(localizedStrings["CHOICE_WARN_DatabaseOverwrite"], localizedStrings["WARNING"], MessageBoxButtons.YesNo);
+            return MessageBox.Show(i18n["CHOICE_WARN_DatabaseOverwrite"], i18n["WARNING"], MessageBoxButtons.YesNo);
         }
 
         public static DialogResult ERR_ObjPresent(string primaryKey, string keyValue)
         {
-            DialogResult d = MessageBox.Show(localizedStrings["ERR_ObjPresent"] + " " + primaryKey + ": " + keyValue);
+            DialogResult d = MessageBox.Show(i18n["ERR_ObjPresent"] + " " + primaryKey + ": " + keyValue);
             return DialogResult.None;
         }
 
         public static DialogResult ERR_DBNotInitialized()
         {
-            return MessageBox.Show(localizedStrings["ERR_DBNotInitialized"], localizedStrings["ERROR"]);
+            return MessageBox.Show(i18n["ERR_DBNotInitialized"], i18n["ERROR"]);
         }
     }
 

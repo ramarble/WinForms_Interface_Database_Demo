@@ -59,7 +59,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             if (FormUtils.IsAnyTextBoxEmptyInForm(this))
             {
-                LocalizationText.WARN_FillAllData();
+                i18n_spanish.WARN_FillAllData();
                 this.DialogResult = DialogResult.None; //Why the frick is this how it has to work
                 HighlightEmptyTextBoxes();
 
@@ -81,7 +81,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
                 if (DB.AddObjectToList(DB.GetBindingList(), ob, EditMode))
                 {
-                    LocalizationText.INFO_ObjectAddedToList();
+                    i18n_spanish.INFO_ObjectAddedToList();
                     ClearAllTextBoxes(null, null);
 
                     //These 3 lines of code are holding the weight of the entire program

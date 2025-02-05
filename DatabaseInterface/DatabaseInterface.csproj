@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DatabaseInterfaceDemo.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -94,7 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\CustomJSONParser.cs" />
-    <Compile Include="Data\LocalizationText.cs" />
+    <Compile Include="i18n\i18n_spanish.cs" />
     <Compile Include="Controller\ObjectFactory.cs" />
     <Compile Include="Controller\FormUtils.cs" />
     <Compile Include="Controller\ObjectDataBaseController.cs" />
@@ -111,6 +112,7 @@
     </Compile>
     <Compile Include="View\FilterControls\Employee_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Filterless.cs" />
+    <Compile Include="View\FilterControls\FiltersBase.cs" />
     <Compile Include="View\FilterControls\IFiltersBase.cs" />
     <Compile Include="View\FilterControls\Product_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Employee_ListAll_Up_FilterControls.cs" />

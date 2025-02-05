@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using Microsoft.Reporting.WinForms;
 
-namespace DatabaseInterfaceDemo.View
+namespace DatabaseInterfaceDemo.View.FilterControls
 {
 
     /// <summary>
@@ -14,7 +14,6 @@ namespace DatabaseInterfaceDemo.View
     {
         ReportForm FormOrigin { get; set; }
         ReportViewer ReportView { get; set; }
-
         List<Control> Controls { get; set; }
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace DatabaseInterfaceDemo.View
         /// <summary>
         /// Add Controls to List<Control> Controls
         /// </summary>
-        List<Control> AddControlsToList();
+        void AddControlsToList();
 
         /// <summary>
         /// Add List<Control> Controls to the Form

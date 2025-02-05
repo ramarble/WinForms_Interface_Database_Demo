@@ -6,7 +6,7 @@ namespace DatabaseInterfaceDemo.Controller
 {
     public static class ObjectFactory
     {
-        public static List<object> createEmpleadoList()
+        public static List<object> CreateEmployeeList()
         {
             List<object> empleadoList = new List<object>();
 

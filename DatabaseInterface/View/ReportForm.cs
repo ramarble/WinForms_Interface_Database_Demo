@@ -8,6 +8,7 @@ using DatabaseInterfaceDemo.Model.ReportReferenceTuple;
 using System.Linq;
 using static DatabaseInterfaceDemo.Controller.FormUtils;
 using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.View.FilterControls;
 
 namespace DatabaseInterfaceDemo.View
 {
@@ -17,7 +18,7 @@ namespace DatabaseInterfaceDemo.View
         public static ReportDataSource ReportData { get; set; }
         public static BindingList<object> ListCurrentlyInUse { get; set; }
         public static BindingList<object> InitialList { get; set; }
-        public static IFiltersBase FormTypeFilters;
+        public static FiltersBase FormTypeFilters;
         public static Type TypeHandled;
 
         public ReportForm(BindingList<object> list, Type DBType)
@@ -68,21 +69,21 @@ namespace DatabaseInterfaceDemo.View
         /// </summary>
         /// <param name="filterFormList"></param>
         /// <returns></returns>
-        private IFiltersBase InitializeControlsFor(object filterFormList, Type TypeHandled)
+        private FiltersBase InitializeControlsFor(object filterFormList, Type TypeHandled)
         {
 
             switch (TypeHandled.Name)
             {
                 case nameof(Empleado):
                     {
-                        return (IFiltersBase)Activator.CreateInstance(
+                        return (FiltersBase)Activator.CreateInstance(
                             (ReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
                                 it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), filterFormList.ToString())).Item2),
                                 this, ReportViewer);
                     }
                 case nameof(Producto):
                     { 
-                        return (IFiltersBase)Activator.CreateInstance(
+                        return (FiltersBase)Activator.CreateInstance(
                             (ReportReference.ProductReportReferenceTuple().FirstOrDefault(
                                 it => it.Item1 == (ProductReportList) Enum.Parse(typeof(ProductReportList), filterFormList.ToString())).Item2),
                                 this, ReportViewer);

@@ -86,7 +86,7 @@ namespace DatabaseInterfaceDemo.Controller
                 }
                 else
                 {
-                    DialogResult d = LocalizationText.ERR_ObjPresent(PRIMARY_KEY, GetKey(userToAdd).ToString());
+                    DialogResult d = i18n_spanish.ERR_ObjPresent(PRIMARY_KEY, GetKey(userToAdd).ToString());
                     d = DialogResult.None;
                     return false;
                 }
@@ -249,7 +249,7 @@ namespace DatabaseInterfaceDemo.Controller
         {
             if (IsThereAnyTempUser())
             {
-                LocalizationText.WARN_UncommittedChanges();
+                i18n_spanish.WARN_UncommittedChanges();
                 e.Cancel = true;
             }
         }
