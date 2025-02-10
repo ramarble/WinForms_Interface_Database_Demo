@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.comboboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ComboBox_ReportSelect = new System.Windows.Forms.ComboBox();
@@ -40,12 +40,12 @@
             // 
             // ReportViewer
             // 
-            this.ReportViewer.LocalReport.ReportEmbeddedResource = "RA4_Ejercicios.View.Report1.rdlc";
-            this.ReportViewer.Location = new System.Drawing.Point(125, 69);
-            this.ReportViewer.Name = "ReportViewer";
-            this.ReportViewer.ServerReport.BearerToken = null;
-            this.ReportViewer.Size = new System.Drawing.Size(1282, 636);
-            this.ReportViewer.TabIndex = 0;
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "RA4_Ejercicios.View.Report1.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(125, 69);
+            this.reportViewer.Name = "ReportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(1282, 636);
+            this.reportViewer.TabIndex = 0;
             // 
             // contextMenuStrip1
             // 
@@ -102,7 +102,7 @@
             this.Controls.Add(this.labelLoadData);
             this.Controls.Add(this.buttonLoadData);
             this.Controls.Add(this.ComboBox_ReportSelect);
-            this.Controls.Add(this.ReportViewer);
+            this.Controls.Add(this.reportViewer);
             this.Name = "ReportForm";
             this.Text = "ReportForm";
             this.contextMenuStrip1.ResumeLayout(false);
@@ -113,7 +113,7 @@
 
         #endregion
 
-        private Microsoft.Reporting.WinForms.ReportViewer ReportViewer;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem comboboxToolStripMenuItem;
         private System.Windows.Forms.ComboBox ComboBox_ReportSelect;

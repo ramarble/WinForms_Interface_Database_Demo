@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.Lang;
 using DatabaseInterfaceDemo.Model;
 using DatabaseInterfaceDemo.View.ObjectCreationForms;
 
@@ -86,7 +86,7 @@ namespace DatabaseInterfaceDemo.Controller
                 }
                 else
                 {
-                    DialogResult d = i18n_spanish.ERR_ObjPresent(PRIMARY_KEY, GetKey(userToAdd).ToString());
+                    DialogResult d = Lang.LangClass.ERR_ObjPresent(PRIMARY_KEY, GetKey(userToAdd).ToString());
                     d = DialogResult.None;
                     return false;
                 }
@@ -249,7 +249,7 @@ namespace DatabaseInterfaceDemo.Controller
         {
             if (IsThereAnyTempUser())
             {
-                i18n_spanish.WARN_UncommittedChanges();
+                Lang.LangClass.WARN_UncommittedChanges();
                 e.Cancel = true;
             }
         }

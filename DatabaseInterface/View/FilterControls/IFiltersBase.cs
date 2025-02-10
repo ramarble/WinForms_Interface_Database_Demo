@@ -33,12 +33,12 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         void InitializeComponents();
 
         /// <summary>
-        /// Add Controls to List<Control> Controls
+        /// Add Controls to List&lt;Control&gt; Controls
         /// </summary>
         void AddControlsToList();
 
         /// <summary>
-        /// Add List<Control> Controls to the Form
+        /// Add List&lt;Control&gt; Controls to the Form
         /// </summary>
         /// <param name="Controls"></param>
         void AddControlsToForm(List<Control> Controls);

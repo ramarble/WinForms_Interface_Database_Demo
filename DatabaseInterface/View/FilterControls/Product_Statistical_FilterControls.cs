@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.Controller;
 using DatabaseInterfaceDemo.Model;
@@ -11,39 +12,23 @@ using Microsoft.Reporting.WinForms;
 
 namespace DatabaseInterfaceDemo.View.FilterControls
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Product_Statistical_FilterControls : FiltersBase
     {
         private CheckedListBox CategoryFilterCheckedBoxes;
 
-        public override ReportForm FormOrigin { get; set; }
-        public override ReportViewer ReportView { get; set; }
-        public override List<Control> Controls { get; set; }
-        public override Button ButtonUpdateFilters { get; set; }
-
-        public Product_Statistical_FilterControls(ReportForm form, ReportViewer reportViewer) 
+        public Product_Statistical_FilterControls(ReportForm form, ReportViewer reportViewer, string dataSourceType) : base(form, reportViewer, dataSourceType) 
         {
-            FakeConstructor(form, reportViewer);
+            AddControlsToList(CategoryFilterCheckedBoxes);
             CategoryFilterCheckedBoxes.Items.AddRange(Enum.GetNames(typeof(Category)));
-
         }
-
-        /// <inheritdoc/>
-        public override void AddControlsToList()
-        {
-            Controls.Add(CategoryFilterCheckedBoxes);
-            Controls.Add(ButtonUpdateFilters);
-        }
-
 
         /// <inheritdoc/>
         public override void UpdateFilters_Click(object sender, EventArgs e)
         {
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnCategoryFilter(ReportForm.InitialList);
-
-            ReportView.LocalReport.DataSources.Remove(ReportForm.ReportData);
-            ReportForm.ReportData = new ReportDataSource("Producto_DataSet", ReportForm.ListCurrentlyInUse);
-            ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
-            ReportView.RefreshReport();
         }
 
 
@@ -64,11 +49,11 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         /// <inheritdoc/>
         public override void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
         {
-            FormUtils.PlaceControlBottomRightCorner(FormOrigin, ButtonUpdateFilters);
-            FormUtils.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
+            base.ProgrammaticallyPlaceFilterControls(sender, e);
+            CustomDesigner.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
         }
         /// <inheritdoc/>
-        public override void InitializeComponents()
+        public override void StyleControls()
         {
             this.CategoryFilterCheckedBoxes = new CheckedListBox();
 
@@ -80,8 +65,6 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             this.CategoryFilterCheckedBoxes.Name = "CategoryFilterCheckedBoxes";
             this.CategoryFilterCheckedBoxes.Size = new System.Drawing.Size(120, 49);
             this.CategoryFilterCheckedBoxes.TabIndex = 10;
-
-            base.InitializeComponents();
         }
     }
 }

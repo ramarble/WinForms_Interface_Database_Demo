@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.Controller;
-using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.Lang;
 using DatabaseInterfaceDemo.Model;
 
 namespace DatabaseInterfaceDemo.View.ObjectCreationForms
@@ -15,9 +15,9 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             InitializeComponent();
         }
-        static readonly Dictionary<string, string> LOC_STRINGS = i18n_spanish.i18n;
+        static readonly Dictionary<string, string> LOC_STRINGS = Lang.LangClass.LangDictionary;
 
-        public Form ParentForm;
+        public Form parentForm;
         public Boolean EditMode;
         public ObjectDataBaseController<object> DB;
         public Type TypeBeingModified;
@@ -45,7 +45,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             InitializeComponent();
 
-            ParentForm = sender;
+            parentForm = sender;
             this.DB = db;
             this.TypeBeingModified = db.GetDBObjectType();
 
@@ -56,7 +56,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         public BaseFormCreateObject(Form sender, object ob, Boolean editMode, ObjectDataBaseController<object> db)
         {
             InitializeComponent();
-            this.ParentForm = sender;
+            this.parentForm = sender;
             this.DB = db;
             this.TypeBeingModified = db.GetDBObjectType();
 
@@ -179,7 +179,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
         public virtual void OnBaseFormClosed(object sender, EventArgs e)
         {
-            ParentForm.Show();
+            parentForm.Show();
             base.OnClosed(e);
         }
 
@@ -187,7 +187,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
         {
             if (!FormUtils.IsAnyTextBoxEmptyInForm(this))
             {
-                if (i18n_spanish.WARN_ExitWithoutSaving() != DialogResult.Yes)
+                if (Lang.LangClass.WARN_ExitWithoutSaving() != DialogResult.Yes)
                 {
                     e.Cancel = true;
                 }

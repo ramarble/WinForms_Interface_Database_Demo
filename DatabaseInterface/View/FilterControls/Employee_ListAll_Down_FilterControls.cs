@@ -10,83 +10,41 @@ using Microsoft.Reporting.WinForms;
 namespace DatabaseInterfaceDemo.View.FilterControls
 
 {
-    public class Employee_ListAll_Up_FilterControls : IFiltersBase
+    /// <summary>
+    /// Set of Filters for Employee data above a user defined threshold
+    /// </summary>
+    public class Employee_ListAll_Up_FilterControls : FiltersBase
     {
 
-        private NumericUpDown nudDaysWorked;
-        private Label labelDaysWorked;
-        private Label labelSalary;
-        private NumericUpDown nudSalary;
-        private Button ButtonUpdateFilters;
+        private NumericUpDown nudDaysWorked = new NumericUpDown();
+        private Label labelDaysWorked = new Label();
+        private Label labelSalary = new Label();
+        private NumericUpDown nudSalary = new NumericUpDown();
 
-        public List<Control> Controls { get; set; }
-
-        public ReportForm FormOrigin { get; set; }
-        public ReportViewer ReportView { get; set; }
-
-        public Employee_ListAll_Up_FilterControls(ReportForm form, ReportViewer reportViewer)
+        /// <summary>
+        /// Set of Filters for Employee data above a user defined threshold
+        /// </summary>
+        public Employee_ListAll_Up_FilterControls(ReportForm form, ReportViewer reportViewer, string dataSourceType): base(form, reportViewer, dataSourceType)
         {
-            InitializeComponents();
-
-            FormOrigin = form;
-            ReportView = reportViewer;
-
+            AddControlsToList(nudDaysWorked, labelDaysWorked, labelSalary,nudSalary);
             nudSalary.Controls.RemoveAt(0);
             nudDaysWorked.Controls.RemoveAt(0);
-
-            AddControlsToList();
-            AddControlsToForm(Controls);
-
-            ButtonUpdateFilters.Click += UpdateFilters_Click;
-
-            ProgrammaticallyPlaceFilterControls(null, null);
         }
 
-        public void AddControlsToList()
+        /// <inheritdoc/>
+        public override void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
         {
-            Controls.Add(nudDaysWorked);
-            Controls.Add(labelDaysWorked);
-            Controls.Add(labelSalary);
-            Controls.Add(nudSalary);
-            Controls.Add(ButtonUpdateFilters);
+            base.ProgrammaticallyPlaceFilterControls(sender, e);
+            CustomDesigner.PlaceControlBottomLeftCorner(FormOrigin, nudSalary);
+            CustomDesigner.PlaceControlBottomRightOf(nudDaysWorked, nudSalary);
+            CustomDesigner.PlaceControlOnTopOf(labelSalary, nudSalary);
+            CustomDesigner.PlaceControlOnTopOf(labelDaysWorked, nudDaysWorked);
         }
 
-        public void AddControlsToForm(List<Control> list)
+        public override void UpdateFilters_Click(object sender, EventArgs e)
         {
-            foreach (Control control in Controls)
-            {
-                FormOrigin.Controls.Add(control);
-            }
-        }
-
-        public void RemoveControlsFromForm(List<Control> Controls)
-        {
-            foreach (Control control in Controls)
-            {
-                FormOrigin.Controls.Remove(control);
-            }
-        }
-
-        public void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
-        {
-            FormUtils.PlaceControlBottomRightCorner(FormOrigin, ButtonUpdateFilters);
-            FormUtils.PlaceControlBottomLeftCorner(FormOrigin, nudSalary);
-            FormUtils.PlaceControlBottomRightOf(nudDaysWorked, nudSalary);
-            FormUtils.PlaceControlOnTopOf(labelSalary, nudSalary);
-            FormUtils.PlaceControlOnTopOf(labelDaysWorked, nudDaysWorked);
-        }
-
-        public void UpdateFilters_Click(object sender, EventArgs e)
-        {
-
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnDaysWorkedFilter(ReportForm.ListCurrentlyInUse);
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnSalaryFilter(ReportForm.ListCurrentlyInUse);
-
-
-            ReportView.LocalReport.DataSources.Remove(ReportForm.ReportData);
-            ReportForm.ReportData = new ReportDataSource("Empleado_DataSet", ReportForm.ListCurrentlyInUse);
-            ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
-            ReportView.RefreshReport();
         }
 
         private BindingList<object> UpdateListBasedOnSalaryFilter(BindingList<object> listWorkedOn)
@@ -113,16 +71,10 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             else return listWorkedOn;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        public void InitializeComponents()
+        ///<inheritdoc/>
+        public override void StyleControls()
         {
-
-            this.nudDaysWorked = new NumericUpDown();
-            this.labelDaysWorked = new Label();
-            this.labelSalary = new Label();
-            this.nudSalary = new NumericUpDown();
+            base.StyleControls();
             ((ISupportInitialize)(this.nudDaysWorked)).BeginInit();
             ((ISupportInitialize)(this.nudSalary)).BeginInit();
 
@@ -148,32 +100,16 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             // 
             // labelSalary
             // 
-            this.labelSalary.AutoSize = true;
             this.labelSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSalary.Location = new System.Drawing.Point(129, 3);
-            this.labelSalary.Name = "labelSalary";
             this.labelSalary.Size = new System.Drawing.Size(124, 20);
-            this.labelSalary.TabIndex = 12;
             this.labelSalary.Text = "Salario superior a";
             // 
             // nudSalary
             // 
             this.nudSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSalary.Location = new System.Drawing.Point(129, 27);
-            this.nudSalary.Name = "nudSalary";
             this.nudSalary.Size = new System.Drawing.Size(124, 26);
-            this.nudSalary.TabIndex = 11;
             this.nudSalary.Maximum = 5000;
-            // 
-            // buttonUpdateFilters
-            // 
-            this.ButtonUpdateFilters = new Button();
-            this.ButtonUpdateFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonUpdateFilters.Name = "buttonUpdateFilters";
-            this.ButtonUpdateFilters.Size = new System.Drawing.Size(192, 44);
-            this.ButtonUpdateFilters.TabIndex = 9;
-            this.ButtonUpdateFilters.Text = "Filtrar por categoría";
-            this.ButtonUpdateFilters.UseVisualStyleBackColor = true;
+
 
             ((ISupportInitialize)(this.nudDaysWorked)).EndInit();
             ((ISupportInitialize)(this.nudSalary)).EndInit();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.Controller;
-using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.Lang;
 using DatabaseInterfaceDemo.Model;
 
 namespace DatabaseInterfaceDemo.View.ObjectCreationForms
@@ -56,7 +56,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
             int usernif;
             if (FormUtils.IsAnyTextBoxEmptyInForm(this))
             {
-                i18n_spanish.WARN_FillAllData();
+                Lang.LangClass.WARN_FillAllData();
                 this.DialogResult = DialogResult.None; //Why the frick is this how it has to work
                 HighlightEmptyTextBoxes();
 
@@ -76,7 +76,7 @@ namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 
                 if (DB.AddObjectToList(DB.GetBindingList(), u, EditMode))
                 {
-                    i18n_spanish.INFO_ObjectAddedToList();
+                    Lang.LangClass.INFO_ObjectAddedToList();
                     ClearAllTextBoxes(null,null);
 
                     //These 3 lines of code are holding the weight of the entire program

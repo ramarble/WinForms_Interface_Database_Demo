@@ -1,0 +1,19 @@
+{
+    "TEMPCHAR_TOOLTIP": "[*] = Revertible\n[ ] = Guardado Temporal",
+    "WARNING": "Advertencia",   
+    "ERROR": "Error",
+    "INFO": "Informaci�n",
+    "DATA_TYPE": "Tipo de Dato",
+    "FILE": "Archivo",
+    "INFO_DatabaseNotInitialized": "Selecciona un tipo de datos o carga un archivo",
+    "ERR_ObjPresent": "Ya existe un objeto con la clave primaria: ",
+    "WARN_RevertConfirm": "�Revertir cambios?",
+    "WARN_SaveConfirm": "�Guardar cambios?",
+    "WARN_DeleteConfirm": "�Borrar Seleccionado?",
+    "WARN_ExitWithoutSaving": "�Salir sin guardar?",
+    "WARN_UncommittedChanges": "Por favor confirma o revierte todos los cambios antes de continuar.",
+    "WARN_FillAllData": "Por favor rellena todos los campos",
+    "CHOICE_WARN_DatabaseOverwrite": "�Quieres sobreescribir la base de datos?\nESTO BORRAR� TODAS LAS ENTRADAS",
+    "ERR_DBNotInitialized": "NO HAY UNA BASE DE DATOS INICIADA",
+    "INFO_ObjectAddedToList": "Objeto a�adido a la lista correctamente."
+}

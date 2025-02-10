@@ -71,12 +71,12 @@ namespace DatabaseInterfaceDemo.View.FilterControls
 
         public void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
         {
-            FormUtils.PlaceControlBottomRightCorner(FormOrigin, ButtonUpdateFilters);
-            FormUtils.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
-            FormUtils.PlaceControlBottomRightOf(nudStock, CategoryFilterCheckedBoxes);
-            FormUtils.PlaceControlBottomRightOf(nudPrice, nudStock);
-            FormUtils.PlaceControlOnTopOf(labelStock, nudStock);
-            FormUtils.PlaceControlOnTopOf(labelPrice, nudPrice);
+            CustomDesigner.PlaceControlBottomRightCorner(FormOrigin, ButtonUpdateFilters);
+            CustomDesigner.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
+            CustomDesigner.PlaceControlBottomRightOf(nudStock, CategoryFilterCheckedBoxes);
+            CustomDesigner.PlaceControlBottomRightOf(nudPrice, nudStock);
+            CustomDesigner.PlaceControlOnTopOf(labelStock, nudStock);
+            CustomDesigner.PlaceControlOnTopOf(labelPrice, nudPrice);
         }
 
         public void UpdateFilters_Click(object sender, EventArgs e)

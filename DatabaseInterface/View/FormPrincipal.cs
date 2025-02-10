@@ -1,7 +1,7 @@
 ﻿using DatabaseInterfaceDemo.Controller;
 using DatabaseInterfaceDemo.Model;
 using DatabaseInterfaceDemo.View;
-using DatabaseInterfaceDemo.Data;
+using DatabaseInterfaceDemo.Lang;
 using DatabaseInterfaceDemo.View.ObjectCreationForms;
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,11 @@ using System.Windows.Forms;
 
 namespace DatabaseInterfaceDemo
 {
+    /// <summary>
+    /// Main Loader Form
+    /// </summary>
     partial class FormPrincipal : Form
     {
-
         public FormPrincipal()
         {
             InitializeComponent();
@@ -30,11 +32,15 @@ namespace DatabaseInterfaceDemo
 
         static readonly Dictionary<Type, string> TYPE_DICT = FormUtils.TypeDictionary();
 
-        static readonly Dictionary<string, string> LOC_STRINGS = i18n_spanish.i18n;
+        /// <summary>
+        /// Initializes the Lang File. Should be able to get hotswapped.
+        /// </summary>
+        static readonly LangClass LangLocalization = new LangClass(LangClass.LangFiles.SPANISH);
+
+        static readonly Dictionary<string, string> LOC_STRINGS = LangClass.LangDictionary;
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-
             InitializeLoadFileComboBox();
             SetLocalizedStringText();
             InitializeDataTypeComboBox();
@@ -42,6 +48,9 @@ namespace DatabaseInterfaceDemo
 
         }
 
+        /// <summary>
+        /// Initializes rw
+        /// </summary>
         private void SetLocalizedStringText()
         {
             labelDatabase.Text = LOC_STRINGS["INFO_DatabaseNotInitialized"];
@@ -75,10 +84,10 @@ namespace DatabaseInterfaceDemo
             {
                 if (DB.IsThereAnyTempUser())
                 {
-                    i18n_spanish.WARN_UncommittedChanges();
+                    Lang.LangClass.WARN_UncommittedChanges();
                     ReSyncDataTypeComboBoxType();
                 }
-                if (i18n_spanish.CHOICE_WARN_DatabaseOverwrite() == DialogResult.Yes)
+                if (Lang.LangClass.CHOICE_WARN_DatabaseOverwrite() == DialogResult.Yes)
                 {
                     //Spaghetti
                     InitDGVColumnsWithEmptyList();
@@ -366,7 +375,7 @@ namespace DatabaseInterfaceDemo
 
         private void ButtonSaveAll_Click(object sender, EventArgs e)
         {
-            if (i18n_spanish.WARN_SaveConfirm() == DialogResult.Yes)
+            if (Lang.LangClass.WARN_SaveConfirm() == DialogResult.Yes)
             {
                 DB.TurnTempIntoPermanent(DB.GetBindingList());
             }
@@ -374,7 +383,7 @@ namespace DatabaseInterfaceDemo
 
         private void ButtonRevertAll_Click(object sender, EventArgs e)
         {
-            if (i18n_spanish.WARN_RevertConfirm() == DialogResult.Yes)
+            if (Lang.LangClass.WARN_RevertConfirm() == DialogResult.Yes)
             {
                 DB.RestoreFromBackupAndEmptyBackup(DB.GetBindingList());
             }
@@ -383,7 +392,7 @@ namespace DatabaseInterfaceDemo
 
         private void SaveSelectedObjectButton_Click(object sender, EventArgs e)
         {
-            if (i18n_spanish.WARN_SaveConfirm() == DialogResult.Yes)
+            if (Lang.LangClass.WARN_SaveConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -397,7 +406,7 @@ namespace DatabaseInterfaceDemo
         private void DeleteSelectedObjectButton_Click(object sender, EventArgs e)
         {
             //TODO: Actually save the deletion and stuff for refetching
-            if (i18n_spanish.WARN_DeleteConfirm() == DialogResult.Yes)
+            if (Lang.LangClass.WARN_DeleteConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {
@@ -429,7 +438,7 @@ namespace DatabaseInterfaceDemo
             }
             else
             {
-                DialogResult d = i18n_spanish.ERR_DBNotInitialized();
+                DialogResult d = Lang.LangClass.ERR_DBNotInitialized();
                 d = DialogResult.None;
             }
         }
@@ -488,7 +497,7 @@ namespace DatabaseInterfaceDemo
                 reportForm.ShowDialog();
             } else
             {
-                i18n_spanish.ERR_DBNotInitialized();
+                Lang.LangClass.ERR_DBNotInitialized();
             }
         }
 
@@ -512,7 +521,7 @@ namespace DatabaseInterfaceDemo
 
         private void RevertSelectedButton_Click(object sender, EventArgs e)
         {
-            if (i18n_spanish.WARN_RevertConfirm() == DialogResult.Yes)
+            if (Lang.LangClass.WARN_RevertConfirm() == DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in PrincipalDataGridView.SelectedRows)
                 {

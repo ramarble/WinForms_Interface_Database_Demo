@@ -12,21 +12,49 @@ using DatabaseInterfaceDemo.View.FilterControls;
 
 namespace DatabaseInterfaceDemo.View
 {
+    /// <summary>
+    /// Form that loads a RDLC report on a <typeparamref name="ReportViewer"/> based on the type of
+    /// Database loaded.
+    /// </summary>
     public partial class ReportForm : Form
     {   
-
+        /// <summary>
+        /// ReportDataSource managed by <see cref="DBType"/>
+        /// </summary>
         public static ReportDataSource ReportData { get; set; }
-        public static BindingList<object> ListCurrentlyInUse { get; set; }
-        public static BindingList<object> InitialList { get; set; }
-        public static FiltersBase FormTypeFilters;
-        public static Type TypeHandled;
 
+        /// <summary>
+        /// List displayed as DataSource for <see cref="reportViewer"/>
+        /// </summary>
+        public static BindingList<object> ListCurrentlyInUse { get; set; }
+
+        /// <summary>
+        /// Reference of the list shown in <see cref="reportViewer"/> in its initial, unmodified state.
+        /// </summary>
+        public static BindingList<object> InitialList { get; set; }
+
+        /// <summary>
+        /// Controls class added in runtime to interface with the <see cref="ListCurrentlyInUse"/> shown in <see cref="reportViewer"/>
+        /// </summary>
+        public static FiltersBase FilterControls;
+
+        /// <summary>
+        /// Type that dictates which values will be present at runtime.
+        /// </summary>
+        public static Type DBType;
+
+        /// <summary>
+        /// Form that loads a RDLC report on a <typeparamref name="ReportViewer"/> based on the type of
+        /// Database loaded.
+        /// </summary>
+        /// <param name="list">List containing the database</param>
+        /// <param name="DBType">Type of database loaded</param>
         public ReportForm(BindingList<object> list, Type DBType)
         {
             InitializeComponent();
             buttonLoadData.Click += ButtonLoadData_Click;
 
-            TypeHandled = DBType;
+            ReportForm.DBType = DBType;
 
             InitialList = list;
             ListCurrentlyInUse = list;
@@ -47,78 +75,76 @@ namespace DatabaseInterfaceDemo.View
         {
             //If you keep pressing the button, free memory collapse!
             //thank you GC
-            if (FormTypeFilters != null)
+            if (FilterControls != null)
             {
-                ResizeEnd -= FormTypeFilters.ProgrammaticallyPlaceFilterControls;
-                FormTypeFilters.RemoveControlsFromForm(FormTypeFilters.Controls);
+                ResizeEnd -= FilterControls.ProgrammaticallyPlaceFilterControls;
+                FilterControls.RemoveControlsFromForm(FilterControls.Controls);
             }
             
-            FormTypeFilters = InitializeControlsFor(ComboBox_ReportSelect.SelectedItem, TypeHandled);
+            FilterControls = InstanceFormFilters(ComboBox_ReportSelect.SelectedItem);
             
-            ResizeEnd += FormTypeFilters.ProgrammaticallyPlaceFilterControls;
+            ResizeEnd += FilterControls.ProgrammaticallyPlaceFilterControls;
             
-            InitializeReportViewer(TypeHandled);
+            InitializeReportViewer();
         }
 
-        //HEEEEELP
-        //I WROTE THIS MYSELF
-        //WHAT DOES IT DO
         /// <summary>
-        /// Initializes an object derived from IFiltersBase based on the content from filterFormList which in this case will be derived from the item selected from the ComboBox
-        /// The Activator creates an instance with parameters (this, ReportViewer)
+        /// Called on <see cref="ReportForm.ButtonLoadData_Click(object, EventArgs)"/>. 
+        /// Parses the item chosen under <see cref="ComboBox_ReportSelect"/> as an object of type <see cref="FiltersBase"/> from the reference tuples found in <see cref="ReportReference"/>.
+        /// The Activator creates an instance of said FiltersBase with parameters (this, ReportViewer)
         /// </summary>
-        /// <param name="filterFormList"></param>
-        /// <returns></returns>
-        private FiltersBase InitializeControlsFor(object filterFormList, Type TypeHandled)
+        /// <param name="selectedReportForm"></param>
+        /// <returns>Parsed <see cref="FiltersBase"/> from <paramref name="selectedReportForm"/></returns>
+        private FiltersBase InstanceFormFilters(object selectedReportForm)
         {
 
-            switch (TypeHandled.Name)
+            switch (DBType.Name)
             {
                 case nameof(Empleado):
                     {
                         return (FiltersBase)Activator.CreateInstance(
                             (ReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
-                                it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), filterFormList.ToString())).Item2),
-                                this, ReportViewer);
+                                it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), selectedReportForm.ToString())).Item2),
+                                this, reportViewer, "Empleado_DataSet");
                     }
                 case nameof(Producto):
                     { 
                         return (FiltersBase)Activator.CreateInstance(
                             (ReportReference.ProductReportReferenceTuple().FirstOrDefault(
-                                it => it.Item1 == (ProductReportList) Enum.Parse(typeof(ProductReportList), filterFormList.ToString())).Item2),
-                                this, ReportViewer);
+                                it => it.Item1 == (ProductReportList) Enum.Parse(typeof(ProductReportList), selectedReportForm.ToString())).Item2),
+                                this, reportViewer, "Producto_DataSet");
                     }
                 }
-            throw new Exception("frick off");
+            throw new Exception("Unmanaged code path");
 
         }
 
         /// <summary>
-        /// Initializes the ReportViewer based on the data found in the ComboBox that holds the types of Reports available
+        /// Initializes the <typeparamref name="ReportViewer"/> based on the <typeparamref name="Type"/> referenced in the Tuple <see cref="ReportReference"/>
         /// </summary>
-        private void InitializeReportViewer(Type TypeHandled)
+        private void InitializeReportViewer()
         {
             if (ReportData != null)
             {
-                ReportViewer.LocalReport.DataSources.Remove(ReportData);
+                reportViewer.LocalReport.DataSources.Remove(ReportData);
             }
 
-            ReportViewer.LocalReport.ReportPath = GetSelectedReportPathFromComboBox(ComboBox_ReportSelect.SelectedItem, TypeHandled);
+            reportViewer.LocalReport.ReportPath = GetSelectedReportPathFromComboBox(ComboBox_ReportSelect.SelectedItem);
 
-            ReportData = GetReportDataSourceFromTypeHandled(TypeHandled, InitialList);
-            ReportViewer.LocalReport.DataSources.Add(ReportData);
-            ReportViewer.RefreshReport();
+            ReportData = GetReportDataSourceFromTypeHandled(InitialList);
+            reportViewer.LocalReport.DataSources.Add(ReportData);
+            reportViewer.RefreshReport();
         }
 
 
         /// <summary>
-        /// help
+        /// Returns the Path of the relevant RDLC from the chosen <paramref name="ComboBox_SelectedItem"/> referenced in <see cref="ReportReference"/>
         /// </summary>
         /// <param name="ComboBox_SelectedItem"></param>
         /// <returns></returns>
-        private string GetSelectedReportPathFromComboBox(object ComboBox_SelectedItem, Type TypeHandled)
+        private string GetSelectedReportPathFromComboBox(object ComboBox_SelectedItem)
         {
-            switch (TypeHandled.Name)
+            switch (DBType.Name)
             {
                 case nameof(Empleado):
                     {
@@ -131,13 +157,16 @@ namespace DatabaseInterfaceDemo.View
                             it => it.Item1 == (ProductReportList)Enum.Parse(typeof(ProductReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
                     }
             }
-            throw new Exception("Shouldn't ever get here");
+            throw new Exception("Unmanaged code path");
         }
 
+        /// <summary>
+        /// Populates <see cref="ComboBox_ReportSelect"/> based on the value in <see cref="ReportForm.DBType"/>
+        /// </summary>
         private void InitializeComboBox()
         {
-            ComboBox_ReportSelect.SelectedValueChanged += ComboBox_FormSelect_SelectedValueChanged;
-            switch (TypeHandled.Name)
+            ComboBox_ReportSelect.SelectedValueChanged += ComboBox_ReportSelect_SelectedValueChanged;
+            switch (DBType.Name)
             {
                 case nameof(Empleado):
                     {
@@ -154,9 +183,15 @@ namespace DatabaseInterfaceDemo.View
             }
         }
 
-        private ReportDataSource GetReportDataSourceFromTypeHandled(Type type, BindingList<object> InitialList)
+        /// <summary>
+        /// Returns a new <typeparamref name="ReportDataSource"/> based on the type found in <see cref="DBType"/>
+        /// </summary>
+        /// <param name="InitialList"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidEnumArgumentException"></exception>
+        private ReportDataSource GetReportDataSourceFromTypeHandled(BindingList<object> InitialList)
         {
-            switch (TypeHandled.Name)
+            switch (DBType.Name)
             {
                 case nameof(Empleado):
                     {
@@ -171,7 +206,12 @@ namespace DatabaseInterfaceDemo.View
 
         }
 
-        private void ComboBox_FormSelect_SelectedValueChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Method fired when <see cref="ComboBox_ReportSelect"/> returns a valid value which enables <see cref="buttonLoadData"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComboBox_ReportSelect_SelectedValueChanged(object sender, EventArgs e)
         {
             if (ComboBox_ReportSelect.SelectedItem != null)
             {
@@ -182,15 +222,20 @@ namespace DatabaseInterfaceDemo.View
             }
         }
 
+        /// <summary>
+        /// Programmatically places the Controls in the form, overriding the designer file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProgrammaticallyPlaceControls(object sender, EventArgs e)
         {
-            this.StartPosition = FormStartPosition.Manual;
-
-            FormUtils.PlaceControlTopLeft(ComboBox_ReportSelect);
-            FormUtils.PlaceControlBelow(ReportViewer, ComboBox_ReportSelect);
-            FormUtils.PlaceControlTopRightOf(buttonLoadData, ComboBox_ReportSelect);
-            FormUtils.PlaceControlBottomRightOf(labelLoadData, buttonLoadData);
-            ReportViewer.Size = new Size(this.Size.Width - (int)FormUtils.PADDING.RIGHT, this.Size.Height - (int)FormUtils.PADDING.BUTTONS - (int) FormUtils.PADDING.BOTTOM - ComboBox_ReportSelect.Height);
+            StartPosition = FormStartPosition.Manual;
+            CustomDesigner.PlaceControlTopLeft(ComboBox_ReportSelect);
+            CustomDesigner.PlaceControlBelow(reportViewer, ComboBox_ReportSelect);
+            CustomDesigner.PlaceControlTopRightOf(buttonLoadData, ComboBox_ReportSelect);
+            CustomDesigner.PlaceControlBottomRightOf(labelLoadData, buttonLoadData);
+            reportViewer.Size = new Size(Size.Width - (int)CustomDesigner.PADDING.RIGHT, 
+                Size.Height - (int)CustomDesigner.PADDING.BUTTONS - (int) CustomDesigner.PADDING.BOTTOM - ComboBox_ReportSelect.Height);
         }
 
 
