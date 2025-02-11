@@ -41,10 +41,12 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             CustomDesigner.PlaceControlOnTopOf(labelDaysWorked, nudDaysWorked);
         }
 
+        /// <inheritdoc/>
         public override void UpdateFilters_Click(object sender, EventArgs e)
         {
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnDaysWorkedFilter(ReportForm.ListCurrentlyInUse);
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnSalaryFilter(ReportForm.ListCurrentlyInUse);
+            base.UpdateFilters_Click(sender, e);
         }
 
         private BindingList<object> UpdateListBasedOnSalaryFilter(BindingList<object> listWorkedOn)
@@ -83,19 +85,12 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             // 
             this.nudDaysWorked.DecimalPlaces = 0;
             this.nudDaysWorked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudDaysWorked.Location = new System.Drawing.Point(281, 27);
-            this.nudDaysWorked.Name = "nudDaysWorked";
             this.nudDaysWorked.Size = new System.Drawing.Size(124, 26);
-            this.nudDaysWorked.TabIndex = 14;
             // 
             // labelDaysWorked
             // 
-            this.labelDaysWorked.AutoSize = true;
             this.labelDaysWorked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDaysWorked.Location = new System.Drawing.Point(278, 3);
-            this.labelDaysWorked.Name = "labelDaysWorked";
             this.labelDaysWorked.Size = new System.Drawing.Size(127, 20);
-            this.labelDaysWorked.TabIndex = 13;
             this.labelDaysWorked.Text = "Días trabajados más que";
             // 
             // labelSalary

@@ -13,7 +13,7 @@ using DatabaseInterfaceDemo.View.FilterControls;
 namespace DatabaseInterfaceDemo.View
 {
     /// <summary>
-    /// Form that loads a RDLC report on a <typeparamref name="ReportViewer"/> based on the type of
+    /// Form that loads a RDLC report on a ReportViewer based on the type of
     /// Database loaded.
     /// </summary>
     public partial class ReportForm : Form
@@ -45,7 +45,7 @@ namespace DatabaseInterfaceDemo.View
 
         /// <summary>
         /// Form that loads a RDLC report on a <typeparamref name="ReportViewer"/> based on the type of
-        /// Database loaded.
+        /// Database loaded <paramref name="DBType"/>.
         /// </summary>
         /// <param name="list">List containing the database</param>
         /// <param name="DBType">Type of database loaded</param>
@@ -90,7 +90,7 @@ namespace DatabaseInterfaceDemo.View
 
         /// <summary>
         /// Called on <see cref="ReportForm.ButtonLoadData_Click(object, EventArgs)"/>. 
-        /// Parses the item chosen under <see cref="ComboBox_ReportSelect"/> as an object of type <see cref="FiltersBase"/> from the reference tuples found in <see cref="ReportReference"/>.
+        /// Parses the item chosen under <see cref="ComboBox_ReportSelect"/> as an object of type <see cref="FiltersBase"/> from the reference tuples found in <see cref="FilterReportReference"/>.
         /// The Activator creates an instance of said FiltersBase with parameters (this, ReportViewer)
         /// </summary>
         /// <param name="selectedReportForm"></param>
@@ -103,14 +103,14 @@ namespace DatabaseInterfaceDemo.View
                 case nameof(Empleado):
                     {
                         return (FiltersBase)Activator.CreateInstance(
-                            (ReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
+                            (FilterReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
                                 it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), selectedReportForm.ToString())).Item2),
                                 this, reportViewer, "Empleado_DataSet");
                     }
                 case nameof(Producto):
                     { 
                         return (FiltersBase)Activator.CreateInstance(
-                            (ReportReference.ProductReportReferenceTuple().FirstOrDefault(
+                            (FilterReportReference.ProductReportReferenceTuple().FirstOrDefault(
                                 it => it.Item1 == (ProductReportList) Enum.Parse(typeof(ProductReportList), selectedReportForm.ToString())).Item2),
                                 this, reportViewer, "Producto_DataSet");
                     }
@@ -120,7 +120,7 @@ namespace DatabaseInterfaceDemo.View
         }
 
         /// <summary>
-        /// Initializes the <typeparamref name="ReportViewer"/> based on the <typeparamref name="Type"/> referenced in the Tuple <see cref="ReportReference"/>
+        /// Initializes the <typeparamref name="ReportViewer"/> based on the <typeparamref name="Type"/> referenced in the Tuple <see cref="FilterReportReference"/>
         /// </summary>
         private void InitializeReportViewer()
         {
@@ -138,7 +138,7 @@ namespace DatabaseInterfaceDemo.View
 
 
         /// <summary>
-        /// Returns the Path of the relevant RDLC from the chosen <paramref name="ComboBox_SelectedItem"/> referenced in <see cref="ReportReference"/>
+        /// Returns the Path of the relevant RDLC from the chosen <paramref name="ComboBox_SelectedItem"/> referenced in <see cref="FilterReportReference"/>
         /// </summary>
         /// <param name="ComboBox_SelectedItem"></param>
         /// <returns></returns>
@@ -148,12 +148,12 @@ namespace DatabaseInterfaceDemo.View
             {
                 case nameof(Empleado):
                     {
-                        return ReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
+                        return FilterReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
                             it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
                     }
                 case nameof(Producto):
                     {
-                        return ReportReference.ProductReportReferenceTuple().FirstOrDefault(
+                        return FilterReportReference.ProductReportReferenceTuple().FirstOrDefault(
                             it => it.Item1 == (ProductReportList)Enum.Parse(typeof(ProductReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
                     }
             }
@@ -235,7 +235,7 @@ namespace DatabaseInterfaceDemo.View
             CustomDesigner.PlaceControlTopRightOf(buttonLoadData, ComboBox_ReportSelect);
             CustomDesigner.PlaceControlBottomRightOf(labelLoadData, buttonLoadData);
             reportViewer.Size = new Size(Size.Width - (int)CustomDesigner.PADDING.RIGHT, 
-                Size.Height - (int)CustomDesigner.PADDING.BUTTONS - (int) CustomDesigner.PADDING.BOTTOM - ComboBox_ReportSelect.Height);
+            Size.Height - (int)CustomDesigner.PADDING.BUTTONS - (int) CustomDesigner.PADDING.BOTTOM - ComboBox_ReportSelect.Height);
         }
 
 

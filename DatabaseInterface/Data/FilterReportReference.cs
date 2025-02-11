@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using DatabaseInterfaceDemo.View;
 using DatabaseInterfaceDemo.View.FilterControls;
 using static DatabaseInterfaceDemo.Controller.FormUtils;
 
 namespace DatabaseInterfaceDemo.Model.ReportReferenceTuple
 {
-    static class ReportReference
+    /// <summary>
+    /// Class which holds the reference tuples for filters, their type managed and the link to their respective report file
+    /// </summary>
+    static class FilterReportReference
     {
 
         private static string BASEPATH = "../../View/Reports/";
 
+        /// <summary>
+        /// Item1 is the filter group class. Item2 is the Type managed by these filters, Item3 is the link to the respective report file
+        /// </summary>
+        /// <returns></returns>
         public static List<Tuple<ProductReportList, Type, string>> ProductReportReferenceTuple()
         {
             List<Tuple<ProductReportList, Type, string>> returnList = new List<Tuple<ProductReportList, Type, string>>();
@@ -35,6 +40,11 @@ namespace DatabaseInterfaceDemo.Model.ReportReferenceTuple
             return returnList;
         }
 
+
+        /// <summary>
+        /// Item1 is the filter group class. Item2 is the Type managed by these filters, Item3 is the link to the respective report file
+        /// </summary>
+        /// <returns></returns>
         public static List<Tuple<EmployeeReportList, Type, string>> EmployeeReportReferenceTuple()
         {
             List<Tuple<EmployeeReportList, Type, string>> returnList = new List<Tuple<EmployeeReportList, Type, string>>();

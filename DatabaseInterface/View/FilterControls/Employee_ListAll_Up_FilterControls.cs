@@ -77,32 +77,22 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         {
             base.StyleControls();;
             ((ISupportInitialize)(nudDaysWorked)).BeginInit();
-            ((ISupportInitialize)(  nudSalary)).BeginInit();
+            ((ISupportInitialize)(nudSalary)).BeginInit();
 
-            // 
-            // nudDaysWorked
-            // 
+
             nudDaysWorked.DecimalPlaces = 0;
             nudDaysWorked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             nudDaysWorked.Size = new System.Drawing.Size(124, 26);
             nudDaysWorked.Maximum = 1000;
-            // 
-            // labelDaysWorked
-            // 
-            labelDaysWorked.AutoSize = true;
+ 
             labelDaysWorked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelDaysWorked.Size = new System.Drawing.Size(127, 20);
-                labelDaysWorked.Text = "Días trabajados menos que";
-            // 
-            // labelSalary
-            // 
-            labelSalary.AutoSize = true;
+            labelDaysWorked.Text = "Días trabajados menos que";
+
             labelSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelSalary.Size = new System.Drawing.Size(124, 20);
             labelSalary.Text = "Salario inferior a";
-            // 
-            // nudSalary
-            // 
+
             nudSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             nudSalary.Size = new System.Drawing.Size(124, 26);
             nudSalary.Maximum = 5000;

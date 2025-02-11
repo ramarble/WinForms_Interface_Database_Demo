@@ -12,6 +12,9 @@ namespace DatabaseInterfaceDemo.View.FilterControls
     /// </summary>
     public abstract class FiltersBase
     {
+        /// <summary>
+        /// Name for the ReportDataSource added in the ReportViewer
+        /// </summary>
         public string DataSourceName { get; set; }
         /// <summary>
         /// Origin form in which the controls will be added
@@ -23,6 +26,7 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         public ReportViewer ReportView { get; set; }
         /// <summary>
         /// List of Controls that will be added to the ReportForm.
+        /// </summary>
         public List<Control> Controls { get; set; }
 
         /// <summary>
@@ -31,10 +35,11 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         public Button ButtonUpdateFilters { get; set; }
 
         /// <summary>
-        /// <typeparamref name="struct"/> that initializes the base structure for the styling and interfacing of a specific ReportViewer
+        /// Parent class that initializes the base structure for the styling and interfacing of a specific ReportViewer
         /// </summary>
         /// <param name="form">The origin form in which to add the Controls</param>
         /// <param name="reportView">the ReportViewer Control to update with the Controls</param>
+        /// <param name="dataSourceName">Name for the ReportDataSource added in the ReportViewer</param>
         internal FiltersBase(ReportForm form, ReportViewer reportView, string dataSourceName)
         {
             Controls = new List<Control>();
@@ -42,10 +47,11 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         }
 
         /// <summary>
-        /// Method called on base constructor of <see cref="FiltersBase"/> that initializes the base functionality of the class
+        /// Method that must be called on  of <see cref="FiltersBase"/> that initializes the base functionality of the class
         /// </summary>
         /// <param name="form"></param>
         /// <param name="reportViewer"></param>
+        /// <param name="controlsFromChild">The controls initialized in the child instance that will be added to the form</param>
         public void Initialize(ReportForm form, ReportViewer reportViewer, params Control[] controlsFromChild)
         {
             //This method might be overridden
@@ -54,7 +60,12 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             FormOrigin = form;
             ReportView = reportViewer;
 
-            AddControlsToList(ButtonUpdateFilters);
+            //Only add the button if there's other controls being added
+            if (controlsFromChild.Length > 0)
+            {
+                AddControlsToList(ButtonUpdateFilters);
+            }
+
             AddControlsToList(controlsFromChild);
             
             AddControlsToForm(Controls);
@@ -78,7 +89,7 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         }
 
         /// <summary>
-        /// Base implementation for adding <typeparamref name="Control"/>s to List.
+        /// Base implementation for adding Controls to List.
         /// </summary>
         public void AddControlsToList(params Control[] controls)
         {
@@ -89,19 +100,16 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         }
 
         /// <summary>
-        /// Base implementation for styling <typeparamref name="Control"/>s programmatically for <see cref="FiltersBase"/>.
+        /// Base implementation for styling Controls programmatically for <see cref="FiltersBase"/>.
         /// Reference from Designer.cs files. This method should call its base implementation when overridden.
         /// </summary>
         public virtual void StyleControls()
         {
-            // 
-            // buttonUpdateFilters
-            // 
-            this.ButtonUpdateFilters = new Button();
-            this.ButtonUpdateFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonUpdateFilters.Size = new System.Drawing.Size(192, 44);
-            this.ButtonUpdateFilters.Text = "Filtrar por categoría";
-            this.ButtonUpdateFilters.UseVisualStyleBackColor = true;
+            ButtonUpdateFilters = new Button();
+            ButtonUpdateFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            ButtonUpdateFilters.Size = new System.Drawing.Size(192, 44);
+            ButtonUpdateFilters.Text = "Filtrar por categoría";
+            ButtonUpdateFilters.UseVisualStyleBackColor = true;
         }
 
         /// <summary>
@@ -131,7 +139,7 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         /// <summary>
         /// Base implementation of the method fired when <see cref="ButtonUpdateFilters"/> is pressed.
         /// The base method updates and refreshes the report based on the 
-        /// <typeparamref name="BindingList"></typeparamref> found in <see cref="ReportForm.ListCurrentlyInUse"></see>.
+        /// BindingList found in <see cref="ReportForm.ListCurrentlyInUse"></see>.
         /// This method should call its base implementation when overridden.
         /// </summary>
         /// <param name="sender"></param>

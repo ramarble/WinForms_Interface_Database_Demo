@@ -103,7 +103,7 @@
     <Compile Include="Controller\CustomXMLParser.cs" />
     <Compile Include="Model\Empleado.cs" />
     <Compile Include="Model\Producto.cs" />
-    <Compile Include="Data\ReportReference.cs" />
+    <Compile Include="Data\FilterReportReference.cs" />
     <Compile Include="Model\TEMPLATE_Class.cs" />
     <Compile Include="View\AcercaDe.cs">
       <SubType>Form</SubType>
