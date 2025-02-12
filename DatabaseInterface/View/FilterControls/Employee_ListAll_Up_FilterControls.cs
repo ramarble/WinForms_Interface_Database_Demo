@@ -43,11 +43,16 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         /// <inheritdoc/>
         public override void UpdateFilters_Click(object sender, EventArgs e)
         {
-            ReportForm.ListCurrentlyInUse = UpdateListBasedOnDaysWorkedFilter(ReportForm.InitialList);
+            ReportForm.ListCurrentlyInUse = UpdateListBasedOnNumericUpDownValueForType(ReportForm.InitialList, nudDaysWorked, typeof(Empleado));
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnSalaryFilter(ReportForm.ListCurrentlyInUse);
             base.UpdateFilters_Click(sender, e);
         }
 
+        /// <summary>
+        /// Updates the list <paramref name="listWorkedOn"/> based on the value found in <see cref="nudSalary"/> parameter <see cref="Empleado.Salary"/> 
+        /// </summary>
+        /// <param name="listWorkedOn"></param>
+        /// <returns></returns>
         private BindingList<object> UpdateListBasedOnSalaryFilter(BindingList<object> listWorkedOn)
         {
             if (nudSalary.Value > 0)
@@ -60,7 +65,8 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             else return listWorkedOn;
         }
 
-        private BindingList<object> UpdateListBasedOnDaysWorkedFilter(BindingList<object> listWorkedOn)
+
+        private BindingList<object> UpdateListBasedOnNumericUpDownValueForType(BindingList<object> listWorkedOn, NumericUpDown nud, Type type)
         {
             if (nudDaysWorked.Value > 0)
             {

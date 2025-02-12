@@ -37,7 +37,7 @@ namespace DatabaseInterfaceDemo
         /// </summary>
         static readonly LangClass LangLocalization = new LangClass(LangClass.LangFiles.SPANISH);
 
-        static readonly Dictionary<string, string> LOC_STRINGS = LangClass.LangDictionary;
+        static readonly Dictionary<string, string> l10n = LangClass.LangDictionary;
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
@@ -53,9 +53,9 @@ namespace DatabaseInterfaceDemo
         /// </summary>
         private void SetLocalizedStringText()
         {
-            labelDatabase.Text = LOC_STRINGS["INFO_DatabaseNotInitialized"];
-            labelFile.Text = LOC_STRINGS["FILE"];
-            labelDataType.Text = LOC_STRINGS["DATA_TYPE"];
+            labelDatabase.Text = l10n["INFO_DatabaseNotInitialized"];
+            labelFile.Text = l10n["FILE"];
+            labelDataType.Text = l10n["DATA_TYPE"];
         }
 
         private void InitializeDataTypeComboBox()
@@ -233,8 +233,8 @@ namespace DatabaseInterfaceDemo
             dgvc.DisplayIndex = 0;
             dgvc.Width = 25;
             dgvc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvc.ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
-            dgvc.CellTemplate.ToolTipText = LOC_STRINGS["TEMPCHAR_TOOLTIP"];
+            dgvc.ToolTipText = l10n["TEMPCHAR_TOOLTIP"];
+            dgvc.CellTemplate.ToolTipText = l10n["TEMPCHAR_TOOLTIP"];
 
         }
 

@@ -4,9 +4,9 @@ using Microsoft.Reporting.WinForms;
 using System.ComponentModel;
 using System.Drawing;
 using DatabaseInterfaceDemo.Model;
-using DatabaseInterfaceDemo.Model.ReportReferenceTuple;
 using System.Linq;
 using static DatabaseInterfaceDemo.Controller.FormUtils;
+using static DatabaseInterfaceDemo.Controller.ReportReferenceController;
 using DatabaseInterfaceDemo.Controller;
 using DatabaseInterfaceDemo.View.FilterControls;
 
@@ -80,56 +80,27 @@ namespace DatabaseInterfaceDemo.View
                 ResizeEnd -= FilterControls.ProgrammaticallyPlaceFilterControls;
                 FilterControls.RemoveControlsFromForm(FilterControls.Controls);
             }
+
+            ReportReference reportReference = GetReportReferenceByReportName(ComboBox_ReportSelect.SelectedItem.ToString());
             
-            FilterControls = InstanceFormFilters(ComboBox_ReportSelect.SelectedItem);
+            FilterControls = InstanceFiltersBase(reportReference, this, reportViewer);
             
             ResizeEnd += FilterControls.ProgrammaticallyPlaceFilterControls;
             
-            InitializeReportViewer();
+            InitializeReportViewer(reportReference);
         }
 
         /// <summary>
-        /// Called on <see cref="ReportForm.ButtonLoadData_Click(object, EventArgs)"/>. 
-        /// Parses the item chosen under <see cref="ComboBox_ReportSelect"/> as an object of type <see cref="FiltersBase"/> from the reference tuples found in <see cref="FilterReportReference"/>.
-        /// The Activator creates an instance of said FiltersBase with parameters (this, ReportViewer)
+        /// Initializes the <typeparamref name="ReportViewer"/> based on the <typeparamref name="Type"/> referenced in the Tuple <see cref="ReportReferences"/>
         /// </summary>
-        /// <param name="selectedReportForm"></param>
-        /// <returns>Parsed <see cref="FiltersBase"/> from <paramref name="selectedReportForm"/></returns>
-        private FiltersBase InstanceFormFilters(object selectedReportForm)
-        {
-
-            switch (DBType.Name)
-            {
-                case nameof(Empleado):
-                    {
-                        return (FiltersBase)Activator.CreateInstance(
-                            (FilterReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
-                                it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), selectedReportForm.ToString())).Item2),
-                                this, reportViewer, "Empleado_DataSet");
-                    }
-                case nameof(Producto):
-                    { 
-                        return (FiltersBase)Activator.CreateInstance(
-                            (FilterReportReference.ProductReportReferenceTuple().FirstOrDefault(
-                                it => it.Item1 == (ProductReportList) Enum.Parse(typeof(ProductReportList), selectedReportForm.ToString())).Item2),
-                                this, reportViewer, "Producto_DataSet");
-                    }
-                }
-            throw new Exception("Unmanaged code path");
-
-        }
-
-        /// <summary>
-        /// Initializes the <typeparamref name="ReportViewer"/> based on the <typeparamref name="Type"/> referenced in the Tuple <see cref="FilterReportReference"/>
-        /// </summary>
-        private void InitializeReportViewer()
+        private void InitializeReportViewer(ReportReference reportReference)
         {
             if (ReportData != null)
             {
                 reportViewer.LocalReport.DataSources.Remove(ReportData);
             }
 
-            reportViewer.LocalReport.ReportPath = GetSelectedReportPathFromComboBox(ComboBox_ReportSelect.SelectedItem);
+            reportViewer.LocalReport.ReportPath = reportReference.Path;
 
             ReportData = GetReportDataSourceFromTypeHandled(InitialList);
             reportViewer.LocalReport.DataSources.Add(ReportData);
@@ -137,28 +108,6 @@ namespace DatabaseInterfaceDemo.View
         }
 
 
-        /// <summary>
-        /// Returns the Path of the relevant RDLC from the chosen <paramref name="ComboBox_SelectedItem"/> referenced in <see cref="FilterReportReference"/>
-        /// </summary>
-        /// <param name="ComboBox_SelectedItem"></param>
-        /// <returns></returns>
-        private string GetSelectedReportPathFromComboBox(object ComboBox_SelectedItem)
-        {
-            switch (DBType.Name)
-            {
-                case nameof(Empleado):
-                    {
-                        return FilterReportReference.EmployeeReportReferenceTuple().FirstOrDefault(
-                            it => it.Item1 == (EmployeeReportList)Enum.Parse(typeof(EmployeeReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
-                    }
-                case nameof(Producto):
-                    {
-                        return FilterReportReference.ProductReportReferenceTuple().FirstOrDefault(
-                            it => it.Item1 == (ProductReportList)Enum.Parse(typeof(ProductReportList), ComboBox_ReportSelect.SelectedItem.ToString())).Item3;
-                    }
-            }
-            throw new Exception("Unmanaged code path");
-        }
 
         /// <summary>
         /// Populates <see cref="ComboBox_ReportSelect"/> based on the value in <see cref="ReportForm.DBType"/>
@@ -166,20 +115,13 @@ namespace DatabaseInterfaceDemo.View
         private void InitializeComboBox()
         {
             ComboBox_ReportSelect.SelectedValueChanged += ComboBox_ReportSelect_SelectedValueChanged;
-            switch (DBType.Name)
+            foreach (var it in ReportReferences)
             {
-                case nameof(Empleado):
-                    {
-                        ComboBox_ReportSelect.Items.Clear();
-                        ComboBox_ReportSelect.Items.AddRange(Enum.GetNames(typeof(EmployeeReportList)));
-                        break;
-                    }
-                case nameof(Producto):
-                    {
-                        ComboBox_ReportSelect.Items.Clear();
-                        ComboBox_ReportSelect.Items.AddRange(Enum.GetNames(typeof(ProductReportList)));
-                        break;
-                    }
+                //only load the relevant entries
+                if (it.BaseType == DBType)
+                {
+                    ComboBox_ReportSelect.Items.Add(it.ReportName);
+                }
             }
         }
 

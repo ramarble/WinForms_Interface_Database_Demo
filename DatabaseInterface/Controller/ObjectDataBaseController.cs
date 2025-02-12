@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using DatabaseInterfaceDemo.Lang;
-using DatabaseInterfaceDemo.Model;
-using DatabaseInterfaceDemo.View.ObjectCreationForms;
 
 namespace DatabaseInterfaceDemo.Controller
 {

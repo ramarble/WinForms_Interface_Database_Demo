@@ -1,6 +1,6 @@
 {
     "TEMPCHAR_TOOLTIP": "[*] = Revertible\n[ ] = Guardado Temporal",
-    "WARNING": "Advertencia",   
+    "WARNING": "Advertencia",
     "ERROR": "Error",
     "INFO": "Informaci�n",
     "DATA_TYPE": "Tipo de Dato",
@@ -15,5 +15,14 @@
     "WARN_FillAllData": "Por favor rellena todos los campos",
     "CHOICE_WARN_DatabaseOverwrite": "�Quieres sobreescribir la base de datos?\nESTO BORRAR� TODAS LAS ENTRADAS",
     "ERR_DBNotInitialized": "NO HAY UNA BASE DE DATOS INICIADA",
-    "INFO_ObjectAddedToList": "Objeto a�adido a la lista correctamente."
+    "INFO_ObjectAddedToList": "Objeto a�adido a la lista correctamente.",
+    "Employee_General_FilterUp": "Informe general, filtrado por valores superiores a",
+    "Employee_General_FilterDown": "Informe general, filtrado por valores inferiores a",
+    "Employee_SalaryStats": "Informe estadístico agrupado",
+    "Employee_DaysWorkedStats": "Informe de días trabajados",
+    "Employee_ByAge": "Informe según edad",
+    "Products_General_FilterUp": "Informe general, filtrado por valores superiores a",
+    "Products_General_FilterDown": "Informe general, filtrado por valores inferiores a",
+    "Products_Stats": "Informe estadístico agrupado",
+    "Products_TotalValue": "Informe de valores totales de los productos"
 }

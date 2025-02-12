@@ -15,24 +15,6 @@ namespace DatabaseInterfaceDemo.Controller
     abstract class FormUtils
     {
 
-        public enum EmployeeReportList
-        {
-            Employee_General_FilterUp,
-            Employee_General_FilterDown,
-            Employee_SalaryStats,
-            Employee_DaysWorkedStats,
-            Employee_ByAge
-        }
-
-        public enum ProductReportList
-        {
-
-            Products_General_FilterUp,
-            Products_General_FilterDown,
-            Products_Stats,
-            Products_TotalValue,
-        }
-
         public static void CutText(TextBoxBase tbb)
         {
             if (tbb.SelectedText != "")

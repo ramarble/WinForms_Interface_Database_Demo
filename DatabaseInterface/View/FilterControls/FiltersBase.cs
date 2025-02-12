@@ -1,8 +1,11 @@
 ﻿using DatabaseInterfaceDemo.Controller;
+using DatabaseInterfaceDemo.Model;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DatabaseInterfaceDemo.View.FilterControls
@@ -150,6 +153,18 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             ReportForm.ReportData = new ReportDataSource(DataSourceName, ReportForm.ListCurrentlyInUse);
             ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
             ReportView.RefreshReport();
+        }
+
+        private BindingList<object> UpdateListBasedOnNumericUpDownValueForType(BindingList<object> listWorkedOn, NumericUpDown nud, Type type)
+        {
+            if (nud.Value > 0)
+            {
+                List<object> slice = new List<object>();
+                slice.AddRange(listWorkedOn.Where(it => (it as type).DaysWorked < nud.Value));
+
+                return new BindingList<object>(slice);
+            }
+            else return listWorkedOn;
         }
 
     }

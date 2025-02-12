@@ -96,15 +96,17 @@
   <ItemGroup>
     <Compile Include="Controller\CustomDesigner.cs" />
     <Compile Include="Controller\CustomJSONParser.cs" />
+    <Compile Include="Controller\ReportReferenceController.cs" />
     <Compile Include="Lang\LangClass.cs" />
     <Compile Include="Controller\ObjectFactory.cs" />
     <Compile Include="Controller\FormUtils.cs" />
     <Compile Include="Controller\ObjectDataBaseController.cs" />
     <Compile Include="Controller\CustomXMLParser.cs" />
-    <Compile Include="Model\Empleado.cs" />
-    <Compile Include="Model\Producto.cs" />
-    <Compile Include="Data\FilterReportReference.cs" />
-    <Compile Include="Model\TEMPLATE_Class.cs" />
+    <Compile Include="Model\DatabaseObjects\Empleado.cs" />
+    <Compile Include="Model\DatabaseObjects\Producto.cs" />
+    <Compile Include="Data\ReportReferences.cs" />
+    <Compile Include="Model\ReportReference.cs" />
+    <Compile Include="Model\DatabaseObjects\TEMPLATE_Class.cs" />
     <Compile Include="View\AcercaDe.cs">
       <SubType>Form</SubType>
     </Compile>
