@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO.Ports;
 using System.Windows.Forms;
 
 
@@ -50,6 +53,7 @@ namespace DatabaseInterfaceDemo.Controller
             ControlToPlace.Location = new Point(
                 ParentForm.ClientRectangle.Width - ((int)PADDING.RIGHT + ControlToPlace.Width),
                 ParentForm.ClientRectangle.Height - (ControlToPlace.Height + (int)PADDING.BOTTOM));
+            
         }
 
 

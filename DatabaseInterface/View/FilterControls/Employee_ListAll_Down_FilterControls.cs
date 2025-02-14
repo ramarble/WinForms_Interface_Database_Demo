@@ -8,25 +8,25 @@ using DatabaseInterfaceDemo.Model;
 using Microsoft.Reporting.WinForms;
 
 namespace DatabaseInterfaceDemo.View.FilterControls
-
 {
     /// <summary>
-    /// Set of Filters for Employee data above a user defined threshold
+    /// Set of Filters for Employee data below a user defined threshold
     /// </summary>
-    public class Employee_ListAll_Up_FilterControls : FiltersBase
+    public class Employee_ListAll_Down_FilterControls : FiltersBase
     {
 
         private NumericUpDown nudDaysWorked = new NumericUpDown();
         private Label labelDaysWorked = new Label();
-        private Label labelSalary = new Label();
+        private Label labelSalary = new Label() ;
         private NumericUpDown nudSalary = new NumericUpDown();
 
         /// <summary>
         /// Set of Filters for Employee data above a user defined threshold
         /// </summary>
-        public Employee_ListAll_Up_FilterControls(ReportForm form, ReportViewer reportViewer, string dataSourceType): base(form, reportViewer, dataSourceType)
+        public Employee_ListAll_Down_FilterControls(ReportForm form, ReportViewer reportViewer, string dataSourceType) : base(form, reportViewer, dataSourceType)
         {
-            AddControlsToList(nudDaysWorked, labelDaysWorked, labelSalary,nudSalary);
+
+            Initialize(nudDaysWorked, labelDaysWorked, labelSalary, nudSalary);
             nudSalary.Controls.RemoveAt(0);
             nudDaysWorked.Controls.RemoveAt(0);
         }
@@ -44,70 +44,67 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         /// <inheritdoc/>
         public override void UpdateFilters_Click(object sender, EventArgs e)
         {
-            ReportForm.ListCurrentlyInUse = UpdateListBasedOnDaysWorkedFilter(ReportForm.ListCurrentlyInUse);
-            ReportForm.ListCurrentlyInUse = UpdateListBasedOnSalaryFilter(ReportForm.ListCurrentlyInUse);
+            ReportForm.ListCurrentlyInUse = UpdateListBasedOnDaysWorked(ReportForm.InitialList);
+            ReportForm.ListCurrentlyInUse = UpdateListBasedOnSalary(ReportForm.ListCurrentlyInUse);
             base.UpdateFilters_Click(sender, e);
         }
 
-        private BindingList<object> UpdateListBasedOnSalaryFilter(BindingList<object> listWorkedOn)
+        /// <summary>
+        /// Updates the list <paramref name="listWorkedOn"/> based on the value found in <see cref="nudSalary"/> parameter <see cref="Empleado.Salary"/> 
+        /// </summary>
+        /// <param name="listWorkedOn"></param>
+        /// <returns></returns>
+        private BindingList<object> UpdateListBasedOnSalary(BindingList<object> listWorkedOn)
         {
             if (nudSalary.Value > 0)
             {
                 List<object> slice = new List<object>();
-                slice.AddRange(listWorkedOn.Where(it => (it as Empleado).Salary > nudSalary.Value));
+                slice.AddRange(listWorkedOn.Where(it => (it as Empleado).Salary < nudSalary.Value));
 
                 return new BindingList<object>(slice);
             }
             else return listWorkedOn;
         }
 
-        private BindingList<object> UpdateListBasedOnDaysWorkedFilter(BindingList<object> listWorkedOn)
+
+        private BindingList<object> UpdateListBasedOnDaysWorked(BindingList<object> listWorkedOn)
         {
             if (nudDaysWorked.Value > 0)
             {
                 List<object> slice = new List<object>();
-                slice.AddRange(listWorkedOn.Where(it => (it as Empleado).DaysWorked > nudDaysWorked.Value));
+                slice.AddRange(listWorkedOn.Where(it => (it as Empleado).DaysWorked < nudDaysWorked.Value));
 
                 return new BindingList<object>(slice);
             }
             else return listWorkedOn;
         }
 
-        ///<inheritdoc/>
+        /// <inheritdoc/>
         public override void StyleControls()
         {
             base.StyleControls();
-            ((ISupportInitialize)(this.nudDaysWorked)).BeginInit();
-            ((ISupportInitialize)(this.nudSalary)).BeginInit();
+            ((ISupportInitialize)(nudDaysWorked)).BeginInit();
+            ((ISupportInitialize)(nudSalary)).BeginInit();
 
-            // 
-            // nudDaysWorked
-            // 
-            this.nudDaysWorked.DecimalPlaces = 0;
-            this.nudDaysWorked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudDaysWorked.Size = new System.Drawing.Size(124, 26);
-            // 
-            // labelDaysWorked
-            // 
-            this.labelDaysWorked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDaysWorked.Size = new System.Drawing.Size(127, 20);
-            this.labelDaysWorked.Text = "Días trabajados más que";
-            // 
-            // labelSalary
-            // 
-            this.labelSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSalary.Size = new System.Drawing.Size(124, 20);
-            this.labelSalary.Text = "Salario superior a";
-            // 
-            // nudSalary
-            // 
-            this.nudSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSalary.Size = new System.Drawing.Size(124, 26);
-            this.nudSalary.Maximum = 5000;
+            nudDaysWorked.DecimalPlaces = 0;
+            nudDaysWorked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            nudDaysWorked.Size = new System.Drawing.Size(124, 26);
+            nudDaysWorked.Maximum = 10000;
+ 
+            labelDaysWorked.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelDaysWorked.Size = new System.Drawing.Size(127, 20);
+            labelDaysWorked.Text = "Días trabajados menos que";
 
+            labelSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelSalary.Size = new System.Drawing.Size(124, 20);
+            labelSalary.Text = "Salario inferior a";
 
-            ((ISupportInitialize)(this.nudDaysWorked)).EndInit();
-            ((ISupportInitialize)(this.nudSalary)).EndInit();
+            nudSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            nudSalary.Size = new System.Drawing.Size(124, 26);
+            nudSalary.Maximum = 5000;
+
+            ((ISupportInitialize)(nudDaysWorked)).EndInit();
+            ((ISupportInitialize)(nudSalary)).EndInit();
         }
 
     }

@@ -104,7 +104,6 @@
     <Compile Include="Controller\CustomXMLParser.cs" />
     <Compile Include="Model\DatabaseObjects\Empleado.cs" />
     <Compile Include="Model\DatabaseObjects\Producto.cs" />
-    <Compile Include="Data\ReportReferences.cs" />
     <Compile Include="Model\ReportReference.cs" />
     <Compile Include="Model\DatabaseObjects\TEMPLATE_Class.cs" />
     <Compile Include="View\AcercaDe.cs">
@@ -113,12 +112,12 @@
     <Compile Include="View\AcercaDe.Designer.cs">
       <DependentUpon>AcercaDe.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\FilterControls\Employee_ListAll_Down_FilterControls.cs" />
+    <Compile Include="View\FilterControls\Employee_ListAll_Up_FilterControls.cs" />
     <Compile Include="View\FilterControls\Filterless.cs" />
     <Compile Include="View\FilterControls\FiltersBase.cs" />
     <Compile Include="View\FilterControls\IFiltersBase.cs" />
     <Compile Include="View\FilterControls\Product_ListAll_Down_FilterControls.cs" />
-    <Compile Include="View\FilterControls\Employee_ListAll_Up_FilterControls.cs" />
+    <Compile Include="View\FilterControls\Employee_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Product_Statistical_FilterControls.cs" />
     <Compile Include="View\FormPrincipal.cs">
       <SubType>Form</SubType>

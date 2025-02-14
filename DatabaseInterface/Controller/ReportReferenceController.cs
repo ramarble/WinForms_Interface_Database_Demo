@@ -6,7 +6,6 @@ using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace DatabaseInterfaceDemo.Controller
 {
@@ -22,7 +21,7 @@ namespace DatabaseInterfaceDemo.Controller
 
         public static List<ReportReference> ReportReferences = new List<ReportReference>
         {
-            new ReportReference(l10n["Employee_General_FilterUp"], typeof(Product_ListAll_Up_FilterControls), typeof(Producto), BASEPATH + "Report_Product_ListAll.rdlc", PRODUCTO_DATASET),
+            new ReportReference(l10n["Products_General_FilterUp"], typeof(Product_ListAll_Up_FilterControls), typeof(Producto), BASEPATH + "Report_Product_ListAll.rdlc", PRODUCTO_DATASET),
             new ReportReference(l10n["Products_Stats"], typeof(Product_Statistical_FilterControls), typeof(Producto),  BASEPATH + "Report_Product_Statistical.rdlc", PRODUCTO_DATASET),
             new ReportReference(l10n["Products_General_FilterDown"], typeof(Product_ListAll_Down_FilterControls), typeof(Producto), BASEPATH + "Report_Product_ListAll.rdlc", PRODUCTO_DATASET),
             new ReportReference(l10n["Products_TotalValue"], typeof(Product_Statistical_FilterControls), typeof(Producto), BASEPATH + "Report_Product_TotalValue.rdlc", PRODUCTO_DATASET),
@@ -35,13 +34,14 @@ namespace DatabaseInterfaceDemo.Controller
 
         public static FiltersBase InstanceFiltersBase(ReportReference reportReference, ReportForm form, ReportViewer reportViewer)
         {
-            return (FiltersBase)Activator.CreateInstance(reportReference.FilterControl, form, reportViewer, "Producto_DataSet");
+            //FiltersBase constructor: (ReportForm form, ReportViewer reportView, string dataSourceName)
+            return (FiltersBase)Activator.CreateInstance(reportReference.FilterControl, form, reportViewer, reportReference.DataSetName);
         }
 
         public static ReportReference GetReportReferenceByReportName(string item)
         {
             return ReportReferences.FirstOrDefault(
-                it => it.ReportName.Equals(item));
+                it => it.ReportLocalizationName.Equals(item));
         }
 
     }

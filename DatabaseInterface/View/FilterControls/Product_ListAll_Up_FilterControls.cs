@@ -12,11 +12,11 @@ namespace DatabaseInterfaceDemo.View.FilterControls
     public class Product_ListAll_Up_FilterControls : FiltersBase
     {
 
-        private NumericUpDown nudPrice;
-        private Label labelPrice;
-        private Label labelStock;
-        private NumericUpDown nudStock;
-        private CheckedListBox CategoryFilterCheckedBoxes;
+        private NumericUpDown nudPrice = new NumericUpDown();
+        private Label labelPrice = new Label();
+        private Label labelStock = new Label();
+        private NumericUpDown nudStock = new NumericUpDown();
+        private CheckedListBox CategoryFilterCheckedBoxes = new CheckedListBox();
 
         public Product_ListAll_Up_FilterControls(ReportForm form, ReportViewer reportViewer, string dataSourceType) :base(form, reportViewer, dataSourceType)
         {

@@ -47,21 +47,22 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         {
             Controls = new List<Control>();
             DataSourceName = dataSourceName;
+            FormOrigin = form;
+            ReportView = reportView;
         }
 
         /// <summary>
-        /// Method that must be called on  of <see cref="FiltersBase"/> that initializes the base functionality of the class
+        /// Method that must be called on constructor for children of <see cref="FiltersBase"/> that initializes the base functionality of the class
         /// </summary>
         /// <param name="form"></param>
         /// <param name="reportViewer"></param>
         /// <param name="controlsFromChild">The controls initialized in the child instance that will be added to the form</param>
-        public void Initialize(ReportForm form, ReportViewer reportViewer, params Control[] controlsFromChild)
+        public void Initialize(params Control[] controlsFromChild)
         {
-            //This method might be overridden
-            StyleControls();
 
-            FormOrigin = form;
-            ReportView = reportViewer;
+            //This method might be overridden
+            
+            StyleControls();
 
             //Only add the button if there's other controls being added
             if (controlsFromChild.Length > 0)
@@ -104,7 +105,7 @@ namespace DatabaseInterfaceDemo.View.FilterControls
 
         /// <summary>
         /// Base implementation for styling Controls programmatically for <see cref="FiltersBase"/>.
-        /// Reference from Designer.cs files. This method should call its base implementation when overridden.
+        /// Reference from Designer.cs files. This method should call its base implementation when overridden if it wants the base implementation of the button.
         /// </summary>
         public virtual void StyleControls()
         {
@@ -140,9 +141,10 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         }
 
         /// <summary>
-        /// Base implementation of the method fired when <see cref="ButtonUpdateFilters"/> is pressed.
+        /// Method fired when <see cref="ButtonUpdateFilters"/> is pressed.
         /// The base method updates and refreshes the report based on the 
         /// BindingList found in <see cref="ReportForm.ListCurrentlyInUse"></see>.
+        /// The first update should call <see cref="ReportForm.InitialList"/>
         /// This method should call its base implementation when overridden.
         /// </summary>
         /// <param name="sender"></param>
@@ -154,18 +156,5 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
             ReportView.RefreshReport();
         }
-
-        private BindingList<object> UpdateListBasedOnNumericUpDownValueForType(BindingList<object> listWorkedOn, NumericUpDown nud, Type type)
-        {
-            if (nud.Value > 0)
-            {
-                List<object> slice = new List<object>();
-                slice.AddRange(listWorkedOn.Where(it => (it as type).DaysWorked < nud.Value));
-
-                return new BindingList<object>(slice);
-            }
-            else return listWorkedOn;
-        }
-
     }
 }

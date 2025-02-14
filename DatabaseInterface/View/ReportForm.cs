@@ -102,7 +102,7 @@ namespace DatabaseInterfaceDemo.View
 
             reportViewer.LocalReport.ReportPath = reportReference.Path;
 
-            ReportData = GetReportDataSourceFromTypeHandled(InitialList);
+            ReportData = new ReportDataSource(reportReference.DataSetName, InitialList);
             reportViewer.LocalReport.DataSources.Add(ReportData);
             reportViewer.RefreshReport();
         }
@@ -120,32 +120,9 @@ namespace DatabaseInterfaceDemo.View
                 //only load the relevant entries
                 if (it.BaseType == DBType)
                 {
-                    ComboBox_ReportSelect.Items.Add(it.ReportName);
+                    ComboBox_ReportSelect.Items.Add(it.ReportLocalizationName);
                 }
             }
-        }
-
-        /// <summary>
-        /// Returns a new <typeparamref name="ReportDataSource"/> based on the type found in <see cref="DBType"/>
-        /// </summary>
-        /// <param name="InitialList"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidEnumArgumentException"></exception>
-        private ReportDataSource GetReportDataSourceFromTypeHandled(BindingList<object> InitialList)
-        {
-            switch (DBType.Name)
-            {
-                case nameof(Empleado):
-                    {
-                        return new ReportDataSource("Empleado_DataSet", InitialList);
-                    }
-                case nameof(Producto):
-                    {
-                        return new ReportDataSource("Producto_DataSet", InitialList);
-                    }
-            }
-            throw new InvalidEnumArgumentException("Wrong datasource, somehow");
-
         }
 
         /// <summary>
