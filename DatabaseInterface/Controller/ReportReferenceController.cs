@@ -16,9 +16,10 @@ namespace DatabaseInterfaceDemo.Controller
         private static string PRODUCTO_DATASET = "Producto_DataSet";
         private static string EMPLEADO_DATASET = "Empleado_DataSet";
 
-        //This should be initialized?
         static readonly Dictionary<string, string> l10n = LangClass.LangDictionary;
-
+        /// <summary>
+        /// Initialization of a list of ReportReferences
+        /// </summary>
         public static List<ReportReference> ReportReferences = new List<ReportReference>
         {
             new ReportReference(l10n["Products_General_FilterUp"], typeof(Product_ListAll_Up_FilterControls), typeof(Producto), BASEPATH + "Report_Product_ListAll.rdlc", PRODUCTO_DATASET),
@@ -32,16 +33,23 @@ namespace DatabaseInterfaceDemo.Controller
             new ReportReference(l10n["Employee_ByAge"], typeof(Filterless), typeof(Empleado), BASEPATH + "Report_Employee_ByAge.rdlc", EMPLEADO_DATASET)
         };
 
+        /// <summary>
+        /// Creates an Instance of type FiltersBase based on the information found in the parameter reportReference
+        /// </summary>
+        /// <param name="reportReference">Class containing the data from which the FiltersBase class will be returned</param>
+        /// <param name="form">ReportForm in which the data will be updated</param>
+        /// <param name="reportViewer">ReportViewer in which the data will be updated</param>
+        /// <returns>Instance of <see cref="FiltersBase"/></returns>
         public static FiltersBase InstanceFiltersBase(ReportReference reportReference, ReportForm form, ReportViewer reportViewer)
         {
             //FiltersBase constructor: (ReportForm form, ReportViewer reportView, string dataSourceName)
-            return (FiltersBase)Activator.CreateInstance(reportReference.FilterControl, form, reportViewer, reportReference.DataSetName);
+            return (FiltersBase)Activator.CreateInstance(reportReference.FiltersBaseClass, form, reportViewer, reportReference.DataSetName);
         }
 
         public static ReportReference GetReportReferenceByReportName(string item)
         {
             return ReportReferences.FirstOrDefault(
-                it => it.ReportLocalizationName.Equals(item));
+                it => it.ReportLocalizedName.Equals(item));
         }
 
     }

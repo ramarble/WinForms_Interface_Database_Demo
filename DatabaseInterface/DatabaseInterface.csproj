@@ -105,7 +105,7 @@
     <Compile Include="Model\DatabaseObjects\Empleado.cs" />
     <Compile Include="Model\DatabaseObjects\Producto.cs" />
     <Compile Include="Model\ReportReference.cs" />
-    <Compile Include="Model\DatabaseObjects\TEMPLATE_Class.cs" />
+    <Compile Include="Model\DatabaseObjects\BASE_DATABASE_OBJECT.cs" />
     <Compile Include="View\AcercaDe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,11 +118,11 @@
     <Compile Include="View\FilterControls\Product_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Employee_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Product_Statistical_FilterControls.cs" />
-    <Compile Include="View\FormPrincipal.cs">
+    <Compile Include="View\LoaderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FormPrincipal.Designer.cs">
-      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    <Compile Include="View\LoaderForm.Designer.cs">
+      <DependentUpon>LoaderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,8 +164,8 @@
     <EmbeddedResource Include="View\AcercaDe.resx">
       <DependentUpon>AcercaDe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FormPrincipal.resx">
-      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    <EmbeddedResource Include="View\LoaderForm.resx">
+      <DependentUpon>LoaderForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ObjectCreationForms\FormCreateProduct.resx">

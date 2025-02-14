@@ -16,9 +16,9 @@ namespace DatabaseInterfaceDemo
     /// <summary>
     /// Main Loader Form
     /// </summary>
-    partial class FormPrincipal : Form
+    partial class LoaderForm : Form
     {
-        public FormPrincipal()
+        public LoaderForm()
         {
             InitializeComponent();
             new AcercaDe().Show();
@@ -70,7 +70,7 @@ namespace DatabaseInterfaceDemo
         //Today I decided to reverse engineer my own program
         private Type GetTypeFromComboBox()
         {
-            return Type.GetType(typeof(TEMPLATE_Class).Namespace + "." + comboBoxDataType.SelectedItem.ToString());
+            return Type.GetType(typeof(BASE_DATABASE_OBJECT).Namespace + "." + comboBoxDataType.SelectedItem.ToString());
         }
 
 
@@ -84,12 +84,12 @@ namespace DatabaseInterfaceDemo
             {
                 if (DB.IsThereAnyTempUser())
                 {
-                    Lang.LangClass.WARN_UncommittedChanges();
+                    LangClass.WARN_UncommittedChanges();
                     ReSyncDataTypeComboBoxType();
                 }
-                if (Lang.LangClass.CHOICE_WARN_DatabaseOverwrite() == DialogResult.Yes)
+                if (LangClass.CHOICE_WARN_DatabaseOverwrite() == DialogResult.Yes)
                 {
-                    //Spaghetti
+                    
                     InitDGVColumnsWithEmptyList();
                 }
                 else

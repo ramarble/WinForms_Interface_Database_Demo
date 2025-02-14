@@ -15,7 +15,7 @@ namespace DatabaseInterfaceDemo.Model
      */
     [Serializable]
     [XmlRoot("Template")]
-    public abstract class TEMPLATE_Class
+    public abstract class BASE_DATABASE_OBJECT
     {
         [DisplayName("*")]
         [XmlIgnore]
@@ -27,7 +27,7 @@ namespace DatabaseInterfaceDemo.Model
         [JsonIgnore]
         public Boolean TempStatus { get; set; }
 
-        public TEMPLATE_Class() {
+        public BASE_DATABASE_OBJECT() {
         }
 
         public void SetTempStatus(Boolean temp)

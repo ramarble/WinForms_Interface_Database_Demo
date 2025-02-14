@@ -1,11 +1,18 @@
 ﻿using DatabaseInterfaceDemo.Model;
 using System;
 using System.Collections.Generic;
-using System.IO.IsolatedStorage;
 namespace DatabaseInterfaceDemo.Controller
 {
+
+    /// <summary>
+    /// Debug Factory that creates a set of valid objects of the types handled by ObjectDataBaseController. These Factory implementations can be found commented under InitDGVColumnsWithEmptyList() from LoaderForm.cs
+    /// </summary>
     public static class ObjectFactory
     {
+        /// <summary>
+        /// Creates a valid List&gt;Employee&lt; to be instantiated by the ObjectDataBaseController. This data is static, randomized, and generated with AI tools.
+        /// </summary>
+        /// <returns></returns>
         public static List<object> CreateEmployeeList()
         {
             List<object> empleadoList = new List<object>();
@@ -152,6 +159,10 @@ namespace DatabaseInterfaceDemo.Controller
             return empleadoList;
         }
 
+        /// <summary>
+        /// Creates a valid List&gt;Employee&lt; to be instantiated by the ObjectDataBaseController. This data is static, randomized, and generated with AI tools.
+        /// </summary>
+        /// <returns></returns>
         public static List<object> createProductList()
         {
 
@@ -258,7 +269,6 @@ namespace DatabaseInterfaceDemo.Controller
 
             return productList;
         }
-
     }
 
 }

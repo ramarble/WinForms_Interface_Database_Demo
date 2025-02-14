@@ -120,7 +120,7 @@ namespace DatabaseInterfaceDemo.View
                 //only load the relevant entries
                 if (it.BaseType == DBType)
                 {
-                    ComboBox_ReportSelect.Items.Add(it.ReportLocalizationName);
+                    ComboBox_ReportSelect.Items.Add(it.ReportLocalizedName);
                 }
             }
         }

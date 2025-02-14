@@ -13,7 +13,7 @@ namespace DatabaseInterfaceDemo.Model
      */
     [Serializable]
     [XmlRoot("Empleado")]
-    public class Empleado : TEMPLATE_Class
+    public class Empleado : BASE_DATABASE_OBJECT
     {
 
         [DisplayName("Nombre")]

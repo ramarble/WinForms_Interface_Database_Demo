@@ -24,7 +24,7 @@ namespace DatabaseInterfaceDemo.Model
      */
     [Serializable]
     [XmlRoot("Producto")]
-    public class Producto : TEMPLATE_Class
+    public class Producto : BASE_DATABASE_OBJECT
     {
 
         [DisplayName("Nombre")]
