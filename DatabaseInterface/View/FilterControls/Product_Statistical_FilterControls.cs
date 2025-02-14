@@ -12,17 +12,29 @@ using Microsoft.Reporting.WinForms;
 
 namespace DatabaseInterfaceDemo.View.FilterControls
 {
+
     /// <summary>
-    /// 
+    /// Set of Filters for Product data that show total grouped statistics
     /// </summary>
     public class Product_Statistical_FilterControls : FiltersBase
     {
-        private CheckedListBox CategoryFilterCheckedBoxes;
+        private CheckedListBox CategoryFilterCheckedBoxes = new CheckedListBox();
 
+
+        /// <summary>
+        /// Set of Filters for Product data that show total grouped statistics
+        /// </summary>
         public Product_Statistical_FilterControls(ReportForm form, ReportViewer reportViewer, string dataSourceType) : base(form, reportViewer, dataSourceType) 
         {
-            AddControlsToList(CategoryFilterCheckedBoxes);
+            Initialize(CategoryFilterCheckedBoxes);
             CategoryFilterCheckedBoxes.Items.AddRange(Enum.GetNames(typeof(Category)));
+        }
+
+        /// <inheritdoc/>
+        public override void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
+        {
+            base.ProgrammaticallyPlaceFilterControls(sender, e);
+            CustomDesigner.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
         }
 
         /// <inheritdoc/>
@@ -30,7 +42,6 @@ namespace DatabaseInterfaceDemo.View.FilterControls
         {
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnCategoryFilter(ReportForm.InitialList);
         }
-
 
         private BindingList<object> UpdateListBasedOnCategoryFilter(BindingList<object> listWorkedOn)
         {
@@ -46,25 +57,12 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             else return listWorkedOn;
         }
 
-        /// <inheritdoc/>
-        public override void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
-        {
-            base.ProgrammaticallyPlaceFilterControls(sender, e);
-            CustomDesigner.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
-        }
+
         /// <inheritdoc/>
         public override void StyleControls()
         {
-            this.CategoryFilterCheckedBoxes = new CheckedListBox();
-
-            // 
-            // CategoryFilterCheckedBoxes
-            // 
-            this.CategoryFilterCheckedBoxes.FormattingEnabled = true;
-            this.CategoryFilterCheckedBoxes.Location = new System.Drawing.Point(3, 3);
-            this.CategoryFilterCheckedBoxes.Name = "CategoryFilterCheckedBoxes";
-            this.CategoryFilterCheckedBoxes.Size = new System.Drawing.Size(120, 49);
-            this.CategoryFilterCheckedBoxes.TabIndex = 10;
+            CategoryFilterCheckedBoxes.FormattingEnabled = true;
+            CategoryFilterCheckedBoxes.Size = new System.Drawing.Size(120, 49);
         }
     }
 }

@@ -14,11 +14,10 @@ namespace DatabaseInterfaceDemo.View.FilterControls
     /// </summary>
     public class Employee_ListAll_Down_FilterControls : FiltersBase
     {
-
-        private NumericUpDown nudDaysWorked = new NumericUpDown();
-        private Label labelDaysWorked = new Label();
-        private Label labelSalary = new Label() ;
-        private NumericUpDown nudSalary = new NumericUpDown();
+        private readonly NumericUpDown nudDaysWorked = new NumericUpDown();
+        private readonly Label labelDaysWorked = new Label();
+        private readonly Label labelSalary = new Label() ;
+        private readonly NumericUpDown nudSalary = new NumericUpDown();
 
         /// <summary>
         /// Set of Filters for Employee data above a user defined threshold

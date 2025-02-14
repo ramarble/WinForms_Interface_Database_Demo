@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows.Forms;
 using DatabaseInterfaceDemo.Controller;
-using DatabaseInterfaceDemo.Lang;
-using DatabaseInterfaceDemo.Model;
 
 namespace DatabaseInterfaceDemo.View.ObjectCreationForms
 {
 
     public partial class BaseFormCreateObject : Form
     {
+
         public BaseFormCreateObject()
         {
             InitializeComponent();

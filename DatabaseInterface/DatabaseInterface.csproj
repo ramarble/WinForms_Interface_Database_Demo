@@ -115,7 +115,6 @@
     <Compile Include="View\FilterControls\Employee_ListAll_Up_FilterControls.cs" />
     <Compile Include="View\FilterControls\Filterless.cs" />
     <Compile Include="View\FilterControls\FiltersBase.cs" />
-    <Compile Include="View\FilterControls\IFiltersBase.cs" />
     <Compile Include="View\FilterControls\Product_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Employee_ListAll_Down_FilterControls.cs" />
     <Compile Include="View\FilterControls\Product_Statistical_FilterControls.cs" />

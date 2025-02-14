@@ -9,69 +9,34 @@ using Microsoft.Reporting.WinForms;
 
 namespace DatabaseInterfaceDemo.View.FilterControls
 {
-    public class Product_ListAll_Down_FilterControls : IFiltersBase
+    /// <summary>
+    /// Set of Filters for Product data below a user defined threshold
+    /// </summary>
+    public class Product_ListAll_Down_FilterControls : FiltersBase
     {
 
-        private NumericUpDown nudPrice;
-        private Label labelPrice;
-        private Label labelStock;
-        private NumericUpDown nudStock;
-        private CheckedListBox CategoryFilterCheckedBoxes;
-        private Button ButtonUpdateFilters;
+        private readonly NumericUpDown nudPrice = new NumericUpDown();
+        private readonly Label labelPrice = new Label();
+        private readonly Label labelStock = new Label();
+        private readonly NumericUpDown nudStock = new NumericUpDown();
+        private readonly CheckedListBox CategoryFilterCheckedBoxes = new CheckedListBox();
 
-        public List<Control> Controls { get; set; }
-
-        public ReportForm FormOrigin { get; set; }
-        public ReportViewer ReportView { get; set; }
-
-        public Product_ListAll_Down_FilterControls(ReportForm form, ReportViewer reportViewer)
+        /// <summary>
+        /// Set of Filters for Product data below a user defined threshold
+        /// </summary>
+        public Product_ListAll_Down_FilterControls(ReportForm form, ReportViewer reportView, string dataSourceName) : base(form, reportView, dataSourceName)
         {
-            InitializeComponents();
-
-            FormOrigin = form;
-            ReportView = reportViewer;
-
+            Initialize(nudPrice, labelPrice, labelStock, nudStock, CategoryFilterCheckedBoxes);
             CategoryFilterCheckedBoxes.Items.AddRange(Enum.GetNames(typeof(Category)));
             nudStock.Controls.RemoveAt(0);
             nudPrice.Controls.RemoveAt(0);
 
-            AddControlsToList();
-            AddControlsToForm(Controls);
-
-            ButtonUpdateFilters.Click += UpdateFilters_Click;
-
-            ProgrammaticallyPlaceFilterControls(null, null);
         }
 
-        public void AddControlsToList()
+        /// <inheritdoc/>
+        public override void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
         {
-            Controls.Add(nudPrice);
-            Controls.Add(labelPrice);
-            Controls.Add(labelStock);
-            Controls.Add(nudStock);
-            Controls.Add(CategoryFilterCheckedBoxes);
-            Controls.Add(ButtonUpdateFilters);
-        }
-
-        public void AddControlsToForm(List<Control> list)
-        {
-            foreach (Control control in Controls)
-            {
-                FormOrigin.Controls.Add(control);
-            }
-        }
-
-        public void RemoveControlsFromForm(List<Control> Controls)
-        {
-            foreach (Control control in Controls)
-            {
-                FormOrigin.Controls.Remove(control);
-            }
-        }
-
-        public void ProgrammaticallyPlaceFilterControls(object sender, EventArgs e)
-        {
-            CustomDesigner.PlaceControlBottomRightCorner(FormOrigin, ButtonUpdateFilters);
+            base.ProgrammaticallyPlaceFilterControls(sender, e);
             CustomDesigner.PlaceControlBottomLeftCorner(FormOrigin, CategoryFilterCheckedBoxes);
             CustomDesigner.PlaceControlBottomRightOf(nudStock, CategoryFilterCheckedBoxes);
             CustomDesigner.PlaceControlBottomRightOf(nudPrice, nudStock);
@@ -79,19 +44,14 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             CustomDesigner.PlaceControlOnTopOf(labelPrice, nudPrice);
         }
 
-        public void UpdateFilters_Click(object sender, EventArgs e)
+        /// <inheritdoc/>
+        public override void UpdateFilters_Click(object sender, EventArgs e)
         {
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnCategoryFilter(ReportForm.InitialList);
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnPriceFilter(ReportForm.ListCurrentlyInUse);
             ReportForm.ListCurrentlyInUse = UpdateListBasedOnStockFilter(ReportForm.ListCurrentlyInUse);
-
-
-            ReportView.LocalReport.DataSources.Remove(ReportForm.ReportData);
-            ReportForm.ReportData = new ReportDataSource("Producto_DataSet", ReportForm.ListCurrentlyInUse);
-            ReportView.LocalReport.DataSources.Add(ReportForm.ReportData);
-            ReportView.RefreshReport();
+            base.UpdateFilters_Click(sender, e);
         }
-
 
         private BindingList<object> UpdateListBasedOnCategoryFilter(BindingList<object> listWorkedOn)
         {
@@ -131,78 +91,33 @@ namespace DatabaseInterfaceDemo.View.FilterControls
             else return listWorkedOn;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        public void InitializeComponents()
+        /// <inheritdoc/>
+        public override void StyleControls()
         {
 
-            this.nudPrice = new NumericUpDown();
-            this.labelPrice = new Label();
-            this.labelStock = new Label();
-            this.nudStock = new NumericUpDown();
-            this.CategoryFilterCheckedBoxes = new CheckedListBox();
-            ((ISupportInitialize)(this.nudPrice)).BeginInit();
-            ((ISupportInitialize)(this.nudStock)).BeginInit();
+            ((ISupportInitialize)(nudPrice)).BeginInit();
+            ((ISupportInitialize)(nudStock)).BeginInit();
 
-            // 
-            // nudPrice
-            // 
-            this.nudPrice.DecimalPlaces = 2;
-            this.nudPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudPrice.Location = new System.Drawing.Point(281, 27);
-            this.nudPrice.Name = "nudPrice";
-            this.nudPrice.Size = new System.Drawing.Size(124, 26);
-            this.nudPrice.TabIndex = 14;
-            // 
-            // labelPrice
-            // 
-            this.labelPrice.AutoSize = true;
-            this.labelPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrice.Location = new System.Drawing.Point(278, 3);
-            this.labelPrice.Name = "labelPrice";
-            this.labelPrice.Size = new System.Drawing.Size(127, 20);
-            this.labelPrice.TabIndex = 13;
-            this.labelPrice.Text = "Precio inferior a";
-            // 
-            // labelStock
-            // 
-            this.labelStock.AutoSize = true;
-            this.labelStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStock.Location = new System.Drawing.Point(129, 3);
-            this.labelStock.Name = "labelStock";
-            this.labelStock.Size = new System.Drawing.Size(124, 20);
-            this.labelStock.TabIndex = 12;
-            this.labelStock.Text = "Stock inferior a";
-            // 
-            // nudStock
-            // 
-            this.nudStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudStock.Location = new System.Drawing.Point(129, 27);
-            this.nudStock.Name = "nudStock";
-            this.nudStock.Size = new System.Drawing.Size(124, 26);
-            this.nudStock.TabIndex = 11;
-            // 
-            // CategoryFilterCheckedBoxes
-            // 
-            this.CategoryFilterCheckedBoxes.FormattingEnabled = true;
-            this.CategoryFilterCheckedBoxes.Location = new System.Drawing.Point(3, 3);
-            this.CategoryFilterCheckedBoxes.Name = "CategoryFilterCheckedBoxes";
-            this.CategoryFilterCheckedBoxes.Size = new System.Drawing.Size(120, 49);
-            this.CategoryFilterCheckedBoxes.TabIndex = 10;
-            // 
-            // buttonUpdateFilters
-            // 
-            this.ButtonUpdateFilters = new Button();
-            this.ButtonUpdateFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ButtonUpdateFilters.Name = "buttonUpdateFilters";
-            this.ButtonUpdateFilters.Size = new System.Drawing.Size(192, 44);
-            this.ButtonUpdateFilters.TabIndex = 9;
-            this.ButtonUpdateFilters.Text = "Filtrar por categoría";
-            this.ButtonUpdateFilters.UseVisualStyleBackColor = true;
+            nudPrice.DecimalPlaces = 2;
+            nudPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            nudPrice.Size = new System.Drawing.Size(124, 26);
 
-            ((ISupportInitialize)(this.nudPrice)).EndInit();
-            ((ISupportInitialize)(this.nudStock)).EndInit();
+            labelPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelPrice.Size = new System.Drawing.Size(127, 20);
+            labelPrice.Text = "Precio inferior a";
+
+            labelStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelStock.Size = new System.Drawing.Size(124, 20);
+            labelStock.Text = "Stock inferior a";
+
+            nudStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            nudStock.Size = new System.Drawing.Size(124, 26);
+ 
+            CategoryFilterCheckedBoxes.FormattingEnabled = true;
+            CategoryFilterCheckedBoxes.Size = new System.Drawing.Size(120, 49);
+
+            ((ISupportInitialize)(nudPrice)).EndInit();
+            ((ISupportInitialize)(nudStock)).EndInit();
         }
 
     }
